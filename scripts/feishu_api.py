@@ -102,12 +102,15 @@ def create_task(summary, description, assignee_open_id, due_timestamp=None, is_a
         today_end = datetime.combine(datetime.now().date(), time(23, 59, 59))
         due_timestamp = int(today_end.timestamp())
 
+    # 飞书API需要毫秒级时间戳
+    due_timestamp_ms = str(due_timestamp * 1000)
+
     url = f"{FEISHU_BASE}/task/v2/tasks"
     body = {
         "summary": summary,
         "description": description,
         "due": {
-            "timestamp": str(due_timestamp),
+            "timestamp": due_timestamp_ms,
             "is_all_day": is_all_day
         },
         "members": [
