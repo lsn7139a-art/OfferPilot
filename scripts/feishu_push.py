@@ -10,6 +10,7 @@
 import subprocess
 import sys
 import os
+import json
 import time
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -81,8 +82,18 @@ def send_to_feishu(message, chat_id=None):
         return False
 
 
+def load_questions():
+    """加载题库"""
+    q_path = os.path.join(BASE_DIR, 'data', 'questions.json')
+    with open(q_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+    if isinstance(data, list):
+        return {q['id']: q for q in data}
+    return data
+
+
 def create_daily_task():
-    """创建每日飞书待办任务"""
+    """为每道题创建独立的飞书待办任务"""
     config = load_config()
     feishu = config.get('feishu', {})
     user_open_id = feishu.get('user_open_id', '')
@@ -91,47 +102,104 @@ def create_daily_task():
         print("⚠️ 未配置用户open_id，跳过创建待办")
         return False
 
-    position_title, question_titles = get_position_info()
+    # 获取今日推送的题目ID
+    log_path = os.path.join(BASE_DIR, 'data', 'daily_log.json')
+    if not os.path.exists(log_path):
+        print("⚠️ 无推送日志，跳过创建待办")
+        return False
+    with open(log_path, 'r', encoding='utf-8') as f:
+        log = json.load(f)
+    if not log:
+        print("⚠️ 推送日志为空，跳过创建待办")
+        return False
+    latest = log[-1]
+    question_ids = latest.get('question_ids', [])
+    position_title = latest.get('position_title', '未知岗位')
 
-    # 任务标题
-    from datetime import datetime
-    today = datetime.now().strftime('%Y-%m-%d')
-    summary = f"{today} 面试题打卡 - {position_title}"
+    if not question_ids:
+        print("⚠️ 今日无题目，跳过创建待办")
+        return False
 
-    # 任务描述
-    desc_lines = [
-        f"📅 {today}",
-        f"💼 今日岗位：{position_title}",
-        "",
-        "📝 今日题目："
-    ]
-    for i, title in enumerate(question_titles, 1):
-        if len(title) > 50:
-            title = title[:47] + "..."
-        desc_lines.append(f"   {i}. {title}")
-    desc_lines.extend([
-        "",
-        "💬 详细内容见飞书群「lsn」",
-        "",
-        "📌 回复指令：",
-        "   「答案1」→ 查看第1题解析",
-        "   「完成1,2」→ 标记进度",
-        "   「查看进度」→ 查看统计"
-    ])
-    description = '\n'.join(desc_lines)
+    # 加载题库详情
+    questions_db = load_questions()
 
     # 截止时间：今天23:59:59
     from datetime import datetime, time
+    today = datetime.now().strftime('%Y-%m-%d')
     today_end = datetime.combine(datetime.now().date(), time(23, 59, 59))
     due_timestamp = int(today_end.timestamp())
 
-    try:
-        task_guid = create_task(summary, description, user_open_id, due_timestamp)
-        print(f"✅ 飞书待办任务创建成功，guid: {task_guid}")
-        return True
-    except Exception as e:
-        print(f"❌ 飞书待办任务创建失败: {e}")
-        return False
+    # 公司名映射
+    company_map = {
+        'bytedance': '字节跳动', 'tencent': '腾讯', 'alibaba': '阿里巴巴',
+        'meituan': '美团', 'huawei': '华为', 'xiaomi': '小米',
+        'baidu': '百度', 'jd': '京东', 'netease': '网易', 'unitree': '宇树科技'
+    }
+
+    success_count = 0
+    for i, qid in enumerate(question_ids, 1):
+        q = questions_db.get(qid)
+        if not q:
+            print(f"⚠️ 题目 {qid} 不在题库中，跳过")
+            continue
+
+        category = q.get('category', '')
+        subcategory = q.get('subcategory', '')
+        title = q.get('title', '')
+        difficulty = q.get('difficulty', '')
+        companies = q.get('companies', [])
+        leetcode_id = q.get('leetcode_id', '')
+        source = q.get('source', '')
+        source_url = q.get('source_url', '')
+        description = q.get('description', '')
+
+        # 任务标题：日期 + 第N题 + 【分类・子分类】+ 简短题目
+        short_title = title if len(title) <= 30 else title[:27] + '...'
+        cat_label = f"【{category}・{subcategory}】" if subcategory else f"【{category}】"
+        summary = f"{today} 第{i}题 {cat_label} {short_title}"
+
+        # 任务描述：完整题目内容 + 出处 + 公司 + 难度
+        desc_lines = [
+            f"📅 {today} | 💼 关联岗位：{position_title}",
+            f"",
+            f"📝 {title}",
+            f"",
+        ]
+        if description:
+            desc_lines.append(description)
+            desc_lines.append("")
+
+        # 元信息
+        meta_parts = []
+        if difficulty:
+            diff_map = {'easy': '简单', 'medium': '中等', 'hard': '困难'}
+            meta_parts.append(f"难度：{diff_map.get(difficulty, difficulty)}")
+        if companies:
+            company_names = [company_map.get(c, c) for c in companies]
+            meta_parts.append(f"出现于：{'、'.join(company_names[:5])}")
+        if leetcode_id:
+            meta_parts.append(f"LeetCode {leetcode_id}")
+        if source:
+            meta_parts.append(f"来源：{source}")
+        if source_url:
+            meta_parts.append(f"🔗 {source_url}")
+
+        if meta_parts:
+            desc_lines.append(" | ".join(meta_parts))
+            desc_lines.append("")
+
+        desc_lines.append("💬 回复「答案{}」查看本题解析".format(i))
+        description_text = '\n'.join(desc_lines)
+
+        try:
+            task_guid = create_task(summary, description_text, user_open_id, due_timestamp)
+            print(f"✅ 第{i}题待办创建成功：{short_title} (guid: {task_guid})")
+            success_count += 1
+        except Exception as e:
+            print(f"❌ 第{i}题待办创建失败：{e}")
+
+    print(f"\n📊 共创建 {success_count}/{len(question_ids)} 个待办任务")
+    return success_count > 0
 
 
 def send_evening_reminder():
