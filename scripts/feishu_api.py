@@ -97,7 +97,10 @@ def create_task(summary, description, assignee_open_id, due_timestamp=None, is_a
     :return: task_guid
     """
     if due_timestamp is None:
-        due_timestamp = int(time.time()) + 86400  # 明天
+        # 默认今天23:59:59截止
+        from datetime import datetime, time
+        today_end = datetime.combine(datetime.now().date(), time(23, 59, 59))
+        due_timestamp = int(today_end.timestamp())
 
     url = f"{FEISHU_BASE}/task/v2/tasks"
     body = {

@@ -120,9 +120,10 @@ def create_daily_task():
     ])
     description = '\n'.join(desc_lines)
 
-    # 截止时间：今天结束
-    import time
-    due_timestamp = int(time.time()) + 86400  # 明天
+    # 截止时间：今天23:59:59
+    from datetime import datetime, time
+    today_end = datetime.combine(datetime.now().date(), time(23, 59, 59))
+    due_timestamp = int(today_end.timestamp())
 
     try:
         task_guid = create_task(summary, description, user_open_id, due_timestamp)
