@@ -9,6 +9,7 @@ dist/
 build/
 
 # 敏感配置
+config.json
 data/progress.json
 data/daily_log.json
 data/last_daily_message.txt

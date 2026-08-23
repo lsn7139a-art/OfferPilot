@@ -8,8 +8,11 @@
   "daily_log_file": "data/daily_log.json",
   "feishu": {
     "enabled": true,
-    "chat_id": "oc_839d3dac5ee30f5f118c66b8f5793539",
-    "chat_name": "面试题每日打卡",
+    "app_id": "你的飞书应用App ID",
+    "app_secret": "你的飞书应用App Secret",
+    "chat_id": "飞书群聊ID",
+    "chat_name": "群名",
+    "user_open_id": "你的飞书open_id",
     "daily_push_time": "09:00",
     "evening_reminder_time": "21:00",
     "message_template": "daily"

@@ -18,20 +18,14 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: 设置Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
+      - name: 安装依赖
+        run: pip install requests
 
-      - name: 安装lark-cli
-        run: npm install -g @larksuite/cli
-
-      - name: 配置lark-cli
+      - name: 配置飞书应用
         env:
-          LARK_CLI_CONFIG: ${{ secrets.LARK_CLI_CONFIG }}
+          FEISHU_CONFIG: ${{ secrets.FEISHU_CONFIG }}
         run: |
-          mkdir -p ~/.lark-cli
-          echo "$LARK_CLI_CONFIG" > ~/.lark-cli/config.json
+          echo "$FEISHU_CONFIG" > config.json
 
       - name: 发送晚间提醒
         run: python scripts/feishu_push.py --mode evening
