@@ -1,0 +1,37 @@
+name: 晚间学习提醒
+
+on:
+  schedule:
+    # 北京时间每天21:00（UTC 13:00）
+    - cron: '0 13 * * *'
+  workflow_dispatch:
+
+jobs:
+  evening-reminder:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout代码
+        uses: actions/checkout@v4
+
+      - name: 设置Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 设置Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 安装lark-cli
+        run: npm install -g @larksuite/cli
+
+      - name: 配置lark-cli
+        env:
+          LARK_CLI_CONFIG: ${{ secrets.LARK_CLI_CONFIG }}
+        run: |
+          mkdir -p ~/.lark-cli
+          echo "$LARK_CLI_CONFIG" > ~/.lark-cli/config.json
+
+      - name: 发送晚间提醒
+        run: python scripts/feishu_push.py --mode evening

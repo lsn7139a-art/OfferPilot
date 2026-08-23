@@ -1,0 +1,39 @@
+name: 每日面试题推送
+
+on:
+  schedule:
+    # 北京时间每天9:00（UTC 1:00）
+    - cron: '0 1 * * *'
+  workflow_dispatch:  # 支持手动触发
+
+jobs:
+  daily-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout代码
+        uses: actions/checkout@v4
+
+      - name: 设置Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 设置Node.js（用于安装lark-cli）
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 安装lark-cli
+        run: npm install -g @larksuite/cli
+
+      - name: 配置lark-cli
+        env:
+          LARK_CLI_CONFIG: ${{ secrets.LARK_CLI_CONFIG }}
+        run: |
+          mkdir -p ~/.lark-cli
+          echo "$LARK_CLI_CONFIG" > ~/.lark-cli/config.json
+          echo "lark-cli配置完成"
+          lark-cli --version
+
+      - name: 运行每日推送（群消息+飞书待办）
+        run: python scripts/feishu_push.py --mode daily

@@ -1,0 +1,122 @@
+[
+  {
+    "id": "cpp-001",
+    "title": "C++智能指针",
+    "description": "请详细回答以下问题：\n1. C++有哪几种智能指针？（unique_ptr、shared_ptr、weak_ptr、auto_ptr已废弃）\n2. unique_ptr的特点和使用场景？（独占所有权、不可拷贝、可移动、轻量）\n3. shared_ptr的实现原理？（引用计数、控制块、线程安全）\n4. shared_ptr的线程安全性是怎样的？（引用计数增减原子安全，对象本身读写不安全）\n5. 什么是shared_ptr的循环引用？请举例说明。\n6. weak_ptr是如何解决循环引用的？（不拥有所有权、不增加引用计数、lock提升）\n7. weak_ptr的常用方法有哪些？（lock、expired、use_count）\n8. 什么是RAII？智能指针是如何体现RAII思想的？\n9. make_shared和make_unique的作用是什么？为什么推荐使用它们？（异常安全、一次内存分配）\n10. shared_ptr的自定义删除器如何使用？（管理数组、管理文件句柄等非new资源）",
+    "category": "C++",
+    "subcategory": "内存管理",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": ["tencent", "bytedance", "meituan", "xiaomi", "huawei", "unitree"],
+    "tags": ["智能指针", "shared_ptr", "unique_ptr", "weak_ptr", "RAII", "循环引用", "make_shared"],
+    "answer_hint": "unique_ptr：独占所有权，不可拷贝，可移动，轻量无开销。shared_ptr：共享所有权，引用计数，拷贝时计数+1，析构时计数-1，计数为0释放内存+控制块。weak_ptr：不拥有所有权，不增加引用计数，用于解决循环引用，lock()可提升为shared_ptr。循环引用：两个对象互相用shared_ptr指向对方，引用计数永远不为0导致内存泄漏。解决：将其中一方改为weak_ptr。RAII：资源获取即初始化，构造函数获取资源，析构函数释放资源，利用对象生命周期自动管理资源。make_shared：一次内存分配(对象+控制块)，异常安全(若构造函数抛异常不会泄漏)。线程安全：引用计数增减是原子操作，但对象本身的读写不是线程安全的，需外部加锁。"
+  },
+  {
+    "id": "cpp-002",
+    "title": "vector底层原理与扩容",
+    "description": "请详细回答以下问题：\n1. vector的底层数据结构是什么？（动态数组、连续内存）\n2. vector的三个关键指针是什么？（_M_start、_M_finish、_M_end_of_storage）\n3. size()和capacity()的区别是什么？\n4. vector的扩容机制是怎样的？（push_back时size==capacity则扩容）\n5. 扩容时新内存的大小通常是原来的多少倍？（GCC 2倍，MSVC 1.5倍）\n6. 扩容时元素是如何从旧内存移动到新内存的？（拷贝/移动构造）\n7. 扩容后迭代器、指针、引用会怎样？（全部失效）\n8. reserve()和resize()的区别是什么？\n9. emplace_back()和push_back()的区别是什么？（原地构造 vs 拷贝/移动）\n10. vector的时间复杂度？（随机访问O(1)，尾插O(1)摊销，中间插入O(n)）\n11. vector和list的区别？（连续内存vs链表，随机访问vs快速插入删除）",
+    "category": "C++",
+    "subcategory": "STL",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": ["tencent", "bytedance", "meituan", "xiaomi", "huawei", "unitree"],
+    "tags": ["vector", "STL", "扩容", "连续内存", "迭代器失效", "emplace_back", "reserve", "resize"],
+    "answer_hint": "vector底层是动态数组，连续内存。三个指针：_M_start(数组起始)、_M_finish(已用元素末尾)、_M_end_of_storage(容量末尾)。size=_M_finish-_M_start，capacity=_M_end_of_storage-_M_start。扩容：push_back时size==capacity，分配新内存(通常2倍)，将旧元素拷贝/移动到新内存，释放旧内存。扩容后所有迭代器/指针/引用失效。reserve(n)：预分配容量为n，不改变size，避免频繁扩容；resize(n)：改变size为n，若n>capacity则扩容，新增元素默认构造。emplace_back：在尾部直接构造对象(参数转发给构造函数)，比push_back(临时对象)少一次拷贝/移动。vector随机访问O(1)，尾插O(1)摊销，中间插入删除O(n)。vs list：list是双向链表，插入删除O(1)但随机访问O(n)，内存不连续。"
+  },
+  {
+    "id": "cpp-003",
+    "title": "map与unordered_map",
+    "description": "请详细回答以下问题：\n1. map和unordered_map的底层实现分别是什么？（红黑树 vs 哈希表）\n2. 它们的查找、插入、删除的时间复杂度分别是多少？（map O(logn)，unordered_map平均O(1)最坏O(n)）\n3. map的key是有序的吗？unordered_map呢？\n4. unordered_map的哈希冲突是如何解决的？（链地址法，C++11后链表过长转红黑树）\n5. unordered_map的负载因子(load_factor)是什么？如何影响性能？\n6. unordered_map的rehash是怎样的过程？（桶数增加，重新哈希所有元素）\n7. map和unordered_map的内存占用对比？（map节点开销大，unordered_map桶数组开销大）\n8. 自定义类型作为map的key需要什么条件？（定义operator<或比较函数）\n9. 自定义类型作为unordered_map的key需要什么条件？（定义hash函数和operator==）\n10. 什么场景下用map？什么场景下用unordered_map？\n11. C++17新增的flat_map和普通map有什么区别？（连续内存、缓存友好、插入删除O(n)）",
+    "category": "C++",
+    "subcategory": "STL",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": ["tencent", "bytedance", "meituan", "xiaomi"],
+    "tags": ["map", "unordered_map", "红黑树", "哈希表", "时间复杂度", "哈希冲突", "rehash", "负载因子"],
+    "answer_hint": "map：底层红黑树，key有序，查找/插入/删除O(logn)，迭代器遍历有序，内存占用较小(树节点)，key需定义比较函数(operator<)。unordered_map：底层哈希表(数组+链表，C++11后链表过长转红黑树)，key无序，平均O(1)最坏O(n)，迭代器遍历无序，内存占用较大(桶数组)，key需定义hash函数和operator==。哈希冲突：链地址法，同一桶的元素用链表连接。负载因子=元素数/桶数，默认最大1.0，超过则rehash(桶数约翻倍，所有元素重新哈希)。选择：需要有序遍历或范围查询用map；追求查找速度且key哈希均匀用unordered_map。flat_map(C++23)：底层是排序的连续数组(pair数组)，缓存友好，查找O(logn)二分，插入删除O(n)，适合读多写少。"
+  },
+  {
+    "id": "cpp-004",
+    "title": "malloc底层实现",
+    "description": "请详细回答以下问题：\n1. malloc是如何分配内存的？（brk/mmap、ptmalloc、arena、chunk）\n2. 什么情况下用brk分配？什么情况下用mmap分配？（小内存brk，大内存mmap，阈值通常128KB）\n3. malloc分配的内存块(chunk)结构是怎样的？（prev_size、size、用户数据）\n4. free时如何知道要释放多少内存？（通过指针减偏移找到chunk头，从size字段知道块大小）\n5. ptmalloc的arena机制是怎样的？（主arena+非主arena，多线程减少锁竞争）\n6. malloc是线程安全的吗？（ptmalloc加锁，多线程有锁竞争）\n7. 什么是内存碎片？ptmalloc如何处理内存碎片？（bins：unsorted bin、small bin、large bin、fast bin）\n8. 什么是tcmalloc和jemalloc？它们和ptmalloc有什么区别？（线程缓存、更好的多线程性能、更少碎片）\n9. malloc(0)会返回什么？（实现定义，可能返回NULL或最小可free指针）\n10. 如何排查内存泄漏？（valgrind、AddressSanitizer、mtrace、jemalloc profiling）",
+    "category": "C++",
+    "subcategory": "内存管理",
+    "difficulty": "hard",
+    "type": "concept",
+    "companies": ["tencent", "bytedance"],
+    "tags": ["malloc", "ptmalloc", "brk", "mmap", "chunk", "arena", "内存碎片", "tcmalloc", "jemalloc", "内存泄漏"],
+    "answer_hint": "glibc的ptmalloc：小内存(<128KB)通过brk移动堆顶分配，大内存通过mmap映射匿名页。内存块用chunk管理，每个chunk有头部(prev_size+size，size低3位是标志位)，实际返回指针在头部之后。free时通过指针-2*sizeof(size_t)得到chunk头，从size字段知道块大小。arena：每个线程有arena，分配时加锁，不同线程可在不同arena无锁分配。bins：free的chunk按大小分类存放在不同链表中(fast bin、unsorted bin、small bin、large bin)，分配时先从bins找。tcmalloc(Google)：每个线程有thread cache，无锁分配，多线程性能好。jemalloc：类似线程缓存，arena更多，碎片更少。内存泄漏排查：valgrind --leak-check、AddressSanitizer(-fsanitize=address)、mtrace、jemalloc heap profiling。"
+  },
+  {
+    "id": "cpp-005",
+    "title": "C++四种强制类型转换",
+    "description": "请详细回答以下问题：\n1. C++有哪四种强制类型转换？（static_cast、dynamic_cast、const_cast、reinterpret_cast）\n2. static_cast的作用和使用场景？（基本类型转换、隐式转换方向、向上转型、void*转换）\n3. dynamic_cast的作用和使用场景？（多态类型的向下转型，运行时检查，失败返回nullptr或抛异常）\n4. dynamic_cast为什么需要RTTI？（运行时类型信息，type_info）\n5. const_cast的作用？（去掉或加上const/volatile，只能改常量属性不能改类型）\n6. reinterpret_cast的作用？（底层位模式重新解释，最危险，指针转整数、任意指针互转）\n7. 这四种转换的安全性排序？（static_cast最安全，reinterpret_cast最危险）\n8. C风格转换(T)expr和C++命名转换有什么区别？（C风格会依次尝试四种转换，不明确不安全）\n9. 什么情况下用dynamic_cast会失败？（非多态类型编译错误，类型不匹配运行时返回nullptr）\n10. 为什么不推荐用C风格转换？（不明确、不安全、不易搜索）",
+    "category": "C++",
+    "subcategory": "类型系统",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": ["tencent", "bytedance", "meituan"],
+    "tags": ["static_cast", "dynamic_cast", "const_cast", "reinterpret_cast", "RTTI", "type_info", "C风格转换"],
+    "answer_hint": "static_cast：编译期检查，用于基本类型转换、隐式转换方向(派生→基类向上转型)、void*→具体类型指针，不能转掉const。dynamic_cast：运行期RTTI检查，用于多态类型(有虚函数)的向下转型，失败返回nullptr(指针)或抛bad_cast(引用)。const_cast：去掉或加上const/volatile，只能改类型的常量属性。reinterpret_cast：底层位模式重新解释，最危险，如指针转整数、任意指针互转。安全性：static_cast > const_cast > dynamic_cast > reinterpret_cast。C风格转换会依次尝试static_cast→const_cast→static_cast→reinterpret_cast，不明确且不安全，C++推荐用明确的命名转换。"
+  },
+  {
+    "id": "cpp-006",
+    "title": "深拷贝与浅拷贝",
+    "description": "请详细回答以下问题：\n1. 什么是浅拷贝？什么是深拷贝？\n2. 浅拷贝会导致什么问题？（double free、野指针、数据共享）\n3. C++中默认的拷贝构造函数和拷贝赋值运算符是浅拷贝还是深拷贝？（默认浅拷贝，逐成员拷贝）\n4. 什么情况下需要自定义拷贝构造函数和拷贝赋值运算符？（类中有指针成员、动态分配资源、文件句柄等）\n5. 如何实现深拷贝？（重新分配内存并拷贝内容）\n6. 拷贝赋值运算符的实现需要注意什么？（自赋值检查、先释放旧内存、异常安全、返回*this）\n7. 什么是Rule of Three？什么是Rule of Five？\n8. 什么是拷贝交换惯用法(copy-and-swap)？它有什么优点？（异常安全、代码简洁、自动处理自赋值）\n9. C++11的移动语义和深拷贝有什么关系？（移动避免深拷贝开销，转移资源所有权）\n10. 如何禁止拷贝？（=delete、私有拷贝构造、继承noncopyable）",
+    "category": "C++",
+    "subcategory": "面向对象",
+    "difficulty": "easy",
+    "type": "concept",
+    "companies": ["tencent", "bytedance", "alibaba", "jd"],
+    "tags": ["深拷贝", "浅拷贝", "拷贝构造", "拷贝赋值", "Rule of Three", "Rule of Five", "copy-and-swap", "移动语义", "自赋值"],
+    "answer_hint": "浅拷贝：只拷贝指针/引用的值，两个对象指向同一块内存，析构时double free。深拷贝：重新分配内存并拷贝内容，两个对象独立。默认拷贝构造和拷贝赋值是浅拷贝。类中有指针成员/动态资源时需自定义。深拷贝：拷贝构造中对指针成员new新内存并拷贝；拷贝赋值中先检查自赋值，释放旧内存，分配新内存拷贝，返回*this。Rule of Three：需要自定义析构函数的类，通常也需要自定义拷贝构造和拷贝赋值。Rule of Five(C++11)：加上移动构造和移动赋值。copy-and-swap：拷贝赋值参数用值传递，然后和临时对象swap，异常安全且自动处理自赋值。移动语义：转移资源所有权，避免深拷贝开销。禁止拷贝：拷贝构造和拷贝赋值=delete(C++11)。"
+  },
+  {
+    "id": "cpp-007",
+    "title": "lambda与bind",
+    "description": "请详细回答以下问题：\n1. 什么是lambda表达式？它的语法是怎样的？（[捕获](参数)mutable→返回值{体}）\n2. lambda的捕获方式有哪些？（值捕获[=]、引用捕获[&]、隐式捕获、显式捕获、this捕获、初始化捕获C++14）\n3. lambda的底层实现是什么？（编译器生成匿名函数对象/闭包类，重载operator()）\n4. lambda和std::function有什么区别？（lambda是具体类型，std::function是类型擦除的包装，有虚函数开销）\n5. lambda引用捕获有什么风险？（悬垂引用，被引用对象生命周期短于lambda）\n6. 什么是lambda的mutable关键字？（允许修改值捕获的变量）\n7. std::bind的作用是什么？（绑定可调用对象和参数，生成新的可调用对象）\n8. lambda和bind的区别？（lambda更简洁、内联效率高、语法直观；bind更灵活、可绑定部分参数、有类型擦除开销）\n9. 什么是泛型lambda？（C++14，参数用auto，相当于模板operator()）\n10. lambda在STL算法中的典型应用？（sort的比较函数、find_if的谓词、for_each的操作）",
+    "category": "C++",
+    "subcategory": "C++11/14/17",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": ["tencent", "bytedance"],
+    "tags": ["lambda", "bind", "闭包", "捕获", "std::function", "泛型lambda", "mutable", "悬垂引用"],
+    "answer_hint": "lambda语法：[捕获列表](参数列表)mutable→返回类型{函数体}。捕获：值捕获[=]、引用捕获[&]、显式捕获[x,&y]、this捕获、初始化捕获[x=expr](C++14)。底层：编译器生成匿名类(闭包类型)，有成员变量存捕获的变量，重载operator()。lambda是具体类型，无类型擦除开销；std::function用类型擦除包装任意可调用对象，有开销。引用捕获风险：lambda异步执行时被引用对象已销毁→悬垂引用。安全做法：值捕获或移动捕获。bind：std::bind(f,args...)，用_1/_2占位符，绑定部分参数生成新可调用对象。lambda vs bind：lambda更简洁直观、内联效率高；bind更灵活但语法复杂。C++11后推荐用lambda替代bind。泛型lambda(C++14)：参数用auto，编译器生成模板operator()。"
+  },
+  {
+    "id": "cpp-008",
+    "title": "手撕有界环形队列",
+    "description": "请实现一个有界环形队列(Ring Buffer / Circular Queue)，要求：\n1. 使用固定大小的数组作为底层存储\n2. 支持入队(enqueue)和出队(dequeue)操作\n3. 支持判断队列空和队列满\n4. 支持获取队列大小\n5. 说明如何区分空和满（计数器法 vs 预留空位法）\n6. 如果是多线程生产者消费者场景，如何保证线程安全？（互斥锁+条件变量，或无锁设计）\n7. 环形队列的应用场景？（网络IO缓冲区、生产者消费者、日志缓冲、音频视频缓冲）\n\n输入输出示例：\n初始容量5\nenqueue(1) → true\nenqueue(2) → true\nenqueue(3) → true\ndequeue() → 1\nenqueue(4) → true\nenqueue(5) → true\nenqueue(6) → true\nenqueue(7) → false（队列满）\nsize() → 5\ndequeue() → 2\ndequeue() → 3\ndequeue() → 4\ndequeue() → 5\ndequeue() → 6\ndequeue() → -1（队列空）",
+    "category": "C++",
+    "subcategory": "数据结构",
+    "difficulty": "medium",
+    "type": "coding",
+    "companies": ["tencent"],
+    "tags": ["环形队列", "数组", "模运算", "生产者消费者", "线程安全", "Ring Buffer"],
+    "answer_hint": "用固定大小数组+head(读位置)+tail(写位置)+count(元素数)或预留空位。入队：buffer[tail]=x, tail=(tail+1)%capacity。出队：x=buffer[head], head=(head+1)%capacity。空满区分：①计数器法：count==0空，count==capacity满②预留空位法：浪费一个位置，(tail+1)%capacity==head满，head==tail空。多线程版本：互斥锁保护共享状态+两个条件变量(not_full入队等待、not_empty出队等待)，或用原子变量实现无锁环形队列(SPSC)。应用：网络IO缓冲区、生产者消费者模型、日志环形缓冲、音频视频帧缓冲。关键：模运算实现环形。"
+  },
+  {
+    "id": "cpp-009",
+    "title": "C++编译过程",
+    "description": "请详细回答以下问题：\n1. C++程序从源代码到可执行文件经历了哪几个阶段？（预处理、编译、汇编、链接）\n2. 预处理阶段做什么？（#include展开、#define宏替换、#ifdef条件编译、生成.i文件）\n3. 编译阶段做什么？（词法分析、语法分析、语义分析、优化、生成汇编代码.s文件）\n4. 汇编阶段做什么？（汇编器将汇编代码转为机器码目标文件.o，ELF格式）\n5. 链接阶段做什么？（符号解析、重定位、合并段、生成可执行文件）\n6. 什么是静态链接？什么是动态链接？它们的区别？\n7. 什么是符号？什么是符号解析？（函数名/变量名→地址）\n8. 什么是重定位？（修正符号引用的地址）\n9. 常见的链接错误有哪些？（undefined reference未定义符号、multiple definition重复定义）\n10. 什么是位置无关代码(PIC)？为什么动态库需要PIC？\n11. 什么是动态链接的延迟绑定(Lazy Binding)？PLT和GOT的作用？\n12. g++的常用编译选项？（-g调试、-O优化、-Wall警告、-I头文件路径、-L库路径、-l链接库、-std=c++17、-fPIC）",
+    "category": "C++",
+    "subcategory": "编译链接",
+    "difficulty": "easy",
+    "type": "concept",
+    "companies": ["tencent", "bytedance"],
+    "tags": ["预处理", "编译", "汇编", "链接", "静态链接", "动态链接", "符号解析", "重定位", "PIC", "PLT", "GOT"],
+    "answer_hint": "四阶段：①预处理：处理#include/#define/#ifdef，展开宏和头文件，生成.i文件②编译：词法分析→语法分析→语义分析→优化→生成汇编代码.s③汇编：汇编器将汇编转机器码(目标文件.o)，ELF格式④链接：链接器将多个目标文件和库合并，符号解析、重定位、合并段，生成可执行文件。静态链接：库代码拷入可执行文件，文件大、运行不依赖库。动态链接：运行时加载.so，文件小、共享库。符号：函数名/变量名，符号解析：将符号引用关联到定义地址。重定位：链接时修正代码中对符号的引用地址。undefined reference：引用了未定义的符号；multiple definition：符号被多次定义。PIC：位置无关代码，用相对地址，动态库可加载到任意位置。PLT+GOT实现延迟绑定：第一次调用时才解析符号地址存入GOT。"
+  },
+  {
+    "id": "cpp-010",
+    "title": "const与static",
+    "description": "请详细回答以下问题：\n1. const关键字有哪些用法？（修饰变量、指针、函数参数、成员函数、返回值）\n2. const修饰指针的几种形式？（const int* p指向常量、int* const p常量指针、const int* const p）\n3. 什么是常量成员函数？它有什么限制？（不能修改成员变量，除非mutable；const对象只能调用const成员函数）\n4. const成员函数中this指针的类型是什么？（const ClassName* const）\n5. 函数签名中const是否参与重载？（是，const成员函数和非const成员函数可重载）\n6. static关键字有哪些用法？（局部静态变量、全局静态变量/函数、静态成员变量、静态成员函数）\n7. 静态局部变量的生命周期和初始化时机？（程序结束才销毁，第一次执行到时初始化，C++11后线程安全）\n8. 静态成员变量和普通成员变量的区别？（所有对象共享一份，不属于某个对象，必须类外初始化）\n9. 静态成员函数有什么特点？（没有this指针，只能访问静态成员，可通过类名调用，不能是const/virtual/volatile）\n10. static修饰全局变量/函数有什么作用？（内部链接，只在当前编译单元可见，避免符号冲突）\n11. const和static一起使用的场景？（静态常量成员，编译期常量）\n12. 什么是constexpr？它和const有什么区别？（constexpr编译期常量，const运行期只读）",
+    "category": "C++",
+    "subcategory": "关键字",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": ["tencent", "bytedance", "meituan"],
+    "tags": ["const", "static", "this指针", "常量成员函数", "静态成员", "constexpr", "内部链接", "mutable"],
+    "answer_hint": "const：①修饰变量：只读，必须初始化②修饰指针：const int* p(指向常量)、int* const p(常量指针)、const int* const p③修饰成员函数：常量成员函数，不能修改成员变量(除非mutable)，const对象只能调用const成员函数，const参与重载。this指针：成员函数隐式参数，类型ClassName* const；const成员函数中this类型const ClassName* const。static：①局部静态变量：生命周期到程序结束，第一次执行到时初始化(C++11线程安全)②全局静态变量/函数：内部链接，只在当前文件可见③静态成员变量：类共享，所有对象同一份，必须类外初始化④静态成员函数：没有this指针，只能访问static成员，可通过类名::调用，不能是const/virtual/volatile。constexpr(C++11)：编译期常量，编译器在编译时计算值；const只是运行期只读。mutable：修饰成员变量，允许在const成员函数中修改。"
+  }
+]

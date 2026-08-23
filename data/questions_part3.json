@@ -1,0 +1,122 @@
+[
+  {
+    "id": "java-001",
+    "title": "HashMap实现原理",
+    "description": "请详细回答以下问题：\n1. HashMap的底层数据结构是什么？（数组+链表+红黑树，JDK1.8）\n2. HashMap的put流程是怎样的？（计算hash→定位桶→链表/红黑树插入→扩容判断）\n3. HashMap的hash函数是怎样的？（h=key.hashCode()^(h>>>16)，高16位异或低16位）\n4. 为什么要用高16位异或低16位？（扰动函数，减少哈希碰撞）\n5. HashMap的扩容机制是怎样的？（2倍扩容，重新计算位置，原位置或原位置+oldCap）\n6. 什么是负载因子？默认是多少？为什么是0.75？（空间和时间的权衡，泊松分布）\n7. JDK1.7和1.8的HashMap有什么区别？（1.7头插法+链表，1.8尾插法+链表转红黑树）\n8. 链表转红黑树的条件是什么？（链表长度≥8且数组长度≥64）\n9. 红黑树转回链表的条件是什么？（节点数≤6）\n10. HashMap是线程安全的吗？多线程下会有什么问题？（数据丢失、1.7扩容死循环）\n11. ConcurrentHashMap是如何实现线程安全的？（1.8 CAS+synchronized锁桶头节点，粒度更细）\n12. HashMap和Hashtable的区别？（线程安全、null键值、效率、初始容量、扩容）",
+    "category": "Java",
+    "subcategory": "集合框架",
+    "difficulty": "hard",
+    "type": "concept",
+    "companies": ["alibaba", "tencent", "bytedance", "meituan", "jd", "netease", "sohu"],
+    "tags": ["HashMap", "数组+链表+红黑树", "hash", "扩容", "负载因子", "ConcurrentHashMap", "Hashtable", "JDK1.8"],
+    "answer_hint": "JDK1.8：数组(Node<K,V>[] table)+链表+红黑树。hash：(h=key.hashCode())^(h>>>16)，高16位异或低16位增加扰动。定位：(n-1)&hash，n是数组长度(2的幂)。链表长度≥8且数组长度≥64时转红黑树，红黑树节点≤6时转回链表。扩容：size>threshold(capacity*loadFactor，默认0.75)时，新建2倍数组，重新计算位置(原位置或原位置+oldCap)。负载因子0.75是空间和时间的权衡(泊松分布，碰撞概率低)。线程不安全：多线程put可能数据丢失，JDK1.7扩容头插法可能死循环(1.8尾插法修复但仍不安全)。ConcurrentHashMap 1.8：CAS+synchronized锁桶头节点(只锁当前桶，不锁整个表)，粒度更细，并发度更高。vs Hashtable：Hashtable线程安全(synchronized锁整个方法，效率低)、不允许null键值、初始容量11、扩容2倍+1；HashMap非线程安全、允许1个null键和多个null值、初始容量16、扩容2倍。"
+  },
+  {
+    "id": "java-002",
+    "title": "JVM内存模型与垃圾回收",
+    "description": "请详细回答以下问题：\n1. JVM运行时数据区包含哪些部分？（程序计数器、虚拟机栈、本地方法栈、堆、方法区/元空间）\n2. 哪些是线程私有的？哪些是线程共享的？\n3. 堆的分代结构是怎样的？（新生代Eden+S0+S1，老年代）\n4. 虚拟机栈中存储什么？（栈帧：局部变量表、操作数栈、动态链接、返回地址）\n5. 方法区和元空间的区别？（JDK8用元空间替代永久代，元空间用本地内存）\n6. 什么是GC Roots？哪些对象可以作为GC Roots？（栈帧局部变量、静态变量、常量、JNI引用）\n7. 垃圾回收算法有哪些？（标记-清除、标记-复制、标记-整理、分代收集）\n8. 新生代和老年代分别用什么回收算法？（新生代标记-复制，老年代标记-整理/标记-清除）\n9. 常见的垃圾回收器有哪些？（Serial、ParNew、Parallel Scavenge、CMS、G1、ZGC、Shenandoah）\n10. CMS的工作流程是怎样的？（初始标记→并发标记→重新标记→并发清除）\n11. CMS有什么缺点？（CPU敏感、浮动垃圾、内存碎片、concurrent mode failure）\n12. G1的特点是什么？（Region分区、可预测停顿时间、整体标记-整理局部复制、Remembered Set）\n13. 什么是Stop-The-World？（GC时暂停所有用户线程）\n14. 如何判断对象是否可回收？（引用计数法、可达性分析）\n15. Java的四种引用类型？（强引用、软引用、弱引用、虚引用）",
+    "category": "Java",
+    "subcategory": "JVM",
+    "difficulty": "hard",
+    "type": "concept",
+    "companies": ["alibaba", "tencent", "bytedance", "meituan", "jd", "netease"],
+    "tags": ["JVM", "堆", "栈", "方法区", "元空间", "GC", "垃圾回收器", "CMS", "G1", "ZGC", "GC Roots", "分代收集"],
+    "answer_hint": "运行时数据区：①程序计数器(线程私有，当前字节码行号)②虚拟机栈(线程私有，栈帧：局部变量表、操作数栈、动态链接、返回地址)③本地方法栈(线程私有，native方法)④堆(线程共享，对象实例，GC主要区域，分新生代Eden+S0+S1和老年代)⑤方法区/元空间(线程共享，类信息、常量、静态变量、JIT代码，JDK8元空间用本地内存替代永久代)。GC Roots：栈帧局部变量引用的对象、静态变量、常量、JNI引用。可达性分析：从GC Roots出发，不可达的对象可回收。四种引用：强引用(不会回收)、软引用(内存不足时回收，适合缓存)、弱引用(下次GC回收，WeakHashMap)、虚引用(仅用于跟踪回收，PhantomReference)。回收算法：标记-清除(碎片)、标记-复制(新生代，无碎片但浪费空间)、标记-整理(老年代，无碎片但移动开销大)、分代收集。回收器：Serial(单线程)、ParNew(Serial多线程版，配合CMS)、Parallel Scavenge(吞吐量优先)、CMS(低延迟，标记-清除，初始标记→并发标记→重新标记→并发清除，缺点：CPU敏感、浮动垃圾、内存碎片)、G1(Region分区，可预测停顿，整体标记-整理局部复制，Remembered Set记录跨Region引用)、ZGC(染色指针+读屏障，亚毫秒停顿，TB级堆)。Stop-The-World：GC时暂停所有用户线程，可达性分析和标记整理需要STW，并发标记阶段不STW。"
+  },
+  {
+    "id": "java-003",
+    "title": "Synchronized与ReentrantLock",
+    "description": "请详细回答以下问题：\n1. synchronized的作用和实现原理？（对象头Mark Word、monitor、字节码monitorenter/monitorexit）\n2. synchronized锁的升级过程？（无锁→偏向锁→轻量级锁→重量级锁）\n3. 什么是偏向锁？什么情况下会撤销偏向锁？\n4. 什么是轻量级锁？CAS操作是怎样的？\n5. 什么是重量级锁？它和操作系统互斥锁的关系？\n6. ReentrantLock的实现原理？（AQS、state、CLH队列）\n7. AQS是什么？它的核心思想是什么？（state状态+CLH同步队列+CAS）\n8. synchronized和ReentrantLock的区别？（JVM层面vs JDK层面、自动释放vs手动释放、不可中断vs可中断、非公平vs可公平、单一条件vs多条件）\n9. ReentrantLock的公平锁和非公平锁区别？\n10. 什么是可重入？synchronized和ReentrantLock都是可重入的吗？\n11. ReentrantLock的tryLock有什么用？（尝试获取锁，带超时，不阻塞）\n12. Condition是什么？它和Object的wait/notify有什么区别？（多条件队列、精确唤醒）\n13. 什么是死锁？如何用synchronized或ReentrantLock避免死锁？\n14. 实际开发中如何选择synchronized和ReentrantLock？",
+    "category": "Java",
+    "subcategory": "并发编程",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": ["alibaba", "tencent", "bytedance", "meituan", "jd"],
+    "tags": ["synchronized", "ReentrantLock", "AQS", "锁升级", "偏向锁", "轻量级锁", "重量级锁", "Condition", "可重入", "公平锁"],
+    "answer_hint": "synchronized：JVM层面关键字，对象头Mark Word存锁状态，monitorenter/monitorexit字节码，自动释放锁(异常也释放)，不可中断，非公平锁，单一条件(wait/notify)。锁升级：无锁→偏向锁(Mark Word存线程ID，同一线程重入无竞争)→轻量级锁(CAS将Mark Word替换为锁记录指针，自旋等待)→重量级锁(monitor，操作系统互斥量，阻塞等待)。JDK15后偏向锁默认禁用。ReentrantLock：JDK层面类，基于AQS(AbstractQueuedSynchronizer)，state字段(0空闲，>0被占用，可重入计数)，CLH同步队列(等待线程)，需手动lock/unlock(try-finally)，可中断(lockInterruptibly)，可公平/非公平，可超时(tryLock)，多Condition(精确唤醒)。AQS核心：state+CLH队列+CAS，获取锁失败则入队阻塞，释放锁时唤醒后继。可重入：同一线程可多次获取同一锁，synchronized和ReentrantLock都可重入(ReentrantLock的state记录重入次数)。选择：简单同步用synchronized(自动释放不易出错、JVM持续优化)，需要高级功能(公平、可中断、超时、多条件、尝试获取)用ReentrantLock。"
+  },
+  {
+    "id": "java-004",
+    "title": "线程池核心参数与工作流程",
+    "description": "请详细回答以下问题：\n1. ThreadPoolExecutor的七大核心参数是什么？（corePoolSize、maximumPoolSize、keepAliveTime、unit、workQueue、threadFactory、handler）\n2. 线程池的执行流程是怎样的？（核心线程→队列→非核心线程→拒绝策略）\n3. 核心线程和非核心线程的区别？\n4. 常见的任务队列有哪些？（ArrayBlockingQueue、LinkedBlockingQueue、SynchronousQueue、DelayedWorkQueue、PriorityBlockingQueue）\n5. 四种拒绝策略是什么？（AbortPolicy、CallerRunsPolicy、DiscardPolicy、DiscardOldestPolicy）\n6. Executors提供的几种线程池有什么问题？（FixedThreadPool、SingleThreadExecutor、CachedThreadPool、ScheduledThreadPool）\n7. 为什么阿里巴巴规范禁止用Executors创建线程池？（队列无界OOM、最大线程数Integer.MAX_VALUE OOM）\n8. 如何合理设置核心线程数？（CPU密集型N+1，IO密集型2N或更多，需压测）\n9. 线程池的状态有哪些？（RUNNING、SHUTDOWN、STOP、TIDYING、TERMINATED）\n10. shutdown()和shutdownNow()的区别？\n11. 如何监控线程池？（getActiveCount、getPoolSize、getQueue().size()、getCompletedTaskCount）\n12. 线程池中的线程创建后会一直存在吗？核心线程和非核心线程的存活时间？\n13. 什么是线程池的预热？（prestartAllCoreThreads）\n14. 如何实现一个定时任务线程池？（ScheduledThreadPoolExecutor、DelayedWorkQueue）",
+    "category": "Java",
+    "subcategory": "并发编程",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": ["alibaba", "tencent", "bytedance", "meituan", "jd"],
+    "tags": ["线程池", "ThreadPoolExecutor", "核心参数", "拒绝策略", "任务队列", "Executors", "shutdown", "核心线程数设置"],
+    "answer_hint": "七大参数：①corePoolSize核心线程数②maximumPoolSize最大线程数③keepAliveTime非核心线程空闲存活时间④unit时间单位⑤workQueue任务队列⑥threadFactory线程工厂⑦handler拒绝策略。执行流程：核心线程未满→创建核心线程；核心满→入队列；队列满→创建非核心线程到max；max满→拒绝策略。队列：ArrayBlockingQueue(有界数组)、LinkedBlockingQueue(默认Integer.MAX，有OOM风险)、SynchronousQueue(不存储，直接交给线程，配合大max，CachedThreadPool)、DelayedWorkQueue(延迟任务，ScheduledThreadPool)、PriorityBlockingQueue(优先级)。拒绝策略：AbortPolicy(抛RejectedExecutionException，默认)、CallerRunsPolicy(调用者线程执行，降级)、DiscardPolicy(静默丢弃)、DiscardOldestPolicy(丢弃队列最旧任务重试)。Executors问题：FixedThreadPool/SingleThreadExecutor用LinkedBlockingQueue无界→OOM；CachedThreadPool用SynchronousQueue+max=Integer.MAX_VALUE→创建过多线程OOM。阿里规范要求手动new ThreadPoolExecutor明确参数。核心线程数：CPU密集型=CPU核数+1，IO密集型=2*CPU核数或更多(IO等待时可切换)，实际需压测调整。shutdown()：不接受新任务，等待已提交任务完成；shutdownNow()：不接受新任务，尝试中断正在执行的任务，返回未执行任务列表。线程池状态：RUNNING(接受新任务)→SHUTDOWN(不接受新任务，处理队列)→STOP(不接受不处理，中断)→TIDYING(所有任务结束)→TERMINATED(terminated()执行完)。"
+  },
+  {
+    "id": "java-005",
+    "title": "类加载与双亲委派",
+    "description": "请详细回答以下问题：\n1. 类加载的五个阶段是什么？（加载、验证、准备、解析、初始化）\n2. 每个阶段分别做什么？\n3. 什么是类加载器？Java中有哪些类加载器？（Bootstrap、Extension、Application、自定义）\n4. 双亲委派机制的工作流程是怎样的？（先委托父加载器，父加载器找不到才自己加载）\n5. 为什么需要双亲委派？（安全、避免重复加载）\n6. 如何打破双亲委派？（自定义类加载器重写loadClass、SPI线程上下文类加载器、OSGi、Tomcat）\n7. 什么是SPI？它是如何打破双亲委派的？（ServiceLoader、线程上下文类加载器）\n8. Tomcat的类加载器架构是怎样的？为什么要打破双亲委派？（每个webapp独立类加载器，隔离不同应用的类版本）\n9. 什么情况下会触发类的初始化？（new、静态方法/字段、反射、子类初始化触发父类、主类）\n10. <clinit>和<init>的区别？（类初始化vs实例初始化）\n11. 什么是类的卸载？什么情况下类会被卸载？\n12. 如何实现一个自定义类加载器？（继承ClassLoader，重写findClass）",
+    "category": "Java",
+    "subcategory": "JVM",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": ["alibaba", "tencent", "bytedance", "meituan"],
+    "tags": ["类加载", "双亲委派", "ClassLoader", "Bootstrap", "Extension", "Application", "SPI", "Tomcat", "OSGi", "clinit"],
+    "answer_hint": "类加载过程：加载(读取字节码，生成Class对象)→验证(文件格式、元数据、字节码、符号引用)→准备(静态变量分配内存赋默认值，final static直接赋值)→解析(符号引用转直接引用)→初始化(执行<clinit>，静态变量赋值+静态代码块)。类加载器：Bootstrap(rt.jar，C++实现)→Extension(ext目录，ExtClassLoader)→Application(classpath，AppClassLoader)→自定义ClassLoader。双亲委派：加载类时先委托父加载器，父加载器找不到才自己加载。作用：①安全(防止核心类被篡改，如自己写java.lang.String不会被加载)②避免重复加载。打破双亲委派：①重写loadClass(默认loadClass实现双亲委派，重写可打破)②SPI(ServiceLoader用线程上下文类加载器Thread.currentThread().getContextClassLoader()，如JDBC驱动)③OSGi(网状类加载)④Tomcat(每个webapp有自己的类加载器，加载自己的类优先于父加载器，实现应用隔离和不同版本类共存)。触发初始化：new对象、调用静态方法/访问静态字段、反射Class.forName、初始化子类触发父类、JVM启动主类。<clinit>：类初始化方法，由编译器收集静态变量赋值+静态代码块生成，类加载时执行一次，线程安全。<init>：实例构造方法，每次new执行。类卸载：类的Class对象被GC回收，需满足类的所有实例被回收、加载该类的ClassLoader被回收、Class对象没有被引用。自定义类加载器：继承ClassLoader，重写findClass(读取字节码调用defineClass)，不重写loadClass则保持双亲委派。"
+  },
+  {
+    "id": "java-006",
+    "title": "volatile与内存屏障",
+    "description": "请详细回答以下问题：\n1. volatile关键字的两个作用是什么？（可见性、有序性）\n2. 什么是可见性？volatile如何保证可见性？（写时刷新主存，读时从主存读，内存屏障）\n3. 什么是有序性？volatile如何禁止指令重排序？（内存屏障：StoreStore、LoadLoad、StoreLoad、LoadStore）\n4. volatile能保证原子性吗？为什么？（不能，i++不是原子操作）\n5. 什么是指令重排序？编译器和CPU为什么要重排序？（提高性能，不改变单线程结果）\n6. as-if-serial语义是什么？（单线程下重排序不能改变执行结果）\n7. happens-before规则有哪些？（程序顺序、监视器锁、volatile、线程启动、线程终止、传递性）\n8. volatile的写-读建立的happens-before关系是怎样的？（volatile写happens-before后续volatile读）\n9. 双重检查锁(DCL)单例为什么需要volatile？（防止new对象的三步被重排序导致其他线程拿到未初始化对象）\n10. new一个对象的三步是什么？（分配内存、初始化对象、引用赋值）\n11. volatile和synchronized的区别？（volatile只保证可见性和有序性，synchronized保证原子性、可见性、有序性）\n12. 什么是内存屏障？JMM中的四种内存屏障？\n13. volatile在哪些场景下使用？（状态标志位、双重检查锁单例、停止线程标志）",
+    "category": "Java",
+    "subcategory": "并发编程",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": ["bytedance", "alibaba", "tencent"],
+    "tags": ["volatile", "可见性", "有序性", "指令重排序", "内存屏障", "happens-before", "DCL", "as-if-serial", "原子性"],
+    "answer_hint": "volatile两个作用：①可见性：写volatile变量时立即刷新到主存，读时从主存读取(通过内存屏障实现)，保证一个线程修改后其他线程立即可见②有序性：禁止指令重排序(volatile变量的写之前的操作不能重排到写之后，读之后的操作不能重排到读之前)。不保证原子性：i++是读-改-写三步，volatile只保证读和写各自原子，复合操作不原子。指令重排序：编译器和CPU为提高性能，在不改变单线程执行结果(as-if-serial)的前提下调整指令顺序，多线程下可能导致可见性问题。内存屏障：StoreStore(写-写屏障)、LoadLoad(读-读)、StoreLoad(写-读，最耗性能)、LoadStore(读-写)。volatile写前加StoreStore，写后加StoreLoad；volatile读后加LoadLoad和LoadStore。happens-before：①程序顺序规则②监视器锁规则(unlock happens-before后续lock)③volatile规则(写 happens-before 后续读)④线程启动(start happens-before线程内动作)⑤线程终止(线程内动作 happens-before join返回)⑥传递性。DCL单例：private static volatile Singleton instance; if(instance==null){synchronized{if(instance==null){instance=new Singleton();}}}。new对象三步：①分配内存②初始化对象③引用赋值。若不用volatile，②和③可能被重排序，其他线程可能拿到未初始化的对象(半初始化)。vs synchronized：volatile更轻量(无锁)，但只保证可见性+有序性；synchronized保证原子性+可见性+有序性，重量大。volatile场景：状态标志位(如running flag)、DCL单例、一次性安全发布。"
+  },
+  {
+    "id": "java-007",
+    "title": "Spring IoC与AOP",
+    "description": "请详细回答以下问题：\n1. 什么是IoC？什么是DI？它们的关系？（控制反转、依赖注入，IoC是思想DI是实现）\n2. Spring IoC容器的工作原理？（BeanDefinition、BeanFactory、ApplicationContext、Bean生命周期）\n3. Bean的生命周期是怎样的？（实例化→属性注入→Aware→BeanPostProcessor前置→初始化→BeanPostProcessor后置→使用→销毁）\n4. 什么是BeanPostProcessor？它的作用？（Bean初始化前后增强，AOP、@Autowired、@Value都通过它实现）\n5. 依赖注入的方式有哪些？（构造器注入、setter注入、字段注入@Autowired）\n6. @Autowired和@Resource的区别？（Spring提供vs JDK提供、byType vs byName、required属性）\n7. 什么是循环依赖？Spring如何解决单例Bean的循环依赖？（三级缓存、早期暴露、ObjectFactory）\n8. 三级缓存分别是什么？（singletonObjects、earlySingletonObjects、singletonFactories）\n9. 为什么需要三级缓存而不是两级？（AOP代理需要，第三级存ObjectFactory可生成代理对象）\n10. 什么是AOP？它的应用场景？（日志、事务、权限、监控、性能统计）\n11. AOP的核心概念？（Aspect、JoinPoint、PointCut、Advice、Weaving、Target）\n12. Spring AOP的实现原理？（动态代理：JDK动态代理(接口)、CGLIB(继承)）\n13. JDK动态代理和CGLIB的区别？（接口vs继承、反射vs ASM、final类/方法）\n14. Spring Boot中AOP默认用JDK还是CGLIB？（Spring Boot 2.x默认CGLIB，spring.aop.proxy-target-class默认true）\n15. Advice的五种类型？（Before、After、AfterReturning、AfterThrowing、Around）",
+    "category": "Java",
+    "subcategory": "Spring",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": ["alibaba", "tencent", "bytedance", "meituan", "netease", "sohu"],
+    "tags": ["IoC", "AOP", "Bean生命周期", "BeanPostProcessor", "循环依赖", "三级缓存", "动态代理", "JDK代理", "CGLIB", "@Autowired", "Advice"],
+    "answer_hint": "IoC(控制反转)：对象的创建和依赖管理交给Spring容器，不是自己new。DI(依赖注入)是IoC的实现方式。Bean生命周期：实例化(构造函数)→属性注入(@Autowired)→Aware接口(BeanNameAware/BeanFactoryAware/ApplicationContextAware)→BeanPostProcessor.postProcessBeforeInitialization→初始化(@PostConstruct/InitializingBean.afterPropertiesSet/init-method)→BeanPostProcessor.postProcessAfterInitialization(AOP代理在这里生成)→使用→销毁(@PreDestroy/DisposableBean.destroy/destroy-method)。循环依赖：A依赖B，B依赖A。Spring通过三级缓存解决单例循环依赖：①singletonObjects(成品Bean)②earlySingletonObjects(早期半成品Bean)③singletonFactories(Bean工厂ObjectFactory，可生成代理)。流程：A实例化后放入三级缓存(暴露早期引用)→A注入B→B实例化→B注入A→从三级缓存拿A的早期引用(若AOP则生成代理)放入二级缓存→B初始化完成放入一级缓存→A继续初始化。三级缓存原因：若Bean需要AOP代理，第三级的ObjectFactory.getObject()可返回代理对象而非原始对象，两级缓存无法处理代理。AOP：面向切面编程，不修改原代码增强方法。动态代理：JDK动态代理(目标类实现接口，Proxy.newProxyInstance+InvocationHandler，基于反射)；CGLIB(目标类无接口，继承目标类生成子类，ASM字节码增强，不能代理final类/方法)。Spring AOP默认有接口用JDK，无接口用CGLIB；Spring Boot 2.x默认CGLIB(proxy-target-class=true)。Advice：Before(前置)、After(后置，无论异常)、AfterReturning(返回后)、AfterThrowing(异常后)、Around(环绕，最强大)。"
+  },
+  {
+    "id": "java-008",
+    "title": "Spring事务与传播行为",
+    "description": "请详细回答以下问题：\n1. Spring事务的实现原理？（AOP动态代理+TransactionInterceptor）\n2. @Transactional注解的工作流程？（代理方法→开启事务→执行目标方法→提交/回滚）\n3. 事务的ACID特性？\n4. Spring事务的隔离级别有哪些？（DEFAULT、READ_UNCOMMITTED、READ_COMMITTED、REPEATABLE_READ、SERIALIZABLE）\n5. 七种事务传播行为是什么？（REQUIRED、REQUIRES_NEW、SUPPORTS、NOT_SUPPORTED、MANDATORY、NEVER、NESTED）\n6. REQUIRED和REQUIRES_NEW的区别？请举例说明。\n7. NESTED和REQUIRES_NEW的区别？（savepoint嵌套事务 vs 独立事务）\n8. 什么情况下@Transactional会失效？（方法非public、自调用、异常被catch、异常类型不匹配、数据库不支持事务、类没有被Spring管理）\n9. 为什么自调用会导致事务失效？（this调用不经过代理）\n10. Spring事务默认回滚什么异常？（RuntimeException和Error，checked异常不回滚）\n11. 如何让checked异常也回滚？（rollbackFor = Exception.class）\n12. 什么是事务的只读属性？（readOnly=true，优化查询，不能有写操作）\n13. 事务超时时间是怎么计算的？（timeout，从事务开始到提交，超过则回滚）\n14. 编程式事务和声明式事务的区别？（PlatformTransactionManager/TransactionTemplate vs @Transactional）\n15. 分布式事务解决方案？（2PC、TCC、Saga、本地消息表、Seata）",
+    "category": "Java",
+    "subcategory": "Spring",
+    "difficulty": "hard",
+    "type": "concept",
+    "companies": ["alibaba", "tencent", "bytedance", "jd"],
+    "tags": ["Spring事务", "@Transactional", "传播行为", "REQUIRED", "REQUIRES_NEW", "NESTED", "事务失效", "rollbackFor", "自调用", "分布式事务"],
+    "answer_hint": "Spring事务通过AOP实现：@Transactional标注的方法被代理，TransactionInterceptor拦截，执行前开启事务(DataSourceTransactionManager)，执行后根据异常提交或回滚。传播行为：REQUIRED(默认，有事务加入，没有新建)、REQUIRES_NEW(总是新建，挂起当前)、SUPPORTS(有则加入，没有非事务)、NOT_SUPPORTED(非事务，挂起当前)、MANDATORY(必须在事务中否则抛异常)、NEVER(必须非事务否则抛异常)、NESTED(嵌套事务，savepoint，子事务回滚不影响父，父回滚子也回滚)。REQUIRED vs REQUIRES_NEW：A调用B，A有事务，B用REQUIRED则加入A的事务(一起提交回滚)；B用REQUIRES_NEW则新建独立事务(挂起A，B提交后A才继续，B回滚不影响A，A回滚不影响B)。NESTED vs REQUIRES_NEW：NESTED是嵌套在父事务中(用savepoint)，父回滚子也回滚；REQUIRES_NEW是完全独立事务，父回滚不影响子。事务失效：①方法非public(代理只能拦截public)②自调用(this.方法()不经过代理对象)③异常被try-catch吞掉(没有抛出异常Spring不知道回滚)④异常类型不是RuntimeException/Error(默认只回滚这些，需rollbackFor)⑤数据库引擎不支持事务(MyISAM)⑥类没有被Spring管理(没加@Component等)⑦final方法/类(CGLIB无法代理)。默认回滚RuntimeException和Error，checked异常(如IOException)不回滚，需@Transactional(rollbackFor=Exception.class)。自调用解决：注入自己(@Autowired Self self)、AopContext.currentProxy()、拆分到不同类。分布式事务：2PC(强一致，性能差)、TCC(业务层面Try-Confirm-Cancel)、Saga(长事务拆分+补偿)、本地消息表(最终一致)、Seata框架(AT/TCC/Saga/XA模式)。"
+  },
+  {
+    "id": "java-009",
+    "title": "Java内存模型(JMM)",
+    "description": "请详细回答以下问题：\n1. 什么是JMM？它和JVM内存结构有什么区别？（JMM是语言级内存模型规范，JVM内存结构是运行时数据区）\n2. JMM定义了什么？（线程和主内存的抽象关系、三大特性、happens-before）\n3. 主内存和工作内存的关系？（所有变量存主内存，线程有自己的工作内存，操作必须在工作内存）\n4. 什么是原子性？Java中如何保证原子性？（synchronized、Lock、AtomicInteger/CAS）\n5. 什么是可见性？如何保证可见性？（volatile、synchronized、final、Lock）\n6. 什么是有序性？如何保证有序性？（volatile、synchronized、happens-before）\n7. 什么是指令重排序？源代码→指令序列可能被重排序的环节？（编译器优化、指令级并行、内存系统重排序）\n8. as-if-serial和happens-before的关系？（as-if-serial保证单线程，happens-before保证多线程）\n9. 什么是数据依赖性？什么是控制依赖性？\n10. 什么是内存屏障？LoadLoad、StoreStore、LoadStore、StoreLoad分别禁止什么重排序？\n11. volatile的内存语义？（写：刷新到主存+StoreStore+StoreLoad；读：从主存读+LoadLoad+LoadStore）\n12. 锁的内存语义？（unlock：刷新到主存；lock：从主存读，等价于volatile写+读）\n13. final的内存语义？（final域初始化后对其他线程可见，禁止重排序final域写和构造函数返回）\n14. 什么是双重检查锁问题？为什么需要volatile？\n15. 什么是伪共享(false sharing)？如何避免？（缓存行、@Contended、padding）",
+    "category": "Java",
+    "subcategory": "并发编程",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": ["alibaba", "tencent", "bytedance", "meituan"],
+    "tags": ["JMM", "原子性", "可见性", "有序性", "happens-before", "指令重排序", "内存屏障", "as-if-serial", "伪共享", "final语义"],
+    "answer_hint": "JMM(Java Memory Model)：Java语言级内存模型，定义线程和主内存的抽象关系，保证多线程下的内存可见性。和JVM运行时内存区域(堆/栈/方法区)是不同概念。主内存：所有变量存储；工作内存：每个线程私有，保存该线程使用的变量的副本，线程对变量的操作必须在工作内存中进行，不能直接读写主内存。三大特性：①原子性：操作不可中断，synchronized/Lock/AtomicInteger(CAS)保证②可见性：一个线程修改变量后其他线程立即可见，volatile/synchronized/final/Lock保证③有序性：程序执行顺序和代码顺序一致，volatile/synchronized/happens-before保证。指令重排序：编译器优化重排序、CPU指令级并行重排序、内存系统重排序，在不改变单线程结果(as-if-serial)的前提下调整顺序。as-if-serial：单线程下重排序不能改变程序结果。happens-before：多线程下操作A happens-before操作B，则A的执行结果对B可见，且A的执行顺序排在B之前。内存屏障：LoadLoad(禁止后面的读重排到前面的读之前)、StoreStore(禁止后面的写重排到前面的写之前)、LoadStore(禁止后面的写重排到前面的读之前)、StoreLoad(禁止后面的读重排到前面的写之前，最耗性能，全局屏障)。volatile写：StoreStore屏障→volatile写→StoreLoad屏障；volatile读：volatile读→LoadLoad+LoadStore屏障。锁：unlock有volatile写语义，lock有volatile读语义。final：final域的写不能重排序到构造函数之外，final域的读不能重排序到final对象引用之前。伪共享：多个线程修改同一缓存行中的不同变量，导致缓存行频繁失效，性能下降。避免：@Contended注解(JDK8+)、padding填充(变量前后填充到一个缓存行64字节)。"
+  },
+  {
+    "id": "java-010",
+    "title": "分布式事务",
+    "description": "请详细回答以下问题：\n1. 什么是分布式事务？为什么需要分布式事务？（跨数据库/跨服务的事务一致性）\n2. CAP定理是什么？分布式系统为什么无法同时满足CAP？\n3. BASE理论是什么？（基本可用、软状态、最终一致）\n4. 2PC(两阶段提交)的流程？（Prepare→Commit/Rollback）\n5. 2PC有什么问题？（同步阻塞、单点故障、数据不一致、性能差）\n6. 3PC和2PC的区别？（CanCommit阶段、超时机制、减少阻塞但仍可能不一致）\n7. TCC的原理？（Try-Confirm-Cancel，业务层面实现）\n8. TCC需要注意什么问题？（幂等性、空回滚、防悬挂、事务日志）\n9. Saga模式的原理？（长事务拆分为多个本地事务，每个有补偿操作，正向执行失败则反向补偿）\n10. Saga的两种实现方式？（编排式Orchestration、协同式Choreography）\n11. 本地消息表方案的原理？（业务操作+写消息在同一本地事务，定时任务扫描发送MQ，消费者消费保证最终一致）\n12. 什么是事务消息？RocketMQ事务消息的原理？（半消息→本地事务→提交/回滚→回查）\n13. Seata框架支持哪些模式？（AT、TCC、Saga、XA）\n14. Seata AT模式的原理？（全局锁+undo log+两阶段提交，自动补偿）\n15. 实际项目中如何选择分布式事务方案？（强一致用2PC/Seata XA，最终一致用TCC/Saga/本地消息表/事务消息）",
+    "category": "Java",
+    "subcategory": "分布式系统",
+    "difficulty": "hard",
+    "type": "concept",
+    "companies": ["alibaba", "tencent", "bytedance", "meituan", "jd"],
+    "tags": ["分布式事务", "CAP", "BASE", "2PC", "3PC", "TCC", "Saga", "本地消息表", "事务消息", "Seata", "AT模式", "幂等性"],
+    "answer_hint": "分布式事务：跨多个数据库/服务的事务一致性。CAP：一致性C、可用性A、分区容错P，网络分区P不可避免，只能CP或AP。BASE：Basically Available(基本可用)、Soft state(软状态)、Eventually consistent(最终一致)。2PC：协调者Prepare(询问参与者能否提交)→所有参与者返回Yes→协调者Commit(全部提交)，有一个No则全部Rollback。问题：同步阻塞(参与者锁资源等待)、协调者单点故障、数据不一致(协调者Commit后宕机部分参与者没收到)、性能差。3PC：增加CanCommit阶段(网络连通性检查)和参与者超时机制(超时后默认提交)，减少阻塞但极端情况仍不一致。TCC：业务层面实现，Try(预留资源)→Confirm(确认执行)→Cancel(回滚释放)。需注意：幂等(重复调用结果相同)、空回滚(Try没收到却收到Cancel)、防悬挂(Cancel先于Try到达)、事务日志记录状态。Saga：长事务拆成多个本地事务T1..Tn，每个Ti有补偿Ci，正向执行T1→T2→...→Tn，失败则反向补偿...→C2→C1。编排式(中心协调器控制流程)、协同式(事件驱动，各服务监听事件)。本地消息表：业务操作和写消息在同一本地事务(原子)，定时任务扫描消息表发送到MQ，消费者消费处理，保证最终一致。事务消息(RocketMQ)：发送半消息(对消费者不可见)→执行本地事务→提交(消费者可见)或回滚(删除)→事务回查(长时间未确认时回查本地事务状态)。Seata：AT模式(自动补偿，基于全局锁+undo log，两阶段：一阶段执行业务+写undo log+全局锁，二阶段提交(异步删undo log)/回滚(用undo log补偿))、TCC模式、Saga模式、XA模式。选择：强一致要求高用2PC/Seata XA(性能差)；最终一致可接受用TCC(适合资金/库存，需写三个接口)、Saga(适合长流程，如订单→支付→库存→物流)、本地消息表/事务消息(最简单，最终一致)。"
+  }
+]

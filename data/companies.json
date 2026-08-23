@@ -1,0 +1,595 @@
+{
+  "last_updated": "2026-08-23",
+  "companies": [
+    {
+      "id": "bytedance",
+      "name": "字节跳动",
+      "aliases": [
+        "字节",
+        "ByteDance",
+        "头条"
+      ],
+      "locations": [
+        "北京",
+        "上海",
+        "深圳",
+        "杭州",
+        "广州",
+        "成都"
+      ],
+      "positions": [
+        {
+          "title": "后端开发工程师",
+          "level": "校招/实习",
+          "requirements": [
+            "计算机相关专业，扎实的数据结构与算法基础",
+            "熟练掌握至少一门编程语言（C++/Java/Go/Python）",
+            "熟悉TCP/IP、HTTP等网络协议，了解操作系统原理",
+            "熟悉MySQL、Redis等常用存储组件",
+            "有高并发系统设计经验者优先",
+            "算法题必考：LeetCode Hot 100 + CodeTop高频"
+          ],
+          "interview_rounds": "笔试(算法) → 一面(基础+算法) → 二面(项目+系统设计+算法) → 三面(综合+算法) → HR面",
+          "focus_areas": [
+            "算法",
+            "操作系统",
+            "计算机网络",
+            "数据库",
+            "系统设计"
+          ]
+        },
+        {
+          "title": "客户端开发工程师",
+          "level": "校招/实习",
+          "requirements": [
+            "熟悉Android/iOS开发，或C++跨平台开发",
+            "熟悉数据结构、多线程、网络编程",
+            "有性能优化、UI开发经验者优先"
+          ],
+          "interview_rounds": "笔试 → 一面(基础+算法) → 二面(项目+客户端基础) → 三面(综合)",
+          "focus_areas": [
+            "算法",
+            "操作系统",
+            "计算机网络",
+            "客户端基础"
+          ]
+        }
+      ],
+      "salary_range": "校招SP 30-45W年，SSP 45-60W年",
+      "key_tags": [
+        "算法极重要",
+        "多轮手撕代码",
+        "项目拷打",
+        "高并发"
+      ]
+    },
+    {
+      "id": "tencent",
+      "name": "腾讯",
+      "aliases": [
+        "鹅厂",
+        "Tencent"
+      ],
+      "locations": [
+        "深圳",
+        "北京",
+        "上海",
+        "广州",
+        "成都",
+        "杭州"
+      ],
+      "positions": [
+        {
+          "title": "后台开发工程师",
+          "level": "校招/实习",
+          "requirements": [
+            "扎实的C/C++编程基础，熟悉STL",
+            "深入理解操作系统（进程线程、内存管理、IO多路复用）",
+            "熟悉TCP/IP协议栈，有网络编程经验",
+            "熟悉MySQL、Redis等存储",
+            "了解分布式系统基础概念"
+          ],
+          "interview_rounds": "笔试(行测+算法+性格) → 一面(基础+手撕) → 二面(项目+手撕+系统设计) → 三面(GM面) → HR面",
+          "focus_areas": [
+            "C++",
+            "操作系统",
+            "计算机网络",
+            "数据库",
+            "算法"
+          ]
+        },
+        {
+          "title": "客户端开发工程师",
+          "level": "校招/实习",
+          "requirements": [
+            "熟悉C++或Java，了解Android/iOS开发",
+            "熟悉数据结构与算法",
+            "有图形渲染、音视频开发经验者优先"
+          ],
+          "interview_rounds": "笔试 → 一面 → 二面 → 三面 → HR",
+          "focus_areas": [
+            "C++",
+            "算法",
+            "操作系统",
+            "计算机网络"
+          ]
+        }
+      ],
+      "salary_range": "校招普通25-35W年，SP 35-45W年",
+      "key_tags": [
+        "C++深挖",
+        "网络编程",
+        "IO多路复用",
+        "手撕代码"
+      ]
+    },
+    {
+      "id": "alibaba",
+      "name": "阿里巴巴",
+      "aliases": [
+        "阿里",
+        "Alibaba",
+        "淘宝",
+        "天猫"
+      ],
+      "locations": [
+        "杭州",
+        "北京",
+        "上海",
+        "深圳",
+        "广州",
+        "成都"
+      ],
+      "positions": [
+        {
+          "title": "Java开发工程师",
+          "level": "校招/实习",
+          "requirements": [
+            "精通Java，熟悉JVM、并发编程、集合框架",
+            "熟悉Spring、SpringBoot、MyBatis等框架",
+            "熟悉MySQL、Redis、消息队列（RocketMQ/Kafka）",
+            "了解分布式系统、微服务架构",
+            "有高并发、高可用系统经验者优先"
+          ],
+          "interview_rounds": "笔试(算法) → 一面(Java基础+算法) → 二面(项目+中间件+系统设计) → 三面(交叉面) → HR面",
+          "focus_areas": [
+            "Java",
+            "JVM",
+            "数据库",
+            "中间件",
+            "分布式系统",
+            "算法"
+          ]
+        }
+      ],
+      "salary_range": "校招普通25-35W年，SP 35-50W年",
+      "key_tags": [
+        "Java生态",
+        "JVM深挖",
+        "中间件",
+        "分布式",
+        "项目拷打"
+      ]
+    },
+    {
+      "id": "meituan",
+      "name": "美团",
+      "aliases": [
+        "美团点评",
+        "Meituan"
+      ],
+      "locations": [
+        "北京",
+        "上海",
+        "深圳",
+        "成都",
+        "厦门"
+      ],
+      "positions": [
+        {
+          "title": "后端开发工程师",
+          "level": "校招/实习",
+          "requirements": [
+            "扎实的编程基础（Java/Go/C++）",
+            "熟悉数据结构与算法",
+            "熟悉操作系统、计算机网络",
+            "熟悉MySQL、Redis",
+            "有业务系统开发经验者优先"
+          ],
+          "interview_rounds": "笔试(算法) → 一面(基础+算法) → 二面(项目+算法+场景设计) → 三面(综合) → HR面",
+          "focus_areas": [
+            "算法",
+            "操作系统",
+            "计算机网络",
+            "数据库",
+            "场景设计"
+          ]
+        }
+      ],
+      "salary_range": "校招普通22-30W年，SP 30-40W年",
+      "key_tags": [
+        "算法高频",
+        "场景设计题",
+        "基础扎实",
+        "业务理解"
+      ]
+    },
+    {
+      "id": "huawei",
+      "name": "华为",
+      "aliases": [
+        "华为",
+        "Huawei",
+        "菊厂",
+        "华为OD"
+      ],
+      "locations": [
+        "深圳",
+        "东莞",
+        "北京",
+        "上海",
+        "杭州",
+        "成都",
+        "西安",
+        "武汉"
+      ],
+      "positions": [
+        {
+          "title": "软件开发工程师",
+          "level": "校招/OD",
+          "requirements": [
+            "计算机相关专业，扎实的C/C++/Java/Python基础",
+            "熟悉数据结构与算法",
+            "熟悉操作系统、计算机网络",
+            "有嵌入式、通信、云计算相关经验者优先",
+            "机试必考：华为OD题库（B/C/D卷），3道算法题"
+          ],
+          "interview_rounds": "机试(3道算法) → 性格测试 → 一面(技术+手撕) → 二面(主管面) → 三面(部长面) → 录用",
+          "focus_areas": [
+            "算法",
+            "C/C++",
+            "操作系统",
+            "计算机网络",
+            "数据库"
+          ]
+        }
+      ],
+      "salary_range": "校招14-18级，14级约25-30W年；OD按等级",
+      "key_tags": [
+        "机试筛选",
+        "算法为主",
+        "多轮面试",
+        "通信/云计算"
+      ]
+    },
+    {
+      "id": "xiaomi",
+      "name": "小米",
+      "aliases": [
+        "小米",
+        "Xiaomi",
+        "米厂"
+      ],
+      "locations": [
+        "北京",
+        "上海",
+        "深圳",
+        "南京",
+        "武汉"
+      ],
+      "positions": [
+        {
+          "title": "后端开发工程师",
+          "level": "校招/实习",
+          "requirements": [
+            "熟悉Java/Go/C++，扎实的编程基础",
+            "熟悉数据结构与算法",
+            "熟悉MySQL、Redis",
+            "有互联网业务开发经验者优先",
+            "有IoT、汽车相关经验者优先"
+          ],
+          "interview_rounds": "笔试 → 一面(基础+算法) → 二面(项目+算法) → 三面(综合) → HR",
+          "focus_areas": [
+            "算法",
+            "操作系统",
+            "计算机网络",
+            "数据库",
+            "C++/Java"
+          ]
+        }
+      ],
+      "salary_range": "校招普通20-30W年",
+      "key_tags": [
+        "算法",
+        "基础",
+        "IoT生态",
+        "汽车业务"
+      ]
+    },
+    {
+      "id": "baidu",
+      "name": "百度",
+      "aliases": [
+        "百度",
+        "Baidu",
+        "熊厂"
+      ],
+      "locations": [
+        "北京",
+        "上海",
+        "深圳"
+      ],
+      "positions": [
+        {
+          "title": "开发工程师",
+          "level": "校招/实习",
+          "requirements": [
+            "扎实的C++/Java/Python基础",
+            "熟悉数据结构与算法，经典模型吃透",
+            "熟悉操作系统、计算机网络",
+            "有搜索、推荐、AI相关经验者优先"
+          ],
+          "interview_rounds": "笔试 → 一面(算法+基础) → 二面(项目+算法) → 三面(综合) → HR",
+          "focus_areas": [
+            "算法",
+            "操作系统",
+            "计算机网络",
+            "数据库",
+            "AI/搜索"
+          ]
+        }
+      ],
+      "salary_range": "校招普通22-32W年，SP 32-45W年",
+      "key_tags": [
+        "算法均衡",
+        "搜索/推荐",
+        "AI生态",
+        "基础扎实"
+      ]
+    },
+    {
+      "id": "unitree",
+      "name": "宇树科技",
+      "aliases": [
+        "宇树",
+        "Unitree",
+        "宇树机器人"
+      ],
+      "locations": [
+        "杭州"
+      ],
+      "positions": [
+        {
+          "title": "具身智能软件工程师",
+          "level": "社招/校招",
+          "salary": "20-50K月",
+          "requirements": [
+            "精通C++和Python，具备优秀的编程习惯与软件架构设计能力",
+            "熟悉计算机体系架构和操作系统原理",
+            "熟悉TCP/UDP、HTTP、WebRTC、DDS等通信协议",
+            "能够处理复杂的多进程/多线程通信与时延问题",
+            "熟悉TensorRT、ONNX Runtime等推理框架",
+            "有模型量化（INT8/FP16）与剪枝的实战经验",
+            "了解主流深度学习、计算机视觉、大语言模型(LLM)原理",
+            "熟悉相机、IMU、激光雷达等传感器的物理特性与失效模式",
+            "具备多传感器融合应用经验",
+            "了解基本的机器人运动学与动力学"
+          ],
+          "bonus": [
+            "有将AI算法成功应用到量产机器人产品的完整经验",
+            "具备极强的故障排查能力，能快速定位软硬件耦合问题"
+          ],
+          "interview_rounds": "一面(基础+项目) → 二面(技术深挖+手撕) → 三面(综合)",
+          "focus_areas": [
+            "C++",
+            "Python",
+            "模型部署",
+            "机器人系统",
+            "多传感器融合",
+            "通信协议",
+            "算法"
+          ]
+        },
+        {
+          "title": "C++开发工程师",
+          "level": "校招",
+          "requirements": [
+            "精通C++11/14/17，熟悉STL",
+            "熟悉多线程编程、Linux开发",
+            "熟悉CMake构建系统",
+            "有机器人、嵌入式相关经验者优先"
+          ],
+          "interview_rounds": "笔试 → 一面(C++基础+算法) → 二面(项目+系统设计) → 三面",
+          "focus_areas": [
+            "C++",
+            "操作系统",
+            "多线程",
+            "Linux",
+            "算法"
+          ]
+        },
+        {
+          "title": "AI大模型应用开发工程师",
+          "level": "校招/社招",
+          "requirements": [
+            "熟悉大语言模型原理与应用开发",
+            "了解通用大模型与具身大模型的核心区别",
+            "熟悉RAG、Agent、Fine-tuning等技术",
+            "有Python/C++开发能力",
+            "了解机器人感知-决策-执行链路"
+          ],
+          "interview_focus": [
+            "通用大模型VS具身大模型核心区别",
+            "大模型幻觉在机器人场景的致命问题及解决方案",
+            "RAG架构设计",
+            "模型部署与推理优化"
+          ],
+          "focus_areas": [
+            "大模型",
+            "Python",
+            "RAG",
+            "Agent",
+            "模型部署",
+            "具身智能"
+          ]
+        },
+        {
+          "title": "深度强化学习算法工程师",
+          "level": "社招/校招",
+          "requirements": [
+            "熟悉learning-based control领域前沿进展",
+            "了解多自由度欠驱动机器人动力学",
+            "熟悉C++、Python，熟悉PyTorch/TensorFlow",
+            "了解ROS等框架",
+            "熟悉主流机器人仿真软件（NVIDIA Isaac Sim, MuJoCo, RaiSim, Gazebo）"
+          ],
+          "focus_areas": [
+            "强化学习",
+            "机器人控制",
+            "PyTorch",
+            "仿真",
+            "C++/Python"
+          ]
+        }
+      ],
+      "salary_range": "具身智能软件工程师 20-50K月",
+      "key_tags": [
+        "C++/Python双修",
+        "模型部署",
+        "机器人系统",
+        "多传感器",
+        "低延迟",
+        "产品化思维"
+      ]
+    },
+    {
+      "id": "jd",
+      "name": "京东",
+      "aliases": [
+        "JD",
+        "京东集团",
+        "京东零售"
+      ],
+      "locations": [
+        "北京",
+        "上海",
+        "深圳",
+        "成都",
+        "武汉",
+        "南京"
+      ],
+      "positions": [
+        {
+          "title": "后端开发工程师",
+          "level": "校招/实习",
+          "requirements": [
+            "计算机相关专业，本科及以上学历",
+            "熟练掌握C/C++/Java/Go至少一种编程语言",
+            "扎实的数据结构与算法基础，LeetCode中等难度水平",
+            "熟悉TCP/IP、HTTP、HTTPS等网络协议",
+            "熟悉MySQL/Oracle等关系型数据库及SQL优化",
+            "熟悉Redis、Memcached、MongoDB等NoSQL解决方案",
+            "了解分布式系统原理，熟悉多线程、消息队列(Kafka/RabbitMQ)",
+            "Java方向需熟悉Spring、Spring Boot、MyBatis等框架",
+            "有大数据生态(ClickHouse/Hadoop/Spark/Flink)经验者优先",
+            "算法题必考：CodeTop京东高频 + LeetCode Hot 100"
+          ],
+          "interview_rounds": "笔试(算法+选择题) → 一面(基础+算法) → 二面(项目+系统设计+算法) → 三面(综合) → HR面",
+          "focus_areas": [
+            "算法",
+            "Java基础",
+            "操作系统",
+            "计算机网络",
+            "数据库",
+            "分布式系统"
+          ]
+        },
+        {
+          "title": "C++开发工程师",
+          "level": "校招/实习",
+          "requirements": [
+            "精通C++编程语言，熟悉STL、智能指针、多线程",
+            "熟悉Linux系统编程，了解网络编程(socket/epoll)",
+            "扎实的数据结构与算法基础",
+            "熟悉MySQL、Redis等存储组件",
+            "有高性能服务开发经验者优先"
+          ],
+          "interview_rounds": "笔试 → 一面(C++基础+算法) → 二面(项目+系统设计) → 三面 → HR面",
+          "focus_areas": [
+            "算法",
+            "C++",
+            "操作系统",
+            "计算机网络",
+            "数据库"
+          ]
+        }
+      ],
+      "culture": "客户为先、创新、拼搏、担当、感恩、诚信",
+      "source_url": "https://campus.jd.com/"
+    },
+    {
+      "id": "netease",
+      "name": "网易",
+      "aliases": [
+        "NetEase",
+        "网易互娱",
+        "网易雷火",
+        "网易云音乐"
+      ],
+      "locations": [
+        "杭州",
+        "广州",
+        "北京",
+        "上海",
+        "深圳"
+      ],
+      "positions": [
+        {
+          "title": "后端开发工程师",
+          "level": "校招/实习",
+          "requirements": [
+            "本科及以上学历，计算机相关专业",
+            "扎实的Java编程基础，熟悉JVM原理和性能优化",
+            "熟悉Spring Framework、Spring Boot、Spring Cloud等全家桶",
+            "熟练使用Unix/Linux操作系统，熟悉RESTful API、Servlet、Tomcat",
+            "熟悉MySQL、Redis等数据库的使用和优化",
+            "了解Kafka等消息队列",
+            "有分布式系统设计与调优能力者优先",
+            "对AI应用(ChatGPT/智能助手/AI搜索)有兴趣者优先",
+            "算法题必考：LeetCode Hot 100 + 网易高频"
+          ],
+          "interview_rounds": "笔试(算法) → 一面(基础+算法手撕) → 二面(系统设计+专业深挖) → 三面(综合) → HR面",
+          "focus_areas": [
+            "算法",
+            "Java基础",
+            "JVM",
+            "计算机网络",
+            "数据库",
+            "系统设计"
+          ]
+        },
+        {
+          "title": "游戏研发工程师(C++)",
+          "level": "校招/实习",
+          "requirements": [
+            "精通C++编程语言，熟悉C++11/14/17新特性",
+            "熟悉数据结构与算法，有扎实的编程基础",
+            "了解计算机图形学基础(渲染管线、Shader、OpenGL/D3D)",
+            "熟悉游戏引擎(Unity/Unreal)者优先",
+            "有游戏项目开发经验者优先"
+          ],
+          "interview_rounds": "笔试(算法+C++基础) → 一面(C+++算法) → 二面(图形学/游戏引擎+项目) → 三面 → HR面",
+          "focus_areas": [
+            "算法",
+            "C++",
+            "计算机图形学",
+            "数据结构",
+            "操作系统"
+          ]
+        }
+      ],
+      "culture": "网易文化：热爱、创新、协作、担当",
+      "source_url": "https://campus.163.com/"
+    }
+  ]
+}

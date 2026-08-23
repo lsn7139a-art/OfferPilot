@@ -1,0 +1,3143 @@
+[
+  {
+    "id": "algo-001",
+    "title": "两数之和：在数组中找到两个数使它们的和等于目标值",
+    "description": "给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出和为目标值 target 的那两个整数，并返回它们的数组下标。\n\n你可以假设每种输入只会对应一个答案，并且你不能使用两次相同的元素。你可以按任意顺序返回答案。\n\n示例 1：输入 nums = [2,7,11,15], target = 9，输出 [0,1]。\n示例 2：输入 nums = [3,2,4], target = 6，输出 [1,2]。\n示例 3：输入 nums = [3,3], target = 6，输出 [0,1]。\n\n提示：2 <= nums.length <= 10^4。",
+    "category": "算法",
+    "subcategory": "哈希表",
+    "difficulty": "easy",
+    "type": "coding",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan",
+      "huawei",
+      "xiaomi",
+      "baidu"
+    ],
+    "tags": [
+      "数组",
+      "哈希表",
+      "LeetCode Hot 100"
+    ],
+    "leetcode_id": "1",
+    "answer_hint": "用哈希表存储已遍历元素及其下标，遍历到当前元素时检查 target-nums[i] 是否在哈希表中。时间O(n)，空间O(n)。",
+    "source": "LeetCode Hot 100 / CodeTop大厂高频",
+    "target_roles": [
+      "后端开发",
+      "C++开发",
+      "算法工程师",
+      "测试开发",
+      "全栈"
+    ],
+    "source_url": "https://leetcode.cn/problems/two-sum/"
+  },
+  {
+    "id": "algo-002",
+    "title": "反转链表：给你单链表的头节点，反转并返回反转后的头节点",
+    "description": "给你单链表的头节点 head，请你反转链表，并返回反转后的链表。\n\n示例 1：输入 head = [1,2,3,4,5]，输出 [5,4,3,2,1]。\n示例 2：输入 head = [1,2]，输出 [2,1]。\n示例 3：输入 head = []，输出 []。\n\n进阶：链表可以选用迭代或递归方式完成反转。你能否用两种方法解决这道题？",
+    "category": "算法",
+    "subcategory": "链表",
+    "difficulty": "easy",
+    "type": "coding",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan",
+      "huawei",
+      "baidu"
+    ],
+    "tags": [
+      "链表",
+      "递归",
+      "迭代",
+      "LeetCode Hot 100"
+    ],
+    "leetcode_id": "206",
+    "answer_hint": "迭代：三指针prev/curr/next，逐个反转next指针。递归：先递归到尾部，再逐层反转。注意头节点处理。",
+    "source": "LeetCode Hot 100 / CodeTop大厂高频",
+    "target_roles": [
+      "后端开发",
+      "C++开发",
+      "算法工程师",
+      "测试开发",
+      "全栈"
+    ],
+    "source_url": "https://leetcode.cn/problems/reverse-linked-list/"
+  },
+  {
+    "id": "algo-003",
+    "title": "有效的括号：判断字符串中的括号是否有效闭合",
+    "description": "给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串 s，判断字符串是否有效。\n\n有效字符串需满足：1.左括号必须用相同类型的右括号闭合。2.左括号必须以正确的顺序闭合。3.每个右括号都有一个对应的相同类型的左括号。\n\n示例 1：输入 s = \"()\"，输出 true。\n示例 2：输入 s = \"()[]{}\"，输出 true。\n示例 3：输入 s = \"(]\"，输出 false。\n示例 4：输入 s = \"([)]\"，输出 false。\n示例 5：输入 s = \"{[]}\"，输出 true。",
+    "category": "算法",
+    "subcategory": "栈",
+    "difficulty": "easy",
+    "type": "coding",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "meituan",
+      "huawei"
+    ],
+    "tags": [
+      "栈",
+      "字符串",
+      "LeetCode Hot 100"
+    ],
+    "leetcode_id": "20",
+    "answer_hint": "用栈，左括号入栈，右括号检查栈顶是否匹配。最后栈为空则有效。",
+    "source": "LeetCode Hot 100 / CodeTop大厂高频",
+    "target_roles": [
+      "后端开发",
+      "C++开发",
+      "算法工程师",
+      "测试开发",
+      "全栈"
+    ],
+    "source_url": "https://leetcode.cn/problems/valid-parentheses/"
+  },
+  {
+    "id": "algo-004",
+    "title": "无重复字符的最长子串：找出字符串中最长无重复字符的子串长度",
+    "description": "给定一个字符串 s，请你找出其中不含有重复字符的最长子串的长度。\n\n示例 1：输入 s = \"abcabcbb\"，输出 3。解释：无重复字符的最长子串是 \"abc\"。\n示例 2：输入 s = \"bbbbb\"，输出 1。\n示例 3：输入 s = \"pwwkew\"，输出 3。解释：无重复字符的最长子串是 \"wke\"，注意答案必须是子串的长度，\"pwke\" 是子序列不是子串。\n\n提示：0 <= s.length <= 5 * 10^4。",
+    "category": "算法",
+    "subcategory": "滑动窗口",
+    "difficulty": "medium",
+    "type": "coding",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan",
+      "baidu"
+    ],
+    "tags": [
+      "滑动窗口",
+      "哈希表",
+      "字符串",
+      "LeetCode Hot 100"
+    ],
+    "leetcode_id": "3",
+    "answer_hint": "滑动窗口+哈希表记录字符最后出现位置。右指针扩展，遇到重复字符时左指针跳到重复位置+1。时间O(n)。",
+    "source": "LeetCode Hot 100 / CodeTop大厂高频",
+    "target_roles": [
+      "后端开发",
+      "C++开发",
+      "算法工程师",
+      "测试开发",
+      "全栈"
+    ],
+    "source_url": "https://leetcode.cn/problems/longest-substring-without-repeating-characters/"
+  },
+  {
+    "id": "algo-005",
+    "title": "三数之和：找出数组中所有和为0且不重复的三元组",
+    "description": "给你一个整数数组 nums，判断是否存在三元组 [nums[i], nums[j], nums[k]] 满足 i != j、i != k 且 j != k，同时还满足 nums[i] + nums[j] + nums[k] == 0。请你返回所有和为 0 且不重复的三元组。\n\n注意：答案中不可以包含重复的三元组。\n\n示例 1：输入 nums = [-1,0,1,2,-1,-4]，输出 [[-1,-1,2],[-1,0,1]]。\n示例 2：输入 nums = [0,1,1]，输出 []。\n示例 3：输入 nums = [0,0,0]，输出 [[0,0,0]]。\n\n提示：3 <= nums.length <= 3000。",
+    "category": "算法",
+    "subcategory": "双指针",
+    "difficulty": "medium",
+    "type": "coding",
+    "companies": [
+      "tencent",
+      "alibaba",
+      "bytedance",
+      "meituan"
+    ],
+    "tags": [
+      "排序",
+      "双指针",
+      "去重",
+      "LeetCode Hot 100"
+    ],
+    "leetcode_id": "15",
+    "answer_hint": "先排序，固定第一个数，剩余两数用左右双指针。注意去重：跳过相同的固定数和相同的左右指针值。",
+    "source": "LeetCode Hot 100 / CodeTop大厂高频",
+    "target_roles": [
+      "后端开发",
+      "C++开发",
+      "算法工程师",
+      "测试开发",
+      "全栈"
+    ],
+    "source_url": "https://leetcode.cn/problems/3sum/"
+  },
+  {
+    "id": "algo-006",
+    "title": "二叉树的中序遍历：给定二叉树根节点，返回其中序遍历结果",
+    "description": "给定一个二叉树的根节点 root，返回它的中序遍历结果。\n\n示例 1：输入 root = [1,null,2,3]，输出 [1,3,2]。\n示例 2：输入 root = []，输出 []。\n示例 3：输入 root = [1]，输出 [1]。\n\n进阶：递归算法很简单，你可以通过迭代算法完成吗？",
+    "category": "算法",
+    "subcategory": "树",
+    "difficulty": "easy",
+    "type": "coding",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "meituan",
+      "huawei"
+    ],
+    "tags": [
+      "二叉树",
+      "递归",
+      "迭代",
+      "栈"
+    ],
+    "leetcode_id": "94",
+    "answer_hint": "递归：左-根-右。迭代：用栈，先走到最左，出栈访问，再走右子树。",
+    "source": "LeetCode Hot 100 / CodeTop大厂高频",
+    "target_roles": [
+      "后端开发",
+      "C++开发",
+      "算法工程师",
+      "测试开发",
+      "全栈"
+    ],
+    "source_url": "https://leetcode.cn/problems/binary-tree-inorder-traversal/"
+  },
+  {
+    "id": "algo-007",
+    "title": "二叉树的右视图：返回从右侧能看到的节点值",
+    "description": "给定一个二叉树的根节点 root，想象自己站在它的右侧，按照从顶部到底部的顺序，返回从右侧所能看到的节点值。\n\n示例 1：输入 root = [1,2,3,null,5,null,4]，输出 [1,3,4]。\n示例 2：输入 root = [1,null,3]，输出 [1,3]。\n示例 3：输入 root = []，输出 []。",
+    "category": "算法",
+    "subcategory": "树",
+    "difficulty": "medium",
+    "type": "coding",
+    "companies": [
+      "bytedance",
+      "tencent"
+    ],
+    "tags": [
+      "二叉树",
+      "BFS",
+      "层序遍历",
+      "LeetCode Hot 100"
+    ],
+    "leetcode_id": "199",
+    "answer_hint": "BFS层序遍历，每层取最后一个节点。也可用DFS：根-右-左，每层第一次访问的节点就是右视图节点。",
+    "source": "LeetCode Hot 100 / CodeTop大厂高频",
+    "target_roles": [
+      "后端开发",
+      "C++开发",
+      "算法工程师",
+      "测试开发",
+      "全栈"
+    ],
+    "source_url": "https://leetcode.cn/problems/binary-tree-right-side-view/"
+  },
+  {
+    "id": "algo-008",
+    "title": "二叉树的最近公共祖先：找到两个指定节点的最近公共祖先",
+    "description": "给定一个二叉树，找到该树中两个指定节点的最近公共祖先。\n\n最近公共祖先定义：对于有根树 T 的两个节点 p、q，最近公共祖先表示为一个节点 x，满足 x 是 p、q 的祖先且 x 的深度尽可能大（一个节点也可以是它自己的祖先）。\n\n示例 1：输入 root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 1，输出 3。\n示例 2：输入 root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 4，输出 5。\n示例 3：输入 root = [1,2], p = 1, q = 2，输出 1。\n\n提示：树中节点数目在范围 [2, 10^5] 内。",
+    "category": "算法",
+    "subcategory": "树",
+    "difficulty": "medium",
+    "type": "coding",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan"
+    ],
+    "tags": [
+      "二叉树",
+      "递归",
+      "哈希表",
+      "LeetCode Hot 100"
+    ],
+    "leetcode_id": "236",
+    "answer_hint": "递归：若root为p或q则返回root；左右子树分别递归，若左右都非空则root为LCA，否则返回非空的那个。",
+    "source": "LeetCode Hot 100 / CodeTop大厂高频",
+    "target_roles": [
+      "后端开发",
+      "C++开发",
+      "算法工程师",
+      "测试开发",
+      "全栈"
+    ],
+    "source_url": "https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/"
+  },
+  {
+    "id": "algo-009",
+    "title": "合并K个升序链表：将K个升序链表合并为一个升序链表",
+    "description": "将两个升序链表合并为一个新的升序链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。\n\n示例 1：输入 l1 = [1,2,4], l2 = [1,3,4]，输出 [1,1,2,3,4,4]。\n示例 2：输入 l1 = [], l2 = []，输出 []。\n示例 3：输入 l1 = [], l2 = [0]，输出 [0]。",
+    "category": "算法",
+    "subcategory": "链表",
+    "difficulty": "easy",
+    "type": "coding",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan",
+      "huawei",
+      "baidu"
+    ],
+    "tags": [
+      "链表",
+      "递归",
+      "迭代",
+      "LeetCode Hot 100"
+    ],
+    "leetcode_id": "21",
+    "answer_hint": "迭代：虚拟头节点+指针，比较两链表当前节点值，取较小的。递归：比较头节点，较小节点的next指向递归结果。",
+    "source": "LeetCode Hot 100 / CodeTop大厂高频",
+    "target_roles": [
+      "后端开发",
+      "C++开发",
+      "算法工程师",
+      "测试开发",
+      "全栈"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "algo-010",
+    "title": "接雨水：给定柱子高度数组，计算下雨后能接多少雨水",
+    "description": "给定一个数组 prices，它的第 i 个元素 prices[i] 表示一支给定股票第 i 天的价格。你只能选择某一天买入这只股票，并选择在未来的某一个不同的日子卖出该股票。设计一个算法来计算你所能获取的最大利润。返回你可以从这笔交易中获取的最大利润。如果你不能获取任何利润，返回 0。\n\n示例 1：输入 [7,1,5,3,6,4]，输出 5。解释：第2天买入（价格=1），第5天卖出（价格=6），利润=5。\n示例 2：输入 prices = [7,6,4,3,1]，输出 0。\n\n提示：1 <= prices.length <= 10^5。",
+    "category": "算法",
+    "subcategory": "动态规划",
+    "difficulty": "easy",
+    "type": "coding",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan"
+    ],
+    "tags": [
+      "数组",
+      "动态规划",
+      "LeetCode Hot 100"
+    ],
+    "leetcode_id": "121",
+    "answer_hint": "遍历数组，记录当前最低价格，计算当前价格与最低价的差值，取最大。时间O(n)，空间O(1)。",
+    "source": "LeetCode Hot 100 / CodeTop大厂高频",
+    "target_roles": [
+      "后端开发",
+      "C++开发",
+      "算法工程师",
+      "测试开发",
+      "全栈"
+    ],
+    "source_url": "https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/"
+  },
+  {
+    "id": "algo-011",
+    "title": "最长回文子串：找出字符串中最长的回文子串",
+    "description": "这是一组股票买卖问题的合集，面试中常被连环追问：\n\n【问题1】无限次交易：每天可决定是否买卖，任何时候最多持有一股，可先买后同一天卖。返回最大利润。示例：prices=[7,1,5,3,6,4]，输出7（第2天买第3天卖赚4，第4天买第5天卖赚3）。\n\n【问题2】有手续费：每笔交易需付手续费fee，可无限次交易，买之前必须卖出之前的股票。示例：prices=[1,3,2,8,4,9], fee=2，输出8。\n\n【问题3】最多两次交易：最多完成两笔交易，不能同时参与多笔。示例：prices=[3,3,5,0,0,3,1,4]，输出6（第4天买第6天卖赚3，第7天买第8天卖赚3）。",
+    "category": "算法",
+    "subcategory": "动态规划",
+    "difficulty": "medium",
+    "type": "coding",
+    "companies": [
+      "bytedance"
+    ],
+    "tags": [
+      "动态规划",
+      "状态机",
+      "股票系列"
+    ],
+    "leetcode_id": "122/123/714",
+    "answer_hint": "无限次：贪心，只要后一天比前一天高就买卖。有手续费：DP，持有/不持有两状态。最多两次：DP，5种状态（未操作/第一次买入/第一次卖出/第二次买入/第二次卖出）。",
+    "source": "LeetCode Hot 100 / CodeTop大厂高频",
+    "target_roles": [
+      "后端开发",
+      "C++开发",
+      "算法工程师",
+      "测试开发",
+      "全栈"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "algo-012",
+    "title": "全排列：给定不含重复数字的数组，返回所有可能的全排列",
+    "description": "给你一个整数数组 nums，有一个大小为 k 的滑动窗口从数组的最左侧移动到数组的最右侧。你只可以看到在滑动窗口内的 k 个数字。滑动窗口每次只向右移动一位。返回滑动窗口中的最大值。\n\n示例 1：输入 nums = [1,3,-1,-3,5,3,6,7], k = 3，输出 [3,3,5,5,6,7]。\n解释：窗口位置分别为 [1,3,-1]→3、[3,-1,-3]→3、[-1,-3,5]→5、[-3,5,3]→5、[5,3,6]→6、[3,6,7]→7。\n示例 2：输入 nums = [1], k = 1，输出 [1]。\n\n提示：1 <= nums.length <= 10^5。进阶：你能在线性时间复杂度内解决此题吗？",
+    "category": "算法",
+    "subcategory": "单调队列",
+    "difficulty": "hard",
+    "type": "coding",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "huawei",
+      "meituan"
+    ],
+    "tags": [
+      "单调队列",
+      "滑动窗口",
+      "堆",
+      "LeetCode Hot 100"
+    ],
+    "leetcode_id": "239",
+    "answer_hint": "单调递减双端队列：队列存下标，保证对应值递减。新元素入队前弹出队尾所有小于它的元素。队首就是窗口最大值，超出窗口范围则弹出队首。时间O(n)。",
+    "source": "LeetCode Hot 100 / CodeTop大厂高频",
+    "target_roles": [
+      "后端开发",
+      "C++开发",
+      "算法工程师",
+      "测试开发",
+      "全栈"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "algo-013",
+    "title": "子集：给定整数数组，返回所有可能的子集",
+    "description": "给你一个整数数组 nums 和一个整数 k，请你返回其中出现频率前 k 高的元素。你可以按任意顺序返回答案。\n\n示例 1：输入 nums = [1,1,1,2,2,3], k = 2，输出 [1,2]。\n示例 2：输入 nums = [1], k = 1，输出 [1]。\n\n提示：1 <= nums.length <= 10^5，k 的取值范围是 [1, 数组中不相同的元素的个数]。\n\n进阶：你所设计算法的时间复杂度必须优于 O(n log n)。",
+    "category": "算法",
+    "subcategory": "堆/桶排序",
+    "difficulty": "medium",
+    "type": "coding",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "baidu",
+      "meituan"
+    ],
+    "tags": [
+      "哈希表",
+      "小顶堆",
+      "桶排序",
+      "LeetCode Hot 100"
+    ],
+    "leetcode_id": "347",
+    "answer_hint": "哈希表统计频率，然后用小顶堆（大小K）或桶排序（按频率分桶）取前K。桶排序时间O(n)。",
+    "source": "LeetCode Hot 100 / CodeTop大厂高频",
+    "target_roles": [
+      "后端开发",
+      "C++开发",
+      "算法工程师",
+      "测试开发",
+      "全栈"
+    ],
+    "source_url": "https://leetcode.cn/problems/top-k-frequent-elements/"
+  },
+  {
+    "id": "algo-014",
+    "title": "LRU缓存：设计并实现一个最近最少使用(LRU)缓存结构",
+    "description": "给你一个整数数组 nums，数组中的元素互不相同。返回该数组所有可能的子集（幂集）。解集不能包含重复的子集。你可以按任意顺序返回解集。\n\n示例 1：输入 nums = [1,2,3]，输出 [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]。\n示例 2：输入 nums = [0]，输出 [[],[0]]。\n\n提示：1 <= nums.length <= 10。",
+    "category": "算法",
+    "subcategory": "回溯",
+    "difficulty": "medium",
+    "type": "coding",
+    "companies": [
+      "bytedance",
+      "tencent"
+    ],
+    "tags": [
+      "回溯",
+      "位运算",
+      "LeetCode Hot 100"
+    ],
+    "leetcode_id": "78",
+    "answer_hint": "回溯：每个元素选或不选，递归处理。位运算：0到2^n-1，每个二进制位表示是否选该元素。",
+    "source": "LeetCode Hot 100 / CodeTop大厂高频",
+    "target_roles": [
+      "后端开发",
+      "C++开发",
+      "算法工程师",
+      "测试开发",
+      "全栈"
+    ],
+    "source_url": "https://leetcode.cn/problems/subsets/"
+  },
+  {
+    "id": "algo-015",
+    "title": "岛屿数量：给你由1和0组成的二维网格，计算岛屿的数量",
+    "description": "给定一个无向无权图，包含 n 个节点（编号从 0 到 n-1）和 m 条边。给定起始节点 start 和目标节点 end，求从 start 到 end 的最短路径长度，并输出具体路径。\n\n输入：第一行 n 和 m；接下来 m 行每行 u v 表示一条边；最后一行 start 和 end。\n输出：第一行最短路径长度（不可达输出-1）；第二行路径节点编号。\n\n示例：输入 6 7，边为 0-1,0-2,1-3,2-3,3-4,4-5,2-5，start=0 end=5。输出：2，路径 0 2 5。\n\n提示：n <= 10^5，m <= 2*10^5，要求时间复杂度 O(n+m)。",
+    "category": "算法",
+    "subcategory": "图",
+    "difficulty": "medium",
+    "type": "coding",
+    "companies": [
+      "bytedance"
+    ],
+    "tags": [
+      "BFS",
+      "图",
+      "最短路径"
+    ],
+    "answer_hint": "边权为1用BFS即可，不需要Dijkstra。BFS时记录前驱节点，最后从终点回溯到起点得到路径。",
+    "source": "LeetCode 200 · 亚马逊/微软面试高频",
+    "target_roles": [
+      "后端开发",
+      "C++开发",
+      "算法工程师",
+      "测试开发",
+      "全栈"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "algo-016",
+    "title": "LFU缓存：设计并实现一个最不经常使用(LFU)缓存结构",
+    "description": "给你一个字符串 s，「k 倍重复项删除操作」将会从 s 中选择 k 个相邻且相等的字母，并删除它们，使被删去的字符串的左侧和右侧连在一起。你需要对 s 重复进行无限次这样的删除操作，直到无法继续为止。返回最终得到的字符串。\n\n示例 1：输入 s = \"abcd\", k = 2，输出 \"abcd\"。\n示例 2：输入 s = \"deeedbbcccbdaa\", k = 3，输出 \"aa\"。解释：先删\"eee\"和\"ccc\"→\"ddbbbdaa\"，再删\"bbb\"→\"dddaa\"，最后删\"ddd\"→\"aa\"。\n示例 3：输入 s = \"pbbcggttciiippooaais\", k = 2，输出 \"ps\"。\n\n提示：1 <= s.length <= 10^5。",
+    "category": "算法",
+    "subcategory": "栈",
+    "difficulty": "medium",
+    "type": "coding",
+    "companies": [
+      "bytedance"
+    ],
+    "tags": [
+      "栈",
+      "字符串",
+      "字节高频"
+    ],
+    "leetcode_id": "1209",
+    "answer_hint": "栈存[字符, 连续计数]，遇到相同字符计数+1，达到k则弹出。不同字符则入栈计数1。最后按栈中计数还原字符串。",
+    "source": "LeetCode 460 · 字节跳动后端面试真题",
+    "target_roles": [
+      "后端开发",
+      "C++开发",
+      "算法工程师",
+      "测试开发",
+      "全栈"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "algo-017",
+    "title": "买卖股票的最佳时机：计算通过一次买卖能获得的最大利润",
+    "description": "实现快速排序算法，对给定整数数组进行升序排序。要求说明时间复杂度、空间复杂度、最坏情况及优化方法。\n\n输入：第一行 n，第二行 n 个整数。输出：排序后的数组。\n\n示例：输入 6，数组 3 1 4 1 5 9，输出 1 1 3 4 5 9。\n\n要求：1.实现标准快排（选pivot、partition、递归）；2.说明平均/最好/最坏时间复杂度；3.说明最坏情况出现的场景；4.至少说出两种优化方法。",
+    "category": "算法",
+    "subcategory": "排序",
+    "difficulty": "medium",
+    "type": "coding",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan",
+      "huawei",
+      "baidu"
+    ],
+    "tags": [
+      "排序",
+      "分治",
+      "递归",
+      "手撕排序"
+    ],
+    "answer_hint": "选pivot，partition将小于pivot的放左边、大于的放右边，递归左右。平均O(nlogn)，最坏O(n²)（已排序数组+固定pivot）。优化：随机pivot、三数取中、小区间用插入排序。",
+    "source": "LeetCode Hot 100 / CodeTop大厂高频",
+    "target_roles": [
+      "后端开发",
+      "C++开发",
+      "算法工程师",
+      "测试开发",
+      "全栈"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "algo-018",
+    "title": "课程表：给定课程依赖关系，判断是否可能完成所有课程",
+    "description": "给定整数数组 nums 和整数 k，请返回数组中第 k 个最大的元素。请注意，你需要找的是数组排序后的第 k 个最大的元素，而不是第 k 个不同的元素。你必须设计并实现时间复杂度为 O(n) 的算法解决此问题。\n\n示例 1：输入 [3,2,1,5,6,4], k = 2，输出 5。\n示例 2：输入 [3,2,3,1,2,4,5,5,6], k = 4，输出 4。\n\n提示：1 <= k <= nums.length <= 10^5。",
+    "category": "算法",
+    "subcategory": "快速选择/堆",
+    "difficulty": "medium",
+    "type": "coding",
+    "companies": [
+      "xiaomi",
+      "bytedance",
+      "tencent",
+      "alibaba"
+    ],
+    "tags": [
+      "快速选择",
+      "堆",
+      "分治",
+      "LeetCode Hot 100"
+    ],
+    "leetcode_id": "215",
+    "answer_hint": "快速选择：基于快排partition，若pivot位置==n-K则返回，否则递归对应一侧。平均O(n)。堆：大小K的小顶堆，O(nlogK)。",
+    "source": "LeetCode 207/210 · 美团/阿里面试真题",
+    "target_roles": [
+      "后端开发",
+      "C++开发",
+      "算法工程师",
+      "测试开发",
+      "全栈"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "algo-019",
+    "title": "前K个高频元素：返回数组中出现频率前k高的元素",
+    "description": "给定一个链表的头节点 head，返回链表开始入环的第一个节点。如果链表无环，则返回 null。\n\n扩展问题：1.如何判断链表是否有环？2.如果有环，环的入口节点怎么求？3.环的大小怎么计算？\n\n示例 1：输入 head = [3,2,0,-4], pos = 1（尾连到索引1），输出索引为1的节点。\n示例 2：输入 head = [1,2], pos = 0，输出索引为0的节点。\n示例 3：输入 head = [1], pos = -1，输出 null。\n\n进阶：你是否可以使用 O(1) 空间解决此题？",
+    "category": "算法",
+    "subcategory": "链表",
+    "difficulty": "medium",
+    "type": "coding",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan",
+      "jd"
+    ],
+    "tags": [
+      "快慢指针",
+      "链表",
+      "数学推导"
+    ],
+    "leetcode_id": "141/142",
+    "answer_hint": "快慢指针判断环：fast走2步slow走1步，相遇则有环。环入口：相遇后一个指针从head出发，一个从相遇点出发，都走1步，再次相遇即入口。环大小：从相遇点再走一圈计数。",
+    "source": "LeetCode Hot 100 / CodeTop大厂高频",
+    "target_roles": [
+      "后端开发",
+      "C++开发",
+      "算法工程师",
+      "测试开发",
+      "全栈"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "algo-020",
+    "title": "无权图最短路径：求从起点到终点的最短路径长度并输出路径",
+    "description": "给你一个链表数组，每个链表都已经按升序排列。请你将所有链表合并到一个升序链表中，返回合并后的链表。\n\n示例 1：输入 lists = [[1,4,5],[1,3,4],[2,6]]，输出 [1,1,2,3,4,4,5,6]。\n示例 2：输入 lists = []，输出 []。\n示例 3：输入 lists = [[]]，输出 []。\n\n提示：k == lists.length，0 <= k <= 10^4，所有链表长度总和不超过 10^4。\n\n进阶：你如何分析此问题的时间和空间复杂度？",
+    "category": "算法",
+    "subcategory": "堆/分治",
+    "difficulty": "hard",
+    "type": "coding",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "baidu"
+    ],
+    "tags": [
+      "小顶堆",
+      "分治",
+      "链表",
+      "LeetCode Hot 100"
+    ],
+    "leetcode_id": "23",
+    "answer_hint": "小顶堆：每个链表头节点入堆，每次取最小，将其next入堆。O(NlogK)。分治：两两合并，O(NlogK)。",
+    "source": "LeetCode Hot 100 / CodeTop大厂高频",
+    "target_roles": [
+      "后端开发",
+      "C++开发",
+      "算法工程师",
+      "测试开发",
+      "全栈"
+    ],
+    "source_url": "https://leetcode.cn/problems/merge-k-sorted-lists/"
+  },
+  {
+    "id": "os-001",
+    "title": "进程和线程的区别是什么？",
+    "description": "请详细回答以下问题：\n1. 什么是进程？什么是线程？\n2. 进程和线程的核心区别是什么？（从资源分配、调度单位、地址空间、切换开销、通信方式等角度说明）\n3. 什么场景下适合使用多进程？什么场景下适合使用多线程？\n4. 为什么说线程是轻量级的进程？\n5. 同一个进程内的多个线程共享哪些资源？哪些是线程私有的？",
+    "category": "操作系统",
+    "subcategory": "进程线程",
+    "difficulty": "easy",
+    "type": "concept",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan",
+      "huawei",
+      "xiaomi",
+      "baidu"
+    ],
+    "tags": [
+      "进程",
+      "线程",
+      "必考"
+    ],
+    "answer_hint": "进程是资源分配基本单位，线程是CPU调度基本单位。进程有独立地址空间，线程共享进程地址空间。进程切换开销大、隔离性好；线程切换开销小、通信方便但要同步。CPU密集用多进程（避免GIL/充分利用多核），IO密集用多线程。线程私有：栈、寄存器、程序计数器、线程局部存储；共享：代码段、数据段、堆、文件描述符、信号处理。",
+    "source": "字节跳动/腾讯后端面试真题 · 《小林coding系统拆解》",
+    "target_roles": [
+      "后端开发",
+      "C++开发",
+      "基础设施",
+      "嵌入式"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "os-002",
+    "title": "进程间通信(IPC)的方式有哪些？分别适用于什么场景？",
+    "description": "请详细回答以下问题：\n1. Linux下进程间通信有哪些方式？请逐一列举。\n2. 每种IPC方式的原理、特点和适用场景是什么？\n3. 管道(pipe)和命名管道(FIFO)的区别是什么？\n4. 共享内存为什么是最快的IPC方式？使用共享内存需要注意什么问题？\n5. 消息队列和管道有什么区别？\n6. 信号(signal)和信号量(semaphore)是一回事吗？",
+    "category": "操作系统",
+    "subcategory": "进程通信",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan"
+    ],
+    "tags": [
+      "IPC",
+      "管道",
+      "消息队列",
+      "共享内存",
+      "信号量",
+      "Socket"
+    ],
+    "answer_hint": "管道(pipe)：父子进程，半双工，流式。命名管道(FIFO)：无亲缘关系进程。消息队列：消息格式，内核维护。共享内存：最快，直接映射同一块物理内存，需信号量同步。信号量：同步互斥。Socket：跨网络/跨主机。信号是异步通知机制，信号量是同步计数器，完全不同。",
+    "source": "字节跳动/腾讯后端面试真题 · 《小林coding系统拆解》",
+    "target_roles": [
+      "后端开发",
+      "C++开发",
+      "基础设施",
+      "嵌入式"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "os-003",
+    "title": "死锁的四个必要条件是什么？如何预防和避免死锁？",
+    "description": "请详细回答以下问题：\n1. 什么是物理内存？什么是虚拟内存？\n2. 为什么需要虚拟内存？它解决了什么问题？\n3. 虚拟地址到物理地址的翻译过程是怎样的？（页表、MMU、TLB）\n4. 什么是缺页异常？发生缺页异常时操作系统会做什么？\n5. 页面置换算法有哪些？（FIFO、LRU、Clock、工作集）\n6. 什么是写时复制(COW)？它在哪些场景下被使用？",
+    "category": "操作系统",
+    "subcategory": "内存管理",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "tencent",
+      "bytedance",
+      "alibaba",
+      "meituan"
+    ],
+    "tags": [
+      "虚拟内存",
+      "页表",
+      "地址翻译",
+      "MMU",
+      "TLB",
+      "缺页"
+    ],
+    "answer_hint": "物理内存是实际RAM，虚拟内存是进程看到的抽象地址空间。通过页表+MMU翻译。作用：①进程隔离②允许使用超过物理内存的空间（页面置换）③简化内存管理④内存保护。缺页异常：访问的页不在物理内存，OS从磁盘加载页到内存，更新页表，恢复执行。TLB是页表缓存，加速地址翻译。COW：fork时子进程共享父进程页，标记只读，写入时才复制。",
+    "source": "字节跳动/腾讯后端面试真题 · 《小林coding系统拆解》",
+    "target_roles": [
+      "后端开发",
+      "C++开发",
+      "基础设施",
+      "嵌入式"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "os-004",
+    "title": "虚拟内存的作用是什么？常见的页面置换算法有哪些？",
+    "description": "请详细回答以下问题：\n1. select、poll、epoll分别是什么？它们的工作原理是怎样的？\n2. select有哪些限制？（文件描述符数量、拷贝开销、线性遍历）\n3. poll相比select做了哪些改进？\n4. epoll为什么比select和poll快？（红黑树、回调机制、就绪链表、mmap）\n5. epoll的水平触发(LT)和边缘触发(ET)有什么区别？分别适用于什么场景？\n6. 为什么ET模式必须使用非阻塞IO？\n7. epoll的使用流程是怎样的？（epoll_create、epoll_ctl、epoll_wait）",
+    "category": "操作系统",
+    "subcategory": "IO多路复用",
+    "difficulty": "hard",
+    "type": "concept",
+    "companies": [
+      "tencent",
+      "bytedance",
+      "meituan",
+      "xiaomi"
+    ],
+    "tags": [
+      "IO多路复用",
+      "epoll",
+      "LT/ET",
+      "红黑树",
+      "回调",
+      "Reactor"
+    ],
+    "answer_hint": "select：FD_SETSIZE限制(1024)，每次调用都要拷贝fd集合并线性遍历。poll：无数量限制(链表)，但仍线性遍历。epoll：①内核维护红黑树存fd，无需每次拷贝②事件驱动，fd就绪时通过回调加入就绪链表③epoll_wait只返回就绪fd，O(就绪数)。LT水平触发(只要有数据就通知) vs ET边缘触发(只在状态变化时通知，需非阻塞+循环读)。ET必须非阻塞：因为ET只通知一次，若阻塞读会导致线程挂起无法处理其他fd。",
+    "source": "字节跳动/腾讯后端面试真题 · 《小林coding系统拆解》",
+    "target_roles": [
+      "后端开发",
+      "C++开发",
+      "基础设施",
+      "嵌入式"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "os-005",
+    "title": "什么是零拷贝？mmap和sendfile分别如何实现？",
+    "description": "请详细回答以下问题：\n1. 什么是死锁？请举一个死锁的例子。\n2. 产生死锁的四个必要条件是什么？请逐一解释。\n3. 如何预防死锁？（破坏四个必要条件的具体方法）\n4. 如何避免死锁？（银行家算法的原理）\n5. 如何检测和解除死锁？\n6. 实际开发中你遇到过死锁吗？是怎么排查和解决的？\n7. 什么是活锁？什么是饥饿？它们和死锁有什么区别？",
+    "category": "操作系统",
+    "subcategory": "死锁",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan",
+      "jd",
+      "netease"
+    ],
+    "tags": [
+      "死锁",
+      "银行家算法",
+      "资源分配图",
+      "活锁",
+      "饥饿"
+    ],
+    "answer_hint": "死锁：多个进程互相等待对方释放资源。四个必要条件：①互斥②请求并保持③不可剥夺④循环等待。预防：破坏任一条件（如按序申请资源破坏循环等待、一次性申请破坏请求保持）。银行家算法：安全状态检查，分配资源前判断是否存在安全序列。解除：剥夺资源、终止进程。活锁：进程在运行但无法推进（不断重试）；饥饿：某进程长期得不到资源。",
+    "source": "字节跳动/腾讯后端面试真题 · 《小林coding系统拆解》",
+    "target_roles": [
+      "后端开发",
+      "C++开发",
+      "基础设施",
+      "嵌入式"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "os-006",
+    "title": "select、poll、epoll有什么区别？水平触发和边缘触发有什么不同？",
+    "description": "请详细回答以下问题：\n1. 什么是内存对齐？为什么需要内存对齐？\n2. CPU访问未对齐内存会发生什么？\n3. 结构体的内存对齐规则是怎样的？请举例说明。\n4. 什么是结构体的整体对齐？\n5. 如何改变默认对齐模数？（#pragma pack、__attribute__((aligned))）\n6. 网络传输中为什么要注意内存对齐？\n7. 请计算以下结构体的大小：struct S { char a; int b; short c; double d; };",
+    "category": "操作系统",
+    "subcategory": "内存管理",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "tencent",
+      "meituan",
+      "bytedance"
+    ],
+    "tags": [
+      "内存对齐",
+      "结构体",
+      "pragma pack",
+      "CPU访问",
+      "offsetof"
+    ],
+    "answer_hint": "内存对齐：数据存放在地址为其大小整数倍的位置。原因：①CPU按字长访问，未对齐需多次访问+拼接②部分硬件不支持未对齐访问。结构体对齐：成员按自身大小对齐，整体按最大成员对齐。#pragma pack(n)改变对齐模数。示例struct S{char a;int b;short c;double d;}：a偏移0(1字节)+填充3→b偏移4(4字节)→c偏移8(2字节)+填充6→d偏移16(8字节)，总大小24，整体对齐8。",
+    "source": "字节跳动/腾讯后端面试真题 · 《小林coding系统拆解》",
+    "target_roles": [
+      "后端开发",
+      "C++开发",
+      "基础设施",
+      "嵌入式"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "os-007",
+    "title": "同步IO和异步IO、阻塞和非阻塞IO的区别是什么？",
+    "description": "请详细回答以下问题：\n1. fork()系统调用的作用是什么？它的返回值有什么特点？\n2. 传统的fork()会做什么？有什么性能问题？\n3. 什么是写时复制(Copy-On-Write)？它是如何优化fork()的？\n4. fork()之后，父子进程的地址空间是怎样的关系？\n5. 当子进程或父进程尝试写入共享页时，会发生什么？\n6. fork()之后通常会调用exec()，COW在这种场景下有什么优势？\n7. 什么是vfork()？它和fork()有什么区别？现在还推荐使用吗？",
+    "category": "操作系统",
+    "subcategory": "进程",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "tencent",
+      "bytedance"
+    ],
+    "tags": [
+      "fork",
+      "写时复制",
+      "COW",
+      "进程创建",
+      "exec",
+      "vfork"
+    ],
+    "answer_hint": "fork()创建子进程，子进程复制父进程的页表但标记为只读，父子共享物理页。当任一方尝试写入时，触发缺页异常，内核才复制该页给写入方。这样避免了fork后立即exec的不必要拷贝。fork返回值：父进程返回子PID，子进程返回0，失败返回-1。vfork()：子进程共享父进程地址空间（不复制页表），子进程先运行，调用exec或exit后父进程才运行，现在不推荐，因为容易出问题且COW已经很高效。",
+    "source": "字节跳动/腾讯后端面试真题 · 《小林coding系统拆解》",
+    "target_roles": [
+      "后端开发",
+      "C++开发",
+      "基础设施",
+      "嵌入式"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "os-008",
+    "title": "什么是写时复制(COW)？fork()如何利用写时复制？",
+    "description": "请详细回答以下问题：\n1. 线上服务CPU占用率突然升高，你会如何排查？请给出完整的排查步骤。\n2. 如何定位是哪个进程CPU占用高？\n3. 如何定位进程中哪个线程CPU占用高？\n4. 如何定位线程中哪个函数/代码行消耗CPU最多？\n5. Java应用和C++应用的排查工具有什么不同？\n6. 常见的CPU占用高的原因有哪些？（死循环、频繁GC、锁竞争、大量计算、正则回溯等）\n7. 什么是火焰图？如何生成和解读火焰图？\n8. 如果CPU占用高但业务量没增加，可能是什么原因？",
+    "category": "操作系统",
+    "subcategory": "性能调优",
+    "difficulty": "hard",
+    "type": "concept",
+    "companies": [
+      "tencent",
+      "bytedance",
+      "alibaba"
+    ],
+    "tags": [
+      "性能排查",
+      "top",
+      "perf",
+      "火焰图",
+      "gdb",
+      "jstack",
+      "GC"
+    ],
+    "answer_hint": "①top/htop定位高CPU进程②top -H -p PID定位高CPU线程③printf '%x' TID转十六进制④jstack PID | grep nid=0x(Java) 或 perf record -g -p PID + perf report（C++）⑤生成火焰图分析热点函数。Java工具：jstack、jmap、jstat、Arthas；C++工具：perf、gdb、valgrind、火焰图(FlameGraph)。常见原因：死循环、频繁GC、锁竞争(自旋)、大量计算、正则灾难性回溯、忙等。火焰图：y轴是调用栈深度，x轴是采样占比，平顶函数是热点。",
+    "source": "字节跳动/腾讯后端面试真题 · 《小林coding系统拆解》",
+    "target_roles": [
+      "后端开发",
+      "C++开发",
+      "基础设施",
+      "嵌入式"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "os-009",
+    "title": "什么是内存对齐？为什么需要内存对齐？结构体大小如何计算？",
+    "description": "请详细回答以下问题：\n1. 什么是条件变量(condition variable)？它和互斥锁有什么关系？\n2. 条件变量的标准使用模式是怎样的？（wait、notify_one、notify_all）\n3. 什么是虚假唤醒(spurious wakeup)？它是怎么产生的？\n4. 为什么条件变量的wait必须放在while循环中，而不能用if？\n5. 条件变量的wait函数内部做了什么？（解锁→挂起→被唤醒→重新加锁）\n6. notify_one和notify_all有什么区别？分别适用于什么场景？\n7. 什么是条件变量的惊群效应？如何避免？",
+    "category": "操作系统",
+    "subcategory": "线程同步",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "tencent",
+      "bytedance"
+    ],
+    "tags": [
+      "条件变量",
+      "虚假唤醒",
+      "mutex",
+      "while循环",
+      "notify",
+      "惊群"
+    ],
+    "answer_hint": "虚假唤醒：线程被唤醒但条件实际不满足。原因：①多线程同时被notify_all②信号③操作系统实现。用while而非if：被唤醒后重新检查条件，若不满足继续wait。if只检查一次，虚假唤醒后会错误地继续执行。标准模式：lock→while(条件不满足)wait→处理→unlock。wait内部：原子地解锁mutex并挂起，被唤醒后重新加锁。notify_one唤醒一个等待线程，notify_all唤醒所有。惊群：notify_all唤醒所有线程但只有一个能获取资源，其他又睡回去，浪费CPU。用条件变量分队列或notify_one避免。",
+    "source": "字节跳动/腾讯后端面试真题 · 《小林coding系统拆解》",
+    "target_roles": [
+      "后端开发",
+      "C++开发",
+      "基础设施",
+      "嵌入式"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "os-010",
+    "title": "什么是上下文切换？进程切换和线程切换的开销有什么不同？",
+    "description": "请详细回答以下问题：\n1. 一个网络数据包从网卡到达用户进程，经过了哪些环节？请按顺序详细描述。\n2. 硬中断和软中断在网络包处理中分别做什么？\n3. 什么是NAPI？它解决了什么问题？\n4. sk_buff是什么？它在网络协议栈中起什么作用？\n5. 数据包从链路层到网络层到传输层，每层做了什么处理？\n6. 接收方的TCP数据包是如何到达socket接收缓冲区的？\n7. 发送方向：用户调用send/write后，数据是如何到达网卡并发送出去的？\n8. 什么是零拷贝(zero-copy)？在网络传输中如何实现零拷贝？（mmap、sendfile、splice）",
+    "category": "操作系统",
+    "subcategory": "网络协议栈",
+    "difficulty": "hard",
+    "type": "concept",
+    "companies": [
+      "tencent",
+      "bytedance"
+    ],
+    "tags": [
+      "网络协议栈",
+      "NAPI",
+      "软中断",
+      "sk_buff",
+      "零拷贝",
+      "sendfile",
+      "DPDK"
+    ],
+    "answer_hint": "收包：网卡DMA到ring buffer→硬中断→NAPI轮询(软中断)→创建sk_buff→链路层→网络层(IP路由)→传输层(TCP/UDP)→放入socket接收缓冲区→唤醒进程→recv/read拷贝到用户态。发包：write/send拷贝到内核→TCP层封装(序列号、校验和)→IP层(路由、分片)→网卡驱动→ring buffer→DMA发送。零拷贝：减少CPU在用户态和内核态之间的数据拷贝。sendfile：直接从文件描述符到socket描述符，不经过用户态；mmap：文件映射到用户态内存，write时直接从内核缓存发送；DPDK：绕过内核协议栈，用户态直接驱动网卡，极致性能。",
+    "source": "字节跳动/腾讯后端面试真题 · 《小林coding系统拆解》",
+    "target_roles": [
+      "后端开发",
+      "C++开发",
+      "基础设施",
+      "嵌入式"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "net-001",
+    "title": "TCP和UDP的区别是什么？分别适用于什么场景？",
+    "description": "请详细回答以下问题：\n1. TCP和UDP分别是什么？它们的全称和中文译名是什么？\n2. TCP和UDP的核心区别是什么？（连接、可靠性、有序性、流量控制、拥塞控制、传输方式、头部大小、速度）\n3. TCP的头部有哪些字段？UDP的头部有哪些字段？\n4. UDP既然不可靠，为什么还要使用它？它的应用场景有哪些？\n5. TCP的应用场景有哪些？\n6. 为什么DNS使用UDP而不是TCP？（提示：DNS也支持TCP，什么场景下用TCP？）\n7. QUIC协议是基于UDP的，它是如何在UDP之上实现可靠性的？",
+    "category": "计算机网络",
+    "subcategory": "传输层",
+    "difficulty": "easy",
+    "type": "concept",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan",
+      "huawei",
+      "xiaomi",
+      "baidu"
+    ],
+    "tags": [
+      "TCP",
+      "UDP",
+      "必考",
+      "传输层",
+      "QUIC"
+    ],
+    "answer_hint": "TCP：面向连接、可靠、有序、流量控制、拥塞控制、字节流、头部20-60字节。UDP：无连接、不可靠、无序、无流量/拥塞控制、数据报、头部8字节。UDP场景：DNS查询、视频/直播/语音通话(实时性>可靠性)、游戏(低延迟)、广播/多播、QUIC。TCP场景：HTTP/HTTPS、FTP、SMTP、SSH等需要可靠传输的应用。DNS默认UDP因为查询小、开销低，响应超过512字节或区域传输时用TCP。QUIC在UDP之上实现了可靠传输(序列号、ACK、重传)、拥塞控制、流量控制、加密(TLS 1.3)、多路复用，解决了TCP队头阻塞。",
+    "source": "腾讯/字节跳动后端面试真题 · 《图解HTTP》",
+    "target_roles": [
+      "后端开发",
+      "全栈",
+      "测试开发",
+      "网络工程师"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "net-002",
+    "title": "TCP为什么是三次握手而不是两次？TIME_WAIT状态的作用是什么？",
+    "description": "请详细回答以下问题：\n1. 请画出TCP三次握手的完整过程，包括每个报文的标志位(SYN/ACK)、序列号、确认号。\n2. 为什么TCP建立连接需要三次握手，而不是两次或四次？\n3. 什么是半连接队列(syn queue)和全连接队列(accept queue)？\n4. SYN泛洪攻击是什么？如何防御？（syncookies）\n5. 请画出TCP四次挥手的完整过程。\n6. 为什么TCP断开连接需要四次挥手，而不是三次？\n7. 什么是TIME_WAIT状态？为什么需要TIME_WAIT？为什么是2MSL？\n8. TIME_WAIT过多有什么危害？如何优化？（net.ipv4.tcp_tw_reuse、tcp_timestamps、调整端口范围）\n9. 什么是CLOSE_WAIT状态？大量CLOSE_WAIT通常是什么原因？",
+    "category": "计算机网络",
+    "subcategory": "TCP连接管理",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan",
+      "huawei",
+      "baidu"
+    ],
+    "tags": [
+      "三次握手",
+      "四次挥手",
+      "TCP状态机",
+      "TIME_WAIT",
+      "CLOSE_WAIT",
+      "SYN泛洪",
+      "必考"
+    ],
+    "answer_hint": "三次握手：客户端SYN(seq=x)→服务端SYN+ACK(seq=y, ack=x+1)→客户端ACK(seq=x+1, ack=y+1)。为什么三次：两次不够，无法确认客户端的接收能力；防止已失效的连接请求到达服务端造成资源浪费。四次挥手：客户端FIN→服务端ACK→服务端FIN→客户端ACK。为什么四次：服务端收到FIN后可能还有数据要发，不能立即FIN，所以ACK和FIN分开发送。TIME_WAIT：客户端最后ACK后等2MSL，①确保服务端收到ACK(若服务端没收到会重发FIN，客户端需重发ACK)②防止旧连接数据包干扰新连接。2MSL：一个报文最大生存时间MSL，一来一回2MSL。CLOSE_WAIT：服务端收到FIN后返回ACK，但应用层没调用close，导致连接停在CLOSE_WAIT，通常是应用层bug(没关连接)。",
+    "source": "腾讯/字节跳动后端面试真题 · 《图解HTTP》",
+    "target_roles": [
+      "后端开发",
+      "全栈",
+      "测试开发",
+      "网络工程师"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "net-003",
+    "title": "TCP如何保证可靠性传输？序列号、确认应答、超时重传、滑动窗口如何工作？",
+    "description": "请详细回答以下问题：\n1. TCP是如何保证可靠性传输的？请列举所有机制并逐一解释。\n2. 什么是序列号和确认号？它们是如何工作的？\n3. TCP的重传机制有哪些？（超时重传RTO、快速重传）\n4. 什么是滑动窗口？它是如何提高传输效率的？\n5. 什么是流量控制？接收方如何通过滑动窗口告知发送方自己的接收能力？\n6. 什么是拥塞控制？它和流量控制有什么区别？\n7. 拥塞控制的四个阶段是什么？（慢启动、拥塞避免、快重传、快恢复）\n8. 慢启动的阈值ssthresh是如何变化的？cwnd在什么情况下指数增长，什么情况下线性增长？\n9. 发送窗口的大小由什么决定？（min(接收窗口rwnd, 拥塞窗口cwnd)）",
+    "category": "计算机网络",
+    "subcategory": "TCP可靠性",
+    "difficulty": "hard",
+    "type": "concept",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan"
+    ],
+    "tags": [
+      "TCP可靠性",
+      "重传",
+      "滑动窗口",
+      "流量控制",
+      "拥塞控制",
+      "慢启动",
+      "快恢复"
+    ],
+    "answer_hint": "可靠性机制：①校验和②序列号+确认应答(ACK)③超时重传(RTO，超时时间动态计算)④快速重传(收到3个重复ACK立即重传，不等超时)⑤滑动窗口(连续发送提高效率)⑥流量控制(接收方通告窗口rwnd，发送方不超过它)⑦拥塞控制。拥塞控制：慢启动(cwnd从1指数增长到ssthresh)→拥塞避免(线性增长，每RTT加1)→超时重传(ssthresh=cwnd/2, cwnd=1重新慢启动)→快重传+快恢复(收到3个重复ACK，ssthresh=cwnd/2, cwnd=ssthresh不降到1)。发送窗口=min(rwnd, cwnd)。",
+    "source": "腾讯/字节跳动后端面试真题 · 《图解HTTP》",
+    "target_roles": [
+      "后端开发",
+      "全栈",
+      "测试开发",
+      "网络工程师"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "net-004",
+    "title": "HTTP和HTTPS有什么区别？HTTPS的加密过程是怎样的？",
+    "description": "请详细回答以下问题：\n1. HTTP和HTTPS的区别是什么？（端口、安全性、加密、性能、证书）\n2. HTTPS的加密过程是怎样的？（非对称加密交换密钥 + 对称加密传输数据）\n3. 为什么HTTPS不全程使用非对称加密？\n4. 什么是数字证书？它包含哪些内容？如何验证证书的有效性？\n5. 什么是CA？证书链是怎样的？\n6. HTTPS的握手过程是怎样的？（TLS 1.2完整握手 vs TLS 1.3）\n7. 什么是中间人攻击？HTTPS如何防止中间人攻击？\n8. HTTP/1.1、HTTP/2、HTTP/3的主要区别是什么？\n9. HTTPS的性能开销体现在哪里？如何优化？（会话恢复、OCSP stapling、TLS 1.3、硬件加速）",
+    "category": "计算机网络",
+    "subcategory": "应用层",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan",
+      "huawei"
+    ],
+    "tags": [
+      "HTTP",
+      "HTTPS",
+      "TLS/SSL",
+      "对称加密",
+      "非对称加密",
+      "证书",
+      "CA",
+      "HTTP/2",
+      "HTTP/3"
+    ],
+    "answer_hint": "HTTP明文传输端口80；HTTPS加密传输端口443。HTTPS=TLS/SSL+HTTP。加密过程：非对称加密用于握手阶段交换密钥(客户端生成预主密钥，用服务端公钥加密发送)，对称加密用于数据传输阶段(双方用预主密钥派生会话密钥，AES等)。不全程非对称：非对称加密慢、有长度限制。数字证书：CA签发，包含公钥、域名、有效期、CA签名等，客户端验证证书链和域名。TLS 1.2握手：ClientHello→ServerHello+证书+ServerHelloDone→ClientKeyExchange+ChangeCipherSpec+Finished→ChangeCipherSpec+Finished，2-RTT。TLS 1.3：1-RTT甚至0-RTT，删除了RSA、DH等不安全算法，密钥交换只用ECDHE。中间人攻击：攻击者冒充服务端和客户端，HTTPS通过证书验证防止(攻击者没有合法证书)。",
+    "source": "腾讯/字节跳动后端面试真题 · 《图解HTTP》",
+    "target_roles": [
+      "后端开发",
+      "全栈",
+      "测试开发",
+      "网络工程师"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "net-005",
+    "title": "GET和POST的区别是什么？从语义、幂等性、参数位置等角度说明",
+    "description": "请详细回答以下问题：\n1. HTTP方法中GET和POST的区别是什么？请从语义、参数位置、长度限制、缓存、安全性、幂等性等角度说明。\n2. GET请求的参数只能放在URL中吗？GET请求可以有body吗？\n3. POST请求的参数可以放在URL中吗？\n4. 什么是幂等性？GET和POST哪个是幂等的？\n5. HTTP协议规范中对GET和POST的语义是怎么定义的？（RFC 7231）\n6. 为什么说GET和POST本质上没有区别，都是TCP连接？\n7. 什么情况下应该用GET？什么情况下应该用POST？\n8. PUT和POST有什么区别？DELETE和GET的幂等性？",
+    "category": "计算机网络",
+    "subcategory": "HTTP",
+    "difficulty": "easy",
+    "type": "concept",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan"
+    ],
+    "tags": [
+      "HTTP方法",
+      "GET",
+      "POST",
+      "幂等性",
+      "RESTful"
+    ],
+    "answer_hint": "①语义：GET幂等只读(获取资源)，POST提交数据可能修改服务器状态(创建资源)②参数位置：GET在URL(query string)，POST在body③长度限制：GET受URL长度限制(浏览器/服务器，通常2KB-8KB)，POST无限制④缓存：GET可被缓存，POST默认不缓存⑤书签/历史：GET可收藏，POST不行⑥安全性：都不绝对安全，HTTPS下都加密，GET参数在URL可能被日志记录。本质区别：语义和幂等性。GET可以有body但规范不推荐，很多服务器/客户端不处理GET body。POST参数也可放URL。幂等：多次执行结果相同。GET/PUT/DELETE幂等，POST不幂等。RESTful：GET查、POST增、PUT改(全量)、PATCH改(部分)、DELETE删。",
+    "source": "腾讯/字节跳动后端面试真题 · 《图解HTTP》",
+    "target_roles": [
+      "后端开发",
+      "全栈",
+      "测试开发",
+      "网络工程师"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "net-006",
+    "title": "HTTP/1.1、HTTP/2、HTTP/3的演进过程是怎样的？各自解决了什么问题？",
+    "description": "请详细回答以下问题：\n1. HTTP/1.0和HTTP/1.1的主要区别是什么？（持久连接、管道化、Host头、范围请求、缓存控制）\n2. HTTP/1.1有什么问题？（队头阻塞、文本传输开销大、请求优先级无法控制）\n3. HTTP/2的核心特性有哪些？（二进制分帧、多路复用、头部压缩HPACK、服务器推送、流量控制）\n4. HTTP/2的多路复用是如何解决队头阻塞的？它还有队头阻塞问题吗？（TCP层队头阻塞）\n5. 什么是HPACK头部压缩？它是如何工作的？（静态表、动态表、霍夫曼编码）\n6. HTTP/3为什么基于UDP？QUIC协议解决了什么问题？\n7. QUIC的核心特性有哪些？（0-RTT握手、连接迁移、无队头阻塞、内置加密、多路复用）\n8. 什么是连接迁移？它是如何实现的？（连接ID而非四元组标识连接）\n9. 各版本HTTP的性能对比？",
+    "category": "计算机网络",
+    "subcategory": "HTTP版本",
+    "difficulty": "hard",
+    "type": "concept",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba"
+    ],
+    "tags": [
+      "HTTP/2",
+      "HTTP/3",
+      "多路复用",
+      "头部压缩",
+      "HPACK",
+      "QUIC",
+      "队头阻塞",
+      "连接迁移"
+    ],
+    "answer_hint": "HTTP/1.1：持久连接(keep-alive)但队头阻塞(一个请求阻塞后续同连接请求)、文本传输、管道化(有问题基本不用)。HTTP/2：二进制分帧、多路复用(同一连接并发多个请求流，流独立不阻塞)、头部压缩(HPACK：静态表预定义61个常见头，动态表维护连接内出现的头，霍夫曼编码压缩字符串)、服务器推送、流量控制。仍有TCP层队头阻塞(一个TCP包丢失，所有流都等重传)。HTTP/3：基于QUIC(UDP)，解决TCP队头阻塞(每个流独立，一个流丢包不影响其他流)。QUIC特性：0-RTT握手(复用之前连接参数，第一个包就带数据)、连接迁移(用连接ID标识连接而非IP+端口四元组，网络切换不断连)、内置TLS 1.3加密、多路复用无队头阻塞、用户态实现(快速迭代)。",
+    "source": "腾讯/字节跳动后端面试真题 · 《图解HTTP》",
+    "target_roles": [
+      "后端开发",
+      "全栈",
+      "测试开发",
+      "网络工程师"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "net-007",
+    "title": "TCP长连接和短连接的区别是什么？HTTP keep-alive如何工作？",
+    "description": "请详细回答以下问题：\n1. 什么是TCP长连接？什么是TCP短连接？\n2. 长连接和短连接的区别是什么？（建立/关闭次数、资源占用、延迟、适用场景）\n3. HTTP的长连接是如何实现的？（Connection: keep-alive）\n4. 什么是心跳机制？为什么长连接需要心跳？\n5. TCP的SO_KEEPALIVE选项是做什么的？它和应用层心跳有什么区别？\n6. 长连接中如何检测连接是否已经断开？（心跳超时、读写错误）\n7. 什么是连接池？它和长连接是什么关系？\n8. 数据库连接池的工作原理是怎样的？\n9. 什么场景下用长连接？什么场景下用短连接？",
+    "category": "计算机网络",
+    "subcategory": "TCP连接",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "bytedance",
+      "tencent"
+    ],
+    "tags": [
+      "长连接",
+      "短连接",
+      "keep-alive",
+      "心跳",
+      "连接池",
+      "SO_KEEPALIVE"
+    ],
+    "answer_hint": "长连接：建立连接后保持，多次请求复用同一连接。短连接：每次请求建立连接，结束后关闭。长连接省握手开销、延迟低，但占用连接资源、需要心跳保活。短连接简单、不占资源，但每次握手开销大。HTTP长连接：Connection: keep-alive，HTTP/1.1默认开启。心跳：定期发送小数据包检测连接是否存活，超时未收到响应则认为连接断开。SO_KEEPALIVE：TCP层心跳，默认2小时发一次，太不灵敏，生产环境用应用层心跳(几十秒)。连接池：预先建立一批长连接，复用连接，避免频繁创建销毁。数据库连接池：维护一定数量的数据库连接，应用从池取连接用完归还，常见实现HikariCP、Druid。场景：频繁交互用长连接(IM、游戏、RPC、数据库)，偶尔请求用短连接(网页浏览)。",
+    "source": "腾讯/字节跳动后端面试真题 · 《图解HTTP》",
+    "target_roles": [
+      "后端开发",
+      "全栈",
+      "测试开发",
+      "网络工程师"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "net-008",
+    "title": "Cookie和Session的区别是什么？分布式场景下Session如何共享？",
+    "description": "请详细回答以下问题：\n1. 什么是Cookie？什么是Session？它们分别存储在哪里？\n2. Cookie和Session的区别是什么？（存储位置、大小限制、安全性、生命周期、跨域）\n3. Cookie有哪些属性？（domain、path、expires/max-age、HttpOnly、Secure、SameSite）\n4. 什么是HttpOnly？设置了HttpOnly的Cookie有什么特点？\n5. 什么是SameSite？它的三个值(Lax/Strict/None)分别是什么意思？\n6. Session的工作原理是怎样的？（SessionID如何传递）\n7. 如果用户禁用了Cookie，Session还能用吗？如何实现？（URL重写、表单隐藏域、Token）\n8. 什么是JWT？它和Session有什么区别？（无状态vs有状态、跨域、服务端存储）\n9. 分布式系统中Session如何共享？（Session复制、Session粘性、Session集中存储Redis）\n10. 什么是CSRF攻击？如何防御？（Token验证、SameSite Cookie、Referer检查）",
+    "category": "计算机网络",
+    "subcategory": "HTTP",
+    "difficulty": "easy",
+    "type": "concept",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba"
+    ],
+    "tags": [
+      "Cookie",
+      "Session",
+      "会话管理",
+      "JWT",
+      "Token",
+      "CSRF",
+      "HttpOnly",
+      "SameSite"
+    ],
+    "answer_hint": "Cookie存客户端(浏览器)，4KB限制，可设置过期时间、域、路径、HttpOnly、Secure、SameSite。Session存服务端，通过SessionID关联，安全性更高，占用服务端内存。Cookie禁用：URL重写(SessionID拼URL)、表单隐藏域、用Token(JWT)存localStorage。JWT：Header.Payload.Signature，无状态，服务端不需存Session，但无法主动失效(除非黑名单)。分布式Session：①Session复制(多机同步，开销大)②粘性Session(同一用户路由到同一机器，负载不均)③集中存储(Redis，最常用)。CSRF：攻击者诱导用户在已登录网站发起恶意请求，防御：Token验证(请求头带token)、SameSite=Strict/Lax、Referer/Origin检查。",
+    "source": "腾讯/字节跳动后端面试真题 · 《图解HTTP》",
+    "target_roles": [
+      "后端开发",
+      "全栈",
+      "测试开发",
+      "网络工程师"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "net-009",
+    "title": "什么是TCP粘包？如何解决？UDP为什么没有粘包？",
+    "description": "请详细回答以下问题：\n1. 什么是TCP粘包？什么是TCP拆包？\n2. 为什么TCP会出现粘包？（Nagle算法、TCP是字节流无消息边界、MSS、接收方缓冲区）\n3. 客户端通过TCP发送三个包，服务端会收到几个包？为什么？\n4. 如何解决TCP粘包问题？（固定长度、分隔符、长度前缀+消息体）\n5. UDP会粘包吗？为什么？\n6. 客户端通过UDP发送三个包，服务端会收到几个包？\n7. 什么是Nagle算法？它的作用是什么？如何关闭？（TCP_NODELAY）\n8. 什么是延迟ACK？它和Nagle算法一起使用会导致什么问题？（40ms延迟）\n9. 什么是MSS？什么是MTU？它们之间的关系？",
+    "category": "计算机网络",
+    "subcategory": "传输层",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "tencent"
+    ],
+    "tags": [
+      "TCP粘包",
+      "UDP数据报",
+      "字节流",
+      "Nagle算法",
+      "MSS",
+      "MTU",
+      "TCP_NODELAY"
+    ],
+    "answer_hint": "TCP是字节流，没有消息边界。三次send可能被合并成一个TCP段(粘包)，也可能被拆分(拆包)，服务端recv次数不确定。解决：①固定长度②分隔符(如\\n，需处理转义)③长度前缀+消息体(最常用，前4字节存长度)。UDP是数据报，每个send对应一个UDP数据报，服务端recvfrom每次收到一个完整包，三个send对应三个包(不考虑丢包)，不会粘包。Nagle算法：攒小包一起发，减少网络小包数量，延迟ACK(收到数据后等40ms看有没有数据一起ACK)一起使用会导致写-写-读场景延迟40ms。关闭Nagle：setsockopt(TCP_NODELAY)。MSS(最大报文段长度)=MTU(最大传输单元，以太网1500)-IP头(20)-TCP头(20)=1460。",
+    "source": "腾讯/字节跳动后端面试真题 · 《图解HTTP》",
+    "target_roles": [
+      "后端开发",
+      "全栈",
+      "测试开发",
+      "网络工程师"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "net-010",
+    "title": "TCP拥塞控制的四个阶段是什么？慢启动、拥塞避免、快重传、快恢复如何工作？",
+    "description": "请详细回答以下问题：\n1. 什么是拥塞窗口(cwnd)？什么是接收窗口(rwnd)？它们的区别是什么？\n2. 发送窗口的大小由什么决定？\n3. 慢启动(slow start)的工作原理？cwnd是如何增长的？\n4. 什么是ssthresh？它的作用是什么？\n5. 拥塞避免(congestion avoidance)阶段cwnd如何增长？\n6. 发生超时重传时，cwnd和ssthresh如何变化？\n7. 发生快重传(3个重复ACK)时，cwnd和ssthresh如何变化？\n8. 什么是快恢复(fast recovery)？它和慢启动有什么区别？\n9. 拥塞控制的新算法有哪些？（Reno、NewReno、CUBIC、BBR）\n10. BBR和传统的基于丢包的拥塞控制有什么不同？（基于带宽和延迟估计）",
+    "category": "计算机网络",
+    "subcategory": "TCP拥塞控制",
+    "difficulty": "hard",
+    "type": "concept",
+    "companies": [
+      "tencent",
+      "bytedance"
+    ],
+    "tags": [
+      "拥塞窗口",
+      "接收窗口",
+      "慢启动",
+      "拥塞避免",
+      "快重传",
+      "快恢复",
+      "CUBIC",
+      "BBR"
+    ],
+    "answer_hint": "接收窗口rwnd：接收方根据自身缓冲区通告的流量控制窗口。拥塞窗口cwnd：发送方根据网络拥塞程度维护的拥塞控制窗口。发送窗口=min(cwnd, rwnd)。慢启动：cwnd从1(或10)开始，每收到一个ACK加1，指数增长(每RTT翻倍)，直到达到ssthresh。拥塞避免：cwnd>=ssthresh后，每RTT加1，线性增长。超时重传：ssthresh=cwnd/2，cwnd=1(重新慢启动)。快重传(3个重复ACK)：ssthresh=cwnd/2，cwnd=ssthresh(快恢复，不降到1)，进入拥塞避免。快恢复：收到3个重复ACK后，不降到1，而是设为ssthresh，避免网络空闲。Reno：超时→1，3重复ACK→ssthresh；NewReno：改进部分ACK场景；CUBIC：Linux默认，三次函数增长，更公平；BBR：Google提出，基于带宽(B)和延迟(RTT)估计，不依赖丢包判断拥塞，在大带宽长延迟链路性能更好。",
+    "source": "腾讯/字节跳动后端面试真题 · 《图解HTTP》",
+    "target_roles": [
+      "后端开发",
+      "全栈",
+      "测试开发",
+      "网络工程师"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "db-001",
+    "title": "MySQL索引为什么用B+树而不是B树或红黑树？聚簇索引和非聚簇索引的区别？",
+    "description": "请详细回答以下问题：\n1. MySQL为什么使用B+树作为索引结构？为什么不用B树、红黑树、哈希表？\n2. B树和B+树的区别是什么？（节点存储、叶子节点链表、查询稳定性、范围查询）\n3. 为什么B+树更适合范围查询？\n4. 什么是聚簇索引？什么是非聚簇索引(二级索引)？它们的区别是什么？\n5. InnoDB的聚簇索引是如何组织数据的？（主键索引即数据）\n6. 什么是回表？什么是覆盖索引？\n7. 什么是最左前缀匹配原则？联合索引的匹配规则是怎样的？\n8. 什么情况下索引会失效？\n9. 如何查看SQL是否走了索引？（EXPLAIN）\n10. 什么是索引下推(ICP)？它是如何优化查询的？",
+    "category": "数据库",
+    "subcategory": "索引",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan",
+      "huawei",
+      "xiaomi",
+      "baidu",
+      "jd"
+    ],
+    "tags": [
+      "B+树",
+      "索引",
+      "聚簇索引",
+      "覆盖索引",
+      "最左前缀",
+      "索引失效",
+      "回表",
+      "ICP",
+      "必考"
+    ],
+    "answer_hint": "B+树vs B树：①B+树非叶子节点只存key不存data，更矮(扇出更大，IO更少)②B+树叶子节点用双向链表连接，范围查询只需遍历链表③B+树查询稳定(都到叶子节点)，B树可能在非叶子命中。不用红黑树：二叉，高度高，磁盘IO多。聚簇索引：叶子节点存整行数据(InnoDB主键索引就是聚簇索引)；非聚簇索引(二级索引)：叶子节点存主键值，需回表查询整行。覆盖索引：查询的列都在索引中，无需回表。最左前缀：联合索引(a,b,c)，查询条件从最左列开始匹配，跳过列则后续索引失效。索引下推(ICP)：在存储引擎层利用索引过滤数据，减少回表次数。",
+    "source": "阿里/美团后端面试真题 · 《MySQL实战45讲》",
+    "target_roles": [
+      "后端开发",
+      "全栈",
+      "DBA",
+      "数据开发"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "db-002",
+    "title": "MySQL事务的ACID特性是什么？四种隔离级别分别解决了什么问题？",
+    "description": "请详细回答以下问题：\n1. 事务的ACID特性是什么？请逐一解释。\n2. ACID分别是如何实现的？（undo log、redo log、锁+MVCC、一致性约束）\n3. 数据库的四种事务隔离级别是什么？\n4. 每种隔离级别分别解决了什么问题？可能出现什么问题？（脏读、不可重复读、幻读）\n5. 什么是脏读？什么是不可重复读？什么是幻读？请举例说明。\n6. MySQL InnoDB的默认隔离级别是什么？它是如何解决幻读的？（MVCC+间隙锁）\n7. 什么是MVCC？它的实现原理是什么？（隐藏字段、undo log、ReadView）\n8. ReadView是如何判断数据可见性的？（m_ids、min_trx_id、max_trx_id、creator_trx_id）\n9. RC和RR级别下ReadView的生成时机有什么不同？\n10. 什么是当前读和快照读？（SELECT是快照读，SELECT...FOR UPDATE/UPDATE/DELETE是当前读）",
+    "category": "数据库",
+    "subcategory": "事务",
+    "difficulty": "hard",
+    "type": "concept",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan",
+      "jd",
+      "netease"
+    ],
+    "tags": [
+      "ACID",
+      "隔离级别",
+      "脏读",
+      "不可重复读",
+      "幻读",
+      "MVCC",
+      "ReadView",
+      "undo log",
+      "当前读",
+      "快照读"
+    ],
+    "answer_hint": "ACID：原子性(undo log回滚)、一致性(最终目的，由其他三个保证)、隔离性(锁+MVCC)、持久性(redo log)。隔离级别：读未提交(可能脏读)→读已提交RC(解决脏读，可能不可重复读)→可重复读RR(MySQL默认，解决不可重复读，MVCC+间隙锁基本解决幻读)→串行化(解决所有)。脏读：读到未提交数据；不可重复读：同一事务两次读同一行结果不同(被update)；幻读：同一事务两次范围查询行数不同(被insert/delete)。MVCC：每行有trx_id和roll_pointer，ReadView判断可见性。RC每次SELECT生成新ReadView，RR第一次SELECT生成后复用。当前读：加锁读，读取最新版本，需加锁(记录锁+间隙锁)。",
+    "source": "阿里/美团后端面试真题 · 《MySQL实战45讲》",
+    "target_roles": [
+      "后端开发",
+      "全栈",
+      "DBA",
+      "数据开发"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "db-003",
+    "title": "MVCC(多版本并发控制)的实现原理是什么？undo log和Read View的作用？",
+    "description": "请详细回答以下问题：\n1. 什么是MVCC？它解决了什么问题？（读写不阻塞、提高并发）\n2. MVCC是如何实现的？请从隐藏字段、undo log、ReadView三个方面详细说明。\n3. InnoDB行记录的隐藏字段有哪些？（DB_TRX_ID、DB_ROLL_PTR、DB_ROW_ID）\n4. undo log的作用是什么？它是如何形成版本链的？\n5. ReadView包含哪些内容？（m_ids、min_trx_id、max_trx_id、creator_trx_id）\n6. ReadView的可见性判断规则是怎样的？请详细描述判断流程。\n7. RC和RR隔离级别下，ReadView的生成时机有什么不同？这导致了什么区别？\n8. MVCC只能在什么隔离级别下工作？为什么串行化不用MVCC？\n9. MVCC和锁是什么关系？MVCC模式下还需要加锁吗？\n10. 什么是undo log的purge？什么时候会清理undo log？",
+    "category": "数据库",
+    "subcategory": "事务",
+    "difficulty": "hard",
+    "type": "concept",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan"
+    ],
+    "tags": [
+      "MVCC",
+      "undo log",
+      "ReadView",
+      "隐藏字段",
+      "版本链",
+      "purge",
+      "快照读"
+    ],
+    "answer_hint": "MVCC(多版本并发控制)：通过数据多版本实现读写不阻塞。实现：每行有隐藏字段DB_TRX_ID(最后修改事务ID)、DB_ROLL_PTR(指向undo log历史版本)、DB_ROW_ID(隐藏主键)。undo log记录修改前的数据，通过roll_pointer形成版本链。ReadView：事务开始(或第一次SELECT)时生成，m_ids(活跃事务ID列表)、min_trx_id(最小活跃ID)、max_trx_id(下一个要分配的ID)、creator_trx_id(创建者ID)。可见性：trx_id<min_trx_id可见；trx_id>=max_trx_id不可见；在中间看是否在m_ids中(在则不可见，不在则可见)。不可见就沿roll_pointer找历史版本。RC每次SELECT生成新ReadView，RR第一次生成后复用。MVCC适用于RC和RR，串行化直接加锁。MVCC的快照读不加锁，但当前读(UPDATE/DELETE/SELECT FOR UPDATE)仍需加锁。purge：后台线程清理不再需要的undo log版本(没有活跃事务能看到的版本)。",
+    "source": "阿里/美团后端面试真题 · 《MySQL实战45讲》",
+    "target_roles": [
+      "后端开发",
+      "全栈",
+      "DBA",
+      "数据开发"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "db-004",
+    "title": "Redis为什么这么快？基于内存、单线程、IO多路复用如何贡献性能？",
+    "description": "请详细回答以下问题：\n1. Redis为什么这么快？请从多个角度分析。（内存操作、IO多路复用、单线程、高效数据结构、避免锁竞争）\n2. Redis是单线程的吗？它的单线程指的是什么？（命令执行单线程）\n3. Redis 6.0为什么引入多线程？多线程用在什么地方？（网络IO多线程，命令执行仍单线程）\n4. Redis的IO模型是怎样的？（Reactor模式、epoll）\n5. Redis有哪些数据结构？每种数据结构的底层实现是什么？（SDS、链表、字典、跳表、压缩列表、整数数组、quicklist、stream）\n6. 什么是SDS？它和C语言字符串有什么区别？（二进制安全、O(1)获取长度、空间预分配、惰性释放）\n7. Redis的字典是如何实现的？（哈希表、rehash、渐进式rehash）\n8. 什么是渐进式rehash？为什么需要它？\n9. Redis的持久化方式有哪些？（RDB、AOF、混合持久化）\n10. Redis的过期键删除策略是什么？（惰性删除+定期删除）",
+    "category": "数据库",
+    "subcategory": "Redis",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan",
+      "jd"
+    ],
+    "tags": [
+      "Redis",
+      "单线程",
+      "IO多路复用",
+      "SDS",
+      "跳表",
+      "压缩列表",
+      "渐进式rehash",
+      "持久化",
+      "过期删除"
+    ],
+    "answer_hint": "快的原因：①纯内存操作(纳秒级)②IO多路复用(epoll)，单线程处理大量并发连接③高效数据结构(SDS、跳表、压缩列表、整数数组)④单线程避免锁竞争和线程切换开销。单线程指命令执行是单线程(文件事件分派器)，不是整个Redis单线程。Redis 6.0引入多线程IO：网络读写(解析请求、写回响应)用多线程，命令执行仍单线程，解决网络IO瓶颈。SDS：二进制安全(不靠\\0判断结束)、len字段O(1)获取长度、空间预分配(减少扩容次数)、惰性释放(不立即释放空闲空间)。渐进式rehash：字典扩容时不一次性rehash所有键，而是在后续操作中逐步迁移，避免阻塞。持久化：RDB(快照)、AOF(命令日志)、混合持久化(4.0+，AOF重写时前半RDB后半AOF)。过期删除：惰性删除(访问时检查) + 定期删除(每隔一段时间抽样删除)。",
+    "source": "阿里/美团后端面试真题 · 《MySQL实战45讲》",
+    "target_roles": [
+      "后端开发",
+      "全栈",
+      "DBA",
+      "数据开发"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "db-005",
+    "title": "缓存雪崩、缓存穿透、缓存击穿分别是什么？如何解决？",
+    "description": "请详细回答以下问题：\n1. 什么是缓存穿透？它产生的原因是什么？如何解决？（布隆过滤器、缓存空值、参数校验）\n2. 什么是缓存击穿？它和缓存穿透有什么区别？如何解决？（互斥锁、热点key永不过期、逻辑过期）\n3. 什么是缓存雪崩？它产生的原因是什么？如何解决？（过期时间随机化、多级缓存、熔断降级、Redis高可用）\n4. 布隆过滤器的原理是什么？它有什么特点？（空间效率高、有假阳性、无假阴性、不可删除）\n5. 什么是布谷鸟过滤器？它和布隆过滤器有什么区别？（支持删除）\n6. 互斥锁方案如何实现缓存击穿防护？需要注意什么问题？（锁粒度、死锁、锁超时）\n7. 什么是逻辑过期？它是如何实现的？（value中存过期时间，异步更新）\n8. 什么是热点key？如何发现和处理热点key？（本地缓存、key拆分、读写分离）\n9. 缓存和数据库的一致性如何保证？（Cache Aside、延迟双删、binlog订阅、Canal）\n10. 什么是缓存预热？如何做缓存预热？",
+    "category": "数据库",
+    "subcategory": "Redis",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan",
+      "jd",
+      "netease"
+    ],
+    "tags": [
+      "缓存雪崩",
+      "缓存穿透",
+      "缓存击穿",
+      "布隆过滤器",
+      "互斥锁",
+      "热点key",
+      "缓存一致性",
+      "Cache Aside",
+      "延迟双删"
+    ],
+    "answer_hint": "缓存穿透：查询不存在的数据，缓存和DB都没有，每次都打到DB。解决：布隆过滤器(缓存不存在的key)、缓存空值(短过期)、参数校验。缓存击穿：热点key过期瞬间，大量并发请求打到DB。解决：互斥锁(只让一个请求回源，其他等待)、热点key永不过期(逻辑过期)。缓存雪崩：大量key同时过期或Redis宕机，请求全部打到DB。解决：过期时间加随机值、多级缓存、服务熔断降级、Redis高可用(哨兵/集群)。布隆过滤器：位数组+多个哈希函数，添加时将对应位设1，查询时检查所有位，全1则可能存在，有0则一定不存在。有假阳性(误判存在)，无假阴性(不存在则一定不存在)，不可删除。缓存一致性：Cache Aside(读：先缓存后DB回写；写：先更新DB再删缓存)、延迟双删(删缓存→更新DB→延迟再删)、binlog订阅(Canal异步删缓存)。",
+    "source": "阿里/美团后端面试真题 · 《MySQL实战45讲》",
+    "target_roles": [
+      "后端开发",
+      "全栈",
+      "DBA",
+      "数据开发"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "db-006",
+    "title": "Redis的RDB和AOF持久化有什么区别？混合持久化如何工作？",
+    "description": "请详细回答以下问题：\n1. Redis的持久化方式有哪些？请逐一说明原理和优缺点。\n2. RDB持久化的原理是什么？（save/bgsave、fork子进程、COW）\n3. RDB的触发方式有哪些？（手动save/bgsave、配置自动save、shutdown、主从复制）\n4. AOF持久化的原理是什么？（记录每条写命令、appendonly.aof）\n5. AOF的刷盘策略有哪些？（always、everysec、no）它们的区别和适用场景？\n6. 什么是AOF重写？为什么需要AOF重写？（压缩文件、去除冗余命令）\n7. AOF重写的过程是怎样的？（fork子进程、基于当前数据生成最小命令集、bgrewriteaof）\n8. AOF重写期间新的写命令如何处理？（重写缓冲区、合并到新AOF）\n9. 什么是混合持久化？它是如何结合RDB和AOF优点的？（Redis 4.0+）\n10. RDB和AOF如何选择？如果同时开启，Redis启动时用哪个恢复？",
+    "category": "数据库",
+    "subcategory": "Redis",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan",
+      "jd",
+      "netease"
+    ],
+    "tags": [
+      "RDB",
+      "AOF",
+      "持久化",
+      "bgsave",
+      "AOF重写",
+      "混合持久化",
+      "bgrewriteaof",
+      "刷盘策略"
+    ],
+    "answer_hint": "RDB：快照，某时刻数据全量写入dump.rdb。触发：save(阻塞)/bgsave(fork子进程，COW不阻塞)/配置自动(如900秒1次修改)/shutdown。优点：文件小、恢复快；缺点：可能丢数据(两次快照间)、fork开销大。AOF：记录每条写命令，appendonly.aof。刷盘：always(每条刷，最安全最慢)/everysec(每秒刷，默认，最多丢1秒)/no(OS决定)。AOF重写：压缩文件，fork子进程基于当前内存数据生成最小命令集(如100次INCR→1次SET 100)，重写期间新命令存重写缓冲区，最后合并。混合持久化(4.0+)：AOF重写时前半段RDB格式(快速恢复)+后半段AOF命令(数据安全)，兼顾恢复速度和数据安全。同时开启时优先用AOF恢复(数据更完整)。选择：能容忍丢数据用RDB，不能容忍用AOF，生产环境推荐混合持久化。",
+    "source": "阿里/美团后端面试真题 · 《MySQL实战45讲》",
+    "target_roles": [
+      "后端开发",
+      "全栈",
+      "DBA",
+      "数据开发"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "db-007",
+    "title": "Redis和MySQL如何保证数据一致性？延迟双删、Canal订阅binlog如何实现？",
+    "description": "请详细回答以下问题：\n1. 为什么缓存和数据库会出现不一致？（并发读写、延迟、更新顺序）\n2. 什么是Cache Aside模式？它的读和写分别是怎样的流程？\n3. 为什么写操作是删除缓存而不是更新缓存？（并发安全、避免无效写、懒加载）\n4. 什么是延迟双删？它解决了什么问题？为什么需要延迟？\n5. 延迟双删的延迟时间应该设为多少？（大于一次读业务逻辑的时间）\n6. 什么是先更新数据库再删缓存？什么是先删缓存再更新数据库？它们各有什么问题？\n7. 如何通过binlog订阅实现最终一致性？（Canal、监听binlog、异步删缓存）\n8. 什么是强一致性？什么是最终一致性？实际项目中通常用哪种？\n9. 如何保证缓存和数据库的强一致性？（分布式锁、2PC、串行化——性能差）\n10. 什么是缓存更新的Write Through和Write Back模式？",
+    "category": "数据库",
+    "subcategory": "缓存一致性",
+    "difficulty": "hard",
+    "type": "concept",
+    "companies": [
+      "tencent",
+      "bytedance",
+      "alibaba",
+      "meituan",
+      "jd"
+    ],
+    "tags": [
+      "缓存一致性",
+      "Cache Aside",
+      "延迟双删",
+      "binlog",
+      "Canal",
+      "最终一致性",
+      "Write Through",
+      "Write Back",
+      "2PC"
+    ],
+    "answer_hint": "Cache Aside：读→先读缓存，命中返回；未命中→读DB，写入缓存，返回。写→先更新DB，再删除缓存(不是更新缓存)。删而不更：①并发下更新缓存可能导致脏数据(两个写操作顺序问题)②删除更简单(懒加载，下次读才加载)③避免无效写(写多读读场景)。延迟双删：删缓存→更新DB→延迟(大于一次读业务时间)再删缓存，解决读写并发导致的缓存脏数据(线程A读缓存未命中→读DB旧值→线程B更新DB+删缓存→线程A写入旧值到缓存)。binlog订阅：Canal监听MySQL binlog，异步删除/更新缓存，保证最终一致。强一致：分布式锁或2PC，性能差，实际很少用。最终一致：Cache Aside+延迟双删+binlog兜底，生产环境标准方案。Write Through：写缓存同时写DB，同步更新；Write Back：只写缓存，异步批量写DB，性能高但可能丢数据。",
+    "source": "阿里/美团后端面试真题 · 《MySQL实战45讲》",
+    "target_roles": [
+      "后端开发",
+      "全栈",
+      "DBA",
+      "数据开发"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "db-008",
+    "title": "索引失效的场景有哪些？请逐一列举并解释原因",
+    "description": "请详细回答以下问题：\n1. 什么是索引失效？如何判断SQL是否走了索引？（EXPLAIN的type、key、rows字段）\n2. 联合索引的最左前缀匹配原则是怎样的？请举例说明。\n3. 哪些操作会导致索引失效？请逐一列举并解释原因。\n4. 对索引列使用函数（如WHERE YEAR(create_time)=2025）为什么会失效？如何优化？\n5. 对索引列进行运算（如WHERE id+1=10）为什么会失效？\n6. 什么是隐式类型转换？它为什么会导致索引失效？（字符串列用数字查询）\n7. LIKE查询什么情况下会走索引？什么情况下不会？（%在前不走，前缀匹配走）\n8. OR连接的条件在什么情况下会导致索引失效？（OR中有非索引列）\n9. NOT IN、!=、<>一定不走索引吗？（优化器判断，小表可能全表扫描）\n10. 什么情况下优化器会选择全表扫描而不是索引？（区分度低、回表代价大、数据量小）",
+    "category": "数据库",
+    "subcategory": "索引",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "tencent",
+      "alibaba",
+      "bytedance",
+      "meituan",
+      "jd"
+    ],
+    "tags": [
+      "索引失效",
+      "最左前缀",
+      "函数操作",
+      "隐式转换",
+      "LIKE",
+      "OR",
+      "EXPLAIN",
+      "回表代价"
+    ],
+    "answer_hint": "索引失效场景：①违反最左前缀(联合索引(a,b,c)，查询条件跳过a)②对索引列使用函数/运算/表达式(如YEAR(date)=2025、id+1=10)，B+树存的是原始值，函数后的值无法用索引定位③隐式类型转换(字符串列用数字查询，MySQL会对列做转换相当于函数)④LIKE以%开头(无法确定前缀范围)⑤OR连接中有非索引列(需全表扫描找非索引列条件)⑥NOT IN/!=/<>可能失效(优化器判断)⑦数据分布导致优化器认为全表扫描更快(如性别字段区分度低，回表代价比全表扫描大)。优化：用覆盖索引避免回表、用等价写法替代函数(如date>='2025-01-01' AND date<'2026-01-01')、确保类型一致、用全文索引替代LIKE %xxx%。EXPLAIN查看：type=ALL全表扫描，key=NULL未用索引，rows大表示扫描行多。",
+    "source": "阿里/美团后端面试真题 · 《MySQL实战45讲》",
+    "target_roles": [
+      "后端开发",
+      "全栈",
+      "DBA",
+      "数据开发"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "db-009",
+    "title": "Redis的zset是如何实现的？跳表的结构和原理是什么？",
+    "description": "请详细回答以下问题：\n1. Redis的zset(有序集合)是如何实现的？（跳表+哈希表）\n2. 什么是跳表？它的结构是怎样的？（多级索引、随机层数）\n3. 跳表的查找、插入、删除的时间复杂度是多少？（平均O(logn)）\n4. 跳表的层数是如何确定的？（随机算法，概率1/2上升一层）\n5. Redis为什么用跳表而不是红黑树实现zset？（范围查询方便、实现简单、插入删除局部修改、无锁友好）\n6. zset的编码方式有哪些？什么时候用压缩列表(ziplist)，什么时候用跳表(skiplist)？（元素少且成员短用ziplist，超过阈值转skiplist）\n7. zset的压缩列表编码是如何存储的？（member和score相邻存储，按score排序）\n8. 跳表和平衡二叉树(红黑树/AVL)的区别是什么？\n9. 跳表在并发场景下有什么优势？（修改局部，不需要旋转调整整棵树）\n10. 什么是跳表的范围查询？它是如何实现的？（找到起点后沿底层链表遍历）",
+    "category": "数据库",
+    "subcategory": "Redis",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "tencent",
+      "alibaba",
+      "meituan",
+      "bytedance"
+    ],
+    "tags": [
+      "跳表",
+      "zset",
+      "红黑树",
+      "压缩列表",
+      "skiplist",
+      "范围查询",
+      "随机层数"
+    ],
+    "answer_hint": "zset=跳表(按score排序)+哈希表(member→score映射)。跳表：有序链表基础上增加多级索引，通过随机层数实现O(logn)查找/插入/删除。每层概率1/2上升，期望索引节点数n/2+n/4+...≈n，空间O(n)。vs红黑树：①范围查询更方便(找到起点沿链表遍历，红黑树需中序遍历)②实现简单③插入删除只需修改局部指针，红黑树可能需要旋转调整子树④并发更友好(局部修改加锁粒度小)。zset编码：元素数<128且所有成员长度<64字节时用ziplist(压缩列表，省内存)，超过则转skiplist。ziplist中member和score相邻存储，按score排序，查找需遍历O(n)但数据量小没问题。skiplist查找O(logn)但内存开销大。范围查询：先O(logn)找到起点，然后O(k)沿底层双向链表遍历k个元素。",
+    "source": "阿里/美团后端面试真题 · 《MySQL实战45讲》",
+    "target_roles": [
+      "后端开发",
+      "全栈",
+      "DBA",
+      "数据开发"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "db-010",
+    "title": "MySQL中一条SELECT语句的执行过程是怎样的？UPDATE语句又有什么不同？",
+    "description": "请详细回答以下问题：\n1. 一条SELECT语句从客户端发送到返回结果，经过了哪些环节？请按顺序详细描述。\n2. MySQL的架构是怎样的？（连接器、查询缓存、分析器、优化器、执行器、存储引擎）\n3. 连接器的作用是什么？（建立连接、权限校验、连接管理）\n4. 查询缓存为什么在MySQL 8.0被移除了？（命中率低、失效频繁、并发竞争）\n5. 分析器做什么？（词法分析、语法分析）\n6. 优化器做什么？（选择索引、确定join顺序、基于成本估算选择执行计划）\n7. 执行器做什么？（调用存储引擎接口、逐行读取、过滤、返回）\n8. InnoDB存储引擎内部是如何读取数据的？（Buffer Pool、数据页、LRU、预读）\n9. 一条UPDATE语句的执行过程和SELECT有什么不同？（两阶段提交、redo log、undo log、binlog）\n10. 什么是两阶段提交？为什么需要两阶段提交？（redo log prepare→binlog write→redo log commit，保证两份日志一致）",
+    "category": "数据库",
+    "subcategory": "MySQL架构",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "alibaba",
+      "tencent",
+      "bytedance",
+      "meituan"
+    ],
+    "tags": [
+      "MySQL架构",
+      "连接器",
+      "分析器",
+      "优化器",
+      "执行器",
+      "存储引擎",
+      "Buffer Pool",
+      "两阶段提交",
+      "redo log",
+      "binlog"
+    ],
+    "answer_hint": "SELECT执行：①连接器(建立连接、权限校验、管理连接)②查询缓存(8.0已移除，命中直接返回)③分析器(词法分析识别关键字/表名/列名，语法分析判断SQL是否正确)④优化器(选择执行计划：选哪个索引、多表join顺序，基于成本估算)⑤执行器(调用存储引擎接口，逐行读取/过滤/返回)。InnoDB读取：Buffer Pool缓存数据页，未命中则从磁盘加载，LRU淘汰，预读优化。UPDATE执行：执行器→InnoDB更新数据(写undo log保证原子性，写redo log保证持久性，更新Buffer Pool)→写binlog(主从复制/归档)→两阶段提交。两阶段提交：redo log prepare(状态设为prepare)→写binlog→redo log commit(状态设为commit)。为什么需要：保证redo log和binlog一致，若崩溃恢复时两份日志不一致会导致主从数据不一致。若在prepare后崩溃，恢复时检查binlog是否存在，存在则commit，不存在则rollback。",
+    "source": "阿里/美团后端面试真题 · 《MySQL实战45讲》",
+    "target_roles": [
+      "后端开发",
+      "全栈",
+      "DBA",
+      "数据开发"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "java-001",
+    "title": "HashMap的底层实现原理是什么？JDK1.8为什么引入红黑树？ConcurrentHashMap如何保证线程安全？",
+    "description": "请详细回答以下问题：\n1. HashMap的底层数据结构是什么？（数组+链表+红黑树，JDK1.8）\n2. HashMap的put流程是怎样的？（计算hash→定位桶→链表/红黑树插入→扩容判断）\n3. HashMap的hash函数是怎样的？（h=key.hashCode()^(h>>>16)，高16位异或低16位）\n4. 为什么要用高16位异或低16位？（扰动函数，减少哈希碰撞）\n5. HashMap的扩容机制是怎样的？（2倍扩容，重新计算位置，原位置或原位置+oldCap）\n6. 什么是负载因子？默认是多少？为什么是0.75？（空间和时间的权衡，泊松分布）\n7. JDK1.7和1.8的HashMap有什么区别？（1.7头插法+链表，1.8尾插法+链表转红黑树）\n8. 链表转红黑树的条件是什么？（链表长度≥8且数组长度≥64）\n9. 红黑树转回链表的条件是什么？（节点数≤6）\n10. HashMap是线程安全的吗？多线程下会有什么问题？（数据丢失、1.7扩容死循环）\n11. ConcurrentHashMap是如何实现线程安全的？（1.8 CAS+synchronized锁桶头节点，粒度更细）\n12. HashMap和Hashtable的区别？（线程安全、null键值、效率、初始容量、扩容）",
+    "category": "Java",
+    "subcategory": "集合框架",
+    "difficulty": "hard",
+    "type": "concept",
+    "companies": [
+      "alibaba",
+      "tencent",
+      "bytedance",
+      "meituan",
+      "jd",
+      "netease",
+      "sohu"
+    ],
+    "tags": [
+      "HashMap",
+      "数组+链表+红黑树",
+      "hash",
+      "扩容",
+      "负载因子",
+      "ConcurrentHashMap",
+      "Hashtable",
+      "JDK1.8"
+    ],
+    "answer_hint": "JDK1.8：数组(Node<K,V>[] table)+链表+红黑树。hash：(h=key.hashCode())^(h>>>16)，高16位异或低16位增加扰动。定位：(n-1)&hash，n是数组长度(2的幂)。链表长度≥8且数组长度≥64时转红黑树，红黑树节点≤6时转回链表。扩容：size>threshold(capacity*loadFactor，默认0.75)时，新建2倍数组，重新计算位置(原位置或原位置+oldCap)。负载因子0.75是空间和时间的权衡(泊松分布，碰撞概率低)。线程不安全：多线程put可能数据丢失，JDK1.7扩容头插法可能死循环(1.8尾插法修复但仍不安全)。ConcurrentHashMap 1.8：CAS+synchronized锁桶头节点(只锁当前桶，不锁整个表)，粒度更细，并发度更高。vs Hashtable：Hashtable线程安全(synchronized锁整个方法，效率低)、不允许null键值、初始容量11、扩容2倍+1；HashMap非线程安全、允许1个null键和多个null值、初始容量16、扩容2倍。",
+    "source": "阿里/美团Java后端面试真题 · 《Java并发编程实战》",
+    "target_roles": [
+      "Java后端",
+      "全栈",
+      "大数据开发",
+      "中间件开发"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "java-002",
+    "title": "JVM内存模型是怎样的？垃圾回收算法和回收器有哪些？CMS和G1的工作流程？",
+    "description": "请详细回答以下问题：\n1. JVM运行时数据区包含哪些部分？（程序计数器、虚拟机栈、本地方法栈、堆、方法区/元空间）\n2. 哪些是线程私有的？哪些是线程共享的？\n3. 堆的分代结构是怎样的？（新生代Eden+S0+S1，老年代）\n4. 虚拟机栈中存储什么？（栈帧：局部变量表、操作数栈、动态链接、返回地址）\n5. 方法区和元空间的区别？（JDK8用元空间替代永久代，元空间用本地内存）\n6. 什么是GC Roots？哪些对象可以作为GC Roots？（栈帧局部变量、静态变量、常量、JNI引用）\n7. 垃圾回收算法有哪些？（标记-清除、标记-复制、标记-整理、分代收集）\n8. 新生代和老年代分别用什么回收算法？（新生代标记-复制，老年代标记-整理/标记-清除）\n9. 常见的垃圾回收器有哪些？（Serial、ParNew、Parallel Scavenge、CMS、G1、ZGC、Shenandoah）\n10. CMS的工作流程是怎样的？（初始标记→并发标记→重新标记→并发清除）\n11. CMS有什么缺点？（CPU敏感、浮动垃圾、内存碎片、concurrent mode failure）\n12. G1的特点是什么？（Region分区、可预测停顿时间、整体标记-整理局部复制、Remembered Set）\n13. 什么是Stop-The-World？（GC时暂停所有用户线程）\n14. 如何判断对象是否可回收？（引用计数法、可达性分析）\n15. Java的四种引用类型？（强引用、软引用、弱引用、虚引用）",
+    "category": "Java",
+    "subcategory": "JVM",
+    "difficulty": "hard",
+    "type": "concept",
+    "companies": [
+      "alibaba",
+      "tencent",
+      "bytedance",
+      "meituan",
+      "jd",
+      "netease"
+    ],
+    "tags": [
+      "JVM",
+      "堆",
+      "栈",
+      "方法区",
+      "元空间",
+      "GC",
+      "垃圾回收器",
+      "CMS",
+      "G1",
+      "ZGC",
+      "GC Roots",
+      "分代收集"
+    ],
+    "answer_hint": "运行时数据区：①程序计数器(线程私有，当前字节码行号)②虚拟机栈(线程私有，栈帧：局部变量表、操作数栈、动态链接、返回地址)③本地方法栈(线程私有，native方法)④堆(线程共享，对象实例，GC主要区域，分新生代Eden+S0+S1和老年代)⑤方法区/元空间(线程共享，类信息、常量、静态变量、JIT代码，JDK8元空间用本地内存替代永久代)。GC Roots：栈帧局部变量引用的对象、静态变量、常量、JNI引用。可达性分析：从GC Roots出发，不可达的对象可回收。四种引用：强引用(不会回收)、软引用(内存不足时回收，适合缓存)、弱引用(下次GC回收，WeakHashMap)、虚引用(仅用于跟踪回收，PhantomReference)。回收算法：标记-清除(碎片)、标记-复制(新生代，无碎片但浪费空间)、标记-整理(老年代，无碎片但移动开销大)、分代收集。回收器：Serial(单线程)、ParNew(Serial多线程版，配合CMS)、Parallel Scavenge(吞吐量优先)、CMS(低延迟，标记-清除，初始标记→并发标记→重新标记→并发清除，缺点：CPU敏感、浮动垃圾、内存碎片)、G1(Region分区，可预测停顿，整体标记-整理局部复制，Remembered Set记录跨Region引用)、ZGC(染色指针+读屏障，亚毫秒停顿，TB级堆)。Stop-The-World：GC时暂停所有用户线程，可达性分析和标记整理需要STW，并发标记阶段不STW。",
+    "source": "阿里/美团Java后端面试真题 · 《Java并发编程实战》",
+    "target_roles": [
+      "Java后端",
+      "全栈",
+      "大数据开发",
+      "中间件开发"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "java-003",
+    "title": "synchronized和ReentrantLock的区别是什么？synchronized的锁升级过程？AQS的原理？",
+    "description": "请详细回答以下问题：\n1. synchronized的作用和实现原理？（对象头Mark Word、monitor、字节码monitorenter/monitorexit）\n2. synchronized锁的升级过程？（无锁→偏向锁→轻量级锁→重量级锁）\n3. 什么是偏向锁？什么情况下会撤销偏向锁？\n4. 什么是轻量级锁？CAS操作是怎样的？\n5. 什么是重量级锁？它和操作系统互斥锁的关系？\n6. ReentrantLock的实现原理？（AQS、state、CLH队列）\n7. AQS是什么？它的核心思想是什么？（state状态+CLH同步队列+CAS）\n8. synchronized和ReentrantLock的区别？（JVM层面vs JDK层面、自动释放vs手动释放、不可中断vs可中断、非公平vs可公平、单一条件vs多条件）\n9. ReentrantLock的公平锁和非公平锁区别？\n10. 什么是可重入？synchronized和ReentrantLock都是可重入的吗？\n11. ReentrantLock的tryLock有什么用？（尝试获取锁，带超时，不阻塞）\n12. Condition是什么？它和Object的wait/notify有什么区别？（多条件队列、精确唤醒）\n13. 什么是死锁？如何用synchronized或ReentrantLock避免死锁？\n14. 实际开发中如何选择synchronized和ReentrantLock？",
+    "category": "Java",
+    "subcategory": "并发编程",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "alibaba",
+      "tencent",
+      "bytedance",
+      "meituan",
+      "jd"
+    ],
+    "tags": [
+      "synchronized",
+      "ReentrantLock",
+      "AQS",
+      "锁升级",
+      "偏向锁",
+      "轻量级锁",
+      "重量级锁",
+      "Condition",
+      "可重入",
+      "公平锁"
+    ],
+    "answer_hint": "synchronized：JVM层面关键字，对象头Mark Word存锁状态，monitorenter/monitorexit字节码，自动释放锁(异常也释放)，不可中断，非公平锁，单一条件(wait/notify)。锁升级：无锁→偏向锁(Mark Word存线程ID，同一线程重入无竞争)→轻量级锁(CAS将Mark Word替换为锁记录指针，自旋等待)→重量级锁(monitor，操作系统互斥量，阻塞等待)。JDK15后偏向锁默认禁用。ReentrantLock：JDK层面类，基于AQS(AbstractQueuedSynchronizer)，state字段(0空闲，>0被占用，可重入计数)，CLH同步队列(等待线程)，需手动lock/unlock(try-finally)，可中断(lockInterruptibly)，可公平/非公平，可超时(tryLock)，多Condition(精确唤醒)。AQS核心：state+CLH队列+CAS，获取锁失败则入队阻塞，释放锁时唤醒后继。可重入：同一线程可多次获取同一锁，synchronized和ReentrantLock都可重入(ReentrantLock的state记录重入次数)。选择：简单同步用synchronized(自动释放不易出错、JVM持续优化)，需要高级功能(公平、可中断、超时、多条件、尝试获取)用ReentrantLock。",
+    "source": "阿里/美团Java后端面试真题 · 《Java并发编程实战》",
+    "target_roles": [
+      "Java后端",
+      "全栈",
+      "大数据开发",
+      "中间件开发"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "java-004",
+    "title": "线程池的七大核心参数是什么？执行流程是怎样的？如何合理设置核心线程数？",
+    "description": "请详细回答以下问题：\n1. ThreadPoolExecutor的七大核心参数是什么？（corePoolSize、maximumPoolSize、keepAliveTime、unit、workQueue、threadFactory、handler）\n2. 线程池的执行流程是怎样的？（核心线程→队列→非核心线程→拒绝策略）\n3. 核心线程和非核心线程的区别？\n4. 常见的任务队列有哪些？（ArrayBlockingQueue、LinkedBlockingQueue、SynchronousQueue、DelayedWorkQueue、PriorityBlockingQueue）\n5. 四种拒绝策略是什么？（AbortPolicy、CallerRunsPolicy、DiscardPolicy、DiscardOldestPolicy）\n6. Executors提供的几种线程池有什么问题？（FixedThreadPool、SingleThreadExecutor、CachedThreadPool、ScheduledThreadPool）\n7. 为什么阿里巴巴规范禁止用Executors创建线程池？（队列无界OOM、最大线程数Integer.MAX_VALUE OOM）\n8. 如何合理设置核心线程数？（CPU密集型N+1，IO密集型2N或更多，需压测）\n9. 线程池的状态有哪些？（RUNNING、SHUTDOWN、STOP、TIDYING、TERMINATED）\n10. shutdown()和shutdownNow()的区别？\n11. 如何监控线程池？（getActiveCount、getPoolSize、getQueue().size()、getCompletedTaskCount）\n12. 线程池中的线程创建后会一直存在吗？核心线程和非核心线程的存活时间？\n13. 什么是线程池的预热？（prestartAllCoreThreads）\n14. 如何实现一个定时任务线程池？（ScheduledThreadPoolExecutor、DelayedWorkQueue）",
+    "category": "Java",
+    "subcategory": "并发编程",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "alibaba",
+      "tencent",
+      "bytedance",
+      "meituan",
+      "jd"
+    ],
+    "tags": [
+      "线程池",
+      "ThreadPoolExecutor",
+      "核心参数",
+      "拒绝策略",
+      "任务队列",
+      "Executors",
+      "shutdown",
+      "核心线程数设置"
+    ],
+    "answer_hint": "七大参数：①corePoolSize核心线程数②maximumPoolSize最大线程数③keepAliveTime非核心线程空闲存活时间④unit时间单位⑤workQueue任务队列⑥threadFactory线程工厂⑦handler拒绝策略。执行流程：核心线程未满→创建核心线程；核心满→入队列；队列满→创建非核心线程到max；max满→拒绝策略。队列：ArrayBlockingQueue(有界数组)、LinkedBlockingQueue(默认Integer.MAX，有OOM风险)、SynchronousQueue(不存储，直接交给线程，配合大max，CachedThreadPool)、DelayedWorkQueue(延迟任务，ScheduledThreadPool)、PriorityBlockingQueue(优先级)。拒绝策略：AbortPolicy(抛RejectedExecutionException，默认)、CallerRunsPolicy(调用者线程执行，降级)、DiscardPolicy(静默丢弃)、DiscardOldestPolicy(丢弃队列最旧任务重试)。Executors问题：FixedThreadPool/SingleThreadExecutor用LinkedBlockingQueue无界→OOM；CachedThreadPool用SynchronousQueue+max=Integer.MAX_VALUE→创建过多线程OOM。阿里规范要求手动new ThreadPoolExecutor明确参数。核心线程数：CPU密集型=CPU核数+1，IO密集型=2*CPU核数或更多(IO等待时可切换)，实际需压测调整。shutdown()：不接受新任务，等待已提交任务完成；shutdownNow()：不接受新任务，尝试中断正在执行的任务，返回未执行任务列表。线程池状态：RUNNING(接受新任务)→SHUTDOWN(不接受新任务，处理队列)→STOP(不接受不处理，中断)→TIDYING(所有任务结束)→TERMINATED(terminated()执行完)。",
+    "source": "阿里/美团Java后端面试真题 · 《Java并发编程实战》",
+    "target_roles": [
+      "Java后端",
+      "全栈",
+      "大数据开发",
+      "中间件开发"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "java-005",
+    "title": "Java类加载过程是怎样的？双亲委派机制的工作流程和作用？如何打破双亲委派？",
+    "description": "请详细回答以下问题：\n1. 类加载的五个阶段是什么？（加载、验证、准备、解析、初始化）\n2. 每个阶段分别做什么？\n3. 什么是类加载器？Java中有哪些类加载器？（Bootstrap、Extension、Application、自定义）\n4. 双亲委派机制的工作流程是怎样的？（先委托父加载器，父加载器找不到才自己加载）\n5. 为什么需要双亲委派？（安全、避免重复加载）\n6. 如何打破双亲委派？（自定义类加载器重写loadClass、SPI线程上下文类加载器、OSGi、Tomcat）\n7. 什么是SPI？它是如何打破双亲委派的？（ServiceLoader、线程上下文类加载器）\n8. Tomcat的类加载器架构是怎样的？为什么要打破双亲委派？（每个webapp独立类加载器，隔离不同应用的类版本）\n9. 什么情况下会触发类的初始化？（new、静态方法/字段、反射、子类初始化触发父类、主类）\n10. <clinit>和<init>的区别？（类初始化vs实例初始化）\n11. 什么是类的卸载？什么情况下类会被卸载？\n12. 如何实现一个自定义类加载器？（继承ClassLoader，重写findClass）",
+    "category": "Java",
+    "subcategory": "JVM",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "alibaba",
+      "tencent",
+      "bytedance",
+      "meituan"
+    ],
+    "tags": [
+      "类加载",
+      "双亲委派",
+      "ClassLoader",
+      "Bootstrap",
+      "Extension",
+      "Application",
+      "SPI",
+      "Tomcat",
+      "OSGi",
+      "clinit"
+    ],
+    "answer_hint": "类加载过程：加载(读取字节码，生成Class对象)→验证(文件格式、元数据、字节码、符号引用)→准备(静态变量分配内存赋默认值，final static直接赋值)→解析(符号引用转直接引用)→初始化(执行<clinit>，静态变量赋值+静态代码块)。类加载器：Bootstrap(rt.jar，C++实现)→Extension(ext目录，ExtClassLoader)→Application(classpath，AppClassLoader)→自定义ClassLoader。双亲委派：加载类时先委托父加载器，父加载器找不到才自己加载。作用：①安全(防止核心类被篡改，如自己写java.lang.String不会被加载)②避免重复加载。打破双亲委派：①重写loadClass(默认loadClass实现双亲委派，重写可打破)②SPI(ServiceLoader用线程上下文类加载器Thread.currentThread().getContextClassLoader()，如JDBC驱动)③OSGi(网状类加载)④Tomcat(每个webapp有自己的类加载器，加载自己的类优先于父加载器，实现应用隔离和不同版本类共存)。触发初始化：new对象、调用静态方法/访问静态字段、反射Class.forName、初始化子类触发父类、JVM启动主类。<clinit>：类初始化方法，由编译器收集静态变量赋值+静态代码块生成，类加载时执行一次，线程安全。<init>：实例构造方法，每次new执行。类卸载：类的Class对象被GC回收，需满足类的所有实例被回收、加载该类的ClassLoader被回收、Class对象没有被引用。自定义类加载器：继承ClassLoader，重写findClass(读取字节码调用defineClass)，不重写loadClass则保持双亲委派。",
+    "source": "阿里/美团Java后端面试真题 · 《Java并发编程实战》",
+    "target_roles": [
+      "Java后端",
+      "全栈",
+      "大数据开发",
+      "中间件开发"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "java-006",
+    "title": "volatile关键字的两个作用是什么？如何保证可见性和有序性？DCL单例为什么需要volatile？",
+    "description": "请详细回答以下问题：\n1. volatile关键字的两个作用是什么？（可见性、有序性）\n2. 什么是可见性？volatile如何保证可见性？（写时刷新主存，读时从主存读，内存屏障）\n3. 什么是有序性？volatile如何禁止指令重排序？（内存屏障：StoreStore、LoadLoad、StoreLoad、LoadStore）\n4. volatile能保证原子性吗？为什么？（不能，i++不是原子操作）\n5. 什么是指令重排序？编译器和CPU为什么要重排序？（提高性能，不改变单线程结果）\n6. as-if-serial语义是什么？（单线程下重排序不能改变执行结果）\n7. happens-before规则有哪些？（程序顺序、监视器锁、volatile、线程启动、线程终止、传递性）\n8. volatile的写-读建立的happens-before关系是怎样的？（volatile写happens-before后续volatile读）\n9. 双重检查锁(DCL)单例为什么需要volatile？（防止new对象的三步被重排序导致其他线程拿到未初始化对象）\n10. new一个对象的三步是什么？（分配内存、初始化对象、引用赋值）\n11. volatile和synchronized的区别？（volatile只保证可见性和有序性，synchronized保证原子性、可见性、有序性）\n12. 什么是内存屏障？JMM中的四种内存屏障？\n13. volatile在哪些场景下使用？（状态标志位、双重检查锁单例、停止线程标志）",
+    "category": "Java",
+    "subcategory": "并发编程",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "bytedance",
+      "alibaba",
+      "tencent"
+    ],
+    "tags": [
+      "volatile",
+      "可见性",
+      "有序性",
+      "指令重排序",
+      "内存屏障",
+      "happens-before",
+      "DCL",
+      "as-if-serial",
+      "原子性"
+    ],
+    "answer_hint": "volatile两个作用：①可见性：写volatile变量时立即刷新到主存，读时从主存读取(通过内存屏障实现)，保证一个线程修改后其他线程立即可见②有序性：禁止指令重排序(volatile变量的写之前的操作不能重排到写之后，读之后的操作不能重排到读之前)。不保证原子性：i++是读-改-写三步，volatile只保证读和写各自原子，复合操作不原子。指令重排序：编译器和CPU为提高性能，在不改变单线程执行结果(as-if-serial)的前提下调整指令顺序，多线程下可能导致可见性问题。内存屏障：StoreStore(写-写屏障)、LoadLoad(读-读)、StoreLoad(写-读，最耗性能)、LoadStore(读-写)。volatile写前加StoreStore，写后加StoreLoad；volatile读后加LoadLoad和LoadStore。happens-before：①程序顺序规则②监视器锁规则(unlock happens-before后续lock)③volatile规则(写 happens-before 后续读)④线程启动(start happens-before线程内动作)⑤线程终止(线程内动作 happens-before join返回)⑥传递性。DCL单例：private static volatile Singleton instance; if(instance==null){synchronized{if(instance==null){instance=new Singleton();}}}。new对象三步：①分配内存②初始化对象③引用赋值。若不用volatile，②和③可能被重排序，其他线程可能拿到未初始化的对象(半初始化)。vs synchronized：volatile更轻量(无锁)，但只保证可见性+有序性；synchronized保证原子性+可见性+有序性，重量大。volatile场景：状态标志位(如running flag)、DCL单例、一次性安全发布。",
+    "source": "阿里/美团Java后端面试真题 · 《Java并发编程实战》",
+    "target_roles": [
+      "Java后端",
+      "全栈",
+      "大数据开发",
+      "中间件开发"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "java-007",
+    "title": "Spring的IoC和AOP实现原理是什么？Bean的生命周期？循环依赖如何解决？",
+    "description": "请详细回答以下问题：\n1. 什么是IoC？什么是DI？它们的关系？（控制反转、依赖注入，IoC是思想DI是实现）\n2. Spring IoC容器的工作原理？（BeanDefinition、BeanFactory、ApplicationContext、Bean生命周期）\n3. Bean的生命周期是怎样的？（实例化→属性注入→Aware→BeanPostProcessor前置→初始化→BeanPostProcessor后置→使用→销毁）\n4. 什么是BeanPostProcessor？它的作用？（Bean初始化前后增强，AOP、@Autowired、@Value都通过它实现）\n5. 依赖注入的方式有哪些？（构造器注入、setter注入、字段注入@Autowired）\n6. @Autowired和@Resource的区别？（Spring提供vs JDK提供、byType vs byName、required属性）\n7. 什么是循环依赖？Spring如何解决单例Bean的循环依赖？（三级缓存、早期暴露、ObjectFactory）\n8. 三级缓存分别是什么？（singletonObjects、earlySingletonObjects、singletonFactories）\n9. 为什么需要三级缓存而不是两级？（AOP代理需要，第三级存ObjectFactory可生成代理对象）\n10. 什么是AOP？它的应用场景？（日志、事务、权限、监控、性能统计）\n11. AOP的核心概念？（Aspect、JoinPoint、PointCut、Advice、Weaving、Target）\n12. Spring AOP的实现原理？（动态代理：JDK动态代理(接口)、CGLIB(继承)）\n13. JDK动态代理和CGLIB的区别？（接口vs继承、反射vs ASM、final类/方法）\n14. Spring Boot中AOP默认用JDK还是CGLIB？（Spring Boot 2.x默认CGLIB，spring.aop.proxy-target-class默认true）\n15. Advice的五种类型？（Before、After、AfterReturning、AfterThrowing、Around）",
+    "category": "Java",
+    "subcategory": "Spring",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "alibaba",
+      "tencent",
+      "bytedance",
+      "meituan",
+      "netease",
+      "sohu"
+    ],
+    "tags": [
+      "IoC",
+      "AOP",
+      "Bean生命周期",
+      "BeanPostProcessor",
+      "循环依赖",
+      "三级缓存",
+      "动态代理",
+      "JDK代理",
+      "CGLIB",
+      "@Autowired",
+      "Advice"
+    ],
+    "answer_hint": "IoC(控制反转)：对象的创建和依赖管理交给Spring容器，不是自己new。DI(依赖注入)是IoC的实现方式。Bean生命周期：实例化(构造函数)→属性注入(@Autowired)→Aware接口(BeanNameAware/BeanFactoryAware/ApplicationContextAware)→BeanPostProcessor.postProcessBeforeInitialization→初始化(@PostConstruct/InitializingBean.afterPropertiesSet/init-method)→BeanPostProcessor.postProcessAfterInitialization(AOP代理在这里生成)→使用→销毁(@PreDestroy/DisposableBean.destroy/destroy-method)。循环依赖：A依赖B，B依赖A。Spring通过三级缓存解决单例循环依赖：①singletonObjects(成品Bean)②earlySingletonObjects(早期半成品Bean)③singletonFactories(Bean工厂ObjectFactory，可生成代理)。流程：A实例化后放入三级缓存(暴露早期引用)→A注入B→B实例化→B注入A→从三级缓存拿A的早期引用(若AOP则生成代理)放入二级缓存→B初始化完成放入一级缓存→A继续初始化。三级缓存原因：若Bean需要AOP代理，第三级的ObjectFactory.getObject()可返回代理对象而非原始对象，两级缓存无法处理代理。AOP：面向切面编程，不修改原代码增强方法。动态代理：JDK动态代理(目标类实现接口，Proxy.newProxyInstance+InvocationHandler，基于反射)；CGLIB(目标类无接口，继承目标类生成子类，ASM字节码增强，不能代理final类/方法)。Spring AOP默认有接口用JDK，无接口用CGLIB；Spring Boot 2.x默认CGLIB(proxy-target-class=true)。Advice：Before(前置)、After(后置，无论异常)、AfterReturning(返回后)、AfterThrowing(异常后)、Around(环绕，最强大)。",
+    "source": "阿里/美团Java后端面试真题 · 《Java并发编程实战》",
+    "target_roles": [
+      "Java后端",
+      "全栈",
+      "大数据开发",
+      "中间件开发"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "java-008",
+    "title": "Spring事务的传播行为有哪些？@Transactional什么情况下会失效？",
+    "description": "请详细回答以下问题：\n1. Spring事务的实现原理？（AOP动态代理+TransactionInterceptor）\n2. @Transactional注解的工作流程？（代理方法→开启事务→执行目标方法→提交/回滚）\n3. 事务的ACID特性？\n4. Spring事务的隔离级别有哪些？（DEFAULT、READ_UNCOMMITTED、READ_COMMITTED、REPEATABLE_READ、SERIALIZABLE）\n5. 七种事务传播行为是什么？（REQUIRED、REQUIRES_NEW、SUPPORTS、NOT_SUPPORTED、MANDATORY、NEVER、NESTED）\n6. REQUIRED和REQUIRES_NEW的区别？请举例说明。\n7. NESTED和REQUIRES_NEW的区别？（savepoint嵌套事务 vs 独立事务）\n8. 什么情况下@Transactional会失效？（方法非public、自调用、异常被catch、异常类型不匹配、数据库不支持事务、类没有被Spring管理）\n9. 为什么自调用会导致事务失效？（this调用不经过代理）\n10. Spring事务默认回滚什么异常？（RuntimeException和Error，checked异常不回滚）\n11. 如何让checked异常也回滚？（rollbackFor = Exception.class）\n12. 什么是事务的只读属性？（readOnly=true，优化查询，不能有写操作）\n13. 事务超时时间是怎么计算的？（timeout，从事务开始到提交，超过则回滚）\n14. 编程式事务和声明式事务的区别？（PlatformTransactionManager/TransactionTemplate vs @Transactional）\n15. 分布式事务解决方案？（2PC、TCC、Saga、本地消息表、Seata）",
+    "category": "Java",
+    "subcategory": "Spring",
+    "difficulty": "hard",
+    "type": "concept",
+    "companies": [
+      "alibaba",
+      "tencent",
+      "bytedance",
+      "jd"
+    ],
+    "tags": [
+      "Spring事务",
+      "@Transactional",
+      "传播行为",
+      "REQUIRED",
+      "REQUIRES_NEW",
+      "NESTED",
+      "事务失效",
+      "rollbackFor",
+      "自调用",
+      "分布式事务"
+    ],
+    "answer_hint": "Spring事务通过AOP实现：@Transactional标注的方法被代理，TransactionInterceptor拦截，执行前开启事务(DataSourceTransactionManager)，执行后根据异常提交或回滚。传播行为：REQUIRED(默认，有事务加入，没有新建)、REQUIRES_NEW(总是新建，挂起当前)、SUPPORTS(有则加入，没有非事务)、NOT_SUPPORTED(非事务，挂起当前)、MANDATORY(必须在事务中否则抛异常)、NEVER(必须非事务否则抛异常)、NESTED(嵌套事务，savepoint，子事务回滚不影响父，父回滚子也回滚)。REQUIRED vs REQUIRES_NEW：A调用B，A有事务，B用REQUIRED则加入A的事务(一起提交回滚)；B用REQUIRES_NEW则新建独立事务(挂起A，B提交后A才继续，B回滚不影响A，A回滚不影响B)。NESTED vs REQUIRES_NEW：NESTED是嵌套在父事务中(用savepoint)，父回滚子也回滚；REQUIRES_NEW是完全独立事务，父回滚不影响子。事务失效：①方法非public(代理只能拦截public)②自调用(this.方法()不经过代理对象)③异常被try-catch吞掉(没有抛出异常Spring不知道回滚)④异常类型不是RuntimeException/Error(默认只回滚这些，需rollbackFor)⑤数据库引擎不支持事务(MyISAM)⑥类没有被Spring管理(没加@Component等)⑦final方法/类(CGLIB无法代理)。默认回滚RuntimeException和Error，checked异常(如IOException)不回滚，需@Transactional(rollbackFor=Exception.class)。自调用解决：注入自己(@Autowired Self self)、AopContext.currentProxy()、拆分到不同类。分布式事务：2PC(强一致，性能差)、TCC(业务层面Try-Confirm-Cancel)、Saga(长事务拆分+补偿)、本地消息表(最终一致)、Seata框架(AT/TCC/Saga/XA模式)。",
+    "source": "阿里/美团Java后端面试真题 · 《Java并发编程实战》",
+    "target_roles": [
+      "Java后端",
+      "全栈",
+      "大数据开发",
+      "中间件开发"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "java-009",
+    "title": "Java内存模型(JMM)定义了什么？原子性、可见性、有序性如何保证？happens-before规则？",
+    "description": "请详细回答以下问题：\n1. 什么是JMM？它和JVM内存结构有什么区别？（JMM是语言级内存模型规范，JVM内存结构是运行时数据区）\n2. JMM定义了什么？（线程和主内存的抽象关系、三大特性、happens-before）\n3. 主内存和工作内存的关系？（所有变量存主内存，线程有自己的工作内存，操作必须在工作内存）\n4. 什么是原子性？Java中如何保证原子性？（synchronized、Lock、AtomicInteger/CAS）\n5. 什么是可见性？如何保证可见性？（volatile、synchronized、final、Lock）\n6. 什么是有序性？如何保证有序性？（volatile、synchronized、happens-before）\n7. 什么是指令重排序？源代码→指令序列可能被重排序的环节？（编译器优化、指令级并行、内存系统重排序）\n8. as-if-serial和happens-before的关系？（as-if-serial保证单线程，happens-before保证多线程）\n9. 什么是数据依赖性？什么是控制依赖性？\n10. 什么是内存屏障？LoadLoad、StoreStore、LoadStore、StoreLoad分别禁止什么重排序？\n11. volatile的内存语义？（写：刷新到主存+StoreStore+StoreLoad；读：从主存读+LoadLoad+LoadStore）\n12. 锁的内存语义？（unlock：刷新到主存；lock：从主存读，等价于volatile写+读）\n13. final的内存语义？（final域初始化后对其他线程可见，禁止重排序final域写和构造函数返回）\n14. 什么是双重检查锁问题？为什么需要volatile？\n15. 什么是伪共享(false sharing)？如何避免？（缓存行、@Contended、padding）",
+    "category": "Java",
+    "subcategory": "并发编程",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "alibaba",
+      "tencent",
+      "bytedance",
+      "meituan"
+    ],
+    "tags": [
+      "JMM",
+      "原子性",
+      "可见性",
+      "有序性",
+      "happens-before",
+      "指令重排序",
+      "内存屏障",
+      "as-if-serial",
+      "伪共享",
+      "final语义"
+    ],
+    "answer_hint": "JMM(Java Memory Model)：Java语言级内存模型，定义线程和主内存的抽象关系，保证多线程下的内存可见性。和JVM运行时内存区域(堆/栈/方法区)是不同概念。主内存：所有变量存储；工作内存：每个线程私有，保存该线程使用的变量的副本，线程对变量的操作必须在工作内存中进行，不能直接读写主内存。三大特性：①原子性：操作不可中断，synchronized/Lock/AtomicInteger(CAS)保证②可见性：一个线程修改变量后其他线程立即可见，volatile/synchronized/final/Lock保证③有序性：程序执行顺序和代码顺序一致，volatile/synchronized/happens-before保证。指令重排序：编译器优化重排序、CPU指令级并行重排序、内存系统重排序，在不改变单线程结果(as-if-serial)的前提下调整顺序。as-if-serial：单线程下重排序不能改变程序结果。happens-before：多线程下操作A happens-before操作B，则A的执行结果对B可见，且A的执行顺序排在B之前。内存屏障：LoadLoad(禁止后面的读重排到前面的读之前)、StoreStore(禁止后面的写重排到前面的写之前)、LoadStore(禁止后面的写重排到前面的读之前)、StoreLoad(禁止后面的读重排到前面的写之前，最耗性能，全局屏障)。volatile写：StoreStore屏障→volatile写→StoreLoad屏障；volatile读：volatile读→LoadLoad+LoadStore屏障。锁：unlock有volatile写语义，lock有volatile读语义。final：final域的写不能重排序到构造函数之外，final域的读不能重排序到final对象引用之前。伪共享：多个线程修改同一缓存行中的不同变量，导致缓存行频繁失效，性能下降。避免：@Contended注解(JDK8+)、padding填充(变量前后填充到一个缓存行64字节)。",
+    "source": "阿里/美团Java后端面试真题 · 《Java并发编程实战》",
+    "target_roles": [
+      "Java后端",
+      "全栈",
+      "大数据开发",
+      "中间件开发"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "java-010",
+    "title": "分布式事务的解决方案有哪些？2PC、TCC、Saga、本地消息表分别如何实现？",
+    "description": "请详细回答以下问题：\n1. 什么是分布式事务？为什么需要分布式事务？（跨数据库/跨服务的事务一致性）\n2. CAP定理是什么？分布式系统为什么无法同时满足CAP？\n3. BASE理论是什么？（基本可用、软状态、最终一致）\n4. 2PC(两阶段提交)的流程？（Prepare→Commit/Rollback）\n5. 2PC有什么问题？（同步阻塞、单点故障、数据不一致、性能差）\n6. 3PC和2PC的区别？（CanCommit阶段、超时机制、减少阻塞但仍可能不一致）\n7. TCC的原理？（Try-Confirm-Cancel，业务层面实现）\n8. TCC需要注意什么问题？（幂等性、空回滚、防悬挂、事务日志）\n9. Saga模式的原理？（长事务拆分为多个本地事务，每个有补偿操作，正向执行失败则反向补偿）\n10. Saga的两种实现方式？（编排式Orchestration、协同式Choreography）\n11. 本地消息表方案的原理？（业务操作+写消息在同一本地事务，定时任务扫描发送MQ，消费者消费保证最终一致）\n12. 什么是事务消息？RocketMQ事务消息的原理？（半消息→本地事务→提交/回滚→回查）\n13. Seata框架支持哪些模式？（AT、TCC、Saga、XA）\n14. Seata AT模式的原理？（全局锁+undo log+两阶段提交，自动补偿）\n15. 实际项目中如何选择分布式事务方案？（强一致用2PC/Seata XA，最终一致用TCC/Saga/本地消息表/事务消息）",
+    "category": "Java",
+    "subcategory": "分布式系统",
+    "difficulty": "hard",
+    "type": "concept",
+    "companies": [
+      "alibaba",
+      "tencent",
+      "bytedance",
+      "meituan",
+      "jd"
+    ],
+    "tags": [
+      "分布式事务",
+      "CAP",
+      "BASE",
+      "2PC",
+      "3PC",
+      "TCC",
+      "Saga",
+      "本地消息表",
+      "事务消息",
+      "Seata",
+      "AT模式",
+      "幂等性"
+    ],
+    "answer_hint": "分布式事务：跨多个数据库/服务的事务一致性。CAP：一致性C、可用性A、分区容错P，网络分区P不可避免，只能CP或AP。BASE：Basically Available(基本可用)、Soft state(软状态)、Eventually consistent(最终一致)。2PC：协调者Prepare(询问参与者能否提交)→所有参与者返回Yes→协调者Commit(全部提交)，有一个No则全部Rollback。问题：同步阻塞(参与者锁资源等待)、协调者单点故障、数据不一致(协调者Commit后宕机部分参与者没收到)、性能差。3PC：增加CanCommit阶段(网络连通性检查)和参与者超时机制(超时后默认提交)，减少阻塞但极端情况仍不一致。TCC：业务层面实现，Try(预留资源)→Confirm(确认执行)→Cancel(回滚释放)。需注意：幂等(重复调用结果相同)、空回滚(Try没收到却收到Cancel)、防悬挂(Cancel先于Try到达)、事务日志记录状态。Saga：长事务拆成多个本地事务T1..Tn，每个Ti有补偿Ci，正向执行T1→T2→...→Tn，失败则反向补偿...→C2→C1。编排式(中心协调器控制流程)、协同式(事件驱动，各服务监听事件)。本地消息表：业务操作和写消息在同一本地事务(原子)，定时任务扫描消息表发送到MQ，消费者消费处理，保证最终一致。事务消息(RocketMQ)：发送半消息(对消费者不可见)→执行本地事务→提交(消费者可见)或回滚(删除)→事务回查(长时间未确认时回查本地事务状态)。Seata：AT模式(自动补偿，基于全局锁+undo log，两阶段：一阶段执行业务+写undo log+全局锁，二阶段提交(异步删undo log)/回滚(用undo log补偿))、TCC模式、Saga模式、XA模式。选择：强一致要求高用2PC/Seata XA(性能差)；最终一致可接受用TCC(适合资金/库存，需写三个接口)、Saga(适合长流程，如订单→支付→库存→物流)、本地消息表/事务消息(最简单，最终一致)。",
+    "source": "阿里/美团Java后端面试真题 · 《Java并发编程实战》",
+    "target_roles": [
+      "Java后端",
+      "全栈",
+      "大数据开发",
+      "中间件开发"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "python-001",
+    "title": "什么是Python GIL？它对多线程有什么影响？如何利用多核CPU？",
+    "description": "请详细回答以下问题：\n1. 什么是GIL？它的全称是什么？（Global Interpreter Lock，全局解释器锁）\n2. GIL是Python语言的特性还是CPython实现的特性？\n3. GIL的作用是什么？为什么需要GIL？（简化内存管理，引用计数不需要原子操作）\n4. GIL对多线程有什么影响？（CPU密集型多线程无法利用多核，IO密集型有效）\n5. 为什么IO密集型多线程仍然有效？（IO等待时GIL会被释放）\n6. GIL的释放时机是什么？（字节码指令计数、IO操作、time.sleep）\n7. Python 3.2对GIL做了什么改进？（新GIL，固定时间间隔5ms切换，减少请求切换）\n8. 如何在Python中利用多核CPU？（多进程multiprocessing、C扩展释放GIL、concurrent.futures.ProcessPoolExecutor、用无GIL的解释器PyPy/Jython）\n9. 多进程和多线程在Python中的区别和适用场景？\n10. 什么是协程？协程和多线程有什么区别？（asyncio、单线程并发、用户态调度、无锁）\n11. numpy/pandas等库是如何绕过GIL的？（底层C代码释放GIL，真正并行计算）\n12. GIL会导致什么问题？（CPU密集型多线程比单线程还慢，因为有锁切换开销）",
+    "category": "Python",
+    "subcategory": "并发",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan",
+      "unitree"
+    ],
+    "tags": [
+      "GIL",
+      "多线程",
+      "多进程",
+      "CPython",
+      "协程",
+      "asyncio",
+      "多核",
+      "PyPy"
+    ],
+    "answer_hint": "GIL(全局解释器锁)是CPython解释器中的互斥锁，同一时刻只有一个线程执行Python字节码。不是Python语言特性，是CPython实现的选择(Jython/PyPy无GIL)。作用：简化内存管理，引用计数不需要原子操作，避免了很多线程安全问题。影响：CPU密集型多线程无法利用多核(GIL串行)，IO密集型多线程有效(IO等待时释放GIL)。GIL释放：字节码执行一定数量(旧GIL100条)、IO操作(文件/网络/socket)、time.sleep。Python 3.2新GIL：固定时间间隔(默认5ms)请求切换，减少线程饥饿，但有锁竞争开销。利用多核：①多进程multiprocessing/ProcessPoolExecutor(每个进程独立GIL)②C扩展释放GIL(numpy/pandas底层C代码)③用无GIL解释器(PyPy JIT快但兼容性差、Jython)。多进程：CPU密集型，开销大(进程创建/IPC)，隔离性好；多线程：IO密集型，开销小，共享内存，需同步。协程(asyncio)：单线程并发，用户态调度，无锁开销，适合高并发IO(网络爬虫/Web服务)，但不能利用多核。GIL导致CPU密集型多线程可能比单线程慢(锁切换开销)。",
+    "source": "字节跳动/美团Python面试真题 · 《流畅的Python》",
+    "target_roles": [
+      "Python后端",
+      "算法工程师",
+      "数据开发",
+      "AI应用开发"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "python-002",
+    "title": "Python装饰器的本质是什么？带参数的装饰器和类装饰器如何实现？",
+    "description": "请详细回答以下问题：\n1. 什么是装饰器？它的作用是什么？（在不修改原函数代码的情况下增强功能）\n2. 装饰器的本质是什么？（接收函数为参数、返回新函数的高阶函数）\n3. 请实现一个简单的装饰器（如计时装饰器）。\n4. 带参数的装饰器如何实现？（多嵌套一层，外层接收参数，内层是装饰器）\n5. 类装饰器如何实现？（实现__call__方法）\n6. functools.wraps的作用是什么？（保留原函数名、文档、签名等元信息）\n7. 装饰器的执行顺序是怎样的？（多个装饰器时，定义时从下到上，调用时从上到下）\n8. 什么是装饰器的副作用？如何避免？（不使用wraps导致函数名变wrapper）\n9. Python中有哪些内置装饰器？（@property、@staticmethod、@classmethod、@functools.lru_cache、@dataclass）\n10. @property的作用是什么？如何实现getter/setter/deleter？\n11. @staticmethod和@classmethod的区别？（不需要self/cls vs 需要cls，不能访问实例属性vs可以访问类属性）\n12. 装饰器在实际开发中的应用场景？（日志、计时、权限校验、缓存、重试、路由注册）\n13. 什么是装饰器模式？Python装饰器和设计模式中的装饰器模式有什么区别？",
+    "category": "Python",
+    "subcategory": "语法特性",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "unitree"
+    ],
+    "tags": [
+      "装饰器",
+      "高阶函数",
+      "闭包",
+      "functools.wraps",
+      "带参数装饰器",
+      "类装饰器",
+      "property",
+      "staticmethod",
+      "classmethod"
+    ],
+    "answer_hint": "装饰器：在不修改原函数代码的情况下增强功能，本质是接收函数为参数、返回新函数的高阶函数，用@语法糖。简单装饰器：def decorator(func): def wrapper(*args,**kwargs): ...; return func(*args,**kwargs); return wrapper。带参数装饰器：多嵌套一层def decorator(arg): def inner(func): def wrapper...; return wrapper; return inner，使用@decorator(arg)。类装饰器：实现__call__方法，实例可调用。functools.wraps：保留原函数__name__、__doc__、__signature__等元信息，否则函数名变成wrapper。多个装饰器：@A @B def f() 等价于f=A(B(f))，定义时从下到上执行(B先执行)，调用时从上到下(A的wrapper先执行)。内置装饰器：@property(将方法变属性，可定义getter/setter/deleter)、@staticmethod(静态方法，不需要self/cls，不能访问实例/类属性)、@classmethod(类方法，第一个参数cls，可访问类属性/调用其他类方法，可用于工厂模式)、@functools.lru_cache(缓存函数返回值，LRU淘汰)、@dataclass(自动生成__init__/__repr__/__eq__等)。应用：日志、计时、权限校验、缓存、重试、路由注册(Flask @app.route)、事务。vs装饰器模式：设计模式中装饰器模式是通过组合包装对象，Python装饰器是语法糖，更灵活但原理类似。",
+    "source": "字节跳动/美团Python面试真题 · 《流畅的Python》",
+    "target_roles": [
+      "Python后端",
+      "算法工程师",
+      "数据开发",
+      "AI应用开发"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "python-003",
+    "title": "Python的可变对象和不可变对象有哪些？函数参数传递是传值还是传引用？",
+    "description": "请详细回答以下问题：\n1. Python中哪些是可变对象？哪些是不可变对象？（list/dict/set可变，int/float/str/tuple/frozenset不可变）\n2. 什么是可变对象？什么是不可变对象？\n3. 不可变对象修改时会发生什么？（创建新对象，重新绑定引用）\n4. Python函数参数传递是传值还是传引用？（传对象引用，pass by assignment/object reference）\n5. 函数内对参数重新赋值(=)会影响外部吗？对可变对象原地修改(.append/['key']=)会影响外部吗？\n6. 什么是默认参数的坑？（def f(x=[]): x.append(1)，默认参数只在函数定义时求值一次，多次调用共享同一列表）\n7. 如何避免默认参数的坑？（用None作为默认值，函数内判断）\n8. tuple是不可变的，但tuple中的list元素可以修改吗？为什么？（tuple存的是引用，引用不可变但引用指向的对象可变）\n9. 什么是浅拷贝和深拷贝？（copy.copy vs copy.deepcopy）\n10. 切片操作[:]是浅拷贝还是深拷贝？（浅拷贝，只复制顶层）\n11. dict的copy()方法是浅拷贝还是深拷贝？（浅拷贝）\n12. Python的整数缓存机制是什么？（-5到256的整数对象缓存，is比较为True）\n13. 字符串的intern机制是什么？（相同字符串字面量共享同一对象）",
+    "category": "Python",
+    "subcategory": "内存模型",
+    "difficulty": "easy",
+    "type": "concept",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "unitree"
+    ],
+    "tags": [
+      "可变对象",
+      "不可变对象",
+      "传对象引用",
+      "默认参数坑",
+      "浅拷贝",
+      "深拷贝",
+      "整数缓存",
+      "intern"
+    ],
+    "answer_hint": "不可变对象：int、float、str、tuple、frozenset、bool，值不能修改，修改会创建新对象(重新绑定)。可变对象：list、dict、set、bytearray，可原地修改。函数参数传递：传对象引用(pass by assignment)，既不是纯传值也不是纯传引用。函数内对参数重新赋值(=)不影响外部(绑定到新对象)，但对可变对象原地修改(.append、['key']=、.sort())会影响外部。默认参数坑：def f(x=[]): x.append(1); return x，默认参数只在函数定义时求值一次，多次调用共享同一列表，结果累积。避免：def f(x=None): if x is None: x=[]。tuple不可变指tuple存的引用不可变，但引用指向的可变对象可以修改，如t=([1],[2]); t[0].append(3)合法。浅拷贝(copy.copy/切片/dict.copy())：复制顶层对象，嵌套对象仍共享引用；深拷贝(copy.deepcopy())：递归复制所有层级，完全独立。整数缓存：CPython缓存-5到256的整数对象，小整数is比较为True，大整数每次创建新对象。字符串intern：相同字符串字面量共享同一对象(节省内存)，可通过sys.intern()手动intern。",
+    "source": "字节跳动/美团Python面试真题 · 《流畅的Python》",
+    "target_roles": [
+      "Python后端",
+      "算法工程师",
+      "数据开发",
+      "AI应用开发"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "python-004",
+    "title": "Python的迭代器和生成器有什么区别？yield的工作原理？send()和next()的区别？",
+    "description": "请详细回答以下问题：\n1. 什么是迭代器(Iterator)？什么是可迭代对象(Iterable)？\n2. 迭代器协议是什么？（__iter__和__next__方法）\n3. 什么是生成器(Generator)？它和迭代器的关系？（生成器是特殊的迭代器）\n4. 生成器的两种创建方式？（生成器函数yield、生成器表达式）\n5. yield的工作原理是什么？（函数执行到yield暂停，保存状态，返回值；下次next()恢复）\n6. 生成器的优点是什么？（惰性求值、节省内存、按需计算、无限序列）\n7. 什么是生成器的send()方法？它和next()的区别？（send可向生成器发送值，作为yield表达式的值）\n8. 什么是生成器的throw()和close()方法？\n9. yield from的作用是什么？（委托子生成器，简化嵌套生成器调用，自动处理StopIteration）\n10. 什么是协程？生成器如何作为协程使用？（send/throw/close，Python 2.5引入，Python 3.5被async/await替代）\n11. range()是迭代器吗？（不是，是可迭代对象，可重复迭代）\n12. 列表推导式和生成器表达式的区别？（[]立即计算存列表，()惰性生成器）\n13. 什么是迭代器的耗尽？（迭代完后再next抛StopIteration，不能重置）\n14. 如何实现一个自定义迭代器？（实现__iter__返回self，__next__返回下一个值，没有则抛StopIteration）",
+    "category": "Python",
+    "subcategory": "语法特性",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "unitree"
+    ],
+    "tags": [
+      "迭代器",
+      "生成器",
+      "yield",
+      "惰性求值",
+      "send",
+      "yield from",
+      "协程",
+      "生成器表达式",
+      "StopIteration"
+    ],
+    "answer_hint": "迭代器：实现__iter__()和__next__()的对象，__iter__返回自身，__next__返回下一个值，没有则抛StopIteration。可迭代对象：实现__iter__返回迭代器(如list/dict/str/range)，可用for遍历。生成器：特殊的迭代器，用函数+yield实现，惰性求值。创建方式：①生成器函数(def中用yield)②生成器表达式((x for x in range(10)))。yield原理：函数执行到yield时暂停，保存当前状态(局部变量、指令指针)，返回yield的值；下次next()时从暂停处恢复继续执行。优点：惰性求值(按需计算)、节省内存(不存储所有值)、可表示无限序列。send()：向生成器发送值，作为yield表达式的返回值，首次必须send(None)或next()；next()等价于send(None)。throw()：在生成器暂停处抛出异常；close()：关闭生成器，后续调用抛StopIteration。yield from：委托子生成器，自动处理StopIteration和值传递，简化嵌套生成器，如yield from sub_gen()等价于for item in sub_gen(): yield item(但还能传递send/throw)。协程：生成器可作为协程(send/throw/close实现双向通信)，Python 3.5+用async/await替代生成器协程。range()是可迭代对象不是迭代器(可重复遍历，每次返回新迭代器)。列表推导式[]立即计算存储列表；生成器表达式()惰性，逐个生成。迭代器耗尽后不能重置，需重新创建。自定义迭代器：class MyIter: def __iter__(self): return self; def __next__(self): if ...: raise StopIteration; return value。",
+    "source": "字节跳动/美团Python面试真题 · 《流畅的Python》",
+    "target_roles": [
+      "Python后端",
+      "算法工程师",
+      "数据开发",
+      "AI应用开发"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "python-005",
+    "title": "Python字典的底层实现是什么？开放寻址法如何解决哈希冲突？Python 3.7+字典为什么有序？",
+    "description": "请详细回答以下问题：\n1. Python字典的底层数据结构是什么？（哈希表，开放寻址法）\n2. Python 3.6前后字典的实现有什么变化？（3.6+有序，内存优化，indices数组+entries数组）\n3. 字典的哈希冲突是如何解决的？（开放寻址法，伪随机探测序列，不是拉链法）\n4. 什么是伪随机探测？（perturb扰动，基于哈希值生成探测序列）\n5. 字典的扩容机制是怎样的？（2/3满时扩容为2倍，重新哈希）\n6. 什么是字典的负载因子？Python字典的负载因子是多少？（2/3≈0.667）\n7. 字典删除元素时是真删除吗？（伪删除，dummy标记，避免断链）\n8. Python 3.7+字典为什么是有序的？（entries数组按插入顺序存储，indices只是索引映射）\n9. 字典的时间复杂度？（平均O(1)，最坏O(n)但概率极低）\n10. 什么是哈希表的二次聚集？开放寻址法如何避免？\n11. set的底层实现和dict有什么区别？（set也是哈希表，只有key没有value）\n12. 什么情况下字典的key会不可哈希？（可变对象list/dict/set不可哈希，不能作为key）\n13. 自定义类如何作为字典的key？（实现__hash__和__eq__，相等的对象哈希值必须相同）\n14. OrderedDict和普通dict的区别？（Python 3.7+普通dict已有序，OrderedDict支持move_to_end/popitem等额外操作）",
+    "category": "Python",
+    "subcategory": "数据结构",
+    "difficulty": "hard",
+    "type": "concept",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "unitree"
+    ],
+    "tags": [
+      "dict",
+      "哈希表",
+      "开放寻址",
+      "伪随机探测",
+      "有序字典",
+      "扩容",
+      "负载因子",
+      "伪删除",
+      "set",
+      "__hash__"
+    ],
+    "answer_hint": "Python 3.6+ dict：哈希表，开放寻址法(伪随机探测)，不是拉链法。结构：indices数组(存entry索引，哈希值对长度取模) + entries数组(存key:value对，按插入顺序)。哈希冲突：开放寻址，伪随机探测序列(perturb扰动，j=(5*j+1+perturb) % 2^k，perturb每次右移)，找下一个空位。有序原因：entries按插入顺序存储，indices只是索引映射，遍历entries即插入顺序。扩容：使用率达到2/3(负载因子0.667)时扩容为2倍，所有元素重新哈希(rehash)。删除：伪删除(dummy标记)，不真正移除，避免探测链断裂，扩容时清理dummy。时间复杂度：平均O(1)，最坏O(n)(极端哈希碰撞，但概率极低)。vs拉链法：开放寻址内存连续缓存友好，但删除复杂、有二次聚集(二次聚集是不同哈希值的探测序列重叠)。set：也是哈希表，只有key没有value，结构类似。不可哈希对象：list/dict/set(可变对象)不能作为dict的key或set的元素，因为hash值会变。自定义类作为key：必须实现__hash__(返回整数)和__eq__(相等判断)，且相等的对象(__eq__返回True)必须有相同的hash值，否则哈希表行为异常。OrderedDict：Python 3.7+普通dict已有序，OrderedDict额外支持move_to_end(移动到首尾)、popitem(从首尾弹出)、相等比较考虑顺序等。",
+    "source": "字节跳动/美团Python面试真题 · 《流畅的Python》",
+    "target_roles": [
+      "Python后端",
+      "算法工程师",
+      "数据开发",
+      "AI应用开发"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "design-001",
+    "title": "请设计一个短链接系统，短码如何生成？高并发读和写如何优化？",
+    "description": "请设计一个短链接(短URL)系统，要求：\n1. 将长URL转换为短URL（如https://tinyurl.com/abc123）\n2. 访问短URL时301/302跳转到原长URL\n3. 支持高并发访问\n4. 支持自定义短码\n5. 支持访问统计\n\n请回答以下问题：\n1. 短码如何生成？（自增ID+Base62编码 vs 哈希取前N位）\n2. Base62编码是什么？为什么用62进制？（0-9a-zA-Z共62字符，6位可表示568亿）\n3. 如何保证短码唯一？（数据库唯一索引、分布式发号器、预生成短码池）\n4. 短URL跳转用301还是302？区别？（301永久重定向浏览器缓存减少服务器压力但无法统计点击；302临时重定向每次请求服务器可统计点击）\n5. 如何设计存储？（短码→长URL映射，MySQL/Redis，短码做主键/索引）\n6. 如何应对高并发读？（Redis缓存热点短码、CDN、布隆过滤器防穿透）\n7. 如何应对写并发？（发号器预分配、数据库唯一索引兜底）\n8. 自定义短码如何实现？（用户指定短码，检查唯一性）\n9. 如何做访问统计？（异步写日志、离线统计、Redis计数器）\n10. 系统的瓶颈在哪里？如何扩展？（数据库读写瓶颈，分库分表、读写分离、缓存）\n11. 如果短码用哈希，哈希冲突如何处理？（冲突时追加随机字符/重新哈希/链式）\n12. 什么是发号器？雪花算法(Snowflake)的原理？",
+    "category": "系统设计",
+    "subcategory": "经典设计题",
+    "difficulty": "hard",
+    "type": "design",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan"
+    ],
+    "tags": [
+      "短链接",
+      "Base62",
+      "发号器",
+      "301/302",
+      "缓存",
+      "布隆过滤器",
+      "雪花算法",
+      "高并发"
+    ],
+    "answer_hint": "核心：长URL→短码，短码→长URL跳转。短码生成：①自增ID+Base62编码(0-9a-zA-Z，6位62^6=568亿，用分布式发号器/号段模式保证唯一)②哈希(md5取前6位)可能冲突需处理(冲突时追加字符/重新哈希)。存储：短码→长URL映射，MySQL(短码主键/唯一索引) + Redis缓存热点。跳转：301(永久重定向，浏览器缓存，服务器压力小但无法统计每次点击)或302(临时重定向，每次请求服务器可统计点击但压力大)，一般用302。高并发：Redis缓存热点短码(读多写少，命中率高)、布隆过滤器防穿透(不存在的短码直接拒绝不查DB)、CDN缓存静态跳转。写并发：发号器预分配号段(每个服务取一批ID，用完再取，减少数据库压力)、数据库唯一索引兜底。自定义短码：用户指定短码，检查唯一性(DB唯一索引)，不冲突则使用。访问统计：异步写访问日志(MQ)、离线统计(Hive/Spark)、实时统计用Redis计数器(HyperLogLog/bitmap)。发号器：雪花算法(Snowflake)：64位=1位符号+41位时间戳+10位机器ID+12位序列号，趋势递增、全局唯一、高性能。扩展：读瓶颈→缓存+读写分离+CDN；写瓶颈→分库分表(按短码哈希分片)、发号器水平扩展。系统设计要点：①明确需求(QPS、短码长度、是否自定义、统计需求)②容量估算(短码数量、存储量、带宽)③核心流程(写流程/读流程)④数据模型⑤扩展性⑥容错(降级、限流)。",
+    "source": "字节跳动后端二面系统设计真题",
+    "target_roles": [
+      "后端高级",
+      "架构师",
+      "全栈",
+      "技术专家"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "design-002",
+    "title": "请设计一个秒杀系统，如何防止超卖？Redis预扣库存和异步下单的流程？",
+    "description": "请设计一个秒杀系统，要求：\n1. 大量用户在同一时间抢购限量商品\n2. 不能超卖（卖出数量不能超过库存）\n3. 不能少卖（有库存时不能因为并发问题卖不出去）\n4. 系统高可用、高性能\n\n请回答以下问题：\n1. 秒杀系统的挑战是什么？（瞬时高并发、超卖、少卖、带宽、数据库压力）\n2. 前端层面如何优化？（按钮置灰、倒计时、静态资源CDN、验证码防机器人、答题）\n3. 接入层如何限流？（Nginx限流、IP/用户维度限流、令牌桶/漏桶）\n4. 服务层如何扣减库存？（Redis预扣库存、原子操作decr、库存不足直接拒绝）\n5. 为什么用Redis预扣而不是直接扣数据库？（Redis性能高，扛住瞬时流量，数据库扛不住）\n6. 如何防止超卖？（Redis原子decr、数据库乐观锁UPDATE stock SET count=count-1 WHERE id=? AND count>0）\n7. 如何异步下单？（MQ削峰填谷，Redis扣库存成功后发MQ，消费者异步创建订单+扣DB库存）\n8. 一人一单如何实现？（Redis setnx/bitmap，用户ID维度去重）\n9. 订单超时未支付如何处理？（延迟队列/定时任务，超时取消订单+回滚库存）\n10. Redis和数据库库存如何保证最终一致？（定时对账、MQ最终一致、异常补偿）\n11. 热点商品如何处理？（本地缓存、库存分桶、读写分离）\n12. 系统降级策略？（服务降级、熔断、返回排队中、限流）\n13. 秒杀的完整流程？（用户请求→限流→一人一单校验→Redis扣库存→发MQ→返回排队中→消费者创建订单→用户轮询/推送结果）\n14. 如果Redis扣库存成功但MQ发送失败怎么办？（事务消息、本地消息表、重试机制）",
+    "category": "系统设计",
+    "subcategory": "高并发",
+    "difficulty": "hard",
+    "type": "design",
+    "companies": [
+      "alibaba",
+      "tencent",
+      "bytedance",
+      "meituan",
+      "jd"
+    ],
+    "tags": [
+      "秒杀",
+      "高并发",
+      "限流",
+      "库存预扣",
+      "异步下单",
+      "MQ",
+      "超卖",
+      "一人一单",
+      "降级",
+      "最终一致"
+    ],
+    "answer_hint": "挑战：瞬时高并发(秒级几十万QPS)、超卖、少卖、带宽、数据库压力。前端：按钮置灰(防止重复点击)、倒计时(准确时间)、静态资源CDN(减轻服务器压力)、验证码/答题(防机器人、分散请求时间)、页面静态化。接入层：Nginx限流(IP/用户维度，limit_req)、WAF防攻击、负载均衡。服务层：①一人一单：Redis setnx(SET user:goodid NX EX 3600)或bitmap，防止重复下单②Redis预扣库存：DECR stock:goodid，原子操作，返回<0则库存不足直接拒绝(不查DB)③异步下单：扣库存成功后发MQ(RocketMQ/Kafka)，返回'排队中'，消费者异步创建订单+扣DB库存④DB扣库存：乐观锁UPDATE stock SET count=count-1 WHERE id=? AND count>0，影响行数=0则回滚Redis库存。防超卖：Redis原子decr+DB乐观锁双重保障。一人一单：Redis用户维度去重。超时取消：延迟队列(RocketMQ延迟级别/RabbitMQ死信队列)或定时任务扫描，超时未支付取消订单+回滚Redis库存。最终一致：Redis和DB库存通过定时对账任务(定期比对差异并修正)、MQ最终一致、异常补偿。热点：本地缓存(Caffeine)缓存商品信息、库存分桶(将库存拆成多份，减少锁竞争)。降级：服务降级(非核心服务关闭)、熔断、限流、返回'活动太火爆请稍后重试'。完整流程：用户请求→Nginx限流→一人一单校验→Redis扣库存(成功)→发MQ→返回排队中→消费者创建订单(DB扣库存)→用户轮询/推送结果。异常：Redis扣成功但MQ发失败→事务消息(RocketMQ半消息)或本地消息表+定时重试。",
+    "source": "阿里/美团秒杀系统设计真题",
+    "target_roles": [
+      "后端高级",
+      "架构师",
+      "全栈",
+      "技术专家"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "design-003",
+    "title": "消息队列如何保证消息不丢失、不重复消费、顺序性？Kafka和RocketMQ的区别？",
+    "description": "请设计一个消息队列系统，或回答消息队列相关问题：\n1. 消息队列的作用是什么？（解耦、异步、削峰填谷）\n2. 如何保证消息不丢失？（生产者、Broker、消费者三端保证）\n3. 生产者如何保证消息不丢失？（confirm机制、重试、事务消息）\n4. Broker如何保证消息不丢失？（持久化、同步刷盘、多副本同步）\n5. 消费者如何保证消息不丢失？（手动ACK、处理完再确认、消费失败重试+死信队列）\n6. 如何保证消息不重复消费？（至少一次投递+消费端幂等）\n7. 消费端如何实现幂等？（唯一ID+去重表、Redis setnx、业务状态机、乐观锁版本号、数据库唯一索引）\n8. 如何保证消息顺序性？（全局有序：单partition单线程；局部有序：同一key路由到同一partition，partition内FIFO，消费端单线程）\n9. 消息积压如何处理？（临时扩容消费者、批量消费、转发到新topic临时处理、排查消费慢原因）\n10. 什么是死信队列？什么情况下消息进入死信队列？（消费失败次数超限、消息过期、队列满）\n11. Kafka和RocketMQ的区别？（语言、模型、顺序消息、延迟消息、事务消息、性能）\n12. Kafka的高可用是如何实现的？（多副本、ISR机制、leader选举）\n13. 什么是ISR？ISR的作用？（In-Sync Replicas，与leader保持同步的副本集合）\n14. 消息队列的推拉模型区别？（push实时但可能压垮消费者，pull消费者可控但延迟）\n15. 如何设计一个延迟消息功能？（时间轮、延迟级别、定时扫描）",
+    "category": "系统设计",
+    "subcategory": "中间件",
+    "difficulty": "hard",
+    "type": "design",
+    "companies": [
+      "alibaba",
+      "tencent",
+      "bytedance",
+      "meituan"
+    ],
+    "tags": [
+      "消息队列",
+      "可靠性",
+      "幂等性",
+      "顺序消息",
+      "Kafka",
+      "RocketMQ",
+      "ISR",
+      "死信队列",
+      "消息积压",
+      "延迟消息"
+    ],
+    "answer_hint": "消息队列作用：解耦(生产者消费者不直接依赖)、异步(非核心逻辑异步处理降低响应时间)、削峰填谷(高峰请求缓存到MQ，消费者平滑消费)。消息不丢失(三端保证)：①生产者：confirm机制(同步/异步确认Broker收到)、失败重试、事务消息(RocketMQ半消息)②Broker：持久化(消息写磁盘)、同步刷盘(同步刷盘可靠性高但慢，异步刷盘快但可能丢)、多副本同步(leader写后同步到follower，ISR机制)③消费者：手动ACK(处理完再确认，不要自动ACK)、消费失败重试(有最大重试次数)、死信队列(重试超限进入死信队列人工处理)。消息不重复：MQ至少一次投递(at-least-once)可能重复，需消费端幂等。幂等方案：①唯一消息ID+去重表(DB唯一索引/Redis setnx)②业务状态机(如订单已支付则重复支付请求直接返回成功)③乐观锁版本号(UPDATE SET version=version+1 WHERE version=?)④数据库唯一约束(如订单号唯一)。顺序性：①全局有序：单partition/单queue+单线程消费，吞吐量极低②局部有序(常用)：同一业务key(如订单ID)路由到同一partition(哈希取模)，partition内FIFO保证顺序，消费端单线程消费同一partition。Kafka：partition内有序，key哈希路由；RocketMQ：MessageQueueSelector选择同一queue。消息积压：①临时扩容消费者实例(但partition数有限，消费者数不能超过partition数)②批量消费(提高单条消费速度)③转发到新topic(更多partition)临时处理④排查消费慢原因(慢SQL、外部调用超时、锁竞争)。死信队列：消费失败次数超限、消息过期(TTL)、队列满时消息进入死信队列，需人工处理。Kafka vs RocketMQ：Kafka(Scala/Java，高吞吐，日志/大数据场景，ISR多副本，无原生延迟消息/事务消息)；RocketMQ(Java，阿里开源，金融级可靠性，支持延迟消息(18个级别)、事务消息、顺序消息、消息回溯)。ISR(In-Sync Replicas)：与leader保持同步的follower集合，leader写入后等待ISR中副本同步才确认，ISR动态变化(落后太多的副本被踢出，追上来重新加入)，leader故障从ISR中选举新leader，保证数据不丢失。推拉模型：push(Broker推给消费者，实时但可能压垮消费者)、pull(消费者主动拉取，可控但有延迟，Kafka用pull+长轮询平衡)。延迟消息：RocketMQ固定延迟级别(1s/5s/10s/.../2h)；时间轮算法(可实现任意延迟)；定时扫描(数据库存延迟消息，定时任务扫描到期消息)。",
+    "source": "字节跳动中间件面试真题 · Kafka/RocketMQ",
+    "target_roles": [
+      "后端高级",
+      "架构师",
+      "全栈",
+      "技术专家"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "design-004",
+    "title": "请设计一个限流器，令牌桶和漏桶的区别？分布式限流如何实现？",
+    "description": "请设计一个限流器，或回答限流相关问题：\n1. 限流的作用是什么？（保护系统不被打垮、防止恶意请求、公平分配资源）\n2. 常见的限流算法有哪些？（固定窗口计数器、滑动窗口、漏桶、令牌桶）\n3. 固定窗口计数器的原理和问题？（单位时间计数，超过拒绝；问题：窗口边界突发流量翻倍）\n4. 滑动窗口如何解决固定窗口的边界问题？（将窗口分成多个小格，滑动统计）\n5. 漏桶算法的原理？（请求进入桶，固定速率流出，桶满拒绝；输出速率恒定，能平滑突发但无法应对合理突发）\n6. 令牌桶算法的原理？（固定速率放令牌，请求取令牌，有则通过无则拒绝；允许突发流量，桶有积累令牌时可一次性通过）\n7. 漏桶和令牌桶的区别和适用场景？\n8. 单机限流如何实现？（Guava RateLimiter令牌桶、AtomicInteger计数器）\n9. 分布式限流如何实现？（Redis+Lua原子操作、Redis Cell模块、Sentinel集群限流、网关层限流）\n10. 为什么分布式限流要用Lua脚本？（保证多个Redis操作的原子性）\n11. 限流维度有哪些？（IP、用户ID、接口、服务、租户）\n12. 限流后的降级策略？（直接拒绝、排队等待、返回兜底数据、服务降级）\n13. 什么是预热？令牌桶如何实现预热？（系统启动时逐步增加限流阈值，避免冷启动被打垮）\n14. Sentinel和Hystrix的区别？（限流维度、熔断、实时监控、控制台）\n15. 如何设计一个API网关的限流功能？",
+    "category": "系统设计",
+    "subcategory": "高可用",
+    "difficulty": "medium",
+    "type": "design",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan"
+    ],
+    "tags": [
+      "限流",
+      "令牌桶",
+      "漏桶",
+      "滑动窗口",
+      "固定窗口",
+      "分布式限流",
+      "Redis+Lua",
+      "Sentinel",
+      "降级",
+      "预热"
+    ],
+    "answer_hint": "限流作用：保护系统(防止流量超过系统承载能力导致雪崩)、防恶意攻击(爬虫/暴力破解)、公平分配(多租户/多用户公平使用资源)、成本控制。算法：①固定窗口计数器：单位时间(如1分钟)内计数，超过阈值拒绝，简单但有窗口边界问题(前窗口末尾+后窗口开头流量可能达2倍阈值)②滑动窗口：将大窗口分成N个小格(如1分钟分6格每格10秒)，统计当前窗口内所有小格的计数，随时间滑动，解决边界问题，实现稍复杂(Redis zset实现)③漏桶：请求进入桶(队列)，以固定速率流出处理，桶满则拒绝。输出速率恒定，能平滑突发流量，但即使下游空闲也按固定速率处理，无法应对合理突发④令牌桶：以固定速率往桶里放令牌，请求来取令牌，有令牌通过无令牌拒绝/等待。允许突发(桶中有积累令牌时可一次性通过多个请求)，是最常用算法。Guava RateLimiter用令牌桶实现。漏桶vs令牌桶：漏桶输出恒定(适合要求严格平滑的场景如视频流)，令牌桶允许突发(适合互联网API，应对合理的流量突发)。单机限流：Guava RateLimiter(令牌桶)、AtomicInteger计数器、Semaphore信号量。分布式限流：①Redis+Lua(令牌桶/滑动窗口，Lua保证多个Redis操作原子性)②Redis Cell模块(内置令牌桶，CL.THROTTLE命令)③Sentinel集群限流(Token Server分配令牌)④网关层限流(Nginx limit_req、Kong、Spring Cloud Gateway)。限流维度：IP、用户ID、接口URL、服务、租户、API Key。降级策略：直接拒绝(429 Too Many Requests)、排队等待(如令牌桶等待)、返回兜底数据(默认值/缓存)、服务降级(关闭非核心功能)、熔断。预热(Warm Up)：系统启动/恢复时，限流阈值从低逐步增加到目标值，避免冷启动瞬间被打垮，Guava RateLimiter支持warmupFactor。Sentinel vs Hystrix：Sentinel(阿里开源，限流+熔断+系统保护，支持多种限流维度，实时监控Dashboard，轻量)；Hystrix(Netflix开源，主要是熔断+降级，已停止维护，被Resilience4j替代)。API网关限流：在网关层统一限流，支持路由维度、用户维度、IP维度，配置化，无需业务代码改动。",
+    "source": "字节跳动/美团高级后端面试 · 《设计数据密集型应用》",
+    "target_roles": [
+      "后端高级",
+      "架构师",
+      "全栈",
+      "技术专家"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "design-005",
+    "title": "请设计一个RPC框架，核心组件有哪些？动态代理、序列化、服务发现、负载均衡如何实现？",
+    "description": "请设计一个RPC框架，或回答RPC相关问题：\n1. 什么是RPC？RPC和HTTP的区别？（Remote Procedure Call，远程过程调用，像调用本地方法一样调用远程方法）\n2. RPC的完整调用流程？（代理→序列化→网络传输→服务端反序列化→反射调用→序列化结果→网络传输→客户端反序列化）\n3. RPC框架的核心组件有哪些？（代理、序列化、网络传输、服务发现、负载均衡、容错、注册中心）\n4. 动态代理在RPC中的作用？（客户端代理拦截方法调用，封装为RPC请求）\n5. 常见的序列化方式有哪些？（Protobuf、Kryo、Hessian、JSON、JDK序列化）性能对比？\n6. 为什么Protobuf性能好？（二进制、紧凑编码、varint、预生成代码、前后兼容）\n7. RPC的网络传输层如何实现？（Netty NIO、TCP长连接、自定义协议）\n8. 自定义RPC协议包含哪些字段？（魔数、版本、序列化类型、请求ID、消息类型、数据长度、数据）\n9. 服务发现如何实现？（注册中心ZooKeeper/Nacos/Consul，服务提供者注册地址，消费者拉取并缓存）\n10. 负载均衡策略有哪些？（轮询、随机、加权轮询、一致性哈希、最小连接数、最短响应时间）\n11. 一致性哈希的原理？为什么用一致性哈希而不是普通哈希？（节点增减只影响相邻节点，避免大量请求重路由）\n12. RPC容错机制有哪些？（超时重试、熔断、降级、限流、失败转移failover、失败广播forking）\n13. 超时和重试如何设计？（超时时间设置、重试次数、重试间隔、幂等性要求）\n14. 常见的RPC框架有哪些？（Dubbo、gRPC、Thrift、Motan、brpc）\n15. Dubbo和gRPC的区别？（语言、协议、序列化、生态、性能）\n16. 什么是零拷贝？RPC中如何利用零拷贝？（mmap、sendfile，减少内核态用户态数据拷贝）",
+    "category": "系统设计",
+    "subcategory": "分布式",
+    "difficulty": "hard",
+    "type": "design",
+    "companies": [
+      "alibaba",
+      "tencent",
+      "bytedance",
+      "meituan"
+    ],
+    "tags": [
+      "RPC",
+      "动态代理",
+      "序列化",
+      "Protobuf",
+      "Netty",
+      "服务发现",
+      "负载均衡",
+      "一致性哈希",
+      "容错",
+      "Dubbo",
+      "gRPC",
+      "零拷贝"
+    ],
+    "answer_hint": "RPC(Remote Procedure Call)：远程过程调用，像调用本地方法一样调用远程服务方法，屏蔽网络通信细节。vs HTTP：RPC是协议/框架(可基于TCP或HTTP)，性能高(二进制序列化+长连接)，适合内部服务间调用；HTTP是应用层协议，文本格式，通用但性能较低，适合对外接口。调用流程：①客户端代理(动态代理)拦截方法调用，封装为RPC请求(接口名、方法名、参数类型、参数值)②序列化请求对象为字节③网络传输(TCP长连接，Netty NIO)④服务端接收，反序列化为请求对象⑤反射调用本地方法(或直接调用)⑥序列化结果⑦网络传输回客户端⑧客户端反序列化结果，代理返回。核心组件：代理(JDK Proxy/CGLIB)、序列化、网络传输(Netty)、服务发现(注册中心)、负载均衡、容错、超时重试、连接池。序列化：Protobuf(Google，二进制紧凑，varint编码，预生成代码，性能最好，前后兼容)、Kryo(Java，快，需注册类)、Hessian(跨语言，二进制)、JSON(文本，可读性好但慢体积大)、JDK序列化(慢，不推荐)。Protobuf快原因：二进制编码、varint变长编码(小数字占1字节)、TLV格式紧凑、预生成代码(无需反射)、零拷贝支持。网络传输：Netty(NIO，Reactor模式，高并发)，TCP长连接(连接池复用，避免握手开销)，自定义协议(魔数+版本+序列化类型+请求ID+消息类型+数据长度+数据，类似Dubbo协议)。服务发现：注册中心(ZooKeeper/Nacos/Consul/Eureka)，服务提供者启动时注册地址(IP+端口)，消费者启动时拉取服务地址列表并缓存，监听变更(Watch/推送)。负载均衡：轮询、随机、加权轮询(按机器性能分配权重)、一致性哈希(相同请求路由到相同节点，适合有状态服务)、最小连接数、最短响应时间。一致性哈希：哈希环，节点和请求都哈希到环上，请求顺时针找最近节点。节点增减只影响相邻节点(虚拟节点解决数据倾斜)，避免普通哈希节点增减导致大量请求重路由。容错：超时重试(设置超时时间，失败重试，需幂等)、熔断(失败率超阈值则快速失败，半开状态探测恢复)、降级(返回默认值/兜底)、限流、failover(失败转移到其他节点)、forking(同时调用多个节点取最快返回)。超时重试：超时时间需大于P99响应时间，重试次数2-3次，重试间隔指数退避，要求服务幂等。RPC框架：Dubbo(阿里，Java，功能丰富，生态好)、gRPC(Google，跨语言，HTTP/2+Protobuf，流式)、Thrift(Apache，跨语言，代码生成)、Motan(微博，轻量)、brpc(百度，C++，高性能)。Dubbo vs gRPC：Dubbo(Java为主，TCP+Dubbo协议+Hessian，功能全面：服务治理、负载均衡、容错、监控)；gRPC(跨语言，HTTP/2+Protobuf，流式调用，性能好，服务治理需额外组件如Istio)。零拷贝：减少CPU在用户态和内核态之间的数据拷贝，mmap(文件映射到用户内存)、sendfile(直接从文件描述符到socket描述符)，RPC中大数据传输可用。",
+    "source": "字节跳动基础设施面试真题 · Dubbo/gRPC",
+    "target_roles": [
+      "后端高级",
+      "架构师",
+      "全栈",
+      "技术专家"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "embodied-001",
+    "title": "什么是具身智能(Embodied AI)？它和传统AI有什么区别？技术栈包含哪些层次？",
+    "description": "请详细回答以下问题：\n1. 什么是具身智能(Embodied AI)？它和传统AI有什么区别？\n2. 具身智能的核心要素是什么？（身体、感知、决策、行动、环境交互）\n3. 具身智能的技术栈包含哪些层次？（硬件层-机器人本体/传感器、感知层-视觉/力觉/语音、决策层-规划/控制/RL、大模型层-VLA/世界模型）\n4. 什么是VLA模型？（Vision-Language-Action，视觉语言动作模型）\n5. 具身智能和大模型的结合点在哪里？（LLM作为大脑做任务规划，VLA直接输出动作，世界模型做仿真）\n6. 具身智能的主要应用场景？（工业制造、家庭服务、物流仓储、医疗康复、人形机器人）\n7. 宇树科技在具身智能领域的定位和产品？（四足机器人Go2/B2、人形机器人H1/G1、运动控制算法）\n8. 具身智能面临的主要挑战？（数据稀缺、Sim2Real差距、泛化能力、实时性、安全性、成本）\n9. 什么是Sim2Real？为什么它是具身智能的关键问题？（仿真训练到真实部署的迁移，域随机化、域适应）\n10. 具身智能的数据从哪里来？（遥操作采集、仿真生成、人类视频、自监督、互联网数据）\n11. 什么是端到端具身智能？和模块化方法的区别？\n12. 具身智能软件工程师需要掌握哪些技能？（C++/Python、ROS、机器人学、计算机视觉、强化学习、深度学习部署）",
+    "category": "具身智能",
+    "subcategory": "基础概念",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "unitree",
+      "bytedance",
+      "xiaomi",
+      "huawei"
+    ],
+    "tags": [
+      "具身智能",
+      "Embodied AI",
+      "VLA",
+      "Sim2Real",
+      "宇树科技",
+      "人形机器人",
+      "世界模型",
+      "技术栈"
+    ],
+    "answer_hint": "具身智能(Embodied AI)：AI通过物理身体(机器人)与真实环境交互，感知-决策-行动闭环，在物理世界中完成任务。区别于传统AI(纯软件、数据驱动、无物理交互)，具身智能强调身体的物理约束、环境的实时反馈、行动的因果性。核心要素：身体(机器人本体/执行器)、感知(视觉/力觉/IMU/激光雷达)、决策(规划/控制/强化学习)、行动(电机控制/运动)、环境交互(物理世界反馈)。技术栈：①硬件层：机器人本体(四足/人形/机械臂)、传感器(相机/深度相机/力传感器/IMU/激光雷达)、计算平台(Jetson/工控机)②感知层：计算机视觉(目标检测/分割/姿态估计)、多传感器融合、SLAM③决策层：运动规划、轨迹优化、强化学习(RL)、模型预测控制(MPC)④大模型层：LLM任务规划(如SayCan)、VLA模型(如RT-2/OpenVLA，直接从视觉+语言输出动作)、世界模型(仿真环境预测)。VLA(Vision-Language-Action)：视觉语言动作模型，输入图像+自然语言指令，直接输出机器人动作(关节角/末端位姿)，端到端，如Google RT-2、OpenVLA、宇树的相关工作。大模型结合：①LLM作为高层大脑(任务分解/规划，如SayCan用LLM选择技能)②VLA端到端(视觉+语言→动作)③世界模型(学习环境动力学，在模型中规划/训练)。应用：工业制造(装配/焊接)、家庭服务(家务/陪伴)、物流仓储(搬运/分拣)、医疗康复(手术/辅助行走)、人形机器人(通用任务)。宇树科技：四足机器人(Go2消费级/B2工业级)、人形机器人(H1/G1)、运动控制算法(强化学习+MPC)，定位是通用人形机器人公司，强调运动智能。挑战：①数据稀缺(机器人数据采集成本高，不像互联网数据丰富)②Sim2Real差距(仿真和真实环境的物理/视觉差异)③泛化能力(新任务/新环境/新物体)④实时性(控制频率高，低延迟)⑤安全性(物理安全，人机协作)⑥成本(硬件贵)。Sim2Real：在仿真环境中训练策略，迁移到真实机器人。关键技术：域随机化(随机化物理参数/光照/纹理，提升鲁棒性)、域适应(真实数据微调)、系统辨识(校准仿真物理参数)。数据来源：遥操作(人类操控机器人采集，如Teleop)、仿真生成(大规模自动生成)、人类视频(从视频学习动作)、自监督(机器人自主探索)、互联网数据(图文/视频预训练)。端到端vs模块化：端到端(感知→动作一个神经网络，如VLA，简单但可解释性差/数据需求大)；模块化(感知→规划→控制分开，可解释/可调试但误差累积)。软件工程师技能：C++(高性能控制/部署)、Python(算法/研究)、ROS/ROS2(机器人中间件)、机器人学(运动学/动力学/控制)、计算机视觉、强化学习、深度学习部署(TensorRT/ONNX)、Linux/实时系统。",
+    "source": "宇树科技具身智能软件工程师面试真题",
+    "target_roles": [
+      "机器人软件工程师",
+      "具身智能算法",
+      "运动控制算法",
+      "感知算法"
+    ],
+    "source_url": "https://www.unitree.com/cn/jobs"
+  },
+  {
+    "id": "embodied-002",
+    "title": "强化学习如何应用于机器人运动控制？PPO算法的原理？Sim2Real的域随机化如何实现？",
+    "description": "请详细回答以下问题：\n1. 强化学习的基本框架是什么？（Agent、Environment、State、Action、Reward、Policy）\n2. 强化学习和监督学习的区别？\n3. 什么是策略梯度(Policy Gradient)？PPO算法的原理？\n4. 什么是Actor-Critic架构？\n5. 为什么机器人运动控制常用强化学习而不是传统控制？（复杂动力学、难以建模、高维状态空间、接触丰富）\n6. 强化学习训练机器人运动的典型流程？（仿真建模→奖励设计→训练→Sim2Real迁移→真机部署）\n7. 奖励函数如何设计？（稀疏奖励vs密集奖励、奖励塑形、潜在函数）\n8. 什么是Sim2Real的域随机化？具体随机化哪些参数？（质量、摩擦、电机力矩、延迟、噪声、光照）\n9. 宇树科技的四足/人形机器人运动控制用了什么方法？（强化学习+MPC混合、端到端RL策略）\n10. 什么是教师-学生蒸馏(Teacher-Student)在Sim2Real中的应用？（特权教师→学生策略）\n11. 强化学习在真实机器人上直接训练有什么问题？（样本效率低、安全风险、硬件磨损、不可复现）\n12. 什么是模型预测控制(MPC)？它和RL如何结合？\n13. 常见的RL库和框架？（Stable Baselines3、RLlib、Isaac Gym、MuJoCo、Gazebo）\n14. 什么是从演示中学习(LfD)？和RL的关系？（模仿学习、行为克隆、逆强化学习）",
+    "category": "具身智能",
+    "subcategory": "强化学习",
+    "difficulty": "hard",
+    "type": "concept",
+    "companies": [
+      "unitree",
+      "bytedance",
+      "xiaomi"
+    ],
+    "tags": [
+      "强化学习",
+      "PPO",
+      "Actor-Critic",
+      "Sim2Real",
+      "域随机化",
+      "运动控制",
+      "MPC",
+      "奖励设计",
+      "模仿学习",
+      "Isaac Gym"
+    ],
+    "answer_hint": "RL框架：Agent(智能体)与Environment(环境)交互，观察State(状态)，选择Action(动作)，获得Reward(奖励)，目标是最大化累积奖励。Policy(策略π(a|s))是从状态到动作的映射。vs监督学习：RL没有标签，通过试错和奖励信号学习；数据是序列相关的(非i.i.d.)；有延迟奖励(信用分配问题)。策略梯度：直接优化策略参数，梯度为∇J(θ)=E[∇logπ(a|s)·Q(s,a)]，REINFORCE是基础。PPO(Proximal Policy Optimization)：限制策略更新幅度(clip ratio)，避免策略突变，稳定训练，是目前最常用的RL算法，clip(ratio, 1-ε, 1+ε)。Actor-Critic：Actor(策略网络，输出动作) + Critic(价值网络，评估状态/动作价值)，Critic提供基线减少方差，如A2C/A3C/PPO。机器人运动控制用RL原因：①复杂动力学(四足/人形接触丰富，难以精确建模)②高维状态空间(多关节)③传统控制需要手工设计参数，RL可自动学习④可学习鲁棒策略(应对不确定性)。训练流程：①仿真建模(URDF/物理引擎MuJoCo/Isaac Sim)②奖励设计(目标速度、姿态稳定、能耗、脚端轨迹)③大规模并行训练(Isaac Gym/GPU加速，数千环境并行)④Sim2Real(域随机化+系统辨识)⑤真机部署(ONNX/TensorRT推理)。奖励设计：稀疏奖励(只在完成任务给奖励，难探索)vs密集奖励(每步给奖励塑形，易探索但可能局部最优)；奖励塑形(reward shaping)用潜在函数F(s,s')=γΦ(s')-Φ(s)不改变最优策略；常见奖励：前进速度、姿态高度/俯仰、脚端高度、能耗惩罚、关节限位惩罚。域随机化(Domain Randomization)：训练时随机化仿真参数，让策略见过各种情况，提升真实环境鲁棒性。随机化：质量/惯量、摩擦系数、电机力矩常数、控制延迟、传感器噪声、地面粗糙度、光照/纹理。宇树运动控制：强化学习+MPC混合架构，RL学习高层步态/脚端位置，MPC做底层力矩控制；也有端到端RL策略(直接输出关节力矩)，G1/H1用RL训练运动技能(行走/跑步/上下楼)。教师-学生蒸馏：特权教师(用仿真中不可观测的状态如接触力/质心速度训练)→学生策略(只用真实可观测的传感器数据如IMU/关节编码器)，蒸馏迁移，解决真实机器人传感器不足的问题。真机直接训练问题：样本效率低(RL需要百万次交互)、安全风险(摔倒损坏)、硬件磨损、不可复现(物理随机性)，所以几乎都在仿真中训练再迁移。MPC(Model Predictive Control)：在每个时刻用动力学模型预测未来N步轨迹，优化控制输入，只执行第一步，滚动优化。和RL结合：RL输出参考轨迹/目标，MPC跟踪执行；或RL学习MPC的代价函数/模型。RL框架：Stable Baselines3(易用，PyTorch)、RLlib(分布式，Ray)、Isaac Gym(NVIDIA，GPU并行物理，数千环境)、MuJoCo(物理引擎)、Gazebo(ROS仿真)。模仿学习(LfD)：从人类演示中学习，行为克隆(BC，监督学习映射状态→动作)、逆强化学习(IRL，从演示推断奖励函数再RL)、DAgger(数据集聚合)。和RL关系：模仿学习提供好的初始化(预训练)，RL再微调提升；纯RL从零探索困难，模仿学习加速。",
+    "source": "宇树科技运动控制算法岗面试真题 · Isaac Gym",
+    "target_roles": [
+      "机器人软件工程师",
+      "具身智能算法",
+      "运动控制算法",
+      "感知算法"
+    ],
+    "source_url": "https://www.unitree.com/cn/jobs"
+  },
+  {
+    "id": "embodied-003",
+    "title": "机器人常用的传感器有哪些？多传感器融合的算法有哪些？卡尔曼滤波、EKF、UKF的区别？",
+    "description": "请详细回答以下问题：\n1. 机器人常用的传感器有哪些？（相机、深度相机、激光雷达、IMU、力/力矩传感器、编码器、触觉传感器）\n2. 单目相机、双目相机、RGB-D相机的区别和适用场景？\n3. 什么是SLAM？视觉SLAM和激光SLAM的区别？\n4. 什么是多传感器融合？为什么需要融合？（互补、冗余、鲁棒性）\n5. 常见的传感器融合算法？（卡尔曼滤波KF、扩展卡尔曼EKF、无迹卡尔曼UKF、粒子滤波PF、因子图优化）\n6. 卡尔曼滤波的原理和五个公式？（预测+更新，状态估计）\n7. EKF和UKF的区别？（线性化 vs 无迹变换采样）\n8. 什么是因子图优化？g2o/Ceres的作用？\n9. 视觉惯性里程计(VIO)的原理？（视觉+IMU融合，如VINS-Mono、OKVIS）\n10. 力控在机器人中的应用？（力/力矩传感器、阻抗控制、导纳控制、力位混合控制）\n11. 什么是触觉传感器？在灵巧操作中的作用？\n12. 传感器标定的重要性？（相机内参/外参、IMU标定、手眼标定、时间同步）\n13. 传感器时间同步如何实现？（硬件触发PPS、软件时间戳对齐、NTP/PTP）\n14. 具身智能中感知和大模型如何结合？（视觉编码器+LLM/VLA、开放词汇检测/分割）",
+    "category": "具身智能",
+    "subcategory": "感知与融合",
+    "difficulty": "hard",
+    "type": "concept",
+    "companies": [
+      "unitree",
+      "bytedance",
+      "xiaomi",
+      "huawei"
+    ],
+    "tags": [
+      "传感器融合",
+      "SLAM",
+      "卡尔曼滤波",
+      "EKF",
+      "VIO",
+      "RGB-D",
+      "激光雷达",
+      "力控",
+      "因子图",
+      "时间同步"
+    ],
+    "answer_hint": "传感器：①相机(RGB，颜色信息，便宜但无深度)②深度相机(RGB-D，结构光/ToF/双目，如RealSense/Kinect，有深度但范围有限)③激光雷达(LiDAR，高精度深度/点云，抗光照但贵/大)④IMU(惯性测量单元，加速度+角速度，高频但漂移)⑤力/力矩传感器(关节/腕部，测量接触力)⑥编码器(关节角度/速度)⑦触觉传感器(阵列式，接触力分布)。单目：便宜，无深度需SLAM估计；双目：立体匹配得深度，基线限制距离；RGB-D：直接深度，结构光(室内近距)/ToF(远距抗干扰)/双目，机器人常用。SLAM(Simultaneous Localization and Mapping)：同时定位与建图，机器人在未知环境中同时估计自身位姿和构建环境地图。视觉SLAM(用相机，特征点/直接法，如ORB-SLAM)vs激光SLAM(用LiDAR，点云匹配，如Hector SLAM/Cartographer，精度高抗光照但成本高)。多传感器融合：结合多种传感器信息，互补(相机有纹理无深度，LiDAR有深度无纹理，IMU高频但漂移)、冗余(一个失效另一个兜底)、鲁棒性(光照变化/遮挡时仍能定位)。融合算法：①KF(卡尔曼滤波，线性高斯系统，预测+更新两步)②EKF(扩展卡尔曼，非线性系统一阶泰勒展开线性化)③UKF(无迹卡尔曼，用sigma点采样传播均值方差，无需雅可比)④PF(粒子滤波，蒙特卡洛采样，处理非高斯非线性)⑤因子图优化(将传感器测量作为因子，位姿作为变量，最小化残差，如g2o/Ceres，全局优化)。卡尔曼滤波五公式：预测：x̂ₖ⁻=F x̂ₖ₋₁+B uₖ；Pₖ⁻=F Pₖ₋₁ Fᵀ+Q。更新：Kₖ=Pₖ⁻ Hᵀ(H Pₖ⁻ Hᵀ+R)⁻¹；x̂ₖ=x̂ₖ⁻+Kₖ(zₖ-H x̂ₖ⁻)；Pₖ=(I-KₖH)Pₖ⁻。EKF vs UKF：EKF对非线性函数一阶泰勒展开(需计算雅可比矩阵)，线性化误差可能大；UKF用无迹变换选sigma点，通过非线性函数传播后估计均值方差，精度更高无需雅可比，但计算量稍大。因子图优化：变量节点(位姿/路标)和因子节点(观测约束)，最小化所有因子残差平方和，g2o(图优化库)、Ceres(通用最小二乘)，SLAM后端常用。VIO(Visual-Inertial Odometry)：视觉+IMU紧耦合融合，视觉提供尺度/漂移校正，IMU提供高频运动估计，解决纯视觉快速运动/遮挡丢失，如VINS-Mono(单目+IMU)、OKVIS、ROVIO。力控：力/力矩传感器测量接触力，实现柔顺控制。阻抗控制(控制位置和力的动态关系，质量-弹簧-阻尼)、导纳控制(输入力→输出位置，外环)、力位混合控制(某些方向力控某些方向位控)，用于装配/打磨/人机协作。触觉传感器：阵列式压力传感器(如GelSight视觉触觉)，提供接触力分布/滑移检测，灵巧操作(抓取/操作小物体)关键，弥补视觉遮挡。传感器标定：相机内参(焦距/主点/畸变)、外参(相机间/相机-IMU/相机-机器人基座变换)、IMU标定(零偏/尺度/非正交)、手眼标定(相机-末端执行器)，标定误差直接影响融合精度。时间同步：硬件PPS(脉冲每秒，GPS/IMU触发)、PTP(精确时间协议，IEEE1588，亚微秒)、NTP(毫秒级，不够)、软件时间戳对齐(插值/最近邻)，传感器数据时间不对齐会导致融合误差。大模型结合：视觉编码器(CLIP/DINOv2)提取特征+LLM做开放词汇理解(任意物体检测/分割，如Grounding DINO/SAM)、VLA直接用视觉+语言输入输出动作。",
+    "source": "宇树科技/人形机器人算法岗面试真题 · 具身智能大模型",
+    "target_roles": [
+      "机器人软件工程师",
+      "具身智能算法",
+      "运动控制算法",
+      "感知算法"
+    ],
+    "source_url": "https://www.unitree.com/cn/jobs"
+  },
+  {
+    "id": "embodied-004",
+    "title": "机器人的正运动学和逆运动学是什么？雅可比矩阵的作用？PID控制的三个参数？",
+    "description": "请详细回答以下问题：\n1. 什么是正运动学和逆运动学？（FK：关节角→末端位姿；IK：末端位姿→关节角）\n2. 什么是雅可比矩阵？它的作用？（关节速度→末端速度映射，奇异性分析，力控）\n3. 什么是机器人奇异位形？如何处理？\n4. 常见的逆运动学求解方法？（解析解、数值迭代法、雅可比转置/伪逆、优化方法）\n5. 什么是PID控制？三个参数的作用？（比例P、积分I、微分D）\n6. 机器人关节控制通常用什么控制方式？（位置环、速度环、电流环三闭环）\n7. 什么是前馈控制？和反馈控制的区别？\n8. 什么是轨迹规划？常见的轨迹规划方法？（关节空间/笛卡尔空间，三次/五次多项式，梯形速度，S曲线）\n9. 什么是碰撞检测？在运动规划中的作用？\n10. 常见的运动规划算法？（A*、RRT、RRT*、PRM、CHOMP、TrajOpt）\n11. 四足机器人的步态有哪些？（行走walk、小跑trot、奔跑gallop、跳bound、踱步pace）\n12. 人形机器人平衡控制的关键技术？（ZMP零力矩点、Capture Point、全身控制WBC、MPC）\n13. 什么是全身控制(Whole-Body Control)？\n14. 实时控制对操作系统有什么要求？（实时内核PREEMPT_RT、低延迟、确定性）",
+    "category": "具身智能",
+    "subcategory": "运动控制",
+    "difficulty": "hard",
+    "type": "concept",
+    "companies": [
+      "unitree",
+      "xiaomi",
+      "huawei"
+    ],
+    "tags": [
+      "运动学",
+      "逆运动学",
+      "雅可比",
+      "PID",
+      "轨迹规划",
+      "RRT",
+      "步态",
+      "ZMP",
+      "全身控制",
+      "MPC",
+      "实时系统"
+    ],
+    "answer_hint": "正运动学FK：已知关节角度，计算末端执行器位姿(位置+姿态)，用DH参数/齐次变换矩阵链式相乘，唯一解。逆运动学IK：已知末端位姿，求关节角度，可能多解/无解，更难。雅可比矩阵J：关节速度q̇到末端速度ẋ的映射ẋ=J q̇，线性化运动学。作用：速度控制、逆运动学数值解(q̇=J⁺ẋ)、奇异性分析(行列式为0时奇异)、力控(关节力矩τ=JᵀF，末端力映射到关节力矩)。奇异位形：雅可比矩阵秩亏(行列式为0)，末端某些方向无法运动/关节速度无穷大，如机械臂完全伸直。处理：奇异性检测+阻尼最小二乘(DLS，J⁺=Jᵀ(JJᵀ+λI)⁻¹)、避奇异路径规划。IK求解：①解析解(特定结构如6轴Pieper准则，快，需几何推导)②数值迭代(雅可比伪逆/转置，迭代逼近，通用但慢可能局部最优)③优化方法(带约束的二次规划，考虑关节限位/避障)。PID：比例P(当前误差，响应快但有稳态误差)、积分I(累积误差，消除稳态误差但可能超调/积分饱和)、微分D(误差变化率，预测趋势抑制超调但放大噪声)。u(t)=Kp e(t)+Ki∫e(t)dt+Kd de(t)/dt。关节三闭环：电流环(最内环，力矩控制，kHz)→速度环(中间环，rad/s)→位置环(最外环，角度)，嵌套控制。前馈控制：基于模型/参考输入直接计算控制量(不依赖误差反馈)，如重力补偿/速度前馈，和反馈结合提高跟踪精度；反馈是误差驱动(有误差才修正，有延迟)。轨迹规划：从起点到终点生成平滑的时间-位置/速度/加速度曲线。关节空间(每个关节独立插值，简单无奇异)vs笛卡尔空间(末端直线/圆弧，需IK每步求解)。方法：三次多项式(位置速度连续)、五次多项式(加加速度连续，更平滑)、梯形速度(匀加速-匀速-匀减速)、S曲线(7段，加加速度有限，最平滑)。碰撞检测：检查机器人连杆与环境/自身是否碰撞，运动规划中保证路径安全，常用FCL/碰撞检测库，AABB/OBB包围盒加速。运动规划算法：①A*(栅格搜索，最优，高维慢)②RRT(快速扩展随机树，采样-based，高维有效但非最优/路径不平滑)③RRT*(渐近最优，收敛到最优但慢)④PRM(概率路线图，离线建图在线查询，多查询场景)⑤CHOMP/TrajOpt(轨迹优化，直接优化平滑+避障代价)。四足步态：walk(行走，三足支撑，稳定慢)、trot(小跑，对角两腿同时，最常用，中速)、gallop(奔跑，腾空相，高速)、bound(跳，前后腿分别)、pace(踱步，同侧两腿)。人形平衡：ZMP(零力矩点，地面反力合力作用点，ZMP在支撑多边形内则稳定)、Capture Point(捕获点，一步能恢复平衡的落点)、WBC(全身控制，QP优化全身关节力矩满足多任务优先级)、MPC(模型预测控制，预测未来步态/质心轨迹优化)。全身控制WBC：将多个任务(末端跟踪/质心平衡/姿态/避障)按优先级排列，用QP求解全身关节力矩/加速度，实现复杂全身运动。实时控制：需要实时操作系统(Linux PREEMPT_RT补丁，硬实时)、低延迟(控制周期1ms级)、确定性(调度抖动微秒级)、避免非实时操作(网络/文件IO在控制线程)。",
+    "source": "宇树科技/人形机器人算法岗面试真题 · 具身智能大模型",
+    "target_roles": [
+      "机器人软件工程师",
+      "具身智能算法",
+      "运动控制算法",
+      "感知算法"
+    ],
+    "source_url": "https://www.unitree.com/cn/jobs"
+  },
+  {
+    "id": "embodied-005",
+    "title": "什么是ROS？ROS1和ROS2的区别？DDS通信和QoS策略？机器人软件的典型分层架构？",
+    "description": "请详细回答以下问题：\n1. 什么是ROS？ROS和ROS2的区别？（机器人操作系统，中间件，通信框架）\n2. ROS的核心概念？（节点Node、话题Topic、服务Service、动作Action、参数Parameter、消息Message、包Package）\n3. ROS的通信机制？（发布订阅Topic、请求响应Service、目标反馈Action）\n4. 什么是ROS的计算图？（节点-话题-节点的有向图）\n5. ROS2为什么要替代ROS1？（DDS通信、实时性、多平台、安全、生命周期、QoS）\n6. ROS2的DDS是什么？有哪些DDS实现？（数据分发服务，RTPS协议，Fast DDS/Cyclone DDS/RMW）\n7. 什么是QoS？ROS2中QoS策略有哪些？（可靠性、持久性、历史、深度、截止时间）\n8. 机器人软件的典型分层架构？（硬件驱动层→抽象层→感知层→规划决策层→应用层）\n9. 什么是中间件？为什么机器人需要中间件？（解耦、通信、标准化、模块化）\n10. 常见的机器人中间件？（ROS/ROS2、YARP、Orocos、LCM、DDS、自研中间件如宇树的）\n11. 机器人软件的实时性问题如何解决？（实时内核、独立实时进程、共享内存、优先级调度）\n12. 什么是节点管理器？ROS1的roscore和ROS2的区别？\n13. 如何调试ROS系统？（rosnode/rostopic/rosservice/rqt/rviz/gdb/logging）\n14. 具身智能大模型时代，ROS架构如何演进？（大模型节点、云边协同、VLA推理服务、仿真-真机一致）",
+    "category": "具身智能",
+    "subcategory": "软件架构",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "unitree",
+      "bytedance",
+      "xiaomi",
+      "huawei"
+    ],
+    "tags": [
+      "ROS",
+      "ROS2",
+      "DDS",
+      "QoS",
+      "节点",
+      "话题",
+      "中间件",
+      "软件架构",
+      "实时性",
+      "rqt"
+    ],
+    "answer_hint": "ROS(Robot Operating System)：机器人操作系统，不是真正的OS，是开源机器人中间件/通信框架+工具集+生态。ROS1 vs ROS2：ROS1(2007，roscore中心化，TCP/UDP通信，Linux为主，无原生实时/安全/QoS，已停止维护Noetic是最后版本)；ROS2(2017，基于DDS去中心化，支持实时/多平台/嵌入式/安全/QoS/生命周期，活跃开发，推荐新项目用ROS2)。核心概念：①Node节点(独立进程，执行特定功能如摄像头驱动/路径规划)②Topic话题(异步发布订阅，一对多，数据流如/camera/image)③Service服务(同步请求响应，一对一，如/set_mode)④Action动作(异步目标-反馈-结果，长时间任务如/move_base，可取消/反馈)⑤Parameter参数(节点配置，动态可改)⑥Message消息(数据结构，.msg定义，如std_msgs/String)⑦Package包(代码组织单元，含节点/消息/launch)。通信：发布订阅(Topic，松耦合，数据流)、请求响应(Service，紧耦合，RPC)、目标反馈(Action，长任务)。计算图：节点通过话题连接形成的有向图，rqt_graph可视化。DDS(Data Distribution Service)：OMG标准的分布式实时通信中间件，基于RTPS协议，ROS2用DDS做底层通信。实现：Fast DDS(eProsima，默认)、Cyclone DDS(Eclipse，轻量高性能)、GurumDDS等，通过RMW(ROS Middleware Wrapper)抽象层切换。QoS(Quality of Service)：ROS2相比ROS1的重要特性，可配置通信质量。策略：RELIABILITY(可靠BEST_EFFORT尽力)、DURABILITY(持久VOLATILE瞬态)、HISTORY(保留KEEP_LAST最后N个/KEEP_ALL所有)、DEPTH(队列深度)、DEADLINE(截止时间)、LIFESPAN(消息寿命)。根据场景选：传感器数据用BEST_EFFORT+KEEP_LAST(允许丢包要最新)，控制指令用RELIABLE(不能丢)。分层架构：①硬件驱动层(传感器/电机驱动，C++，实时)②抽象层(HAL，统一接口，ros_control)③感知层(SLAM/视觉/多传感器融合)④规划决策层(运动规划/任务规划/行为决策/RL策略)⑤应用层(业务逻辑/人机交互/UI)。中间件作用：解耦(模块独立开发)、通信(标准化消息传递)、模块化(可替换/复用)、工具生态(可视化/调试/仿真)。常见中间件：ROS/ROS2(最主流)、YARP(机器人研究)、Orocos(实时控制)、LCM(轻量，自动驾驶)、DDS(工业级)、大公司自研(宇树/特斯拉Optimus有自研中间件)。实时性：ROS2支持实时但需配置(实时内核、DDS实时配置、内存预分配)；硬实时控制通常独立于ROS(裸机/RTOS/实时进程)，通过共享内存/高速总线与ROS通信；控制环1kHz不能用ROS通信(延迟抖动大)。roscore：ROS1中心化节点管理器(命名/注册/参数)，单点故障；ROS2去中心化(无master，DDS自动发现)。调试：rosnode list/info、rostopic echo/hz/bw、rosservice call、ros2 topic/echo、rqt_graph(计算图)、rqt_plot(数据绘图)、rviz/rviz2(3D可视化)、gdb调试、rosout日志、rosbag录包回放。大模型演进：①大模型作为ROS节点(LLM规划节点/VLA推理节点)②云边协同(大模型云端推理，小模型边缘)③仿真-真机一致(Isaac Sim/Gazebo+ROS2)④推理服务化(TensorRT/ONNX Runtime作为ROS节点)⑤多模态消息(图像+点云+语言统一)。",
+    "source": "机器人软件工程师面试真题 · ROS2官方文档",
+    "target_roles": [
+      "机器人软件工程师",
+      "具身智能算法",
+      "运动控制算法",
+      "感知算法"
+    ],
+    "source_url": "https://www.unitree.com/cn/jobs"
+  },
+  {
+    "id": "embodied-006",
+    "title": "深度学习模型部署优化有哪些技术？量化、剪枝、知识蒸馏、算子融合分别如何实现？",
+    "description": "请详细回答以下问题：\n1. 为什么需要模型部署优化？（边缘设备算力有限、实时性要求、功耗约束、延迟要求）\n2. 常见的模型部署框架？（TensorRT、ONNX Runtime、OpenVINO、TFLite、NCNN、MNN、TVM）\n3. ONNX是什么？它的作用？（开放神经网络交换格式，框架间转换中间表示）\n4. 模型压缩技术有哪些？（量化、剪枝、知识蒸馏、结构化剪枝、低秩分解）\n5. 什么是量化？INT8量化的原理？（浮点32位→整数8位，减少计算量和内存，校准）\n6. 量化后精度下降如何解决？（量化感知训练QAT、PTQ后训练量化、混合精度、敏感层保留FP16）\n7. 什么是算子融合？常见的融合模式？（Conv+BN+ReLU融合，减少内存读写和kernel launch）\n8. TensorRT的优化手段有哪些？（算子融合、量化、内核自动调优、动态形状、多流执行）\n9. 机器人边缘计算平台有哪些？（NVIDIA Jetson Orin/Xavier、Intel NUC、瑞芯微RK3588、高通865、华为昇腾）\n10. Jetson平台的推理优化？（TensorRT、CUDA、cuDNN、DeepStream、JetPack）\n11. 什么是CUDA？GPU编程模型？（核函数、线程块、网格、共享内存、全局内存）\n12. 模型推理的延迟由什么决定？（计算量、内存带宽、batch大小、算子效率、CPU-GPU数据传输）\n13. 如何优化推理延迟？（减少模型大小、算子融合、流水线、异步、预分配内存、batch、GPU常驻）\n14. 具身智能中VLA模型部署的挑战？（大模型参数多、多模态输入、实时动作输出、边缘算力不足）\n15. 什么是模型蒸馏？在机器人部署中的应用？（大模型教师→小模型学生，保留性能减小体积）",
+    "category": "具身智能",
+    "subcategory": "部署优化",
+    "difficulty": "hard",
+    "type": "concept",
+    "companies": [
+      "unitree",
+      "bytedance",
+      "xiaomi",
+      "huawei"
+    ],
+    "tags": [
+      "模型部署",
+      "TensorRT",
+      "ONNX",
+      "量化",
+      "INT8",
+      "算子融合",
+      "Jetson",
+      "CUDA",
+      "知识蒸馏",
+      "剪枝",
+      "边缘计算"
+    ],
+    "answer_hint": "部署优化原因：边缘设备(机器人)算力有限(Jetson vs 服务器A100差10-100倍)、实时性(控制100Hz+，VLA推理需<100ms)、功耗约束(电池供电)、延迟(动作输出低延迟)。部署框架：TensorRT(NVIDIA，GPU最优，C++/Python)、ONNX Runtime(微软，跨平台，CPU/GPU)、OpenVINO(Intel，CPU/iGPU)、TFLite(Google，移动端/嵌入式)、NCNN/MNN(腾讯/阿里，移动端，轻量)、TVM(陈天奇，自动调优编译器，跨硬件)。ONNX(Open Neural Network Exchange)：开放神经网络交换格式，中间表示(IR)，PyTorch/TensorFlow导出为ONNX，再用各推理框架加载，解决框架锁定。模型压缩：①量化(FP32→FP16/INT8/INT4，减少4倍内存/计算)②剪枝(去除不重要权重/通道，非结构化vs结构化)③知识蒸馏(大模型→小模型)④低秩分解(权重矩阵分解为低秩矩阵乘积)。量化INT8：将浮点权重/激活映射到[-128,127]整数，scale=max/127，zero_point。计算用整数乘法(INT8 MAC比FP32快4倍，GPU Tensor Core支持)。校准(calibration)：用校准数据集统计激活范围，确定scale。PTQ(训练后量化，简单，精度可能降)vs QAT(量化感知训练，训练中模拟量化误差，精度高)。混合精度：敏感层(输出层/attention)保留FP16，其他INT8。算子融合：将多个算子合并为一个kernel，减少中间结果内存读写(内存是瓶颈)和kernel launch开销。常见融合：Conv+BN+ReLU(最常见，BN参数折叠到Conv)、Conv+Add+ReLU、MatMul+Bias+GELU、LayerNorm+残差。TensorRT优化：算子融合(水平/垂直)、量化(INT8/FP16)、内核自动调优(针对GPU架构选最优kernel实现)、动态形状(动态batch/输入尺寸)、多流执行(并发推理)、常数折叠、死代码消除。边缘平台：NVIDIA Jetson AGX Orin(275TOPS，高端人形)、Jetson Orin NX(100TOPS)、Jetson Xavier NX(21TOPS)、Intel NUC(CPU)、瑞芯微RK3588(6TOPS NPU，便宜)、高通865/8gen1(手机级)、华为昇腾310B(8TOPS NPU)。Jetson优化：JetPack SDK(CUDA/cuDNN/TensorRT/DeepStream)、TensorRT GPU推理、CUDA自定义算子、DeepStream视频流分析、jetson_stats监控。CUDA：NVIDIA GPU并行计算平台，编程模型：核函数__global__、线程层次(thread→block→grid)、内存层次(寄存器/共享内存/全局内存/常量内存/纹理内存)、同步__syncthreads()、流(异步并发)。推理延迟决定因素：计算量(FLOPs)、内存带宽(带宽瓶颈，中间tensor读写)、batch大小(大batch吞吐高但延迟大)、算子效率(融合/调优)、CPU-GPU数据传输(PCIe延迟，需最小化)、模型结构(attention复杂度)。优化：减少模型(剪枝/蒸馏/量化)、算子融合、流水线(预处理/推理/后处理重叠)、异步执行(CUDA stream)、预分配内存(避免动态分配)、GPU常驻(不频繁加载卸载)、batch调优(延迟敏感用小batch)、自定义CUDA算子(瓶颈算子)。VLA部署挑战：参数量大(7B+，边缘放不下)、多模态输入(图像+语言+机器人状态，预处理复杂)、实时要求(动作输出<100ms，否则控制不稳)、边缘算力不足。方案：量化(INT4/INT8)、蒸馏(小VLA如OpenVLA 7B→1B)、云边协同(大模型云端，小模型边缘兜底)、专用NPU加速、模型并行(多芯片)。知识蒸馏：教师模型(大，性能好)→学生模型(小，部署)，学生学习教师的输出(logits/特征/注意力)，软标签比硬标签信息多，保留性能同时减小体积。机器人中：大VLA/大策略→小模型部署到边缘。",
+    "source": "宇树科技/人形机器人算法岗面试真题 · 具身智能大模型",
+    "target_roles": [
+      "机器人软件工程师",
+      "具身智能算法",
+      "运动控制算法",
+      "感知算法"
+    ],
+    "source_url": "https://www.unitree.com/cn/jobs"
+  },
+  {
+    "id": "embodied-007",
+    "title": "为什么具身智能需要仿真？常见的仿真平台有哪些？Sim2Real的差距来自哪里？",
+    "description": "请详细回答以下问题：\n1. 为什么具身智能需要仿真？（数据采集成本低、安全、可大规模并行、可复现、极端场景）\n2. 常见的机器人仿真平台？（Gazebo、MuJoCo、Isaac Sim/Gym、PyBullet、Webots、CoppeliaSim、SAPIEN、ManiSkill）\n3. MuJoCo和Isaac Sim的区别？（CPU物理vs GPU物理，渲染能力，并行规模）\n4. 什么是Isaac Gym？为什么它能加速RL训练？（GPU加速物理+渲染，数千环境并行，PyTorch张量接口）\n5. 仿真中的物理引擎有哪些？（ODE、Bullet、PhysX、MuJoCo、DART）\n6. 什么是数字孪生？在机器人中的应用？（虚拟模型与物理实体实时映射，监控/预测/优化）\n7. Sim2Real的核心技术？（域随机化、系统辨识、域适应、真实数据微调、随机化到真实）\n8. 什么是域随机化？具体随机化哪些维度？（物理参数、外观、光照、相机、噪声、延迟、地形）\n9. 仿真到真实的差距来自哪里？（物理参数不精确、接触动力学、传感器噪声/延迟、渲染与真实视觉差异、执行器模型）\n10. 什么是可微仿真？它的作用？（物理引擎可微分，梯度可反传，用于系统辨识/策略优化）\n11. 仿真中的资产(Asset)如何获取？（URDF/SDF/USD格式，3D扫描/建模/数据集如Google Scanned Objects）\n12. 什么是过程生成(Procedural Generation)？在仿真中的应用？（自动生成场景/物体/地形，增加多样性）\n13. 真实机器人数据和仿真数据如何结合？（仿真预训练+真实微调、混合训练、域适应）\n14. 宇树/特斯拉等公司如何利用仿真？（大规模仿真训练运动策略、数字孪生测试、场景生成）",
+    "category": "具身智能",
+    "subcategory": "仿真",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "unitree",
+      "bytedance",
+      "xiaomi",
+      "huawei"
+    ],
+    "tags": [
+      "仿真",
+      "Isaac Sim",
+      "MuJoCo",
+      "Isaac Gym",
+      "Sim2Real",
+      "域随机化",
+      "数字孪生",
+      "可微仿真",
+      "Gazebo",
+      "PyBullet"
+    ],
+    "answer_hint": "仿真必要性：①数据采集成本低(真机采集贵/慢/危险，仿真可无限生成)②安全(训练中摔倒/碰撞不损坏硬件)③大规模并行(GPU仿真数千环境同时跑，RL样本效率提升100倍)④可复现(相同种子相同结果，真机有物理随机性)⑤极端场景(危险/罕见场景真机难复现)。仿真平台：①Gazebo(ROS配套，开源，ODE/Bullet物理，CPU，机器人经典)②MuJoCo(DeepMind，高精度物理，接触动力学好，CPU，RL研究常用)③Isaac Sim(NVIDIA，基于Omniverse，PhysX GPU物理+实时光追渲染，高保真，数字孪生)④Isaac Gym(NVIDIA，GPU加速物理+渲染，专为RL，数千环境并行，PyTorch接口)⑤PyBullet(Bullet的Python接口，易用，CPU，研究/教育)⑥Webots(开源，跨平台，易用)⑦CoppeliaSim(V-REP，商用/教育，多物理引擎)⑧SAPIEN(UC San Diego，操作任务，物理+渲染)⑨ManiSkill(操作RL基准)。MuJoCo vs Isaac Sim：MuJoCo(CPU，高精度物理，轻量，无高质量渲染，并行需多进程，RL研究)；Isaac Sim(GPU PhysX，实时光追渲染，高保真视觉，数字孪生，资源消耗大，Sim2Real视觉迁移好)。Isaac Gym：NVIDIA的RL仿真框架，GPU加速物理(PhysX)和渲染，所有环境状态在GPU上(PyTorch张量)，无需CPU-GPU数据传输，可同时跑数千-数万个环境，RL训练速度提升100倍+，是四足/人形RL训练的事实标准(如宇树/特斯拉用类似技术)。物理引擎：ODE(开源，Gazebo默认)、Bullet(开源，PyBullet，游戏)、PhysX(NVIDIA，GPU，Isaac)、MuJoCo(DeepMind，高精度接触)、DART(人形)。数字孪生(Digital Twin)：物理实体的虚拟模型，实时数据映射(传感器→虚拟模型)，用于监控(远程看状态)、预测(模拟未来行为)、优化(在虚拟中测试再部署)、故障诊断。机器人中：机器人数字孪生(实时映射关节/传感器/环境)，远程操控/预测性维护/训练验证。Sim2Real核心技术：①域随机化(Domain Randomization，训练时随机化仿真参数，策略见过各种情况)②系统辨识(System Identification，用真实数据校准仿真物理参数，使仿真更接近真实)③域适应(Domain Adaptation，用真实无标签数据调整特征分布，如视觉域适应CycleGAN)④真实数据微调(仿真预训练+少量真实数据fine-tune)⑤随机化到真实(Randomized-to-Real，足够大的随机化范围覆盖真实)。域随机化维度：物理参数(质量/惯量/摩擦/刚度/阻尼)、执行器(力矩常数/齿轮比/反向间隙/延迟)、传感器(噪声/偏差/延迟/分辨率)、外观(颜色/纹理/材质)、光照(方向/强度/颜色/阴影)、相机(内参/外参/畸变/曝光)、地形(粗糙度/坡度/障碍物)、初始状态(位置/速度/姿态)。Sim2Real差距来源：①物理参数不精确(摩擦/质量/电机参数难测)②接触动力学(接触/碰撞是不连续非线性，仿真模型简化)③传感器(噪声模型/延迟/分辨率与真实不同)④渲染差距(仿真渲染vs真实视觉，纹理/光照/材质)⑤执行器(电机模型简化，反向间隙/饱和/非线性)。可微仿真(Differentiable Simulation)：物理引擎支持梯度反传(状态对参数/动作可微)，作用：①系统辨识(用真实观测梯度优化物理参数)②策略优化(直接用梯度优化，不用RL)③规划(基于梯度的轨迹优化)。如Brax、DiffSim、Nimble。但接触不连续导致梯度难处理，是研究热点。资产格式：URDF(ROS，机器人描述)、SDF(Gazebo)、USD(Omniverse/Isaac Sim，通用场景描述，高保真)。获取：3D扫描(真实物体扫描)、手工建模(Blender/Maya)、数据集(Google Scanned Objects、YCB、ShapeNet)。过程生成(Procedural Generation)：算法自动生成场景/物体/地形/任务，增加训练多样性，如随机生成家具布局/物体/地形纹理，避免过拟合特定场景。仿真+真实数据结合：①仿真预训练(大规模仿真数据训练)+真实微调(少量真实数据fine-tune)②混合训练(仿真和真实数据同时训练)③域适应(对齐仿真和真实特征分布)④真实数据作为验证集(评估Sim2Real效果)。公司应用：宇树(Isaac Gym类GPU仿真大规模训练四足/人形运动策略，域随机化Sim2Real)、特斯拉Optimus(大规模仿真+自动标注，运动规划/感知训练)、波士顿动力(仿真+真机结合，先仿真验证再真机)。",
+    "source": "宇树科技/人形机器人算法岗面试真题 · 具身智能大模型",
+    "target_roles": [
+      "机器人软件工程师",
+      "具身智能算法",
+      "运动控制算法",
+      "感知算法"
+    ],
+    "source_url": "https://www.unitree.com/cn/jobs"
+  },
+  {
+    "id": "llm-001",
+    "title": "Transformer的整体架构是什么？自注意力的计算过程？多头注意力和位置编码的作用？",
+    "description": "请详细回答以下问题：\n1. Transformer的整体架构是什么？（Encoder-Decoder，多头自注意力+前馈网络+残差+LayerNorm）\n2. 自注意力(Self-Attention)的计算过程？（QKV矩阵、缩放点积、softmax、加权求和）\n3. 为什么要除以√d_k？（缩放点积，防止softmax梯度消失）\n4. 多头注意力(Multi-Head Attention)的作用？（不同子空间学习不同注意力模式，拼接投影）\n5. 位置编码(Positional Encoding)的作用？Transformer为什么需要位置编码？（自注意力无序，需注入位置信息，正弦/可学习/RoPE）\n6. 前馈网络(FFN)的结构和作用？（两层线性+激活，逐位置非线性变换，扩展维度）\n7. 残差连接和LayerNorm的作用？（缓解梯度消失/稳定训练，Pre-LN vs Post-LN）\n8. Encoder和Decoder的区别？（Encoder双向自注意力，Decoder掩码自注意力+交叉注意力）\n9. 什么是掩码注意力(Masked Attention)？为什么Decoder需要？（防止看到未来token，自回归生成）\n10. 什么是交叉注意力(Cross Attention)？（Decoder的Q来自Decoder，KV来自Encoder输出）\n11. GPT和BERT的架构区别？（GPT Decoder-only自回归，BERT Encoder-only双向）\n12. Transformer的计算复杂度？（自注意力O(n²d)，序列长度平方，长序列瓶颈）\n13. 常见的位置编码方式？（正弦绝对位置、可学习、相对位置、RoPE旋转位置、ALiBi）\n14. 什么是KV Cache？推理时为什么需要？（缓存历史KV避免重复计算，加速自回归推理）\n15. Transformer相比RNN的优势？（并行训练、长距离依赖、梯度传播好）",
+    "category": "AI大模型",
+    "subcategory": "Transformer",
+    "difficulty": "hard",
+    "type": "concept",
+    "companies": [
+      "bytedance",
+      "baidu",
+      "alibaba",
+      "tencent",
+      "huawei",
+      "unitree"
+    ],
+    "tags": [
+      "Transformer",
+      "自注意力",
+      "多头注意力",
+      "位置编码",
+      "RoPE",
+      "FFN",
+      "残差",
+      "LayerNorm",
+      "KV Cache",
+      "GPT",
+      "BERT"
+    ],
+    "answer_hint": "Transformer(2017 Attention Is All You Need)：Encoder-Decoder架构，纯注意力，无RNN/CNN。Encoder：N层，每层=多头自注意力+FFN，各带残差+LayerNorm。Decoder：N层，每层=掩码多头自注意力+交叉注意力+FFN。自注意力：输入X→线性投影得Q(查询)、K(键)、V(值)，Attention(Q,K,V)=softmax(QKᵀ/√d_k)V。QKᵀ计算每个token对其他token的相关性，除以√d_k缩放(防止点积过大导致softmax饱和梯度消失)，softmax归一化为权重，加权V得到输出。多头：h个头，每个头QKV投影到低维d_k=d_model/h，各自计算注意力，拼接后再投影，不同头学习不同模式(语法/语义/位置)。位置编码：自注意力是置换不变的(无序)，需注入位置信息。正弦位置编码(原论文，PE(pos,2i)=sin(pos/10000^(2i/d))，不同频率正弦)、可学习位置编码(BERT/GPT2，直接学习embedding)、相对位置编码(T5，关注相对距离)、RoPE(旋转位置编码，LLaMA/LLaMA2，通过旋转矩阵注入相对位置，外推性好)、ALiBi(注意力偏置，按距离加线性偏置)。FFN：FFN(x)=max(0, xW1+b1)W2+b2，两层线性，中间维度通常4*d_model，逐位置(每个token独立)非线性变换，增加模型容量。残差+LN：残差连接(x+Sublayer(x))缓解梯度消失/退化，LayerNorm归一化稳定训练。Pre-LN(LN在子层前，GPT/LLaMA，训练稳定深层可用)vs Post-LN(LN在残差后，原Transformer，需warmup，深层难训练)。Encoder双向自注意力(每个token可看所有token)；Decoder掩码自注意力(下三角掩码，token i只能看≤i的token，防止看到未来)；交叉注意力(Decoder的Q来自Decoder上一层，KV来自Encoder最后输出，Decoder关注Encoder信息)。GPT(Decoder-only，自回归，掩码自注意力，生成式)；BERT(Encoder-only，双向自注意力，理解式，MLM预训练)。计算复杂度：自注意力O(n²d)(n序列长度，d维度)，n²是长序列瓶颈(显存/计算)，FFN O(nd²)。KV Cache：自回归推理时，每个新token只需要和历史token计算注意力，缓存历史KV矩阵避免重复计算，显存占用=2*layers*batch*seq_len*d_head*2字节(FP16)，长序列显存大。vs RNN：Transformer可并行训练(所有token同时算，RNN必须串行)、长距离依赖直接(任意两token一步连接，RNN需多步累积)、梯度传播好(残差+注意力直连)，但推理时自回归仍串行、长序列n²复杂度。",
+    "source": "大模型算法岗面试真题 · 《Attention Is All You Need》",
+    "target_roles": [
+      "大模型算法",
+      "AI应用开发",
+      "NLP算法",
+      "推荐算法"
+    ],
+    "source_url": "https://arxiv.org/abs/1706.03762"
+  },
+  {
+    "id": "llm-002",
+    "title": "大模型训练分几个阶段？预训练和SFT的区别？混合精度训练和ZeRO优化？3D并行是什么？",
+    "description": "请详细回答以下问题：\n1. 大语言模型的训练分几个阶段？（预训练Pretraining、监督微调SFT、人类反馈强化学习RLHF/DPO）\n2. 预训练的目标是什么？数据是什么？（下一个token预测，大规模无标注文本）\n3. 预训练的损失函数是什么？（交叉熵，next token prediction）\n4. 什么是因果语言建模(Causal LM)？和掩码语言建模(MLM)的区别？\n5. 预训练数据如何处理？（清洗、去重、过滤低质、分词、分桶、数据混合比例）\n6. 什么是Tokenizer？常见的分词方法？（BPE、WordPiece、Unigram，字节级BPE）\n7. 预训练的优化技巧？（AdamW、学习率warmup+cosine decay、梯度累积、混合精度FP16/BF16、梯度裁剪、ZeRO）\n8. 什么是混合精度训练？BF16和FP16的区别？（减少显存/加速，BF16动态范围大无需loss scaling）\n9. 什么是ZeRO？它解决什么问题？（零冗余优化，切分优化器状态/梯度/参数，分布式训练显存）\n10. 监督微调SFT的目的是什么？数据是什么？（对齐人类指令，高质量指令-回答对）\n11. SFT和预训练的区别？（数据量/质量、学习率、目标、epoch数）\n12. 什么是指令微调(Instruction Tuning)？它和SFT的关系？\n13. SFT数据质量和数量哪个更重要？（质量更重要，LIMA论文证明少量高质量数据即可）\n14. 什么是灾难性遗忘？SFT如何避免？（继续预训练/混合预训练数据/低学习率/少量epoch）\n15. 大模型训练的基础设施？（GPU集群A100/H100、InfiniBand/RoCE网络、Megatron-LM/DeepSpeed、3D并行）\n16. 什么是3D并行？（数据并行DP、张量并行TP、流水线并行PP）",
+    "category": "AI大模型",
+    "subcategory": "训练",
+    "difficulty": "hard",
+    "type": "concept",
+    "companies": [
+      "bytedance",
+      "baidu",
+      "alibaba",
+      "tencent",
+      "huawei"
+    ],
+    "tags": [
+      "预训练",
+      "SFT",
+      "指令微调",
+      "BPE",
+      "Tokenizer",
+      "混合精度",
+      "ZeRO",
+      "AdamW",
+      "RLHF",
+      "3D并行",
+      "灾难性遗忘"
+    ],
+    "answer_hint": "训练三阶段：①预训练(Pretraining)：大规模无标注文本，学习语言知识/世界知识/推理能力，目标next token prediction②监督微调SFT(Supervised Fine-Tuning)：高质量指令-回答对，学习遵循指令/输出格式/对齐人类偏好③RLHF/DPO：人类反馈强化学习，进一步对齐人类偏好(有用/诚实/无害)。预训练目标：因果语言建模(Causal LM)，给定前文预测下一个token，损失=交叉熵(所有非padding token的负对数似然平均)。vs MLM(掩码语言建模，BERT，随机mask token然后预测被mask的，双向理解，不适合生成)。数据处理：①爬取(CommonCrawl/书籍/代码/维基)②清洗(去除HTML/乱码/重复)③去重(MinHash/SimHash精确/模糊去重)④质量过滤(困惑度过滤/语言识别/规则)⑤分词(Tokenizer)⑥分桶(相似长度组batch减少padding)⑦数据混合(不同来源比例，如文本/代码/数学)。Tokenizer：将文本转为token id序列。BPE(Byte Pair Encoding，字节对编码，迭代合并高频相邻对，GPT/LLaMA用词级BPE或字节级BPE)、WordPiece(BERT，按似然合并)、Unigram(T5，概率模型)。字节级BPE(LLaMA/GPT-2)：以字节为基础，避免未登录词，支持多语言。优化：AdamW(Adam+权重衰减解耦，标准)、学习率warmup(前N步线性增加避免早期不稳定)+cosine decay(余弦衰减)、梯度累积(多小batch累积梯度等效大batch，省显存)、混合精度(FP16/BF16前向+反向，FP32主权重/优化器状态，减少显存加速)、梯度裁剪(防止梯度爆炸)、ZeRO(分布式显存优化)。混合精度：FP16(半精度，5位指数10位尾数，范围小需loss scaling防止下溢)、BF16(16位，8位指数7位尾数，范围和FP32一样大无需loss scaling，A100+支持，现在主流)。计算用FP16/BF16，主权重和优化器状态用FP32保证收敛。ZeRO(Zero Redundancy Optimizer，DeepSpeed)：切分分布式训练中的冗余数据，ZeRO-1切分优化器状态、ZeRO-2切分梯度、ZeRO-3切分参数，减少单卡显存，支持更大模型/更大batch。SFT目的：将预训练模型(只会续写文本)对齐到人类指令遵循(回答问题/写代码/总结)，数据是高质量指令-回答对(instruction-response)。vs预训练：预训练(万亿token，低质量大规模，学习率高，目标是知识/能力)；SFT(百万-十亿token，高质量人工/AI生成，学习率低(预训练的1/10)，1-3epoch，目标是对齐/格式/遵循指令)。指令微调(Instruction Tuning)：用多种任务的指令数据微调，泛化到未见任务，SFT是更宽泛的概念(包括指令微调/对话微调)。数据质量vs数量：LIMA(2023)证明1000条精心筛选的高质量SFT数据即可达到很好效果，质量>数量，但数量也有帮助(覆盖更多任务/风格)。灾难性遗忘：SFT后模型丢失预训练学到的知识/能力(因为只在SFT数据上训练)。避免：①低学习率+少量epoch②混合预训练数据(继续预训练CPT)③SFT数据多样化④正则化(EWC等)。基础设施：GPU集群(A100 80G/H100 80G，千卡-万卡)、高速网络(InfiniBand 400Gbps/RoCE，all-reduce通信)、框架(Megatron-LM/NVIDIA，张量+流水线并行；DeepSpeed/MS，ZeRO+流水线；两者结合Megatron-DeepSpeed)、3D并行。3D并行：①数据并行DP(不同卡跑不同数据样本，梯度all-reduce同步)②张量并行TP(同一层的矩阵/参数切分到多卡，如列切分/行切分，Shampoo，单节点内高带宽)③流水线并行PP(不同层切分到不同卡，流水线micro-batch，减少气泡)。三者结合训练超大模型(如GPT-3 175B需要数千卡)。",
+    "source": "大模型预训练算法岗面试真题 · LLaMA技术报告",
+    "target_roles": [
+      "大模型算法",
+      "AI应用开发",
+      "NLP算法",
+      "推荐算法"
+    ],
+    "source_url": "https://arxiv.org/abs/2302.13971"
+  },
+  {
+    "id": "llm-003",
+    "title": "什么是RLHF？三个步骤是什么？奖励模型如何训练？DPO和PPO的区别？",
+    "description": "请详细回答以下问题：\n1. 什么是RLHF？为什么需要RLHF？（人类反馈强化学习，对齐人类偏好，SFT后进一步提升有用/诚实/无害）\n2. RLHF的三个步骤？（SFT→训练奖励模型RM→用PPO强化学习微调）\n3. 奖励模型(Reward Model)如何训练？数据是什么？（人类偏好对比数据，pairwise排序，Bradley-Terry模型，损失为对比损失）\n4. 什么是偏好数据？如何收集？（同一prompt的两个回答，人类标注更喜欢哪个，A/B对比）\n5. PPO在RLHF中的作用？（策略=LLM，奖励=RM分数+KL惩罚，优化策略最大化奖励）\n6. RLHF中的KL惩罚项的作用？（防止策略偏离SFT模型太远，避免奖励黑客/语言质量下降）\n7. 什么是奖励黑客(Reward Hacking)？如何防止？（模型找到RM漏洞刷高分但实际不好，KL惩罚/集成RM/对抗样本/过程监督）\n8. PPO训练的具体流程？（rollout生成回答→RM打分→计算优势→PPO更新策略，含value model）\n9. 什么是DPO？它和PPO的区别？（直接偏好优化，跳过RM训练，直接用偏好数据优化策略，更简单稳定）\n10. DPO的原理？（将奖励函数隐式包含在损失中，最大化偏好回答的对数概率差+KL）\n11. 常见的对齐方法除了RLHF/DPO还有哪些？（RLAIF、 Constitutional AI、过程监督PRM、拒绝采样、Self-Play）\n12. 什么是Constitutional AI(宪法AI)？（Anthropic，用一组原则/宪法自我批判修正，减少人工标注）\n13. 什么是RLAIF？（AI反馈强化学习，用AI代替人类标注偏好，规模化）\n14. 什么是过程奖励模型(PRM)？和结果奖励模型(ORM)的区别？（逐步打分vs最终结果打分，数学/推理更有效）\n15. 对齐的三个目标是什么？（有用Helpful、诚实Honest、无害Harmless，HHH）\n16. RLHF的局限性？（人类偏好不一致、标注成本高、奖励模型偏差、对齐税(能力下降)、 Goodhart定律）",
+    "category": "AI大模型",
+    "subcategory": "对齐",
+    "difficulty": "hard",
+    "type": "concept",
+    "companies": [
+      "bytedance",
+      "baidu",
+      "alibaba",
+      "tencent",
+      "huawei"
+    ],
+    "tags": [
+      "RLHF",
+      "PPO",
+      "奖励模型",
+      "DPO",
+      "偏好数据",
+      "KL惩罚",
+      "奖励黑客",
+      "Constitutional AI",
+      "RLAIF",
+      "PRM",
+      "对齐税"
+    ],
+    "answer_hint": "RLHF(Reinforcement Learning from Human Feedback)：用人类反馈训练奖励模型，再用强化学习(PPO)微调LLM，使模型输出对齐人类偏好(更有用/诚实/无害)。SFT只能学会格式和基本指令遵循，但输出可能冗长/有偏见/有害，RLHF进一步优化偏好。三步：①SFT(监督微调，得到初始策略)②训练RM(奖励模型，用人类偏好数据训练，输入prompt+回答输出标量奖励)③PPO强化学习(用RM作为奖励信号，PPO优化策略最大化奖励+KL约束)。奖励模型训练：数据是人类偏好对比(prompt, answer_chosen, answer_rejected)，同一prompt两个回答人类选更喜欢的。模型：通常用SFT模型初始化，加一个线性头输出标量奖励。损失：Bradley-Terry模型，loss=-log(σ(r_chosen - r_rejected))，即偏好回答的奖励应高于拒绝回答。也可排序(多个回答排序)。收集：标注平台，对同一prompt生成多个回答，人类A/B对比选择，质量控制(多人标注/一致性检验)。PPO流程：①rollout：策略对prompt生成回答②RM打分得到reward③KL惩罚：KL(π_ppo || π_sft)，防止偏离太远④总奖励=reward - β*KL⑤value model估计状态价值⑥计算优势函数GAE⑦PPO clip更新策略(和value model)。含两个模型：策略(actor)+价值(critic)，都从SFT初始化。KL惩罚：防止策略为了刷RM分而偏离SFT模型太远(导致语言质量下降/胡说八道/奖励黑客)，β控制强度，是RLHF稳定的关键。奖励黑客(Reward Hacking)：模型发现RM的漏洞(如特定格式/关键词/长度)，刷高RM分数但实际输出不好(如冗长/重复/迎合)。防止：KL惩罚、多个RM集成、对抗性偏好数据、过程监督(PRM)、人工审核、限制输出长度。DPO(Direct Preference Optimization，2023)：跳过显式RM训练和PPO，直接用偏好数据优化策略。原理：将奖励函数r(x,y)=β log(π(y|x)/π_ref(y|x))+常数代入RL目标，推导出直接损失：loss=-log σ(β[log π(y_w|x)/π_ref(y_w|x) - log π(y_l|x)/π_ref(y_l|x)])，即最大化偏好回答相对于参考模型的对数概率差。比PPO简单(不需要RM/value model/rollout)、稳定、显存小，现在广泛使用(LLaMA3/Zephyr等用DPO/IPO)。vs PPO：PPO显式RM+在线RL(复杂不稳定)，DPO离线直接优化(简单稳定但可能探索不足)。其他对齐：①RLAIF(AI反馈，用强模型如GPT-4代替人类标注偏好，规模化/便宜，如Google用RLAIF)②Constitutional AI(Anthropic，用一组宪法原则，模型自我批判+修正，减少人工，如Claude)③过程监督PRM(对推理每一步打分而非最终结果，数学/推理更有效，OpenAI Math)④拒绝采样(生成多个回答选最好的作为SFT数据，best-of-n)⑤Self-Play(模型自我对战/自我改进)。HHH对齐目标：Helpful(有用，帮助完成任务)、Honest(诚实，不编造/幻觉)、Harmless(无害，不产生有害/偏见/违法内容)，三者有时冲突(有用vs无害)。局限性：①人类偏好不一致/有偏见(标注者差异)②标注成本高(RLHF贵)③RM偏差(RM过拟合标注者偏好)④对齐税(对齐后部分能力下降，如编码/推理)⑤Goodhart定律(优化奖励指标后指标不再代表真实目标)⑥安全漏洞(越狱/jailbreak仍可能绕过)。",
+    "source": "大模型对齐算法岗面试真题 · InstructGPT论文",
+    "target_roles": [
+      "大模型算法",
+      "AI应用开发",
+      "NLP算法",
+      "推荐算法"
+    ],
+    "source_url": "https://arxiv.org/abs/2203.02155"
+  },
+  {
+    "id": "llm-004",
+    "title": "大模型推理的瓶颈是什么？PagedAttention和连续批处理的原理？投机解码如何加速？",
+    "description": "请详细回答以下问题：\n1. 大模型推理的瓶颈是什么？（显存带宽、计算量、KV Cache显存、自回归串行）\n2. 什么是KV Cache？它的显存占用如何计算？（缓存历史KV，2*layers*batch*seq*d_head*bytes）\n3. 什么是Prefill和Decode？（Prefill并行处理prompt，Decode自回归逐个生成token）\n4. Prefill和Decode的计算特征区别？（Prefill计算密集，Decode访存密集(batch小)）\n5. 什么是连续批处理(Continuous Batching)？它解决什么问题？（动态加入/移除请求，提高GPU利用率，vLLM）\n6. 什么是PagedAttention？它的核心思想？（分页管理KV Cache，像OS虚拟内存，减少内部碎片，vLLM）\n7. 常见的推理量化方法？（INT8/INT4/AWQ/GPTQ/SmoothQuant，权重量化/激活量化/KV量化）\n8. 什么是AWQ和GPTQ？区别？（AWQ激活感知权重量化，GPTQ逐层二阶量化）\n9. 什么是投机解码(Speculative Decoding)？原理？（小模型草稿+大模型验证，一次生成多个token，加速）\n10. 什么是Medusa/Eagle？（多头预测未来token，投机解码变体）\n11. 什么是FlashAttention？它优化了什么？（IO感知注意力，减少HBM读写，tiling+重计算，加速注意力省显存）\n12. 推理框架有哪些？（vLLM、TensorRT-LLM、SGLang、llama.cpp、TGI、FasterTransformer）\n13. vLLM和TensorRT-LLM的区别？（vLLM易用/PagedAttention/连续批处理，TensorRT-LLM NVIDIA优化/极致性能/编译）\n14. 什么是张量并行推理？何时需要？（单卡放不下模型时，参数切分到多卡，NVLink高带宽）\n15. 什么是长上下文推理的挑战？如何优化？（KV Cache O(n)显存，注意力O(n²)计算，用滑动窗口/线性注意力/Ring Attention）\n16. 推理服务的关键指标？（吞吐量tokens/s、延迟TTFT/TPOT、GPU利用率、成本$/M tokens）",
+    "category": "AI大模型",
+    "subcategory": "推理优化",
+    "difficulty": "hard",
+    "type": "concept",
+    "companies": [
+      "bytedance",
+      "baidu",
+      "alibaba",
+      "tencent",
+      "huawei"
+    ],
+    "tags": [
+      "推理优化",
+      "KV Cache",
+      "PagedAttention",
+      "vLLM",
+      "连续批处理",
+      "量化",
+      "AWQ",
+      "GPTQ",
+      "投机解码",
+      "FlashAttention",
+      "TensorRT-LLM",
+      "Prefill",
+      "Decode"
+    ],
+    "answer_hint": "推理瓶颈：①显存带宽(Decode时每个token需加载全部参数，带宽瓶颈)②计算量(大模型FLOPs多)③KV Cache显存(长序列/batch大时占大量显存)④自回归串行(逐个token生成，无法完全并行)。KV Cache：自回归推理时缓存历史token的K和V矩阵，避免每个新token重新计算所有历史KV。显存=2(K和V)*layers*batch*seq_len*d_head*2字节(FP16)。如70B模型80层batch32 seq4096 d_head128 FP16=2*80*32*4096*128*2=64GB，非常大。Prefill：处理输入prompt阶段，所有prompt token并行计算注意力，计算密集(compute-bound)，一次算出所有KV。Decode：生成阶段，每次生成一个token，自回归串行，小batch时访存密集(memory-bound，每个token加载全部参数)。连续批处理(Continuous Batching / Dynamic Batching)：传统静态batch等所有请求生成完才释放GPU，不同长度请求导致短请求等长请求(GPU空闲)。连续批处理：每个step动态决定哪些请求加入/完成/移除，迭代级调度，大幅提高GPU利用率(2-10x)，vLLM/Orca提出。PagedAttention(vLLM核心)：KV Cache传统连续分配导致内部碎片(请求长度不一，预留最大长度浪费)和外部碎片。PagedAttention像OS虚拟内存分页：将KV Cache分成固定大小block(如16 token)，逻辑连续物理不连续，用block table映射，几乎消除碎片，显存利用率>95%，支持共享(prefix caching/并行采样共享前缀KV)。量化：减少权重/KV/激活的位宽。INT8(减少一半)、INT4(减少75%，70B模型单卡可放)。方法：①AWQ(Activation-aware Weight Quantization，保留显著通道/激活大的通道精度，混合精度，4bit性能好)②GPTQ(逐层二阶信息量化，近似最优，4bit)③SmoothQuant(平滑激活异常值，使INT8激活量化可行)④权重量化(只量化权重，如llama.cpp Q4_K)⑤KV量化(FP16 KV→INT8/FP8，省显存)。AWQ vs GPTQ：AWQ更快(不需要逐层校准计算)、推理性能好；GPTQ量化精度略高但校准慢。投机解码(Speculative Decoding)：用小模型(草稿模型)快速生成多个候选token(草稿)，大模型(目标模型)一次前向并行验证所有草稿，接受正确的，一次生成多个token(加速2-3x)。如Medusa(在大模型上加多个预测头预测未来token，无需单独小模型)、Eagle(类似，预测树)、Lookahead(官方)。原理：大模型验证是并行的(一次前向看所有草稿)，小模型生成快，接受率高则加速。FlashAttention：IO感知注意力算法，标准注意力需要将中间矩阵QKᵀ和softmax结果写回HBM(显存)，大矩阵读写慢。FlashAttention用tiling(分块)计算，在SRAM中完成softmax，不存储完整注意力矩阵，用重计算(backward时重算)，减少HBM IO(2-4x)，加速(2-4x)且省显存(不存O(n²)矩阵)。FlashAttention-2/3进一步优化。推理框架：vLLM(UC Berkeley，PagedAttention+连续批处理，易用，Python，主流)、TensorRT-LLM(NVIDIA，极致优化，C++/Python，编译，支持所有优化)、SGLang(结构化生成，RadixAttention前缀缓存，快)、llama.cpp(C++，CPU/Apple Silicon，量化，本地)、TGI(HuggingFace，生产服务)、FasterTransformer(NVIDIA，早期，被TRT-LLM替代)。vLLM vs TRT-LLM：vLLM(开源易用，动态形状好，研究/快速部署，性能略低于TRT-LLM)；TRT-LLM(NVIDIA官方，极致性能，kernel融合/量化/投机解码全支持，需编译，生产最优)。张量并行推理：单卡显存放不下模型时，将参数(如注意力的QKV/FFN)切分到多卡，每卡存一部分，前向时all-reduce/all-gather通信，需要NVLink高带宽(否则通信瓶颈)，如70B用2卡tensor parallel。长上下文挑战：KV Cache随seq线性增长(O(n)显存)，注意力计算O(n²)。优化：滑动窗口注意力(只看最近N token，如Mistral 4096窗口)、线性注意力(复杂度O(n)，如RWKV/Mamba)、Ring Attention(分布式KV，多卡环形通信，支持百万长度)、KV量化、Prefix Caching(共享前缀缓存)。关键指标：吞吐量(throughput，tokens/s，总输出token数/时间)、TTFT(Time To First Token，首token延迟，用户等待时间)、TPOT(Time Per Output Token，每token延迟，生成速度)、GPU利用率(SM利用率/显存带宽利用率)、成本($/M tokens，硬件成本/吞吐)。",
+    "source": "大模型推理优化岗面试真题 · vLLM/FlashAttention",
+    "target_roles": [
+      "大模型算法",
+      "AI应用开发",
+      "NLP算法",
+      "推荐算法"
+    ],
+    "source_url": "https://arxiv.org/abs/2309.06180"
+  },
+  {
+    "id": "llm-005",
+    "title": "什么是RAG？完整流程是怎样的？什么是Agent？ReAct模式？RAG和Agent的关系？",
+    "description": "请详细回答以下问题：\n1. 什么是RAG？为什么需要RAG？（检索增强生成，解决LLM知识截止/幻觉/私有知识/实时信息）\n2. RAG的完整流程？（文档分块→向量化→存入向量库→查询检索→重排序→拼接prompt→LLM生成）\n3. 文档分块(Chunking)的策略？（固定长度、语义分块、递归分块、按标题/段落，chunk大小和重叠）\n4. 什么是Embedding？常见的Embedding模型？（文本转向量，BGE/M3E/text-embedding-ada/E5）\n5. 向量数据库有哪些？（Milvus、Qdrant、Weaviate、Chroma、FAISS、pgvector、Elasticsearch）\n6. 检索方法有哪些？（关键词检索BM25、向量检索余弦/内积、混合检索Hybrid、多路召回）\n7. 什么是重排序(Rerank)？为什么需要？（粗召回后用交叉编码器精排，提升相关性，BGE-Reranker/Cohere Rerank）\n8. RAG中的查询改写/扩展技术？（HyDE假设文档生成、查询分解、多查询生成、Step-back Prompting）\n9. 什么是Agent？LLM Agent的核心组件？（LLM大脑+工具调用+记忆+规划+反思）\n10. Agent的规划能力如何实现？（ReAct、Plan-and-Execute、Tree of Thoughts、反思Reflexion）\n11. 什么是ReAct？（推理Reasoning+行动Acting交替，思考→行动→观察循环）\n12. 工具调用(Tool Use/Function Calling)的原理？（LLM输出结构化工具调用，外部执行，结果返回LLM）\n13. Agent的记忆类型？（短期记忆(上下文)、长期记忆(向量库/数据库)、情景记忆、语义记忆）\n14. 多智能体(Multi-Agent)系统？（AutoGen、CrewAI、MetaGPT，角色分工协作）\n15. RAG和Agent的关系？（RAG是Agent的一个工具/能力，Agent可动态决定是否检索/调用其他工具）\n16. RAG的评估方法？（检索命中率Recall@k、MRR、答案忠实度Faithfulness、相关性、RAGAS/TruLens）\n17. Agent的局限性？（错误累积、工具调用失败、循环/死锁、成本高、延迟大、不可靠）",
+    "category": "AI大模型",
+    "subcategory": "应用",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "bytedance",
+      "baidu",
+      "alibaba",
+      "tencent",
+      "huawei",
+      "meituan"
+    ],
+    "tags": [
+      "RAG",
+      "Agent",
+      "向量数据库",
+      "Embedding",
+      "检索",
+      "重排序",
+      "ReAct",
+      "工具调用",
+      "多智能体",
+      "Chunking",
+      "HyDE",
+      "RAGAS"
+    ],
+    "answer_hint": "RAG(Retrieval-Augmented Generation)：检索增强生成，LLM生成前先从外部知识库检索相关文档，拼接到prompt中，让LLM基于检索内容回答。解决：①知识截止(LLM训练数据有截止日期)②幻觉(编造信息，RAG提供来源)③私有知识(企业内部文档不能训练进模型)④实时信息(新闻/股价等动态数据)⑤成本(不需要微调，更新知识库即可)。流程：①索引：文档加载→分块(chunk)→每个块用Embedding模型转向量→存入向量数据库(同时存原文)②查询：用户问题→Embedding→向量检索top-k相似块→(可选重排序)→将检索块+问题拼成prompt→LLM生成答案(带引用)。分块策略：固定长度(如512/1024 token，简单但可能切断语义)、语义分块(按语义相似度切分)、递归分块(按标题→段落→句子递归，LangChain RecursiveCharacterTextSplitter)、按结构(Markdown标题/代码块)。chunk大小(太大噪音多/上下文浪费，太小上下文不足)、重叠(overlap，如50 token，避免边界信息丢失)。Embedding：将文本转为固定维度稠密向量(如768/1024维)，语义相似的文本向量距离近。模型：BGE(智源，中英文好，BGE-M3多语言)、M3E(中文)、text-embedding-ada-002/3(OpenAI)、E5(微软)、GTE(阿里)、Cohere Embed。向量数据库：Milvus(开源，分布式，生产)、Qdrant(Rust，高性能，过滤好)、Weaviate(Go，模块化)、Chroma(轻量，本地/原型)、FAISS(Meta，库，非服务，快)、pgvector(PostgreSQL扩展，简单)、Elasticsearch(关键词+向量混合)。检索：①关键词检索BM25(词频匹配，精确术语好，无语义)②向量检索(余弦相似度/内积，语义相似，embedding)③混合检索Hybrid(BM25+向量，取长补短，如RRF融合)④多路召回(多个来源/方法召回再合并)。重排序(Rerank)：粗召回(向量/BM25)返回top-50，用交叉编码器(Cross-Encoder，将query和文档拼接输入，直接输出相关性分数)精排到top-5，计算量大但精度高，显著提升RAG效果。模型：BGE-Reranker、Cohere Rerank、Jina Reranker。查询改写：①HyDE(Hypothetical Document Embeddings，让LLM先生成假设答案文档，用假设文档检索而非问题，因为文档和文档更相似)②查询分解(复杂问题拆成子问题分别检索)③多查询生成(生成多个改写查询，检索合并)④Step-back(抽象出高层问题再检索)。Agent：LLM作为大脑，能自主规划、调用工具、记忆、反思，完成复杂任务。核心组件：①LLM(推理/决策)②工具调用(搜索/代码/数据库/API)③记忆(短期上下文+长期向量库)④规划(任务分解/步骤)⑤反思(自我评估修正)。规划方法：ReAct(推理+行动交替，Thought→Action→Observation循环，最常用)、Plan-and-Execute(先制定完整计划再执行)、Tree of Thoughts(思维树，探索多条推理路径)、Reflexion(反思，失败后总结经验重试)。工具调用(Function Calling/Tool Use)：LLM被微调/提示输出结构化的工具调用(JSON：name+arguments)，系统解析后调用外部工具(搜索引擎/计算器/数据库/API)，执行结果返回LLM继续推理，多轮循环。是Agent与外部世界交互的核心。记忆：短期记忆(当前对话上下文，受context window限制)、长期记忆(向量数据库/知识图谱/数据库，持久化，检索相关历史)、情景记忆(过去经历/对话)、语义记忆(事实/知识)。多智能体：多个Agent角色分工协作，如AutoGen(微软，多Agent对话)、CrewAI(角色+任务+流程)、MetaGPT(软件公司角色PM/架构师/工程师)、ChatDev。通过消息传递/共享记忆协作，解决复杂任务(软件开发/研究)。RAG vs Agent：RAG是特定流程(固定检索→生成)，Agent是更通用的框架(可动态决定是否检索/调用什么工具/执行几步)，RAG可作为Agent的一个工具。RAG评估：检索质量(Recall@k命中率、MRR平均倒数排名、nDCG)、生成质量(忠实度Faithfulness是否基于检索内容、相关性Answer Relevance、上下文精确度Context Precision)、端到端(答案正确率)。框架：RAGAS(自动评估，用LLM做judge)、TruLens、DeepEval。Agent局限：①错误累积(一步错后续全错)②工具调用失败/格式错误③循环/死锁(反复调用同一工具)④成本高(多轮LLM调用+工具)⑤延迟大(串行多步)⑥不可靠(规划能力有限，复杂任务易失败)⑦安全(工具调用权限/注入攻击)。",
+    "source": "大模型应用开发面试真题 · LangChain/AutoGen",
+    "target_roles": [
+      "大模型算法",
+      "AI应用开发",
+      "NLP算法",
+      "推荐算法"
+    ],
+    "source_url": "https://arxiv.org/abs/2005.11401"
+  },
+  {
+    "id": "cpp-001",
+    "title": "C++智能指针有哪几种？shared_ptr的循环引用如何解决？weak_ptr的作用？",
+    "description": "请详细回答以下问题：\n1. C++有哪几种智能指针？（unique_ptr、shared_ptr、weak_ptr、auto_ptr已废弃）\n2. unique_ptr的特点和使用场景？（独占所有权、不可拷贝、可移动、轻量）\n3. shared_ptr的实现原理？（引用计数、控制块、线程安全）\n4. shared_ptr的线程安全性是怎样的？（引用计数增减原子安全，对象本身读写不安全）\n5. 什么是shared_ptr的循环引用？请举例说明。\n6. weak_ptr是如何解决循环引用的？（不拥有所有权、不增加引用计数、lock提升）\n7. weak_ptr的常用方法有哪些？（lock、expired、use_count）\n8. 什么是RAII？智能指针是如何体现RAII思想的？\n9. make_shared和make_unique的作用是什么？为什么推荐使用它们？（异常安全、一次内存分配）\n10. shared_ptr的自定义删除器如何使用？（管理数组、管理文件句柄等非new资源）",
+    "category": "C++",
+    "subcategory": "内存管理",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "tencent",
+      "bytedance",
+      "meituan",
+      "xiaomi",
+      "huawei",
+      "unitree"
+    ],
+    "tags": [
+      "智能指针",
+      "shared_ptr",
+      "unique_ptr",
+      "weak_ptr",
+      "RAII",
+      "循环引用",
+      "make_shared"
+    ],
+    "answer_hint": "unique_ptr：独占所有权，不可拷贝，可移动，轻量无开销。shared_ptr：共享所有权，引用计数，拷贝时计数+1，析构时计数-1，计数为0释放内存+控制块。weak_ptr：不拥有所有权，不增加引用计数，用于解决循环引用，lock()可提升为shared_ptr。循环引用：两个对象互相用shared_ptr指向对方，引用计数永远不为0导致内存泄漏。解决：将其中一方改为weak_ptr。RAII：资源获取即初始化，构造函数获取资源，析构函数释放资源，利用对象生命周期自动管理资源。make_shared：一次内存分配(对象+控制块)，异常安全(若构造函数抛异常不会泄漏)。线程安全：引用计数增减是原子操作，但对象本身的读写不是线程安全的，需外部加锁。",
+    "source": "腾讯/字节跳动C++面试真题 · 《深度探索C++对象模型》",
+    "target_roles": [
+      "C++开发",
+      "客户端开发",
+      "游戏开发",
+      "机器人软件",
+      "基础设施"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "cpp-002",
+    "title": "vector的底层实现原理是什么？扩容机制是怎样的？",
+    "description": "请详细回答以下问题：\n1. vector的底层数据结构是什么？（动态数组、连续内存）\n2. vector的三个关键指针是什么？（_M_start、_M_finish、_M_end_of_storage）\n3. size()和capacity()的区别是什么？\n4. vector的扩容机制是怎样的？（push_back时size==capacity则扩容）\n5. 扩容时新内存的大小通常是原来的多少倍？（GCC 2倍，MSVC 1.5倍）\n6. 扩容时元素是如何从旧内存移动到新内存的？（拷贝/移动构造）\n7. 扩容后迭代器、指针、引用会怎样？（全部失效）\n8. reserve()和resize()的区别是什么？\n9. emplace_back()和push_back()的区别是什么？（原地构造 vs 拷贝/移动）\n10. vector的时间复杂度？（随机访问O(1)，尾插O(1)摊销，中间插入O(n)）\n11. vector和list的区别？（连续内存vs链表，随机访问vs快速插入删除）",
+    "category": "C++",
+    "subcategory": "STL",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "tencent",
+      "bytedance",
+      "meituan",
+      "xiaomi",
+      "huawei",
+      "unitree"
+    ],
+    "tags": [
+      "vector",
+      "STL",
+      "扩容",
+      "连续内存",
+      "迭代器失效",
+      "emplace_back",
+      "reserve",
+      "resize"
+    ],
+    "answer_hint": "vector底层是动态数组，连续内存。三个指针：_M_start(数组起始)、_M_finish(已用元素末尾)、_M_end_of_storage(容量末尾)。size=_M_finish-_M_start，capacity=_M_end_of_storage-_M_start。扩容：push_back时size==capacity，分配新内存(通常2倍)，将旧元素拷贝/移动到新内存，释放旧内存。扩容后所有迭代器/指针/引用失效。reserve(n)：预分配容量为n，不改变size，避免频繁扩容；resize(n)：改变size为n，若n>capacity则扩容，新增元素默认构造。emplace_back：在尾部直接构造对象(参数转发给构造函数)，比push_back(临时对象)少一次拷贝/移动。vector随机访问O(1)，尾插O(1)摊销，中间插入删除O(n)。vs list：list是双向链表，插入删除O(1)但随机访问O(n)，内存不连续。",
+    "source": "腾讯/字节跳动C++面试真题 · 《深度探索C++对象模型》",
+    "target_roles": [
+      "C++开发",
+      "客户端开发",
+      "游戏开发",
+      "机器人软件",
+      "基础设施"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "cpp-003",
+    "title": "map和unordered_map的底层实现分别是什么？时间复杂度和适用场景有什么区别？",
+    "description": "请详细回答以下问题：\n1. map和unordered_map的底层实现分别是什么？（红黑树 vs 哈希表）\n2. 它们的查找、插入、删除的时间复杂度分别是多少？（map O(logn)，unordered_map平均O(1)最坏O(n)）\n3. map的key是有序的吗？unordered_map呢？\n4. unordered_map的哈希冲突是如何解决的？（链地址法，C++11后链表过长转红黑树）\n5. unordered_map的负载因子(load_factor)是什么？如何影响性能？\n6. unordered_map的rehash是怎样的过程？（桶数增加，重新哈希所有元素）\n7. map和unordered_map的内存占用对比？（map节点开销大，unordered_map桶数组开销大）\n8. 自定义类型作为map的key需要什么条件？（定义operator<或比较函数）\n9. 自定义类型作为unordered_map的key需要什么条件？（定义hash函数和operator==）\n10. 什么场景下用map？什么场景下用unordered_map？\n11. C++17新增的flat_map和普通map有什么区别？（连续内存、缓存友好、插入删除O(n)）",
+    "category": "C++",
+    "subcategory": "STL",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "tencent",
+      "bytedance",
+      "meituan",
+      "xiaomi"
+    ],
+    "tags": [
+      "map",
+      "unordered_map",
+      "红黑树",
+      "哈希表",
+      "时间复杂度",
+      "哈希冲突",
+      "rehash",
+      "负载因子"
+    ],
+    "answer_hint": "map：底层红黑树，key有序，查找/插入/删除O(logn)，迭代器遍历有序，内存占用较小(树节点)，key需定义比较函数(operator<)。unordered_map：底层哈希表(数组+链表，C++11后链表过长转红黑树)，key无序，平均O(1)最坏O(n)，迭代器遍历无序，内存占用较大(桶数组)，key需定义hash函数和operator==。哈希冲突：链地址法，同一桶的元素用链表连接。负载因子=元素数/桶数，默认最大1.0，超过则rehash(桶数约翻倍，所有元素重新哈希)。选择：需要有序遍历或范围查询用map；追求查找速度且key哈希均匀用unordered_map。flat_map(C++23)：底层是排序的连续数组(pair数组)，缓存友好，查找O(logn)二分，插入删除O(n)，适合读多写少。",
+    "source": "腾讯/字节跳动C++面试真题 · 《深度探索C++对象模型》",
+    "target_roles": [
+      "C++开发",
+      "客户端开发",
+      "游戏开发",
+      "机器人软件",
+      "基础设施"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "cpp-004",
+    "title": "malloc的底层实现原理是什么？ptmalloc的arena机制和chunk结构是怎样的？",
+    "description": "请详细回答以下问题：\n1. malloc是如何分配内存的？（brk/mmap、ptmalloc、arena、chunk）\n2. 什么情况下用brk分配？什么情况下用mmap分配？（小内存brk，大内存mmap，阈值通常128KB）\n3. malloc分配的内存块(chunk)结构是怎样的？（prev_size、size、用户数据）\n4. free时如何知道要释放多少内存？（通过指针减偏移找到chunk头，从size字段知道块大小）\n5. ptmalloc的arena机制是怎样的？（主arena+非主arena，多线程减少锁竞争）\n6. malloc是线程安全的吗？（ptmalloc加锁，多线程有锁竞争）\n7. 什么是内存碎片？ptmalloc如何处理内存碎片？（bins：unsorted bin、small bin、large bin、fast bin）\n8. 什么是tcmalloc和jemalloc？它们和ptmalloc有什么区别？（线程缓存、更好的多线程性能、更少碎片）\n9. malloc(0)会返回什么？（实现定义，可能返回NULL或最小可free指针）\n10. 如何排查内存泄漏？（valgrind、AddressSanitizer、mtrace、jemalloc profiling）",
+    "category": "C++",
+    "subcategory": "内存管理",
+    "difficulty": "hard",
+    "type": "concept",
+    "companies": [
+      "tencent",
+      "bytedance"
+    ],
+    "tags": [
+      "malloc",
+      "ptmalloc",
+      "brk",
+      "mmap",
+      "chunk",
+      "arena",
+      "内存碎片",
+      "tcmalloc",
+      "jemalloc",
+      "内存泄漏"
+    ],
+    "answer_hint": "glibc的ptmalloc：小内存(<128KB)通过brk移动堆顶分配，大内存通过mmap映射匿名页。内存块用chunk管理，每个chunk有头部(prev_size+size，size低3位是标志位)，实际返回指针在头部之后。free时通过指针-2*sizeof(size_t)得到chunk头，从size字段知道块大小。arena：每个线程有arena，分配时加锁，不同线程可在不同arena无锁分配。bins：free的chunk按大小分类存放在不同链表中(fast bin、unsorted bin、small bin、large bin)，分配时先从bins找。tcmalloc(Google)：每个线程有thread cache，无锁分配，多线程性能好。jemalloc：类似线程缓存，arena更多，碎片更少。内存泄漏排查：valgrind --leak-check、AddressSanitizer(-fsanitize=address)、mtrace、jemalloc heap profiling。",
+    "source": "腾讯/字节跳动C++面试真题 · 《深度探索C++对象模型》",
+    "target_roles": [
+      "C++开发",
+      "客户端开发",
+      "游戏开发",
+      "机器人软件",
+      "基础设施"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "cpp-005",
+    "title": "C++四种强制类型转换分别用于什么场景？安全性如何排序？",
+    "description": "请详细回答以下问题：\n1. C++有哪四种强制类型转换？（static_cast、dynamic_cast、const_cast、reinterpret_cast）\n2. static_cast的作用和使用场景？（基本类型转换、隐式转换方向、向上转型、void*转换）\n3. dynamic_cast的作用和使用场景？（多态类型的向下转型，运行时检查，失败返回nullptr或抛异常）\n4. dynamic_cast为什么需要RTTI？（运行时类型信息，type_info）\n5. const_cast的作用？（去掉或加上const/volatile，只能改常量属性不能改类型）\n6. reinterpret_cast的作用？（底层位模式重新解释，最危险，指针转整数、任意指针互转）\n7. 这四种转换的安全性排序？（static_cast最安全，reinterpret_cast最危险）\n8. C风格转换(T)expr和C++命名转换有什么区别？（C风格会依次尝试四种转换，不明确不安全）\n9. 什么情况下用dynamic_cast会失败？（非多态类型编译错误，类型不匹配运行时返回nullptr）\n10. 为什么不推荐用C风格转换？（不明确、不安全、不易搜索）",
+    "category": "C++",
+    "subcategory": "类型系统",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "tencent",
+      "bytedance",
+      "meituan"
+    ],
+    "tags": [
+      "static_cast",
+      "dynamic_cast",
+      "const_cast",
+      "reinterpret_cast",
+      "RTTI",
+      "type_info",
+      "C风格转换"
+    ],
+    "answer_hint": "static_cast：编译期检查，用于基本类型转换、隐式转换方向(派生→基类向上转型)、void*→具体类型指针，不能转掉const。dynamic_cast：运行期RTTI检查，用于多态类型(有虚函数)的向下转型，失败返回nullptr(指针)或抛bad_cast(引用)。const_cast：去掉或加上const/volatile，只能改类型的常量属性。reinterpret_cast：底层位模式重新解释，最危险，如指针转整数、任意指针互转。安全性：static_cast > const_cast > dynamic_cast > reinterpret_cast。C风格转换会依次尝试static_cast→const_cast→static_cast→reinterpret_cast，不明确且不安全，C++推荐用明确的命名转换。",
+    "source": "腾讯/字节跳动C++面试真题 · 《深度探索C++对象模型》",
+    "target_roles": [
+      "C++开发",
+      "客户端开发",
+      "游戏开发",
+      "机器人软件",
+      "基础设施"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "cpp-006",
+    "title": "深拷贝和浅拷贝的区别是什么？什么情况下需要自定义拷贝构造？",
+    "description": "请详细回答以下问题：\n1. 什么是浅拷贝？什么是深拷贝？\n2. 浅拷贝会导致什么问题？（double free、野指针、数据共享）\n3. C++中默认的拷贝构造函数和拷贝赋值运算符是浅拷贝还是深拷贝？（默认浅拷贝，逐成员拷贝）\n4. 什么情况下需要自定义拷贝构造函数和拷贝赋值运算符？（类中有指针成员、动态分配资源、文件句柄等）\n5. 如何实现深拷贝？（重新分配内存并拷贝内容）\n6. 拷贝赋值运算符的实现需要注意什么？（自赋值检查、先释放旧内存、异常安全、返回*this）\n7. 什么是Rule of Three？什么是Rule of Five？\n8. 什么是拷贝交换惯用法(copy-and-swap)？它有什么优点？（异常安全、代码简洁、自动处理自赋值）\n9. C++11的移动语义和深拷贝有什么关系？（移动避免深拷贝开销，转移资源所有权）\n10. 如何禁止拷贝？（=delete、私有拷贝构造、继承noncopyable）",
+    "category": "C++",
+    "subcategory": "面向对象",
+    "difficulty": "easy",
+    "type": "concept",
+    "companies": [
+      "tencent",
+      "bytedance",
+      "alibaba",
+      "jd"
+    ],
+    "tags": [
+      "深拷贝",
+      "浅拷贝",
+      "拷贝构造",
+      "拷贝赋值",
+      "Rule of Three",
+      "Rule of Five",
+      "copy-and-swap",
+      "移动语义",
+      "自赋值"
+    ],
+    "answer_hint": "浅拷贝：只拷贝指针/引用的值，两个对象指向同一块内存，析构时double free。深拷贝：重新分配内存并拷贝内容，两个对象独立。默认拷贝构造和拷贝赋值是浅拷贝。类中有指针成员/动态资源时需自定义。深拷贝：拷贝构造中对指针成员new新内存并拷贝；拷贝赋值中先检查自赋值，释放旧内存，分配新内存拷贝，返回*this。Rule of Three：需要自定义析构函数的类，通常也需要自定义拷贝构造和拷贝赋值。Rule of Five(C++11)：加上移动构造和移动赋值。copy-and-swap：拷贝赋值参数用值传递，然后和临时对象swap，异常安全且自动处理自赋值。移动语义：转移资源所有权，避免深拷贝开销。禁止拷贝：拷贝构造和拷贝赋值=delete(C++11)。",
+    "source": "腾讯/字节跳动C++面试真题 · 《深度探索C++对象模型》",
+    "target_roles": [
+      "C++开发",
+      "客户端开发",
+      "游戏开发",
+      "机器人软件",
+      "基础设施"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "cpp-007",
+    "title": "C++ lambda表达式的语法是怎样的？值捕获和引用捕获的区别？",
+    "description": "请详细回答以下问题：\n1. 什么是lambda表达式？它的语法是怎样的？（[捕获](参数)mutable→返回值{体}）\n2. lambda的捕获方式有哪些？（值捕获[=]、引用捕获[&]、隐式捕获、显式捕获、this捕获、初始化捕获C++14）\n3. lambda的底层实现是什么？（编译器生成匿名函数对象/闭包类，重载operator()）\n4. lambda和std::function有什么区别？（lambda是具体类型，std::function是类型擦除的包装，有虚函数开销）\n5. lambda引用捕获有什么风险？（悬垂引用，被引用对象生命周期短于lambda）\n6. 什么是lambda的mutable关键字？（允许修改值捕获的变量）\n7. std::bind的作用是什么？（绑定可调用对象和参数，生成新的可调用对象）\n8. lambda和bind的区别？（lambda更简洁、内联效率高、语法直观；bind更灵活、可绑定部分参数、有类型擦除开销）\n9. 什么是泛型lambda？（C++14，参数用auto，相当于模板operator()）\n10. lambda在STL算法中的典型应用？（sort的比较函数、find_if的谓词、for_each的操作）",
+    "category": "C++",
+    "subcategory": "C++11/14/17",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "tencent",
+      "bytedance"
+    ],
+    "tags": [
+      "lambda",
+      "bind",
+      "闭包",
+      "捕获",
+      "std::function",
+      "泛型lambda",
+      "mutable",
+      "悬垂引用"
+    ],
+    "answer_hint": "lambda语法：[捕获列表](参数列表)mutable→返回类型{函数体}。捕获：值捕获[=]、引用捕获[&]、显式捕获[x,&y]、this捕获、初始化捕获[x=expr](C++14)。底层：编译器生成匿名类(闭包类型)，有成员变量存捕获的变量，重载operator()。lambda是具体类型，无类型擦除开销；std::function用类型擦除包装任意可调用对象，有开销。引用捕获风险：lambda异步执行时被引用对象已销毁→悬垂引用。安全做法：值捕获或移动捕获。bind：std::bind(f,args...)，用_1/_2占位符，绑定部分参数生成新可调用对象。lambda vs bind：lambda更简洁直观、内联效率高；bind更灵活但语法复杂。C++11后推荐用lambda替代bind。泛型lambda(C++14)：参数用auto，编译器生成模板operator()。",
+    "source": "腾讯/字节跳动C++面试真题 · 《深度探索C++对象模型》",
+    "target_roles": [
+      "C++开发",
+      "客户端开发",
+      "游戏开发",
+      "机器人软件",
+      "基础设施"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "cpp-008",
+    "title": "请实现一个有界环形队列，支持入队、出队、判空、判满",
+    "description": "请实现一个有界环形队列(Ring Buffer / Circular Queue)，要求：\n1. 使用固定大小的数组作为底层存储\n2. 支持入队(enqueue)和出队(dequeue)操作\n3. 支持判断队列空和队列满\n4. 支持获取队列大小\n5. 说明如何区分空和满（计数器法 vs 预留空位法）\n6. 如果是多线程生产者消费者场景，如何保证线程安全？（互斥锁+条件变量，或无锁设计）\n7. 环形队列的应用场景？（网络IO缓冲区、生产者消费者、日志缓冲、音频视频缓冲）\n\n输入输出示例：\n初始容量5\nenqueue(1) → true\nenqueue(2) → true\nenqueue(3) → true\ndequeue() → 1\nenqueue(4) → true\nenqueue(5) → true\nenqueue(6) → true\nenqueue(7) → false（队列满）\nsize() → 5\ndequeue() → 2\ndequeue() → 3\ndequeue() → 4\ndequeue() → 5\ndequeue() → 6\ndequeue() → -1（队列空）",
+    "category": "C++",
+    "subcategory": "数据结构",
+    "difficulty": "medium",
+    "type": "coding",
+    "companies": [
+      "tencent"
+    ],
+    "tags": [
+      "环形队列",
+      "数组",
+      "模运算",
+      "生产者消费者",
+      "线程安全",
+      "Ring Buffer"
+    ],
+    "answer_hint": "用固定大小数组+head(读位置)+tail(写位置)+count(元素数)或预留空位。入队：buffer[tail]=x, tail=(tail+1)%capacity。出队：x=buffer[head], head=(head+1)%capacity。空满区分：①计数器法：count==0空，count==capacity满②预留空位法：浪费一个位置，(tail+1)%capacity==head满，head==tail空。多线程版本：互斥锁保护共享状态+两个条件变量(not_full入队等待、not_empty出队等待)，或用原子变量实现无锁环形队列(SPSC)。应用：网络IO缓冲区、生产者消费者模型、日志环形缓冲、音频视频帧缓冲。关键：模运算实现环形。",
+    "source": "腾讯/字节跳动C++面试真题 · 《深度探索C++对象模型》",
+    "target_roles": [
+      "C++开发",
+      "客户端开发",
+      "游戏开发",
+      "机器人软件",
+      "基础设施"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "cpp-009",
+    "title": "C++程序从源代码到可执行文件经历了哪几个阶段？静态链接和动态链接的区别？",
+    "description": "请详细回答以下问题：\n1. C++程序从源代码到可执行文件经历了哪几个阶段？（预处理、编译、汇编、链接）\n2. 预处理阶段做什么？（#include展开、#define宏替换、#ifdef条件编译、生成.i文件）\n3. 编译阶段做什么？（词法分析、语法分析、语义分析、优化、生成汇编代码.s文件）\n4. 汇编阶段做什么？（汇编器将汇编代码转为机器码目标文件.o，ELF格式）\n5. 链接阶段做什么？（符号解析、重定位、合并段、生成可执行文件）\n6. 什么是静态链接？什么是动态链接？它们的区别？\n7. 什么是符号？什么是符号解析？（函数名/变量名→地址）\n8. 什么是重定位？（修正符号引用的地址）\n9. 常见的链接错误有哪些？（undefined reference未定义符号、multiple definition重复定义）\n10. 什么是位置无关代码(PIC)？为什么动态库需要PIC？\n11. 什么是动态链接的延迟绑定(Lazy Binding)？PLT和GOT的作用？\n12. g++的常用编译选项？（-g调试、-O优化、-Wall警告、-I头文件路径、-L库路径、-l链接库、-std=c++17、-fPIC）",
+    "category": "C++",
+    "subcategory": "编译链接",
+    "difficulty": "easy",
+    "type": "concept",
+    "companies": [
+      "tencent",
+      "bytedance"
+    ],
+    "tags": [
+      "预处理",
+      "编译",
+      "汇编",
+      "链接",
+      "静态链接",
+      "动态链接",
+      "符号解析",
+      "重定位",
+      "PIC",
+      "PLT",
+      "GOT"
+    ],
+    "answer_hint": "四阶段：①预处理：处理#include/#define/#ifdef，展开宏和头文件，生成.i文件②编译：词法分析→语法分析→语义分析→优化→生成汇编代码.s③汇编：汇编器将汇编转机器码(目标文件.o)，ELF格式④链接：链接器将多个目标文件和库合并，符号解析、重定位、合并段，生成可执行文件。静态链接：库代码拷入可执行文件，文件大、运行不依赖库。动态链接：运行时加载.so，文件小、共享库。符号：函数名/变量名，符号解析：将符号引用关联到定义地址。重定位：链接时修正代码中对符号的引用地址。undefined reference：引用了未定义的符号；multiple definition：符号被多次定义。PIC：位置无关代码，用相对地址，动态库可加载到任意位置。PLT+GOT实现延迟绑定：第一次调用时才解析符号地址存入GOT。",
+    "source": "腾讯/字节跳动C++面试真题 · 《深度探索C++对象模型》",
+    "target_roles": [
+      "C++开发",
+      "客户端开发",
+      "游戏开发",
+      "机器人软件",
+      "基础设施"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  },
+  {
+    "id": "cpp-010",
+    "title": "const和static关键字分别有哪些用法？常量成员函数有什么限制？",
+    "description": "请详细回答以下问题：\n1. const关键字有哪些用法？（修饰变量、指针、函数参数、成员函数、返回值）\n2. const修饰指针的几种形式？（const int* p指向常量、int* const p常量指针、const int* const p）\n3. 什么是常量成员函数？它有什么限制？（不能修改成员变量，除非mutable；const对象只能调用const成员函数）\n4. const成员函数中this指针的类型是什么？（const ClassName* const）\n5. 函数签名中const是否参与重载？（是，const成员函数和非const成员函数可重载）\n6. static关键字有哪些用法？（局部静态变量、全局静态变量/函数、静态成员变量、静态成员函数）\n7. 静态局部变量的生命周期和初始化时机？（程序结束才销毁，第一次执行到时初始化，C++11后线程安全）\n8. 静态成员变量和普通成员变量的区别？（所有对象共享一份，不属于某个对象，必须类外初始化）\n9. 静态成员函数有什么特点？（没有this指针，只能访问静态成员，可通过类名调用，不能是const/virtual/volatile）\n10. static修饰全局变量/函数有什么作用？（内部链接，只在当前编译单元可见，避免符号冲突）\n11. const和static一起使用的场景？（静态常量成员，编译期常量）\n12. 什么是constexpr？它和const有什么区别？（constexpr编译期常量，const运行期只读）",
+    "category": "C++",
+    "subcategory": "关键字",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "tencent",
+      "bytedance",
+      "meituan"
+    ],
+    "tags": [
+      "const",
+      "static",
+      "this指针",
+      "常量成员函数",
+      "静态成员",
+      "constexpr",
+      "内部链接",
+      "mutable"
+    ],
+    "answer_hint": "const：①修饰变量：只读，必须初始化②修饰指针：const int* p(指向常量)、int* const p(常量指针)、const int* const p③修饰成员函数：常量成员函数，不能修改成员变量(除非mutable)，const对象只能调用const成员函数，const参与重载。this指针：成员函数隐式参数，类型ClassName* const；const成员函数中this类型const ClassName* const。static：①局部静态变量：生命周期到程序结束，第一次执行到时初始化(C++11线程安全)②全局静态变量/函数：内部链接，只在当前文件可见③静态成员变量：类共享，所有对象同一份，必须类外初始化④静态成员函数：没有this指针，只能访问static成员，可通过类名::调用，不能是const/virtual/volatile。constexpr(C++11)：编译期常量，编译器在编译时计算值；const只是运行期只读。mutable：修饰成员变量，允许在const成员函数中修改。",
+    "source": "腾讯/字节跳动C++面试真题 · 《深度探索C++对象模型》",
+    "target_roles": [
+      "C++开发",
+      "客户端开发",
+      "游戏开发",
+      "机器人软件",
+      "基础设施"
+    ],
+    "source_url": "https://www.nowcoder.com/discuss/5162890"
+  }
+]

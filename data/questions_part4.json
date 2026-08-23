@@ -1,0 +1,122 @@
+[
+  {
+    "id": "python-001",
+    "title": "Python GIL",
+    "description": "请详细回答以下问题：\n1. 什么是GIL？它的全称是什么？（Global Interpreter Lock，全局解释器锁）\n2. GIL是Python语言的特性还是CPython实现的特性？\n3. GIL的作用是什么？为什么需要GIL？（简化内存管理，引用计数不需要原子操作）\n4. GIL对多线程有什么影响？（CPU密集型多线程无法利用多核，IO密集型有效）\n5. 为什么IO密集型多线程仍然有效？（IO等待时GIL会被释放）\n6. GIL的释放时机是什么？（字节码指令计数、IO操作、time.sleep）\n7. Python 3.2对GIL做了什么改进？（新GIL，固定时间间隔5ms切换，减少请求切换）\n8. 如何在Python中利用多核CPU？（多进程multiprocessing、C扩展释放GIL、concurrent.futures.ProcessPoolExecutor、用无GIL的解释器PyPy/Jython）\n9. 多进程和多线程在Python中的区别和适用场景？\n10. 什么是协程？协程和多线程有什么区别？（asyncio、单线程并发、用户态调度、无锁）\n11. numpy/pandas等库是如何绕过GIL的？（底层C代码释放GIL，真正并行计算）\n12. GIL会导致什么问题？（CPU密集型多线程比单线程还慢，因为有锁切换开销）",
+    "category": "Python",
+    "subcategory": "并发",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": ["bytedance", "tencent", "alibaba", "meituan", "unitree"],
+    "tags": ["GIL", "多线程", "多进程", "CPython", "协程", "asyncio", "多核", "PyPy"],
+    "answer_hint": "GIL(全局解释器锁)是CPython解释器中的互斥锁，同一时刻只有一个线程执行Python字节码。不是Python语言特性，是CPython实现的选择(Jython/PyPy无GIL)。作用：简化内存管理，引用计数不需要原子操作，避免了很多线程安全问题。影响：CPU密集型多线程无法利用多核(GIL串行)，IO密集型多线程有效(IO等待时释放GIL)。GIL释放：字节码执行一定数量(旧GIL100条)、IO操作(文件/网络/socket)、time.sleep。Python 3.2新GIL：固定时间间隔(默认5ms)请求切换，减少线程饥饿，但有锁竞争开销。利用多核：①多进程multiprocessing/ProcessPoolExecutor(每个进程独立GIL)②C扩展释放GIL(numpy/pandas底层C代码)③用无GIL解释器(PyPy JIT快但兼容性差、Jython)。多进程：CPU密集型，开销大(进程创建/IPC)，隔离性好；多线程：IO密集型，开销小，共享内存，需同步。协程(asyncio)：单线程并发，用户态调度，无锁开销，适合高并发IO(网络爬虫/Web服务)，但不能利用多核。GIL导致CPU密集型多线程可能比单线程慢(锁切换开销)。"
+  },
+  {
+    "id": "python-002",
+    "title": "Python装饰器",
+    "description": "请详细回答以下问题：\n1. 什么是装饰器？它的作用是什么？（在不修改原函数代码的情况下增强功能）\n2. 装饰器的本质是什么？（接收函数为参数、返回新函数的高阶函数）\n3. 请实现一个简单的装饰器（如计时装饰器）。\n4. 带参数的装饰器如何实现？（多嵌套一层，外层接收参数，内层是装饰器）\n5. 类装饰器如何实现？（实现__call__方法）\n6. functools.wraps的作用是什么？（保留原函数名、文档、签名等元信息）\n7. 装饰器的执行顺序是怎样的？（多个装饰器时，定义时从下到上，调用时从上到下）\n8. 什么是装饰器的副作用？如何避免？（不使用wraps导致函数名变wrapper）\n9. Python中有哪些内置装饰器？（@property、@staticmethod、@classmethod、@functools.lru_cache、@dataclass）\n10. @property的作用是什么？如何实现getter/setter/deleter？\n11. @staticmethod和@classmethod的区别？（不需要self/cls vs 需要cls，不能访问实例属性vs可以访问类属性）\n12. 装饰器在实际开发中的应用场景？（日志、计时、权限校验、缓存、重试、路由注册）\n13. 什么是装饰器模式？Python装饰器和设计模式中的装饰器模式有什么区别？",
+    "category": "Python",
+    "subcategory": "语法特性",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": ["bytedance", "tencent", "alibaba", "unitree"],
+    "tags": ["装饰器", "高阶函数", "闭包", "functools.wraps", "带参数装饰器", "类装饰器", "property", "staticmethod", "classmethod"],
+    "answer_hint": "装饰器：在不修改原函数代码的情况下增强功能，本质是接收函数为参数、返回新函数的高阶函数，用@语法糖。简单装饰器：def decorator(func): def wrapper(*args,**kwargs): ...; return func(*args,**kwargs); return wrapper。带参数装饰器：多嵌套一层def decorator(arg): def inner(func): def wrapper...; return wrapper; return inner，使用@decorator(arg)。类装饰器：实现__call__方法，实例可调用。functools.wraps：保留原函数__name__、__doc__、__signature__等元信息，否则函数名变成wrapper。多个装饰器：@A @B def f() 等价于f=A(B(f))，定义时从下到上执行(B先执行)，调用时从上到下(A的wrapper先执行)。内置装饰器：@property(将方法变属性，可定义getter/setter/deleter)、@staticmethod(静态方法，不需要self/cls，不能访问实例/类属性)、@classmethod(类方法，第一个参数cls，可访问类属性/调用其他类方法，可用于工厂模式)、@functools.lru_cache(缓存函数返回值，LRU淘汰)、@dataclass(自动生成__init__/__repr__/__eq__等)。应用：日志、计时、权限校验、缓存、重试、路由注册(Flask @app.route)、事务。vs装饰器模式：设计模式中装饰器模式是通过组合包装对象，Python装饰器是语法糖，更灵活但原理类似。"
+  },
+  {
+    "id": "python-003",
+    "title": "Python可变对象与不可变对象",
+    "description": "请详细回答以下问题：\n1. Python中哪些是可变对象？哪些是不可变对象？（list/dict/set可变，int/float/str/tuple/frozenset不可变）\n2. 什么是可变对象？什么是不可变对象？\n3. 不可变对象修改时会发生什么？（创建新对象，重新绑定引用）\n4. Python函数参数传递是传值还是传引用？（传对象引用，pass by assignment/object reference）\n5. 函数内对参数重新赋值(=)会影响外部吗？对可变对象原地修改(.append/['key']=)会影响外部吗？\n6. 什么是默认参数的坑？（def f(x=[]): x.append(1)，默认参数只在函数定义时求值一次，多次调用共享同一列表）\n7. 如何避免默认参数的坑？（用None作为默认值，函数内判断）\n8. tuple是不可变的，但tuple中的list元素可以修改吗？为什么？（tuple存的是引用，引用不可变但引用指向的对象可变）\n9. 什么是浅拷贝和深拷贝？（copy.copy vs copy.deepcopy）\n10. 切片操作[:]是浅拷贝还是深拷贝？（浅拷贝，只复制顶层）\n11. dict的copy()方法是浅拷贝还是深拷贝？（浅拷贝）\n12. Python的整数缓存机制是什么？（-5到256的整数对象缓存，is比较为True）\n13. 字符串的intern机制是什么？（相同字符串字面量共享同一对象）",
+    "category": "Python",
+    "subcategory": "内存模型",
+    "difficulty": "easy",
+    "type": "concept",
+    "companies": ["bytedance", "tencent", "alibaba", "unitree"],
+    "tags": ["可变对象", "不可变对象", "传对象引用", "默认参数坑", "浅拷贝", "深拷贝", "整数缓存", "intern"],
+    "answer_hint": "不可变对象：int、float、str、tuple、frozenset、bool，值不能修改，修改会创建新对象(重新绑定)。可变对象：list、dict、set、bytearray，可原地修改。函数参数传递：传对象引用(pass by assignment)，既不是纯传值也不是纯传引用。函数内对参数重新赋值(=)不影响外部(绑定到新对象)，但对可变对象原地修改(.append、['key']=、.sort())会影响外部。默认参数坑：def f(x=[]): x.append(1); return x，默认参数只在函数定义时求值一次，多次调用共享同一列表，结果累积。避免：def f(x=None): if x is None: x=[]。tuple不可变指tuple存的引用不可变，但引用指向的可变对象可以修改，如t=([1],[2]); t[0].append(3)合法。浅拷贝(copy.copy/切片/dict.copy())：复制顶层对象，嵌套对象仍共享引用；深拷贝(copy.deepcopy())：递归复制所有层级，完全独立。整数缓存：CPython缓存-5到256的整数对象，小整数is比较为True，大整数每次创建新对象。字符串intern：相同字符串字面量共享同一对象(节省内存)，可通过sys.intern()手动intern。"
+  },
+  {
+    "id": "python-004",
+    "title": "Python生成器与迭代器",
+    "description": "请详细回答以下问题：\n1. 什么是迭代器(Iterator)？什么是可迭代对象(Iterable)？\n2. 迭代器协议是什么？（__iter__和__next__方法）\n3. 什么是生成器(Generator)？它和迭代器的关系？（生成器是特殊的迭代器）\n4. 生成器的两种创建方式？（生成器函数yield、生成器表达式）\n5. yield的工作原理是什么？（函数执行到yield暂停，保存状态，返回值；下次next()恢复）\n6. 生成器的优点是什么？（惰性求值、节省内存、按需计算、无限序列）\n7. 什么是生成器的send()方法？它和next()的区别？（send可向生成器发送值，作为yield表达式的值）\n8. 什么是生成器的throw()和close()方法？\n9. yield from的作用是什么？（委托子生成器，简化嵌套生成器调用，自动处理StopIteration）\n10. 什么是协程？生成器如何作为协程使用？（send/throw/close，Python 2.5引入，Python 3.5被async/await替代）\n11. range()是迭代器吗？（不是，是可迭代对象，可重复迭代）\n12. 列表推导式和生成器表达式的区别？（[]立即计算存列表，()惰性生成器）\n13. 什么是迭代器的耗尽？（迭代完后再next抛StopIteration，不能重置）\n14. 如何实现一个自定义迭代器？（实现__iter__返回self，__next__返回下一个值，没有则抛StopIteration）",
+    "category": "Python",
+    "subcategory": "语法特性",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": ["bytedance", "tencent", "alibaba", "unitree"],
+    "tags": ["迭代器", "生成器", "yield", "惰性求值", "send", "yield from", "协程", "生成器表达式", "StopIteration"],
+    "answer_hint": "迭代器：实现__iter__()和__next__()的对象，__iter__返回自身，__next__返回下一个值，没有则抛StopIteration。可迭代对象：实现__iter__返回迭代器(如list/dict/str/range)，可用for遍历。生成器：特殊的迭代器，用函数+yield实现，惰性求值。创建方式：①生成器函数(def中用yield)②生成器表达式((x for x in range(10)))。yield原理：函数执行到yield时暂停，保存当前状态(局部变量、指令指针)，返回yield的值；下次next()时从暂停处恢复继续执行。优点：惰性求值(按需计算)、节省内存(不存储所有值)、可表示无限序列。send()：向生成器发送值，作为yield表达式的返回值，首次必须send(None)或next()；next()等价于send(None)。throw()：在生成器暂停处抛出异常；close()：关闭生成器，后续调用抛StopIteration。yield from：委托子生成器，自动处理StopIteration和值传递，简化嵌套生成器，如yield from sub_gen()等价于for item in sub_gen(): yield item(但还能传递send/throw)。协程：生成器可作为协程(send/throw/close实现双向通信)，Python 3.5+用async/await替代生成器协程。range()是可迭代对象不是迭代器(可重复遍历，每次返回新迭代器)。列表推导式[]立即计算存储列表；生成器表达式()惰性，逐个生成。迭代器耗尽后不能重置，需重新创建。自定义迭代器：class MyIter: def __iter__(self): return self; def __next__(self): if ...: raise StopIteration; return value。"
+  },
+  {
+    "id": "python-005",
+    "title": "Python字典底层实现",
+    "description": "请详细回答以下问题：\n1. Python字典的底层数据结构是什么？（哈希表，开放寻址法）\n2. Python 3.6前后字典的实现有什么变化？（3.6+有序，内存优化，indices数组+entries数组）\n3. 字典的哈希冲突是如何解决的？（开放寻址法，伪随机探测序列，不是拉链法）\n4. 什么是伪随机探测？（perturb扰动，基于哈希值生成探测序列）\n5. 字典的扩容机制是怎样的？（2/3满时扩容为2倍，重新哈希）\n6. 什么是字典的负载因子？Python字典的负载因子是多少？（2/3≈0.667）\n7. 字典删除元素时是真删除吗？（伪删除，dummy标记，避免断链）\n8. Python 3.7+字典为什么是有序的？（entries数组按插入顺序存储，indices只是索引映射）\n9. 字典的时间复杂度？（平均O(1)，最坏O(n)但概率极低）\n10. 什么是哈希表的二次聚集？开放寻址法如何避免？\n11. set的底层实现和dict有什么区别？（set也是哈希表，只有key没有value）\n12. 什么情况下字典的key会不可哈希？（可变对象list/dict/set不可哈希，不能作为key）\n13. 自定义类如何作为字典的key？（实现__hash__和__eq__，相等的对象哈希值必须相同）\n14. OrderedDict和普通dict的区别？（Python 3.7+普通dict已有序，OrderedDict支持move_to_end/popitem等额外操作）",
+    "category": "Python",
+    "subcategory": "数据结构",
+    "difficulty": "hard",
+    "type": "concept",
+    "companies": ["bytedance", "tencent", "unitree"],
+    "tags": ["dict", "哈希表", "开放寻址", "伪随机探测", "有序字典", "扩容", "负载因子", "伪删除", "set", "__hash__"],
+    "answer_hint": "Python 3.6+ dict：哈希表，开放寻址法(伪随机探测)，不是拉链法。结构：indices数组(存entry索引，哈希值对长度取模) + entries数组(存key:value对，按插入顺序)。哈希冲突：开放寻址，伪随机探测序列(perturb扰动，j=(5*j+1+perturb) % 2^k，perturb每次右移)，找下一个空位。有序原因：entries按插入顺序存储，indices只是索引映射，遍历entries即插入顺序。扩容：使用率达到2/3(负载因子0.667)时扩容为2倍，所有元素重新哈希(rehash)。删除：伪删除(dummy标记)，不真正移除，避免探测链断裂，扩容时清理dummy。时间复杂度：平均O(1)，最坏O(n)(极端哈希碰撞，但概率极低)。vs拉链法：开放寻址内存连续缓存友好，但删除复杂、有二次聚集(二次聚集是不同哈希值的探测序列重叠)。set：也是哈希表，只有key没有value，结构类似。不可哈希对象：list/dict/set(可变对象)不能作为dict的key或set的元素，因为hash值会变。自定义类作为key：必须实现__hash__(返回整数)和__eq__(相等判断)，且相等的对象(__eq__返回True)必须有相同的hash值，否则哈希表行为异常。OrderedDict：Python 3.7+普通dict已有序，OrderedDict额外支持move_to_end(移动到首尾)、popitem(从首尾弹出)、相等比较考虑顺序等。"
+  },
+  {
+    "id": "design-001",
+    "title": "设计短链接系统",
+    "description": "请设计一个短链接(短URL)系统，要求：\n1. 将长URL转换为短URL（如https://tinyurl.com/abc123）\n2. 访问短URL时301/302跳转到原长URL\n3. 支持高并发访问\n4. 支持自定义短码\n5. 支持访问统计\n\n请回答以下问题：\n1. 短码如何生成？（自增ID+Base62编码 vs 哈希取前N位）\n2. Base62编码是什么？为什么用62进制？（0-9a-zA-Z共62字符，6位可表示568亿）\n3. 如何保证短码唯一？（数据库唯一索引、分布式发号器、预生成短码池）\n4. 短URL跳转用301还是302？区别？（301永久重定向浏览器缓存减少服务器压力但无法统计点击；302临时重定向每次请求服务器可统计点击）\n5. 如何设计存储？（短码→长URL映射，MySQL/Redis，短码做主键/索引）\n6. 如何应对高并发读？（Redis缓存热点短码、CDN、布隆过滤器防穿透）\n7. 如何应对写并发？（发号器预分配、数据库唯一索引兜底）\n8. 自定义短码如何实现？（用户指定短码，检查唯一性）\n9. 如何做访问统计？（异步写日志、离线统计、Redis计数器）\n10. 系统的瓶颈在哪里？如何扩展？（数据库读写瓶颈，分库分表、读写分离、缓存）\n11. 如果短码用哈希，哈希冲突如何处理？（冲突时追加随机字符/重新哈希/链式）\n12. 什么是发号器？雪花算法(Snowflake)的原理？",
+    "category": "系统设计",
+    "subcategory": "经典设计题",
+    "difficulty": "hard",
+    "type": "design",
+    "companies": ["bytedance", "tencent", "alibaba", "meituan"],
+    "tags": ["短链接", "Base62", "发号器", "301/302", "缓存", "布隆过滤器", "雪花算法", "高并发"],
+    "answer_hint": "核心：长URL→短码，短码→长URL跳转。短码生成：①自增ID+Base62编码(0-9a-zA-Z，6位62^6=568亿，用分布式发号器/号段模式保证唯一)②哈希(md5取前6位)可能冲突需处理(冲突时追加字符/重新哈希)。存储：短码→长URL映射，MySQL(短码主键/唯一索引) + Redis缓存热点。跳转：301(永久重定向，浏览器缓存，服务器压力小但无法统计每次点击)或302(临时重定向，每次请求服务器可统计点击但压力大)，一般用302。高并发：Redis缓存热点短码(读多写少，命中率高)、布隆过滤器防穿透(不存在的短码直接拒绝不查DB)、CDN缓存静态跳转。写并发：发号器预分配号段(每个服务取一批ID，用完再取，减少数据库压力)、数据库唯一索引兜底。自定义短码：用户指定短码，检查唯一性(DB唯一索引)，不冲突则使用。访问统计：异步写访问日志(MQ)、离线统计(Hive/Spark)、实时统计用Redis计数器(HyperLogLog/bitmap)。发号器：雪花算法(Snowflake)：64位=1位符号+41位时间戳+10位机器ID+12位序列号，趋势递增、全局唯一、高性能。扩展：读瓶颈→缓存+读写分离+CDN；写瓶颈→分库分表(按短码哈希分片)、发号器水平扩展。系统设计要点：①明确需求(QPS、短码长度、是否自定义、统计需求)②容量估算(短码数量、存储量、带宽)③核心流程(写流程/读流程)④数据模型⑤扩展性⑥容错(降级、限流)。"
+  },
+  {
+    "id": "design-002",
+    "title": "设计秒杀系统",
+    "description": "请设计一个秒杀系统，要求：\n1. 大量用户在同一时间抢购限量商品\n2. 不能超卖（卖出数量不能超过库存）\n3. 不能少卖（有库存时不能因为并发问题卖不出去）\n4. 系统高可用、高性能\n\n请回答以下问题：\n1. 秒杀系统的挑战是什么？（瞬时高并发、超卖、少卖、带宽、数据库压力）\n2. 前端层面如何优化？（按钮置灰、倒计时、静态资源CDN、验证码防机器人、答题）\n3. 接入层如何限流？（Nginx限流、IP/用户维度限流、令牌桶/漏桶）\n4. 服务层如何扣减库存？（Redis预扣库存、原子操作decr、库存不足直接拒绝）\n5. 为什么用Redis预扣而不是直接扣数据库？（Redis性能高，扛住瞬时流量，数据库扛不住）\n6. 如何防止超卖？（Redis原子decr、数据库乐观锁UPDATE stock SET count=count-1 WHERE id=? AND count>0）\n7. 如何异步下单？（MQ削峰填谷，Redis扣库存成功后发MQ，消费者异步创建订单+扣DB库存）\n8. 一人一单如何实现？（Redis setnx/bitmap，用户ID维度去重）\n9. 订单超时未支付如何处理？（延迟队列/定时任务，超时取消订单+回滚库存）\n10. Redis和数据库库存如何保证最终一致？（定时对账、MQ最终一致、异常补偿）\n11. 热点商品如何处理？（本地缓存、库存分桶、读写分离）\n12. 系统降级策略？（服务降级、熔断、返回排队中、限流）\n13. 秒杀的完整流程？（用户请求→限流→一人一单校验→Redis扣库存→发MQ→返回排队中→消费者创建订单→用户轮询/推送结果）\n14. 如果Redis扣库存成功但MQ发送失败怎么办？（事务消息、本地消息表、重试机制）",
+    "category": "系统设计",
+    "subcategory": "高并发",
+    "difficulty": "hard",
+    "type": "design",
+    "companies": ["alibaba", "tencent", "bytedance", "meituan", "jd"],
+    "tags": ["秒杀", "高并发", "限流", "库存预扣", "异步下单", "MQ", "超卖", "一人一单", "降级", "最终一致"],
+    "answer_hint": "挑战：瞬时高并发(秒级几十万QPS)、超卖、少卖、带宽、数据库压力。前端：按钮置灰(防止重复点击)、倒计时(准确时间)、静态资源CDN(减轻服务器压力)、验证码/答题(防机器人、分散请求时间)、页面静态化。接入层：Nginx限流(IP/用户维度，limit_req)、WAF防攻击、负载均衡。服务层：①一人一单：Redis setnx(SET user:goodid NX EX 3600)或bitmap，防止重复下单②Redis预扣库存：DECR stock:goodid，原子操作，返回<0则库存不足直接拒绝(不查DB)③异步下单：扣库存成功后发MQ(RocketMQ/Kafka)，返回'排队中'，消费者异步创建订单+扣DB库存④DB扣库存：乐观锁UPDATE stock SET count=count-1 WHERE id=? AND count>0，影响行数=0则回滚Redis库存。防超卖：Redis原子decr+DB乐观锁双重保障。一人一单：Redis用户维度去重。超时取消：延迟队列(RocketMQ延迟级别/RabbitMQ死信队列)或定时任务扫描，超时未支付取消订单+回滚Redis库存。最终一致：Redis和DB库存通过定时对账任务(定期比对差异并修正)、MQ最终一致、异常补偿。热点：本地缓存(Caffeine)缓存商品信息、库存分桶(将库存拆成多份，减少锁竞争)。降级：服务降级(非核心服务关闭)、熔断、限流、返回'活动太火爆请稍后重试'。完整流程：用户请求→Nginx限流→一人一单校验→Redis扣库存(成功)→发MQ→返回排队中→消费者创建订单(DB扣库存)→用户轮询/推送结果。异常：Redis扣成功但MQ发失败→事务消息(RocketMQ半消息)或本地消息表+定时重试。"
+  },
+  {
+    "id": "design-003",
+    "title": "设计消息队列",
+    "description": "请设计一个消息队列系统，或回答消息队列相关问题：\n1. 消息队列的作用是什么？（解耦、异步、削峰填谷）\n2. 如何保证消息不丢失？（生产者、Broker、消费者三端保证）\n3. 生产者如何保证消息不丢失？（confirm机制、重试、事务消息）\n4. Broker如何保证消息不丢失？（持久化、同步刷盘、多副本同步）\n5. 消费者如何保证消息不丢失？（手动ACK、处理完再确认、消费失败重试+死信队列）\n6. 如何保证消息不重复消费？（至少一次投递+消费端幂等）\n7. 消费端如何实现幂等？（唯一ID+去重表、Redis setnx、业务状态机、乐观锁版本号、数据库唯一索引）\n8. 如何保证消息顺序性？（全局有序：单partition单线程；局部有序：同一key路由到同一partition，partition内FIFO，消费端单线程）\n9. 消息积压如何处理？（临时扩容消费者、批量消费、转发到新topic临时处理、排查消费慢原因）\n10. 什么是死信队列？什么情况下消息进入死信队列？（消费失败次数超限、消息过期、队列满）\n11. Kafka和RocketMQ的区别？（语言、模型、顺序消息、延迟消息、事务消息、性能）\n12. Kafka的高可用是如何实现的？（多副本、ISR机制、leader选举）\n13. 什么是ISR？ISR的作用？（In-Sync Replicas，与leader保持同步的副本集合）\n14. 消息队列的推拉模型区别？（push实时但可能压垮消费者，pull消费者可控但延迟）\n15. 如何设计一个延迟消息功能？（时间轮、延迟级别、定时扫描）",
+    "category": "系统设计",
+    "subcategory": "中间件",
+    "difficulty": "hard",
+    "type": "design",
+    "companies": ["alibaba", "tencent", "bytedance", "meituan"],
+    "tags": ["消息队列", "可靠性", "幂等性", "顺序消息", "Kafka", "RocketMQ", "ISR", "死信队列", "消息积压", "延迟消息"],
+    "answer_hint": "消息队列作用：解耦(生产者消费者不直接依赖)、异步(非核心逻辑异步处理降低响应时间)、削峰填谷(高峰请求缓存到MQ，消费者平滑消费)。消息不丢失(三端保证)：①生产者：confirm机制(同步/异步确认Broker收到)、失败重试、事务消息(RocketMQ半消息)②Broker：持久化(消息写磁盘)、同步刷盘(同步刷盘可靠性高但慢，异步刷盘快但可能丢)、多副本同步(leader写后同步到follower，ISR机制)③消费者：手动ACK(处理完再确认，不要自动ACK)、消费失败重试(有最大重试次数)、死信队列(重试超限进入死信队列人工处理)。消息不重复：MQ至少一次投递(at-least-once)可能重复，需消费端幂等。幂等方案：①唯一消息ID+去重表(DB唯一索引/Redis setnx)②业务状态机(如订单已支付则重复支付请求直接返回成功)③乐观锁版本号(UPDATE SET version=version+1 WHERE version=?)④数据库唯一约束(如订单号唯一)。顺序性：①全局有序：单partition/单queue+单线程消费，吞吐量极低②局部有序(常用)：同一业务key(如订单ID)路由到同一partition(哈希取模)，partition内FIFO保证顺序，消费端单线程消费同一partition。Kafka：partition内有序，key哈希路由；RocketMQ：MessageQueueSelector选择同一queue。消息积压：①临时扩容消费者实例(但partition数有限，消费者数不能超过partition数)②批量消费(提高单条消费速度)③转发到新topic(更多partition)临时处理④排查消费慢原因(慢SQL、外部调用超时、锁竞争)。死信队列：消费失败次数超限、消息过期(TTL)、队列满时消息进入死信队列，需人工处理。Kafka vs RocketMQ：Kafka(Scala/Java，高吞吐，日志/大数据场景，ISR多副本，无原生延迟消息/事务消息)；RocketMQ(Java，阿里开源，金融级可靠性，支持延迟消息(18个级别)、事务消息、顺序消息、消息回溯)。ISR(In-Sync Replicas)：与leader保持同步的follower集合，leader写入后等待ISR中副本同步才确认，ISR动态变化(落后太多的副本被踢出，追上来重新加入)，leader故障从ISR中选举新leader，保证数据不丢失。推拉模型：push(Broker推给消费者，实时但可能压垮消费者)、pull(消费者主动拉取，可控但有延迟，Kafka用pull+长轮询平衡)。延迟消息：RocketMQ固定延迟级别(1s/5s/10s/.../2h)；时间轮算法(可实现任意延迟)；定时扫描(数据库存延迟消息，定时任务扫描到期消息)。"
+  },
+  {
+    "id": "design-004",
+    "title": "设计限流器",
+    "description": "请设计一个限流器，或回答限流相关问题：\n1. 限流的作用是什么？（保护系统不被打垮、防止恶意请求、公平分配资源）\n2. 常见的限流算法有哪些？（固定窗口计数器、滑动窗口、漏桶、令牌桶）\n3. 固定窗口计数器的原理和问题？（单位时间计数，超过拒绝；问题：窗口边界突发流量翻倍）\n4. 滑动窗口如何解决固定窗口的边界问题？（将窗口分成多个小格，滑动统计）\n5. 漏桶算法的原理？（请求进入桶，固定速率流出，桶满拒绝；输出速率恒定，能平滑突发但无法应对合理突发）\n6. 令牌桶算法的原理？（固定速率放令牌，请求取令牌，有则通过无则拒绝；允许突发流量，桶有积累令牌时可一次性通过）\n7. 漏桶和令牌桶的区别和适用场景？\n8. 单机限流如何实现？（Guava RateLimiter令牌桶、AtomicInteger计数器）\n9. 分布式限流如何实现？（Redis+Lua原子操作、Redis Cell模块、Sentinel集群限流、网关层限流）\n10. 为什么分布式限流要用Lua脚本？（保证多个Redis操作的原子性）\n11. 限流维度有哪些？（IP、用户ID、接口、服务、租户）\n12. 限流后的降级策略？（直接拒绝、排队等待、返回兜底数据、服务降级）\n13. 什么是预热？令牌桶如何实现预热？（系统启动时逐步增加限流阈值，避免冷启动被打垮）\n14. Sentinel和Hystrix的区别？（限流维度、熔断、实时监控、控制台）\n15. 如何设计一个API网关的限流功能？",
+    "category": "系统设计",
+    "subcategory": "高可用",
+    "difficulty": "medium",
+    "type": "design",
+    "companies": ["bytedance", "tencent", "alibaba", "meituan"],
+    "tags": ["限流", "令牌桶", "漏桶", "滑动窗口", "固定窗口", "分布式限流", "Redis+Lua", "Sentinel", "降级", "预热"],
+    "answer_hint": "限流作用：保护系统(防止流量超过系统承载能力导致雪崩)、防恶意攻击(爬虫/暴力破解)、公平分配(多租户/多用户公平使用资源)、成本控制。算法：①固定窗口计数器：单位时间(如1分钟)内计数，超过阈值拒绝，简单但有窗口边界问题(前窗口末尾+后窗口开头流量可能达2倍阈值)②滑动窗口：将大窗口分成N个小格(如1分钟分6格每格10秒)，统计当前窗口内所有小格的计数，随时间滑动，解决边界问题，实现稍复杂(Redis zset实现)③漏桶：请求进入桶(队列)，以固定速率流出处理，桶满则拒绝。输出速率恒定，能平滑突发流量，但即使下游空闲也按固定速率处理，无法应对合理突发④令牌桶：以固定速率往桶里放令牌，请求来取令牌，有令牌通过无令牌拒绝/等待。允许突发(桶中有积累令牌时可一次性通过多个请求)，是最常用算法。Guava RateLimiter用令牌桶实现。漏桶vs令牌桶：漏桶输出恒定(适合要求严格平滑的场景如视频流)，令牌桶允许突发(适合互联网API，应对合理的流量突发)。单机限流：Guava RateLimiter(令牌桶)、AtomicInteger计数器、Semaphore信号量。分布式限流：①Redis+Lua(令牌桶/滑动窗口，Lua保证多个Redis操作原子性)②Redis Cell模块(内置令牌桶，CL.THROTTLE命令)③Sentinel集群限流(Token Server分配令牌)④网关层限流(Nginx limit_req、Kong、Spring Cloud Gateway)。限流维度：IP、用户ID、接口URL、服务、租户、API Key。降级策略：直接拒绝(429 Too Many Requests)、排队等待(如令牌桶等待)、返回兜底数据(默认值/缓存)、服务降级(关闭非核心功能)、熔断。预热(Warm Up)：系统启动/恢复时，限流阈值从低逐步增加到目标值，避免冷启动瞬间被打垮，Guava RateLimiter支持warmupFactor。Sentinel vs Hystrix：Sentinel(阿里开源，限流+熔断+系统保护，支持多种限流维度，实时监控Dashboard，轻量)；Hystrix(Netflix开源，主要是熔断+降级，已停止维护，被Resilience4j替代)。API网关限流：在网关层统一限流，支持路由维度、用户维度、IP维度，配置化，无需业务代码改动。"
+  },
+  {
+    "id": "design-005",
+    "title": "设计RPC框架",
+    "description": "请设计一个RPC框架，或回答RPC相关问题：\n1. 什么是RPC？RPC和HTTP的区别？（Remote Procedure Call，远程过程调用，像调用本地方法一样调用远程方法）\n2. RPC的完整调用流程？（代理→序列化→网络传输→服务端反序列化→反射调用→序列化结果→网络传输→客户端反序列化）\n3. RPC框架的核心组件有哪些？（代理、序列化、网络传输、服务发现、负载均衡、容错、注册中心）\n4. 动态代理在RPC中的作用？（客户端代理拦截方法调用，封装为RPC请求）\n5. 常见的序列化方式有哪些？（Protobuf、Kryo、Hessian、JSON、JDK序列化）性能对比？\n6. 为什么Protobuf性能好？（二进制、紧凑编码、varint、预生成代码、前后兼容）\n7. RPC的网络传输层如何实现？（Netty NIO、TCP长连接、自定义协议）\n8. 自定义RPC协议包含哪些字段？（魔数、版本、序列化类型、请求ID、消息类型、数据长度、数据）\n9. 服务发现如何实现？（注册中心ZooKeeper/Nacos/Consul，服务提供者注册地址，消费者拉取并缓存）\n10. 负载均衡策略有哪些？（轮询、随机、加权轮询、一致性哈希、最小连接数、最短响应时间）\n11. 一致性哈希的原理？为什么用一致性哈希而不是普通哈希？（节点增减只影响相邻节点，避免大量请求重路由）\n12. RPC容错机制有哪些？（超时重试、熔断、降级、限流、失败转移failover、失败广播forking）\n13. 超时和重试如何设计？（超时时间设置、重试次数、重试间隔、幂等性要求）\n14. 常见的RPC框架有哪些？（Dubbo、gRPC、Thrift、Motan、brpc）\n15. Dubbo和gRPC的区别？（语言、协议、序列化、生态、性能）\n16. 什么是零拷贝？RPC中如何利用零拷贝？（mmap、sendfile，减少内核态用户态数据拷贝）",
+    "category": "系统设计",
+    "subcategory": "分布式",
+    "difficulty": "hard",
+    "type": "design",
+    "companies": ["alibaba", "tencent", "bytedance", "meituan"],
+    "tags": ["RPC", "动态代理", "序列化", "Protobuf", "Netty", "服务发现", "负载均衡", "一致性哈希", "容错", "Dubbo", "gRPC", "零拷贝"],
+    "answer_hint": "RPC(Remote Procedure Call)：远程过程调用，像调用本地方法一样调用远程服务方法，屏蔽网络通信细节。vs HTTP：RPC是协议/框架(可基于TCP或HTTP)，性能高(二进制序列化+长连接)，适合内部服务间调用；HTTP是应用层协议，文本格式，通用但性能较低，适合对外接口。调用流程：①客户端代理(动态代理)拦截方法调用，封装为RPC请求(接口名、方法名、参数类型、参数值)②序列化请求对象为字节③网络传输(TCP长连接，Netty NIO)④服务端接收，反序列化为请求对象⑤反射调用本地方法(或直接调用)⑥序列化结果⑦网络传输回客户端⑧客户端反序列化结果，代理返回。核心组件：代理(JDK Proxy/CGLIB)、序列化、网络传输(Netty)、服务发现(注册中心)、负载均衡、容错、超时重试、连接池。序列化：Protobuf(Google，二进制紧凑，varint编码，预生成代码，性能最好，前后兼容)、Kryo(Java，快，需注册类)、Hessian(跨语言，二进制)、JSON(文本，可读性好但慢体积大)、JDK序列化(慢，不推荐)。Protobuf快原因：二进制编码、varint变长编码(小数字占1字节)、TLV格式紧凑、预生成代码(无需反射)、零拷贝支持。网络传输：Netty(NIO，Reactor模式，高并发)，TCP长连接(连接池复用，避免握手开销)，自定义协议(魔数+版本+序列化类型+请求ID+消息类型+数据长度+数据，类似Dubbo协议)。服务发现：注册中心(ZooKeeper/Nacos/Consul/Eureka)，服务提供者启动时注册地址(IP+端口)，消费者启动时拉取服务地址列表并缓存，监听变更(Watch/推送)。负载均衡：轮询、随机、加权轮询(按机器性能分配权重)、一致性哈希(相同请求路由到相同节点，适合有状态服务)、最小连接数、最短响应时间。一致性哈希：哈希环，节点和请求都哈希到环上，请求顺时针找最近节点。节点增减只影响相邻节点(虚拟节点解决数据倾斜)，避免普通哈希节点增减导致大量请求重路由。容错：超时重试(设置超时时间，失败重试，需幂等)、熔断(失败率超阈值则快速失败，半开状态探测恢复)、降级(返回默认值/兜底)、限流、failover(失败转移到其他节点)、forking(同时调用多个节点取最快返回)。超时重试：超时时间需大于P99响应时间，重试次数2-3次，重试间隔指数退避，要求服务幂等。RPC框架：Dubbo(阿里，Java，功能丰富，生态好)、gRPC(Google，跨语言，HTTP/2+Protobuf，流式)、Thrift(Apache，跨语言，代码生成)、Motan(微博，轻量)、brpc(百度，C++，高性能)。Dubbo vs gRPC：Dubbo(Java为主，TCP+Dubbo协议+Hessian，功能全面：服务治理、负载均衡、容错、监控)；gRPC(跨语言，HTTP/2+Protobuf，流式调用，性能好，服务治理需额外组件如Istio)。零拷贝：减少CPU在用户态和内核态之间的数据拷贝，mmap(文件映射到用户内存)、sendfile(直接从文件描述符到socket描述符)，RPC中大数据传输可用。"
+  }
+]
