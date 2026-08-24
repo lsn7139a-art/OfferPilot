@@ -219,7 +219,8 @@ def log_daily_push(position, selected_questions):
         'position_id': position['id'],
         'position_title': f"{position['company_name']}・{position['title']}",
         'question_ids': [q['id'] for q in selected_questions],
-        'question_titles': [q['title'][:50] for q in selected_questions]
+        'question_titles': [q['title'][:50] for q in selected_questions],
+        'task_guids': []  # 待飞书任务创建后回填
     }
     log.append(entry)
 

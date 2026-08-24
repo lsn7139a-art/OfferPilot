@@ -130,6 +130,34 @@ def create_task(summary, description, assignee_open_id, due_timestamp=None, is_a
     return data.get("data", {}).get("task", {}).get("guid", "")
 
 
+def get_task(task_guid):
+    """
+    获取飞书任务详情（含状态）
+    :param task_guid: 任务GUID
+    :return: 任务对象dict，包含status字段（todo/done等）
+    """
+    url = f"{FEISHU_BASE}/task/v2/tasks/{task_guid}"
+    resp = requests.get(url, headers=get_headers())
+    data = resp.json()
+
+    if data.get("code") != 0:
+        raise Exception(f"查询任务失败: {data.get('msg')}")
+
+    return data.get("data", {}).get("task", {})
+
+
+def get_task_status(task_guid):
+    """
+    获取任务状态（简化版）
+    :return: "done" / "todo" / "unknown"
+    """
+    try:
+        task = get_task(task_guid)
+        return task.get("status", "unknown")
+    except Exception:
+        return "unknown"
+
+
 def get_user_open_id_by_mobile(mobile):
     """通过手机号获取用户open_id"""
     url = f"{FEISHU_BASE}/contact/v3/users/batch_get_id"
