@@ -2,22 +2,26 @@
 # -*- coding: utf-8 -*-
 """
 飞书推送脚本（直接调API版，不依赖lark-cli）
-- 调用daily_push.py生成每日题目
-- 通过飞书API发送到群聊
-- 每道题创建独立的飞书待办任务
-- 检测昨日任务完成状态，未完成则继续做旧题+只换岗位
+- 每日推送：1个岗位 + 3道题
+- 昨日未完成的题目 → 延期继续做（更新截止日期）
+- 昨日已完成的题目 → 替换成新题
+- 每道题一个独立飞书待办
+- 自动检测飞书待办完成状态
 """
 
 import subprocess
 import sys
 import os
 import json
-import time
+import random
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(BASE_DIR, 'scripts'))
 
-from feishu_api import send_message_to_chat, create_task, get_task_status, load_config
+from feishu_api import (
+    send_message_to_chat, create_task, get_task_status,
+    update_task_due, load_config
+)
 
 
 def load_json(filepath):
@@ -33,7 +37,7 @@ def save_json(filepath, data):
 
 
 def load_questions():
-    """加载题库"""
+    """加载题库，返回 {id: question}"""
     data = load_json('data/questions.json')
     if isinstance(data, list):
         return {q['id']: q for q in data}
@@ -43,17 +47,20 @@ def load_questions():
 def check_yesterday_progress():
     """
     检查昨日推送任务的完成状态
-    返回: (未完成的题目ID列表, 昨日推送记录)
+    返回: (unfinished_list, finished_qids, yesterday_entry)
+      unfinished_list: [(qid, guid), ...] 未完成的题目及旧任务guid
+      finished_qids: [qid, ...] 已完成的题目ID
+      yesterday_entry: 昨日推送记录（或None）
     """
     log_path = os.path.join(BASE_DIR, 'data', 'daily_log.json')
     if not os.path.exists(log_path):
-        return [], None
+        return [], [], None
 
     with open(log_path, 'r', encoding='utf-8') as f:
         log = json.load(f)
 
     if not log:
-        return [], None
+        return [], [], None
 
     # 找最近一条有task_guids的记录
     latest = None
@@ -63,124 +70,119 @@ def check_yesterday_progress():
             break
 
     if not latest:
-        return [], None
+        return [], [], None
 
     question_ids = latest.get('question_ids', [])
     task_guids = latest.get('task_guids', [])
 
     if len(question_ids) != len(task_guids):
         print(f"⚠️ 题目数({len(question_ids)})与任务数({len(task_guids)})不匹配，按新题处理")
-        return [], latest
+        return [], [], latest
 
     unfinished = []
     finished = []
     for qid, guid in zip(question_ids, task_guids):
+        if not guid:
+            finished.append(qid)
+            continue
         status = get_task_status(guid)
         if status == 'done':
             finished.append(qid)
         else:
-            unfinished.append(qid)
+            unfinished.append((qid, guid))
 
-    print(f"📊 昨日任务状态：完成 {len(finished)}/{len(question_ids)}，未完成 {len(unfinished)}")
-    return unfinished, latest
-
-
-def generate_message_with_questions(question_ids, position, progress, companies_data):
-    """用指定题目+岗位生成推送消息（复用daily_push的格式化逻辑）"""
-    sys.path.insert(0, os.path.join(BASE_DIR, 'scripts'))
-    from daily_push import format_daily_message
-
-    questions_db = load_questions()
-    selected = [questions_db[qid] for qid in question_ids if qid in questions_db]
-    return format_daily_message(position, selected, progress, companies_data)
+    print(f"📊 昨日任务：完成 {len(finished)}/{len(question_ids)}，未完成 {len(unfinished)}")
+    return unfinished, finished, latest
 
 
-def select_new_position(positions, progress):
-    """选择一个新岗位（不重复最近7天的）"""
-    sys.path.insert(0, os.path.join(BASE_DIR, 'scripts'))
-    from daily_push import select_position
-    return select_position(positions, progress)
+def select_new_questions(questions_db, exclude_ids, count, position, progress):
+    """
+    从题库中选新题（排除指定ID）
+    """
+    from daily_push import select_questions
+    questions_list = list(questions_db.values())
+    # 临时把排除的题标记为已完成，让select_questions排除它们
+    progress_copy = json.loads(json.dumps(progress))
+    if 'completed' not in progress_copy:
+        progress_copy['completed'] = []
+    progress_copy['completed'].extend(exclude_ids)
+    config = load_json('config.json')
+    return select_questions(questions_list, progress_copy, config, position, count)
 
 
 def generate_daily_message():
     """
     生成每日题目消息：
-    - 先检查昨日任务完成状态
-    - 有未完成的 → 继续用旧题，只换岗位
-    - 全部完成 → 调用daily_push.py生成新题
-    返回: (消息文本, 题目ID列表, 岗位对象)
+    - 昨日未完成的题目 → 保留（延期）
+    - 昨日已完成的题目 → 替换成新题
+    - 保证每天3道
+    - 岗位每天换新
+    返回: (message, question_ids, position, old_task_map)
+      old_task_map: {qid: old_guid} 昨日未完成题目的旧任务guid
     """
+    from daily_push import (
+        format_daily_message, log_daily_push, select_position
+    )
+
     # 检查昨日进度
-    unfinished, yesterday = check_yesterday_progress()
+    unfinished, finished_qids, yesterday = check_yesterday_progress()
 
     positions_data = load_json('data/positions.json')
     positions = positions_data.get('positions', [])
     progress = load_json('data/progress.json')
     companies_data = load_json('data/companies.json')
+    questions_db = load_questions()
 
-    if unfinished and positions:
-        # 有未完成的题目，继续做，只换岗位
-        print(f"🔄 检测到 {len(unfinished)} 道未完成题目，继续做旧题，只换岗位")
+    daily_count = load_json('config.json').get('question_selection', {}).get('daily_count', 3)
 
-        # 选一个新岗位
-        position = select_new_position(positions, progress)
+    # 选新岗位（每天换）
+    position = select_position(positions, progress)
+    print(f"💼 今日岗位：{position['company_name']}・{position['title']}")
 
-        # 用旧题+新岗位生成消息
-        message = generate_message_with_questions(unfinished, position, progress, companies_data)
+    # 确定今日题目
+    old_task_map = {}  # qid -> old_guid
+    today_question_ids = []
 
-        # 记录日志（和daily_push的log_daily_push类似，但用旧题）
-        from daily_push import log_daily_push
-        questions_db = load_questions()
-        selected = [questions_db[qid] for qid in unfinished if qid in questions_db]
-        log_daily_push(position, selected)
+    if unfinished:
+        # 保留未完成的题目
+        for qid, guid in unfinished:
+            today_question_ids.append(qid)
+            old_task_map[qid] = guid
+        print(f"🔄 保留 {len(unfinished)} 道未完成题目（延期）")
 
-        return message, unfinished, position
-    else:
-        # 全部完成或无历史记录，生成新题
-        print("✅ 昨日任务全部完成，生成新题目")
-        script_path = os.path.join(BASE_DIR, 'scripts', 'daily_push.py')
-        result = subprocess.run(
-            [sys.executable, script_path],
-            capture_output=True,
-            text=True,
-            encoding='utf-8',
-            cwd=BASE_DIR
-        )
-        if result.returncode != 0:
-            print(f"生成每日题目失败: {result.stderr}")
-            return None, [], None
+    # 需要补充的新题数量
+    need_new = daily_count - len(today_question_ids)
+    if need_new > 0:
+        # 排除已完成和未完成的，选新题
+        exclude = set(finished_qids) | set(today_question_ids)
+        new_questions = select_new_questions(questions_db, list(exclude), need_new, position, progress)
+        for q in new_questions:
+            today_question_ids.append(q['id'])
+        print(f"🆕 补充 {len(new_questions)} 道新题")
 
-        output = result.stdout
-        # 提取消息部分
-        lines = output.split('\n')
-        message_lines = []
-        in_message = False
-        for line in lines:
-            if any(line.startswith(f"20{y}") for y in range(20, 30)) and '・' in line:
-                in_message = True
-            if in_message:
-                message_lines.append(line)
-            if '查看进度' in line and in_message:
-                break
-        message = '\n'.join(message_lines) if message_lines else output
+    # 确保题目顺序稳定
+    today_question_ids = today_question_ids[:daily_count]
 
-        # 从日志获取今日题目ID
-        log = load_json('data/daily_log.json')
-        latest = log[-1] if log else {}
-        question_ids = latest.get('question_ids', [])
+    # 生成消息
+    selected = [questions_db[qid] for qid in today_question_ids if qid in questions_db]
+    message = format_daily_message(position, selected, progress, companies_data)
 
-        # 获取岗位对象
-        position_id = latest.get('position_id', '')
-        position = next((p for p in positions if p['id'] == position_id), None)
+    # 记录日志
+    log_daily_push(position, selected)
 
-        return message, question_ids, position
+    return message, today_question_ids, position, old_task_map
 
 
-def create_daily_tasks(question_ids, position_title):
+def create_daily_tasks(question_ids, position_title, old_task_map=None):
     """
-    为每道题创建独立的飞书待办任务
-    返回: 任务guid列表
+    为每道题处理飞书待办：
+    - 旧题（昨日未完成）→ 更新截止日期到今天结束（延期）
+    - 新题 → 创建新任务
+    返回: task_guids列表（与question_ids顺序对应）
     """
+    if old_task_map is None:
+        old_task_map = {}
+
     config = load_config()
     feishu = config.get('feishu', {})
     user_open_id = feishu.get('user_open_id', '')
@@ -227,49 +229,79 @@ def create_daily_tasks(question_ids, position_title):
 
         short_title = title if len(title) <= 30 else title[:27] + '...'
         cat_label = f"【{category}・{subcategory}】" if subcategory else f"【{category}】"
-        summary = f"{today} 第{i}题 {cat_label} {short_title}"
 
-        desc_lines = [
-            f"📅 {today} | 💼 关联岗位：{position_title}",
-            "",
-            f"📝 {title}",
-            "",
-        ]
-        if description:
-            desc_lines.append(description)
-            desc_lines.append("")
+        # 判断是旧题还是新题
+        if qid in old_task_map:
+            # 旧题：更新截止日期（延期）
+            old_guid = old_task_map[qid]
+            try:
+                update_task_due(old_guid, due_timestamp)
+                print(f"🔄 第{i}题延期成功（更新截止日期）：{short_title}")
+                task_guids.append(old_guid)
+            except Exception as e:
+                print(f"❌ 第{i}题延期失败，尝试新建：{e}")
+                # 延期失败则新建
+                summary = f"{today} 第{i}题 {cat_label} {short_title}"
+                desc = _build_task_desc(today, position_title, title, description, difficulty,
+                                         companies, leetcode_id, source, source_url, company_map, i)
+                try:
+                    new_guid = create_task(summary, desc, user_open_id, due_timestamp)
+                    print(f"   ✅ 新建成功：{short_title}")
+                    task_guids.append(new_guid)
+                except Exception as e2:
+                    print(f"   ❌ 新建也失败：{e2}")
+                    task_guids.append('')
+        else:
+            # 新题：创建新任务
+            summary = f"{today} 第{i}题 {cat_label} {short_title}"
+            desc = _build_task_desc(today, position_title, title, description, difficulty,
+                                     companies, leetcode_id, source, source_url, company_map, i)
+            try:
+                new_guid = create_task(summary, desc, user_open_id, due_timestamp)
+                print(f"✅ 第{i}题新建成功：{short_title}")
+                task_guids.append(new_guid)
+            except Exception as e:
+                print(f"❌ 第{i}题新建失败：{e}")
+                task_guids.append('')
 
-        meta_parts = []
-        if difficulty:
-            diff_map = {'easy': '简单', 'medium': '中等', 'hard': '困难'}
-            meta_parts.append(f"难度：{diff_map.get(difficulty, difficulty)}")
-        if companies:
-            company_names = [company_map.get(c, c) for c in companies]
-            meta_parts.append(f"出现于：{'、'.join(company_names[:5])}")
-        if leetcode_id:
-            meta_parts.append(f"LeetCode {leetcode_id}")
-        if source:
-            meta_parts.append(f"来源：{source}")
-        if source_url:
-            meta_parts.append(f"🔗 {source_url}")
-
-        if meta_parts:
-            desc_lines.append(" | ".join(meta_parts))
-            desc_lines.append("")
-
-        desc_lines.append(f"💬 回复「答案{i}」查看本题解析")
-        description_text = '\n'.join(desc_lines)
-
-        try:
-            task_guid = create_task(summary, description_text, user_open_id, due_timestamp)
-            print(f"✅ 第{i}题待办创建成功：{short_title}")
-            task_guids.append(task_guid)
-        except Exception as e:
-            print(f"❌ 第{i}题待办创建失败：{e}")
-            task_guids.append('')
-
-    print(f"\n📊 共创建 {len([g for g in task_guids if g])}/{len(question_ids)} 个待办任务")
+    valid = len([g for g in task_guids if g])
+    print(f"\n📊 待办处理完成：{valid}/{len(question_ids)} 个有效")
     return task_guids
+
+
+def _build_task_desc(today, position_title, title, description, difficulty,
+                     companies, leetcode_id, source, source_url, company_map, idx):
+    """构建任务描述"""
+    desc_lines = [
+        f"📅 {today} | 💼 关联岗位：{position_title}",
+        "",
+        f"📝 {title}",
+        "",
+    ]
+    if description:
+        desc_lines.append(description)
+        desc_lines.append("")
+
+    meta_parts = []
+    if difficulty:
+        diff_map = {'easy': '简单', 'medium': '中等', 'hard': '困难'}
+        meta_parts.append(f"难度：{diff_map.get(difficulty, difficulty)}")
+    if companies:
+        company_names = [company_map.get(c, c) for c in companies]
+        meta_parts.append(f"出现于：{'、'.join(company_names[:5])}")
+    if leetcode_id:
+        meta_parts.append(f"LeetCode {leetcode_id}")
+    if source:
+        meta_parts.append(f"来源：{source}")
+    if source_url:
+        meta_parts.append(f"🔗 {source_url}")
+
+    if meta_parts:
+        desc_lines.append(" | ".join(meta_parts))
+        desc_lines.append("")
+
+    desc_lines.append(f"💬 回复「答案{idx}」查看本题解析")
+    return '\n'.join(desc_lines)
 
 
 def save_task_guids_to_log(task_guids):
@@ -315,6 +347,7 @@ def send_evening_reminder():
         "━━━━━━━━━━━━━━━\n"
         "今天的面试题完成了吗？\n\n"
         "在飞书待办里点「完成」即可，系统自动检测进度\n"
+        "未完成的题目明天会自动延期继续做\n\n"
         "也可以在群里回复：\n"
         "  \"完成1,2 第3题不会\"\n"
         "  \"查看进度\"\n\n"
@@ -332,15 +365,15 @@ def main():
     args = parser.parse_args()
 
     if args.mode == 'daily':
-        print("📝 生成每日题目（含昨日进度检测）...")
-        message, question_ids, position = generate_daily_message()
+        print("📝 生成每日题目（含昨日进度检测+延期逻辑）...")
+        message, question_ids, position, old_task_map = generate_daily_message()
 
         if message:
             send_to_feishu(message, args.chat_id)
 
-            print("\n📋 创建飞书每日待办任务（每题独立）...")
+            print("\n📋 处理飞书待办（旧题延期+新题创建）...")
             position_title = f"{position['company_name']}・{position['title']}" if position else "未知岗位"
-            task_guids = create_daily_tasks(question_ids, position_title)
+            task_guids = create_daily_tasks(question_ids, position_title, old_task_map)
 
             if task_guids:
                 save_task_guids_to_log(task_guids)

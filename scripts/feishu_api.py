@@ -158,6 +158,32 @@ def get_task_status(task_guid):
         return "unknown"
 
 
+def update_task_due(task_guid, due_timestamp, is_all_day=True):
+    """
+    更新任务截止日期（用于延期未完成任务）
+    :param task_guid: 任务GUID
+    :param due_timestamp: 新的截止时间戳（秒）
+    :param is_all_day: 是否全天任务
+    """
+    url = f"{FEISHU_BASE}/task/v2/tasks/{task_guid}"
+    body = {
+        "update_fields": ["due"],
+        "task": {
+            "due": {
+                "timestamp": str(due_timestamp * 1000),  # 毫秒
+                "is_all_day": is_all_day
+            }
+        }
+    }
+    resp = requests.patch(url, headers=get_headers(), json=body)
+    data = resp.json()
+
+    if data.get("code") != 0:
+        raise Exception(f"更新任务截止日期失败: {data.get('msg')}")
+
+    return True
+
+
 def get_user_open_id_by_mobile(mobile):
     """通过手机号获取用户open_id"""
     url = f"{FEISHU_BASE}/contact/v3/users/batch_get_id"
