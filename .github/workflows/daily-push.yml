@@ -9,6 +9,8 @@ on:
 jobs:
   daily-push:
     runs-on: ubuntu-latest
+    env:
+      TZ: Asia/Shanghai
     steps:
       - name: Checkout代码
         uses: actions/checkout@v4

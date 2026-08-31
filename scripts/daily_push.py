@@ -13,6 +13,10 @@ import random
 import os
 from datetime import datetime, timedelta
 from collections import Counter
+from time_utils import get_today_date, get_weekday_cn, get_isoformat, set_timezone
+
+# 确保时区为北京时间
+set_timezone()
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -27,15 +31,6 @@ def save_json(filepath, data):
     full_path = os.path.join(BASE_DIR, filepath)
     with open(full_path, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
-
-
-def get_today_date():
-    return datetime.now().strftime('%Y-%m-%d')
-
-
-def get_weekday_cn():
-    weekdays = ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-    return weekdays[datetime.now().weekday()]
 
 
 def select_position(positions, progress):
@@ -215,7 +210,7 @@ def log_daily_push(position, selected_questions):
     today = get_today_date()
     entry = {
         'date': today,
-        'timestamp': datetime.now().isoformat(),
+        'timestamp': get_isoformat(),
         'position_id': position['id'],
         'position_title': f"{position['company_name']}・{position['title']}",
         'question_ids': [q['id'] for q in selected_questions],

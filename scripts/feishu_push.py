@@ -22,6 +22,10 @@ from feishu_api import (
     send_message_to_chat, create_task, get_task_status,
     update_task_due, load_config
 )
+from time_utils import get_today_date, get_today_end_timestamp, set_timezone
+
+# 确保时区为北京时间
+set_timezone()
 
 
 def load_json(filepath):
@@ -197,11 +201,9 @@ def create_daily_tasks(question_ids, position_title, old_task_map=None):
 
     questions_db = load_questions()
 
-    # 截止时间：今天23:59:59
-    from datetime import datetime, time
-    today = datetime.now().strftime('%Y-%m-%d')
-    today_end = datetime.combine(datetime.now().date(), time(23, 59, 59))
-    due_timestamp = int(today_end.timestamp())
+    # 截止时间：今天23:59:59（北京时间）
+    today = get_today_date()
+    due_timestamp = get_today_end_timestamp()
 
     company_map = {
         'bytedance': '字节跳动', 'tencent': '腾讯', 'alibaba': '阿里巴巴',

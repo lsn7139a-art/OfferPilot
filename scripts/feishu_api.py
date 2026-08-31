@@ -97,10 +97,9 @@ def create_task(summary, description, assignee_open_id, due_timestamp=None, is_a
     :return: task_guid
     """
     if due_timestamp is None:
-        # 默认今天23:59:59截止
-        from datetime import datetime, time
-        today_end = datetime.combine(datetime.now().date(), time(23, 59, 59))
-        due_timestamp = int(today_end.timestamp())
+        # 默认今天23:59:59截止（北京时间）
+        from time_utils import get_today_end_timestamp
+        due_timestamp = get_today_end_timestamp()
 
     # 飞书API需要毫秒级时间戳
     due_timestamp_ms = str(due_timestamp * 1000)

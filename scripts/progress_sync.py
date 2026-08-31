@@ -18,6 +18,10 @@ import os
 import re
 from datetime import datetime
 from collections import Counter
+from time_utils import get_today_date, get_now, set_timezone
+
+# 确保时区为北京时间
+set_timezone()
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -32,10 +36,6 @@ def save_json(filepath, data):
     full_path = os.path.join(BASE_DIR, filepath)
     with open(full_path, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
-
-
-def get_today_date():
-    return datetime.now().strftime('%Y-%m-%d')
 
 
 def parse_numbers(text):
@@ -359,7 +359,7 @@ def update_progress(actions):
         elif last_active:
             try:
                 last_date = datetime.strptime(last_active, '%Y-%m-%d')
-                if (datetime.now() - last_date).days == 1:
+                if (get_now() - last_date).days == 1:
                     progress['streak'] = progress.get('streak', 0) + 1
                 else:
                     progress['streak'] = 1
