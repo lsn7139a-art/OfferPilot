@@ -50,12 +50,15 @@ def load_questions():
 
 def check_yesterday_progress():
     """
-    检查昨日推送任务的完成状态
+    检查昨日推送任务的完成状态（只找昨天的记录，避免当天重复运行时混乱）
     返回: (unfinished_list, finished_qids, yesterday_entry)
       unfinished_list: [(qid, guid), ...] 未完成的题目及旧任务guid
       finished_qids: [qid, ...] 已完成的题目ID
       yesterday_entry: 昨日推送记录（或None）
     """
+    from datetime import timedelta
+    from time_utils import get_now
+
     log_path = os.path.join(BASE_DIR, 'data', 'daily_log.json')
     if not os.path.exists(log_path):
         return [], [], None
@@ -66,22 +69,26 @@ def check_yesterday_progress():
     if not log:
         return [], [], None
 
-    # 找最近一条有task_guids的记录
-    latest = None
+    # 计算昨天的日期（北京时间）
+    yesterday = (get_now() - timedelta(days=1)).strftime('%Y-%m-%d')
+
+    # 找昨天最后一条有task_guids的记录
+    yesterday_entry = None
     for entry in reversed(log):
-        if entry.get('task_guids'):
-            latest = entry
+        if entry.get('date') == yesterday and entry.get('task_guids'):
+            yesterday_entry = entry
             break
 
-    if not latest:
+    if not yesterday_entry:
+        print(f"ℹ️ 未找到昨天({yesterday})的有效推送记录，按全新题目处理")
         return [], [], None
 
-    question_ids = latest.get('question_ids', [])
-    task_guids = latest.get('task_guids', [])
+    question_ids = yesterday_entry.get('question_ids', [])
+    task_guids = yesterday_entry.get('task_guids', [])
 
     if len(question_ids) != len(task_guids):
         print(f"⚠️ 题目数({len(question_ids)})与任务数({len(task_guids)})不匹配，按新题处理")
-        return [], [], latest
+        return [], [], yesterday_entry
 
     unfinished = []
     finished = []
@@ -95,8 +102,25 @@ def check_yesterday_progress():
         else:
             unfinished.append((qid, guid))
 
-    print(f"📊 昨日任务：完成 {len(finished)}/{len(question_ids)}，未完成 {len(unfinished)}")
-    return unfinished, finished, latest
+    print(f"📊 昨日({yesterday})任务：完成 {len(finished)}/{len(question_ids)}，未完成 {len(unfinished)}")
+    return unfinished, finished, yesterday_entry
+
+
+def is_already_pushed_today():
+    """检查今天是否已经推送过（防止同一天重复推送）"""
+    today = get_today_date()
+    log_path = os.path.join(BASE_DIR, 'data', 'daily_log.json')
+    if not os.path.exists(log_path):
+        return False
+    try:
+        with open(log_path, 'r', encoding='utf-8') as f:
+            log = json.load(f)
+        for entry in reversed(log):
+            if entry.get('date') == today and entry.get('task_guids'):
+                return True
+    except Exception:
+        pass
+    return False
 
 
 def select_new_questions(questions_db, exclude_ids, count, position, progress):
@@ -367,6 +391,11 @@ def main():
     args = parser.parse_args()
 
     if args.mode == 'daily':
+        # 防重复：今天已经推送过就跳过
+        if is_already_pushed_today():
+            print("⏭️ 今天已经推送过了，跳过重复推送（如需强制推送请先删除今日日志记录）")
+            return
+
         print("📝 生成每日题目（含昨日进度检测+延期逻辑）...")
         message, question_ids, position, old_task_map = generate_daily_message()
 
