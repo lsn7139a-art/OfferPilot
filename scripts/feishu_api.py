@@ -183,6 +183,23 @@ def update_task_due(task_guid, due_timestamp, is_all_day=True):
     return True
 
 
+def delete_task(task_guid):
+    """
+    删除任务（用于清理昨天的旧任务）
+    :param task_guid: 任务GUID
+    """
+    url = f"{FEISHU_BASE}/task/v2/tasks/{task_guid}"
+    resp = requests.delete(url, headers=get_headers())
+    data = resp.json()
+
+    if data.get("code") != 0:
+        # 任务可能已经被删除或不存在，不抛出异常
+        print(f"⚠️ 删除任务失败（可能已删除）: {data.get('msg')}")
+        return False
+
+    return True
+
+
 def get_user_open_id_by_mobile(mobile):
     """通过手机号获取用户open_id"""
     url = f"{FEISHU_BASE}/contact/v3/users/batch_get_id"

@@ -20,7 +20,7 @@ sys.path.insert(0, os.path.join(BASE_DIR, 'scripts'))
 
 from feishu_api import (
     send_message_to_chat, create_task, get_task_status,
-    update_task_due, load_config
+    update_task_due, delete_task, load_config
 )
 from time_utils import get_today_date, get_today_end_timestamp, set_timezone
 
@@ -51,23 +51,24 @@ def load_questions():
 def check_yesterday_progress():
     """
     检查昨日推送任务的完成状态（只找昨天的记录，避免当天重复运行时混乱）
-    返回: (unfinished_list, finished_qids, yesterday_entry)
+    返回: (unfinished_list, finished_qids, yesterday_entry, all_old_task_guids)
       unfinished_list: [(qid, guid), ...] 未完成的题目及旧任务guid
       finished_qids: [qid, ...] 已完成的题目ID
       yesterday_entry: 昨日推送记录（或None）
+      all_old_task_guids: [guid, ...] 昨天所有任务的guid（用于删除清理）
     """
     from datetime import timedelta
     from time_utils import get_now
 
     log_path = os.path.join(BASE_DIR, 'data', 'daily_log.json')
     if not os.path.exists(log_path):
-        return [], [], None
+        return [], [], None, []
 
     with open(log_path, 'r', encoding='utf-8') as f:
         log = json.load(f)
 
     if not log:
-        return [], [], None
+        return [], [], None, []
 
     # 计算昨天的日期（北京时间）
     yesterday = (get_now() - timedelta(days=1)).strftime('%Y-%m-%d')
@@ -81,14 +82,15 @@ def check_yesterday_progress():
 
     if not yesterday_entry:
         print(f"ℹ️ 未找到昨天({yesterday})的有效推送记录，按全新题目处理")
-        return [], [], None
+        return [], [], None, []
 
     question_ids = yesterday_entry.get('question_ids', [])
     task_guids = yesterday_entry.get('task_guids', [])
+    all_old_task_guids = [g for g in task_guids if g]  # 昨天所有非空任务guid
 
     if len(question_ids) != len(task_guids):
         print(f"⚠️ 题目数({len(question_ids)})与任务数({len(task_guids)})不匹配，按新题处理")
-        return [], [], yesterday_entry
+        return [], [], yesterday_entry, all_old_task_guids
 
     unfinished = []
     finished = []
@@ -103,7 +105,7 @@ def check_yesterday_progress():
             unfinished.append((qid, guid))
 
     print(f"📊 昨日({yesterday})任务：完成 {len(finished)}/{len(question_ids)}，未完成 {len(unfinished)}")
-    return unfinished, finished, yesterday_entry
+    return unfinished, finished, yesterday_entry, all_old_task_guids
 
 
 def is_already_pushed_today():
@@ -166,19 +168,20 @@ def select_new_questions(questions_db, exclude_ids, count, position, progress):
 def generate_daily_message():
     """
     生成每日题目消息：
-    - 昨日未完成的题目 → 保留（延期）
+    - 昨日未完成的题目 → 保留（重新创建任务）
     - 昨日已完成的题目 → 替换成新题
     - 保证每天3道
     - 岗位每天换新
-    返回: (message, question_ids, position, old_task_map)
-      old_task_map: {qid: old_guid} 昨日未完成题目的旧任务guid
+    返回: (message, question_ids, position, old_task_map, all_old_task_guids)
+      old_task_map: {qid: old_guid} 昨日未完成题目的旧任务guid（用于参考，实际会删除重建）
+      all_old_task_guids: [guid, ...] 昨天所有任务的guid（用于删除清理）
     """
     from daily_push import (
         format_daily_message, log_daily_push, select_position
     )
 
     # 检查昨日进度
-    unfinished, finished_qids, yesterday = check_yesterday_progress()
+    unfinished, finished_qids, yesterday, all_old_task_guids = check_yesterday_progress()
 
     positions_data = load_json('data/positions.json')
     positions = positions_data.get('positions', [])
@@ -223,14 +226,12 @@ def generate_daily_message():
     # 记录日志
     log_daily_push(position, selected)
 
-    return message, today_question_ids, position, old_task_map
+    return message, today_question_ids, position, old_task_map, all_old_task_guids
 
 
 def create_daily_tasks(question_ids, position_title, old_task_map=None):
     """
-    为每道题处理飞书待办：
-    - 旧题（昨日未完成）→ 更新截止日期到今天结束（延期）
-    - 新题 → 创建新任务
+    为每道题创建全新的飞书待办（旧任务已在调用前删除）
     返回: task_guids列表（与question_ids顺序对应）
     """
     if old_task_map is None:
@@ -281,42 +282,20 @@ def create_daily_tasks(question_ids, position_title, old_task_map=None):
         short_title = title if len(title) <= 30 else title[:27] + '...'
         cat_label = f"【{category}・{subcategory}】" if subcategory else f"【{category}】"
 
-        # 判断是旧题还是新题
-        if qid in old_task_map:
-            # 旧题：更新截止日期（延期）
-            old_guid = old_task_map[qid]
-            try:
-                update_task_due(old_guid, due_timestamp)
-                print(f"🔄 第{i}题延期成功（更新截止日期）：{short_title}")
-                task_guids.append(old_guid)
-            except Exception as e:
-                print(f"❌ 第{i}题延期失败，尝试新建：{e}")
-                # 延期失败则新建
-                summary = f"{today} 第{i}题 {cat_label} {short_title}"
-                desc = _build_task_desc(today, position_title, title, description, difficulty,
-                                         companies, leetcode_id, source, source_url, company_map, i)
-                try:
-                    new_guid = create_task(summary, desc, user_open_id, due_timestamp)
-                    print(f"   ✅ 新建成功：{short_title}")
-                    task_guids.append(new_guid)
-                except Exception as e2:
-                    print(f"   ❌ 新建也失败：{e2}")
-                    task_guids.append('')
-        else:
-            # 新题：创建新任务
-            summary = f"{today} 第{i}题 {cat_label} {short_title}"
-            desc = _build_task_desc(today, position_title, title, description, difficulty,
-                                     companies, leetcode_id, source, source_url, company_map, i)
-            try:
-                new_guid = create_task(summary, desc, user_open_id, due_timestamp)
-                print(f"✅ 第{i}题新建成功：{short_title}")
-                task_guids.append(new_guid)
-            except Exception as e:
-                print(f"❌ 第{i}题新建失败：{e}")
-                task_guids.append('')
+        # 全部创建新任务（旧任务已删除）
+        summary = f"{today} 第{i}题 {cat_label} {short_title}"
+        desc = _build_task_desc(today, position_title, title, description, difficulty,
+                                 companies, leetcode_id, source, source_url, company_map, i)
+        try:
+            new_guid = create_task(summary, desc, user_open_id, due_timestamp)
+            print(f"✅ 第{i}题新建成功：{short_title}")
+            task_guids.append(new_guid)
+        except Exception as e:
+            print(f"❌ 第{i}题新建失败：{e}")
+            task_guids.append('')
 
     valid = len([g for g in task_guids if g])
-    print(f"\n📊 待办处理完成：{valid}/{len(question_ids)} 个有效")
+    print(f"\n📊 待办创建完成：{valid}/{len(question_ids)} 个有效")
     return task_guids
 
 
@@ -447,13 +426,20 @@ def main():
             print("⏭️ 今天已经推送过了，跳过重复推送（如需强制推送请先删除今日日志记录）")
             return
 
-        print("📝 生成每日题目（含昨日进度检测+延期逻辑）...")
-        message, question_ids, position, old_task_map = generate_daily_message()
+        print("📝 生成每日题目（含昨日进度检测+旧任务清理+重建）...")
+        message, question_ids, position, old_task_map, all_old_task_guids = generate_daily_message()
 
         if message:
             send_to_feishu(message, args.chat_id)
 
-            print("\n📋 处理飞书待办（旧题延期+新题创建）...")
+            # 先删除昨天的所有旧任务（不管完成没完成），避免越堆越多
+            if all_old_task_guids:
+                print(f"\n🗑️ 清理昨天的 {len(all_old_task_guids)} 个旧任务...")
+                for guid in all_old_task_guids:
+                    delete_task(guid)
+                print("✅ 旧任务清理完成")
+
+            print("\n📋 创建今日全新待办...")
             position_title = f"{position['company_name']}・{position['title']}" if position else "未知岗位"
             task_guids = create_daily_tasks(question_ids, position_title, old_task_map)
 
