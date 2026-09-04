@@ -123,6 +123,31 @@ def is_already_pushed_today():
     return False
 
 
+def is_already_reminded_today():
+    """检查今天是否已经发送过晚间提醒"""
+    today = get_today_date()
+    state_path = os.path.join(BASE_DIR, 'data', 'reminder_state.json')
+    if not os.path.exists(state_path):
+        return False
+    try:
+        with open(state_path, 'r', encoding='utf-8') as f:
+            state = json.load(f)
+        return state.get('last_reminder_date') == today
+    except Exception:
+        return False
+
+
+def mark_reminded_today():
+    """标记今天已发送晚间提醒"""
+    today = get_today_date()
+    state_path = os.path.join(BASE_DIR, 'data', 'reminder_state.json')
+    try:
+        with open(state_path, 'w', encoding='utf-8') as f:
+            json.dump({'last_reminder_date': today}, f, ensure_ascii=False, indent=2)
+    except Exception:
+        pass
+
+
 def select_new_questions(questions_db, exclude_ids, count, position, progress):
     """
     从题库中选新题（排除指定ID）
@@ -384,11 +409,37 @@ def send_evening_reminder():
 
 def main():
     import argparse
+    from time_utils import get_now
     parser = argparse.ArgumentParser(description='飞书推送脚本')
-    parser.add_argument('--mode', choices=['daily', 'evening', 'test'], default='daily',
-                        help='推送模式: daily=每日题目+待办, evening=晚间提醒, test=测试消息')
+    parser.add_argument('--mode', choices=['daily', 'evening', 'test', 'auto'], default='auto',
+                        help='推送模式: daily=每日题目+待办, evening=晚间提醒, test=测试消息, auto=自动判断时间窗口')
     parser.add_argument('--chat-id', default=None, help='飞书群聊ID')
     args = parser.parse_args()
+
+    if args.mode == 'auto':
+        # 自动判断当前时间窗口
+        now = get_now()
+        hour = now.hour
+        minute = now.minute
+        current_time = hour * 60 + minute  # 当天已过分钟数
+
+        # 早间推送窗口：北京时间8:00 - 9:30
+        if 8 * 60 <= current_time <= 9 * 60 + 30:
+            if is_already_pushed_today():
+                print(f"⏭️ [{now.strftime('%H:%M')}] 今天已经推送过了，跳过")
+                return
+            print(f"📝 [{now.strftime('%H:%M')}] 早间窗口，执行每日推送...")
+            args.mode = 'daily'
+        # 晚间提醒窗口：北京时间20:00 - 21:30
+        elif 20 * 60 <= current_time <= 21 * 60 + 30:
+            if is_already_reminded_today():
+                print(f"⏭️ [{now.strftime('%H:%M')}] 今天已经提醒过了，跳过")
+                return
+            print(f"🌙 [{now.strftime('%H:%M')}] 晚间窗口，执行学习提醒...")
+            args.mode = 'evening'
+        else:
+            print(f"⏭️ [{now.strftime('%H:%M')}] 当前时间不在推送窗口（8:00-9:30 / 20:00-21:30），跳过")
+            return
 
     if args.mode == 'daily':
         # 防重复：今天已经推送过就跳过
@@ -410,7 +461,10 @@ def main():
                 save_task_guids_to_log(task_guids)
     elif args.mode == 'evening':
         print("🌙 发送晚间提醒...")
-        send_evening_reminder()
+        success = send_evening_reminder()
+        if success:
+            mark_reminded_today()
+            print("✅ 晚间提醒已发送并标记")
     elif args.mode == 'test':
         message = "🧪 测试消息：OfferPilot 飞书推送系统运行正常"
         send_to_feishu(message, args.chat_id)

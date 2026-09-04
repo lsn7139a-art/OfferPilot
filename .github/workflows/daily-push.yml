@@ -2,10 +2,16 @@ name: 每日面试题推送
 
 on:
   schedule:
-    # 北京时间每天9:00（UTC 1:00）- 每日题目+待办
-    - cron: '0 1 * * *'
-    # 北京时间每天21:00（UTC 13:00）- 晚间学习提醒
-    - cron: '0 13 * * *'
+    # 早间推送：北京时间8:00/8:15/8:30/8:45/9:00 多次触发，防重复逻辑保证只执行一次
+    - cron: '0 0 * * *'    # 北京时间8:00
+    - cron: '15 0 * * *'   # 北京时间8:15
+    - cron: '30 0 * * *'   # 北京时间8:30
+    - cron: '45 0 * * *'   # 北京时间8:45
+    - cron: '0 1 * * *'    # 北京时间9:00
+    # 晚间提醒：北京时间20:00/20:30/21:00 多次触发
+    - cron: '0 12 * * *'   # 北京时间20:00
+    - cron: '30 12 * * *'  # 北京时间20:30
+    - cron: '0 13 * * *'   # 北京时间21:00
   workflow_dispatch:
 
 jobs:
@@ -86,18 +92,13 @@ jobs:
             echo 'daily_log.json 已初始化'
           fi
 
-      - name: 运行每日推送（早间9:00）
-        if: github.event.schedule == '0 1 * * *' || github.event_name == 'workflow_dispatch'
-        run: python scripts/feishu_push.py --mode daily
-
-      - name: 运行晚间提醒（晚间21:00）
-        if: github.event.schedule == '0 13 * * *'
-        run: python scripts/feishu_push.py --mode evening
+      - name: 执行推送（代码内判断时间窗口+防重复）
+        run: python scripts/feishu_push.py --mode auto
 
       - name: 提交进度文件回仓库
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add data/progress.json data/daily_log.json data/last_daily_message.txt 2>/dev/null || true
+          git add data/progress.json data/daily_log.json data/last_daily_message.txt data/reminder_state.json 2>/dev/null || true
           git diff --staged --quiet || git commit -m "chore: 更新学习进度 [$(date '+%Y-%m-%d %H:%M')]"
           git push
