@@ -17,6 +17,8 @@ on:
 jobs:
   daily-push:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # 允许git push回写进度文件
     env:
       TZ: Asia/Shanghai
     steps:

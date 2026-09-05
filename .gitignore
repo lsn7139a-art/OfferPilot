@@ -8,11 +8,8 @@ __pycache__/
 dist/
 build/
 
-# 敏感配置
+# 敏感配置（不提交）
 config.json
-data/progress.json
-data/daily_log.json
-data/last_daily_message.txt
 
 # IDE
 .vscode/
@@ -28,3 +25,5 @@ Thumbs.db
 *.tmp
 *.bak
 scripts/questions_part*.json
+data/*.bak
+data/*.backup

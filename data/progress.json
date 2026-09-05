@@ -1,0 +1,37 @@
+{
+  "user": "default",
+  "created_at": "2026-08-20",
+  "total_questions": 92,
+  "completed": [],
+  "skipped": [],
+  "in_progress": [],
+  "daily_stats": {},
+  "streak": 0,
+  "last_active_date": null,
+  "weak_areas": [],
+  "preferences": {
+    "daily_count": 3,
+    "difficulty_weight": {
+      "easy": 0.3,
+      "medium": 0.5,
+      "hard": 0.2
+    },
+    "preferred_categories": [],
+    "target_companies": [
+      "bytedance",
+      "tencent",
+      "unitree"
+    ]
+  },
+  "recent_positions": [
+    "unitree-cpp-dev",
+    "unitree-ai-infra",
+    "xiaomi-backend-python",
+    "bytedance-backend-douyin",
+    "netease-game-cpp",
+    "alibaba-java-backend",
+    "unitree-java-backend",
+    "unitree-embodied-software",
+    "meituan-backend-java"
+  ]
+}

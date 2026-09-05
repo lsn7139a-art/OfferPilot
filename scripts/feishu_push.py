@@ -402,15 +402,15 @@ def main():
         minute = now.minute
         current_time = hour * 60 + minute  # 当天已过分钟数
 
-        # 早间推送窗口：北京时间8:00 - 9:30
-        if 8 * 60 <= current_time <= 9 * 60 + 30:
+        # 早间推送窗口：北京时间8:00 - 12:00（放宽窗口，覆盖GitHub Action延迟）
+        if 8 * 60 <= current_time <= 12 * 60:
             if is_already_pushed_today():
                 print(f"⏭️ [{now.strftime('%H:%M')}] 今天已经推送过了，跳过")
                 return
             print(f"📝 [{now.strftime('%H:%M')}] 早间窗口，执行每日推送...")
             args.mode = 'daily'
-        # 晚间提醒窗口：北京时间20:00 - 21:30
-        elif 20 * 60 <= current_time <= 21 * 60 + 30:
+        # 晚间提醒窗口：北京时间20:00 - 23:59
+        elif 20 * 60 <= current_time <= 23 * 60 + 59:
             if is_already_reminded_today():
                 print(f"⏭️ [{now.strftime('%H:%M')}] 今天已经提醒过了，跳过")
                 return
