@@ -101,8 +101,13 @@ jobs:
             echo 'daily_log.json 已初始化'
           fi
 
-      - name: 执行推送（代码内判断时间窗口+防重复）
-        run: python scripts/feishu_push.py --mode auto
+      - name: 早间推送（每日题目+待办）
+        if: contains(fromJSON('["0 0 * * *", "15 0 * * *", "30 0 * * *", "45 0 * * *", "0 1 * * *"]'), github.event.schedule) || github.event_name == 'workflow_dispatch'
+        run: python scripts/feishu_push.py --mode daily
+
+      - name: 晚间提醒
+        if: contains(fromJSON('["0 12 * * *", "30 12 * * *", "0 13 * * *"]'), github.event.schedule)
+        run: python scripts/feishu_push.py --mode evening
 
       - name: 提交进度文件回仓库
         run: |
