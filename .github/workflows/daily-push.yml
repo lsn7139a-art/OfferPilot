@@ -44,7 +44,14 @@ jobs:
           FEISHU_USER_OPEN_ID: ${{ secrets.FEISHU_USER_OPEN_ID }}
         run: |
           python -c "
-          import json, os
+          import json, os, sys
+          required = ['FEISHU_APP_ID', 'FEISHU_APP_SECRET', 'FEISHU_CHAT_ID', 'FEISHU_USER_OPEN_ID']
+          missing = [k for k in required if not os.environ.get(k)]
+          if missing:
+              print('❌ 缺少以下GitHub Secret，请在仓库 Settings → Secrets and variables → Actions 中配置：')
+              for k in missing:
+                  print(f'   - {k}')
+              sys.exit(1)
           config = {
             'project_name': 'interview-prep-system',
             'version': '1.0.0',
@@ -80,7 +87,7 @@ jobs:
           }
           with open('config.json', 'w', encoding='utf-8') as f:
             json.dump(config, f, ensure_ascii=False, indent=2)
-          print('config.json 写入成功')
+          print('✅ config.json 写入成功')
           "
 
       - name: 初始化进度文件（如不存在）
