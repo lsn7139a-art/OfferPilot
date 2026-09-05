@@ -19,6 +19,7 @@ import re
 from datetime import datetime
 from collections import Counter
 from time_utils import get_today_date, get_now, set_timezone
+from task_rollover import record_message_outcomes
 
 # 确保时区为北京时间
 set_timezone()
@@ -28,7 +29,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 def load_json(filepath):
     full_path = os.path.join(BASE_DIR, filepath)
-    with open(full_path, 'r', encoding='utf-8') as f:
+    with open(full_path, 'r', encoding='utf-8-sig') as f:
         return json.load(f)
 
 
@@ -205,7 +206,7 @@ def get_today_questions():
     if not os.path.exists(log_path):
         return []
 
-    with open(log_path, 'r', encoding='utf-8') as f:
+    with open(log_path, 'r', encoding='utf-8-sig') as f:
         log = json.load(f)
 
     today = get_today_date()
@@ -321,6 +322,9 @@ def update_progress(actions):
     if not completed_ids and not skipped_ids and not in_progress_ids:
         return "⚠️ 未能识别题目编号。请使用格式：\"完成1,2\" 或 \"第3题不会\""
 
+    if completed_ids or skipped_ids:
+        save_today_message_outcomes(completed_ids, skipped_ids)
+
     # 更新completed
     for qid in completed_ids:
         if qid not in progress['completed']:
@@ -394,6 +398,21 @@ def update_progress(actions):
         response += "\n\n🎉 恭喜！题库已全部完成！可以开始复习模式或扩展题库。"
 
     return response
+
+
+def save_today_message_outcomes(completed_ids, skipped_ids):
+    """Persist group-message outcomes for tomorrow's rollover."""
+    log_path = os.path.join(BASE_DIR, 'data', 'daily_log.json')
+    with open(log_path, 'r', encoding='utf-8-sig') as file:
+        log = json.load(file)
+
+    today_entries = [entry for entry in log if entry.get('date') == get_today_date()]
+    if not today_entries:
+        raise ValueError('未找到今日推送记录，无法保存题目状态')
+
+    record_message_outcomes(today_entries[-1], completed_ids, skipped_ids)
+    with open(log_path, 'w', encoding='utf-8') as file:
+        json.dump(log, file, ensure_ascii=False, indent=2)
 
 
 def get_answer(question_numbers, daily_questions):

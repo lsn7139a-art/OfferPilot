@@ -146,15 +146,8 @@ def get_task(task_guid):
 
 
 def get_task_status(task_guid):
-    """
-    获取任务状态（简化版）
-    :return: "done" / "todo" / "unknown"
-    """
-    try:
-        task = get_task(task_guid)
-        return task.get("status", "unknown")
-    except Exception:
-        return "unknown"
+    """Return the Feishu task status or raise when lookup fails."""
+    return get_task(task_guid).get("status", "unknown")
 
 
 def update_task_due(task_guid, due_timestamp, is_all_day=True):
