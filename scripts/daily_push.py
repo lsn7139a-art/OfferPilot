@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 def load_json(filepath):
     full_path = os.path.join(BASE_DIR, filepath)
-    with open(full_path, 'r', encoding='utf-8') as f:
+    with open(full_path, 'r', encoding='utf-8-sig') as f:
         return json.load(f)
 
 
@@ -202,7 +202,7 @@ def log_daily_push(position, selected_questions):
     """记录每日推送日志"""
     log_path = os.path.join(BASE_DIR, 'data', 'daily_log.json')
     if os.path.exists(log_path):
-        with open(log_path, 'r', encoding='utf-8') as f:
+        with open(log_path, 'r', encoding='utf-8-sig') as f:
             log = json.load(f)
     else:
         log = []
@@ -224,7 +224,7 @@ def log_daily_push(position, selected_questions):
 
     # 更新progress中的recent_positions
     progress_path = os.path.join(BASE_DIR, 'data', 'progress.json')
-    with open(progress_path, 'r', encoding='utf-8') as f:
+    with open(progress_path, 'r', encoding='utf-8-sig') as f:
         progress = json.load(f)
     if 'recent_positions' not in progress:
         progress['recent_positions'] = []

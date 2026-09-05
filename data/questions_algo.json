@@ -1,7 +1,18 @@
 {
   "last_updated": "2026-08-22",
   "total_questions": 92,
-  "categories": ["算法", "操作系统", "计算机网络", "数据库", "C++", "Java", "Python", "系统设计", "具身智能", "AI大模型"],
+  "categories": [
+    "算法",
+    "操作系统",
+    "计算机网络",
+    "数据库",
+    "C++",
+    "Java",
+    "Python",
+    "系统设计",
+    "具身智能",
+    "AI大模型"
+  ],
   "questions": [
     {
       "id": "algo-001",
@@ -11,8 +22,20 @@
       "subcategory": "哈希表",
       "difficulty": "easy",
       "type": "coding",
-      "companies": ["bytedance", "tencent", "alibaba", "meituan", "huawei", "xiaomi", "baidu"],
-      "tags": ["数组", "哈希表", "LeetCode Hot 100"],
+      "companies": [
+        "bytedance",
+        "tencent",
+        "alibaba",
+        "meituan",
+        "huawei",
+        "xiaomi",
+        "baidu"
+      ],
+      "tags": [
+        "数组",
+        "哈希表",
+        "LeetCode Hot 100"
+      ],
       "leetcode_id": "1",
       "answer_hint": "用哈希表存储已遍历元素及其下标，遍历到当前元素时检查 target-nums[i] 是否在哈希表中。时间O(n)，空间O(n)。"
     },
@@ -24,8 +47,20 @@
       "subcategory": "链表",
       "difficulty": "easy",
       "type": "coding",
-      "companies": ["bytedance", "tencent", "alibaba", "meituan", "huawei", "baidu"],
-      "tags": ["链表", "递归", "迭代", "LeetCode Hot 100"],
+      "companies": [
+        "bytedance",
+        "tencent",
+        "alibaba",
+        "meituan",
+        "huawei",
+        "baidu"
+      ],
+      "tags": [
+        "链表",
+        "递归",
+        "迭代",
+        "LeetCode Hot 100"
+      ],
       "leetcode_id": "206",
       "answer_hint": "迭代：三指针prev/curr/next，逐个反转next指针。递归：先递归到尾部，再逐层反转。注意头节点处理。"
     },
@@ -37,8 +72,17 @@
       "subcategory": "栈",
       "difficulty": "easy",
       "type": "coding",
-      "companies": ["bytedance", "tencent", "meituan", "huawei"],
-      "tags": ["栈", "字符串", "LeetCode Hot 100"],
+      "companies": [
+        "bytedance",
+        "tencent",
+        "meituan",
+        "huawei"
+      ],
+      "tags": [
+        "栈",
+        "字符串",
+        "LeetCode Hot 100"
+      ],
       "leetcode_id": "20",
       "answer_hint": "用栈，左括号入栈，右括号检查栈顶是否匹配。最后栈为空则有效。"
     },
@@ -50,8 +94,19 @@
       "subcategory": "滑动窗口",
       "difficulty": "medium",
       "type": "coding",
-      "companies": ["bytedance", "tencent", "alibaba", "meituan", "baidu"],
-      "tags": ["滑动窗口", "哈希表", "字符串", "LeetCode Hot 100"],
+      "companies": [
+        "bytedance",
+        "tencent",
+        "alibaba",
+        "meituan",
+        "baidu"
+      ],
+      "tags": [
+        "滑动窗口",
+        "哈希表",
+        "字符串",
+        "LeetCode Hot 100"
+      ],
       "leetcode_id": "3",
       "answer_hint": "滑动窗口+哈希表记录字符最后出现位置。右指针扩展，遇到重复字符时左指针跳到重复位置+1。时间O(n)。"
     },
@@ -63,8 +118,18 @@
       "subcategory": "双指针",
       "difficulty": "medium",
       "type": "coding",
-      "companies": ["tencent", "alibaba", "bytedance", "meituan"],
-      "tags": ["排序", "双指针", "去重", "LeetCode Hot 100"],
+      "companies": [
+        "tencent",
+        "alibaba",
+        "bytedance",
+        "meituan"
+      ],
+      "tags": [
+        "排序",
+        "双指针",
+        "去重",
+        "LeetCode Hot 100"
+      ],
       "leetcode_id": "15",
       "answer_hint": "先排序，固定第一个数，剩余两数用左右双指针。注意去重：跳过相同的固定数和相同的左右指针值。"
     },
@@ -76,8 +141,18 @@
       "subcategory": "树",
       "difficulty": "easy",
       "type": "coding",
-      "companies": ["bytedance", "tencent", "meituan", "huawei"],
-      "tags": ["二叉树", "递归", "迭代", "栈"],
+      "companies": [
+        "bytedance",
+        "tencent",
+        "meituan",
+        "huawei"
+      ],
+      "tags": [
+        "二叉树",
+        "递归",
+        "迭代",
+        "栈"
+      ],
       "leetcode_id": "94",
       "answer_hint": "递归：左-根-右。迭代：用栈，先走到最左，出栈访问，再走右子树。"
     },
@@ -89,8 +164,16 @@
       "subcategory": "树",
       "difficulty": "medium",
       "type": "coding",
-      "companies": ["bytedance", "tencent"],
-      "tags": ["二叉树", "BFS", "层序遍历", "LeetCode Hot 100"],
+      "companies": [
+        "bytedance",
+        "tencent"
+      ],
+      "tags": [
+        "二叉树",
+        "BFS",
+        "层序遍历",
+        "LeetCode Hot 100"
+      ],
       "leetcode_id": "199",
       "answer_hint": "BFS层序遍历，每层取最后一个节点。也可用DFS：根-右-左，每层第一次访问的节点就是右视图节点。"
     },
@@ -102,8 +185,18 @@
       "subcategory": "树",
       "difficulty": "medium",
       "type": "coding",
-      "companies": ["bytedance", "tencent", "alibaba", "meituan"],
-      "tags": ["二叉树", "递归", "哈希表", "LeetCode Hot 100"],
+      "companies": [
+        "bytedance",
+        "tencent",
+        "alibaba",
+        "meituan"
+      ],
+      "tags": [
+        "二叉树",
+        "递归",
+        "哈希表",
+        "LeetCode Hot 100"
+      ],
       "leetcode_id": "236",
       "answer_hint": "递归：若root为p或q则返回root；左右子树分别递归，若左右都非空则root为LCA，否则返回非空的那个。"
     },
@@ -115,8 +208,20 @@
       "subcategory": "链表",
       "difficulty": "easy",
       "type": "coding",
-      "companies": ["bytedance", "tencent", "alibaba", "meituan", "huawei", "baidu"],
-      "tags": ["链表", "递归", "迭代", "LeetCode Hot 100"],
+      "companies": [
+        "bytedance",
+        "tencent",
+        "alibaba",
+        "meituan",
+        "huawei",
+        "baidu"
+      ],
+      "tags": [
+        "链表",
+        "递归",
+        "迭代",
+        "LeetCode Hot 100"
+      ],
       "leetcode_id": "21",
       "answer_hint": "迭代：虚拟头节点+指针，比较两链表当前节点值，取较小的。递归：比较头节点，较小节点的next指向递归结果。"
     },
@@ -128,8 +233,17 @@
       "subcategory": "动态规划",
       "difficulty": "easy",
       "type": "coding",
-      "companies": ["bytedance", "tencent", "alibaba", "meituan"],
-      "tags": ["数组", "动态规划", "LeetCode Hot 100"],
+      "companies": [
+        "bytedance",
+        "tencent",
+        "alibaba",
+        "meituan"
+      ],
+      "tags": [
+        "数组",
+        "动态规划",
+        "LeetCode Hot 100"
+      ],
       "leetcode_id": "121",
       "answer_hint": "遍历数组，记录当前最低价格，计算当前价格与最低价的差值，取最大。时间O(n)，空间O(1)。"
     },
@@ -141,8 +255,14 @@
       "subcategory": "动态规划",
       "difficulty": "medium",
       "type": "coding",
-      "companies": ["bytedance"],
-      "tags": ["动态规划", "状态机", "股票系列"],
+      "companies": [
+        "bytedance"
+      ],
+      "tags": [
+        "动态规划",
+        "状态机",
+        "股票系列"
+      ],
       "leetcode_id": "122/123/714",
       "answer_hint": "无限次：贪心，只要后一天比前一天高就买卖。有手续费：DP，持有/不持有两状态。最多两次：DP，5种状态（未操作/第一次买入/第一次卖出/第二次买入/第二次卖出）。"
     },
@@ -154,8 +274,18 @@
       "subcategory": "单调队列",
       "difficulty": "hard",
       "type": "coding",
-      "companies": ["bytedance", "tencent", "huawei", "meituan"],
-      "tags": ["单调队列", "滑动窗口", "堆", "LeetCode Hot 100"],
+      "companies": [
+        "bytedance",
+        "tencent",
+        "huawei",
+        "meituan"
+      ],
+      "tags": [
+        "单调队列",
+        "滑动窗口",
+        "堆",
+        "LeetCode Hot 100"
+      ],
       "leetcode_id": "239",
       "answer_hint": "单调递减双端队列：队列存下标，保证对应值递减。新元素入队前弹出队尾所有小于它的元素。队首就是窗口最大值，超出窗口范围则弹出队首。时间O(n)。"
     },
@@ -167,8 +297,18 @@
       "subcategory": "堆/桶排序",
       "difficulty": "medium",
       "type": "coding",
-      "companies": ["bytedance", "tencent", "baidu", "meituan"],
-      "tags": ["哈希表", "小顶堆", "桶排序", "LeetCode Hot 100"],
+      "companies": [
+        "bytedance",
+        "tencent",
+        "baidu",
+        "meituan"
+      ],
+      "tags": [
+        "哈希表",
+        "小顶堆",
+        "桶排序",
+        "LeetCode Hot 100"
+      ],
       "leetcode_id": "347",
       "answer_hint": "哈希表统计频率，然后用小顶堆（大小K）或桶排序（按频率分桶）取前K。桶排序时间O(n)。"
     },
@@ -180,8 +320,15 @@
       "subcategory": "回溯",
       "difficulty": "medium",
       "type": "coding",
-      "companies": ["bytedance", "tencent"],
-      "tags": ["回溯", "位运算", "LeetCode Hot 100"],
+      "companies": [
+        "bytedance",
+        "tencent"
+      ],
+      "tags": [
+        "回溯",
+        "位运算",
+        "LeetCode Hot 100"
+      ],
       "leetcode_id": "78",
       "answer_hint": "回溯：每个元素选或不选，递归处理。位运算：0到2^n-1，每个二进制位表示是否选该元素。"
     },
@@ -193,8 +340,14 @@
       "subcategory": "图",
       "difficulty": "medium",
       "type": "coding",
-      "companies": ["bytedance"],
-      "tags": ["BFS", "图", "最短路径"],
+      "companies": [
+        "bytedance"
+      ],
+      "tags": [
+        "BFS",
+        "图",
+        "最短路径"
+      ],
       "answer_hint": "边权为1用BFS即可，不需要Dijkstra。BFS时记录前驱节点，最后从终点回溯到起点得到路径。"
     },
     {
@@ -205,8 +358,14 @@
       "subcategory": "栈",
       "difficulty": "medium",
       "type": "coding",
-      "companies": ["bytedance"],
-      "tags": ["栈", "字符串", "字节高频"],
+      "companies": [
+        "bytedance"
+      ],
+      "tags": [
+        "栈",
+        "字符串",
+        "字节高频"
+      ],
       "leetcode_id": "1209",
       "answer_hint": "栈存[字符, 连续计数]，遇到相同字符计数+1，达到k则弹出。不同字符则入栈计数1。最后按栈中计数还原字符串。"
     },
@@ -218,8 +377,20 @@
       "subcategory": "排序",
       "difficulty": "medium",
       "type": "coding",
-      "companies": ["bytedance", "tencent", "alibaba", "meituan", "huawei", "baidu"],
-      "tags": ["排序", "分治", "递归", "手撕排序"],
+      "companies": [
+        "bytedance",
+        "tencent",
+        "alibaba",
+        "meituan",
+        "huawei",
+        "baidu"
+      ],
+      "tags": [
+        "排序",
+        "分治",
+        "递归",
+        "手撕排序"
+      ],
       "answer_hint": "选pivot，partition将小于pivot的放左边、大于的放右边，递归左右。平均O(nlogn)，最坏O(n²)（已排序数组+固定pivot）。优化：随机pivot、三数取中、小区间用插入排序。"
     },
     {
@@ -230,8 +401,18 @@
       "subcategory": "快速选择/堆",
       "difficulty": "medium",
       "type": "coding",
-      "companies": ["xiaomi", "bytedance", "tencent", "alibaba"],
-      "tags": ["快速选择", "堆", "分治", "LeetCode Hot 100"],
+      "companies": [
+        "xiaomi",
+        "bytedance",
+        "tencent",
+        "alibaba"
+      ],
+      "tags": [
+        "快速选择",
+        "堆",
+        "分治",
+        "LeetCode Hot 100"
+      ],
       "leetcode_id": "215",
       "answer_hint": "快速选择：基于快排partition，若pivot位置==n-K则返回，否则递归对应一侧。平均O(n)。堆：大小K的小顶堆，O(nlogK)。"
     },
@@ -243,8 +424,18 @@
       "subcategory": "链表",
       "difficulty": "medium",
       "type": "coding",
-      "companies": ["bytedance", "tencent", "alibaba", "meituan", "jd"],
-      "tags": ["快慢指针", "链表", "数学推导"],
+      "companies": [
+        "bytedance",
+        "tencent",
+        "alibaba",
+        "meituan",
+        "jd"
+      ],
+      "tags": [
+        "快慢指针",
+        "链表",
+        "数学推导"
+      ],
       "leetcode_id": "141/142",
       "answer_hint": "快慢指针判断环：fast走2步slow走1步，相遇则有环。环入口：相遇后一个指针从head出发，一个从相遇点出发，都走1步，再次相遇即入口。环大小：从相遇点再走一圈计数。"
     },
@@ -256,8 +447,17 @@
       "subcategory": "堆/分治",
       "difficulty": "hard",
       "type": "coding",
-      "companies": ["bytedance", "tencent", "baidu"],
-      "tags": ["小顶堆", "分治", "链表", "LeetCode Hot 100"],
+      "companies": [
+        "bytedance",
+        "tencent",
+        "baidu"
+      ],
+      "tags": [
+        "小顶堆",
+        "分治",
+        "链表",
+        "LeetCode Hot 100"
+      ],
       "leetcode_id": "23",
       "answer_hint": "小顶堆：每个链表头节点入堆，每次取最小，将其next入堆。O(NlogK)。分治：两两合并，O(NlogK)。"
     }

@@ -30,7 +30,7 @@ set_timezone()
 
 def load_json(filepath):
     full_path = os.path.join(BASE_DIR, filepath)
-    with open(full_path, 'r', encoding='utf-8') as f:
+    with open(full_path, 'r', encoding='utf-8-sig') as f:
         return json.load(f)
 
 
@@ -64,7 +64,7 @@ def check_yesterday_progress():
     if not os.path.exists(log_path):
         return [], [], None, []
 
-    with open(log_path, 'r', encoding='utf-8') as f:
+    with open(log_path, 'r', encoding='utf-8-sig') as f:
         log = json.load(f)
 
     if not log:
@@ -115,7 +115,7 @@ def is_already_pushed_today():
     if not os.path.exists(log_path):
         return False
     try:
-        with open(log_path, 'r', encoding='utf-8') as f:
+        with open(log_path, 'r', encoding='utf-8-sig') as f:
             log = json.load(f)
         for entry in reversed(log):
             if entry.get('date') == today and entry.get('task_guids'):
@@ -132,7 +132,7 @@ def is_already_reminded_today():
     if not os.path.exists(state_path):
         return False
     try:
-        with open(state_path, 'r', encoding='utf-8') as f:
+        with open(state_path, 'r', encoding='utf-8-sig') as f:
             state = json.load(f)
         return state.get('last_reminder_date') == today
     except Exception:
@@ -339,7 +339,7 @@ def save_task_guids_to_log(task_guids):
     log_path = os.path.join(BASE_DIR, 'data', 'daily_log.json')
     if not os.path.exists(log_path):
         return
-    with open(log_path, 'r', encoding='utf-8') as f:
+    with open(log_path, 'r', encoding='utf-8-sig') as f:
         log = json.load(f)
     if not log:
         return

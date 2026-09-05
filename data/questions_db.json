@@ -1,12 +1,233 @@
 [
-  {"id":"db-001","title":"MySQL为什么用B+树做索引？B树和B+树的区别？为什么B+树更适合范围查询？聚簇索引和非聚簇索引？","category":"数据库","subcategory":"索引","difficulty":"medium","type":"concept","companies":["bytedance","tencent","alibaba","meituan","huawei","xiaomi","baidu","jd"],"tags":["B+树","索引","聚簇索引","范围查询","必考"],"answer":"【B树 vs B+树】\n| 特性 | B树 | B+树 |\n|------|-----|------|\n| 数据存储 | 非叶子节点也存data | 非叶子节点只存key，data都在叶子节点 |\n| 叶子节点 | 不相连 | 双向链表连接 |\n| 查询稳定性 | 不稳定(可能在非叶子命中) | 稳定(都到叶子节点) |\n| 扇出 | 较小(节点存data占空间) | 更大(非叶子只存key，更矮) |\n| 范围查询 | 需中序遍历，回溯父节点 | 叶子链表顺序遍历，高效 |\n\n【MySQL为什么用B+树】\n1. 更矮：非叶子节点只存key不存data，单个节点能存更多key，扇出更大，树更矮，IO次数更少（数据库IO是性能瓶颈）\n2. 范围查询高效：叶子节点双向链表，找到起点后顺序遍历即可，不需要回溯\n3. 查询稳定：每次查询都走到叶子节点，IO次数稳定\n4. 全表扫描快：只需遍历叶子节点链表，不需要遍历整棵树\n\n【为什么不用红黑树】\n- 红黑树是二叉树，高度高(百万级数据约20层)，IO次数多\n- B+树是多叉树，高度低(百万级数据约3-4层)，IO次数少\n- 数据库索引存储在磁盘，每次访问节点是一次磁盘IO，B+树大幅减少IO\n\n【聚簇索引 vs 非聚簇索引(二级索引)】\n- 聚簇索引：叶子节点存储整行数据。InnoDB中主键索引就是聚簇索引，数据按主键顺序物理存储。一个表只能有一个聚簇索引\n- 非聚簇索引(二级索引)：叶子节点存储主键值，查询时需先找到主键值，再用主键值去聚簇索引查找整行数据（回表）。一个表可以有多个二级索引\n- 覆盖索引：查询的列都在索引中，不需要回表，性能更好\n\n【InnoDB索引结构】\n- 聚簇索引：B+树叶子节点=完整行数据\n- 二级索引：B+树叶子节点=主键值+索引列值\n- 查询过程：二级索引查找→得到主键值→聚簇索引查找(回表)→得到完整行\n\n【MyISAM vs InnoDB索引】\n- MyISAM：非聚簇索引，索引和数据分离存储(.MYI索引文件+.MYD数据文件)，索引叶子节点存数据的物理地址\n- InnoDB：聚簇索引，数据和主键索引存在一起(.ibd文件)，二级索引存主键值\n\n【索引失效场景】(补充)\n- 违反最左前缀原则\n- 索引列上使用函数/运算/表达式\n- 隐式类型转换\n- LIKE以%开头\n- OR连接非索引列\n- NOT IN/!=可能失效\n- 数据分布导致优化器选择全表扫描\n\n【联合索引最左前缀】\n- 联合索引(a,b,c)，查询条件必须从最左列开始连续匹配\n- 支持：a、a+b、a+b+c\n- 不支持：b、c、b+c（不走索引或部分走）\n- 范围查询后的列不走索引：a=1 and b>2 and c=3，c不走索引"},
-  {"id":"db-002","title":"MySQL事务的ACID特性？四种隔离级别？分别解决什么问题？脏读/不可重复读/幻读？","category":"数据库","subcategory":"事务","difficulty":"medium","type":"concept","companies":["bytedance","tencent","alibaba","meituan","jd","netease"],"tags":["ACID","隔离级别","脏读","不可重复读","幻读","MVCC"],"answer":"【ACID特性】\n1. 原子性(Atomicity)：事务是不可分割的最小单位，要么全部成功，要么全部失败回滚。通过undo log实现（记录修改前的数据，回滚时恢复）\n2. 一致性(Consistency)：事务执行前后数据保持一致状态（如转账前后总额不变）。是事务的最终目的，由其他三个特性共同保证\n3. 隔离性(Isolation)：多个事务并发执行时，互不干扰。通过锁机制+MVCC实现\n4. 持久性(Durability)：事务提交后，修改永久保存，即使宕机也不丢失。通过redo log实现（记录修改后的数据，宕机恢复时重做）\n\n【四种隔离级别】\n| 隔离级别 | 脏读 | 不可重复读 | 幻读 | 实现 |\n|---------|------|-----------|------|------|\n| 读未提交(Read Uncommitted) | 可能 | 可能 | 可能 | 基本无锁 |\n| 读已提交(Read Committed, RC) | 避免 | 可能 | 可能 | MVCC，每次select生成新ReadView |\n| 可重复读(Repeatable Read, RR) | 避免 | 避免 | 可能(InnoDB基本解决) | MVCC，第一次select生成ReadView后复用 |\n| 串行化(Serializable) | 避免 | 避免 | 避免 | 全表锁，事务串行执行 |\n\n【三个问题定义】\n1. 脏读：一个事务读到另一个事务未提交的数据。如果另一个事务回滚，读到的就是脏数据\n2. 不可重复读：同一事务内，两次读取同一行数据，结果不同（因为中间被其他事务update并提交了）。重点是update/delete\n3. 幻读：同一事务内，两次范围查询(如select count(*)或select where age>20)，结果集行数不同（因为中间被其他事务insert/delete了符合条件的行）。重点是insert/delete导致的行数变化\n\n【InnoDB在RR级别如何解决幻读】\n- MVCC：快照读(普通select)通过ReadView保证可重复读，不会看到其他事务新插入的行\n- 间隙锁(Gap Lock)+临键锁(Next-Key Lock)：当前读(select for update/update/delete)时，锁住索引记录之间的间隙，防止其他事务在间隙中插入新行\n- 临键锁=记录锁+间隙锁，左开右闭区间\n- 注意：InnoDB的RR级别并非完全消除幻读，快照读不会幻读，但当前读在特定情况下仍可能出现幻读（如先快照读再当前读）\n\n【MVCC实现】(补充)\n- 每行有隐藏字段：trx_id(最后修改事务ID)、roll_pointer(指向undo log历史版本)\n- ReadView：m_ids(活跃事务ID列表)、min_trx_id、max_trx_id、creator_trx_id\n- 可见性判断：trx_id<min_trx_id可见；trx_id>=max_trx_id不可见；在中间看是否在m_ids中\n- RC每次select生成新ReadView，RR第一次select生成后复用\n\n【默认隔离级别】\n- MySQL InnoDB默认：可重复读(RR)\n- Oracle/PostgreSQL/SQL Server默认：读已提交(RC)\n- 大多数互联网公司实际使用RC（并发性能更好，不可重复读在业务中通常可接受）"},
-  {"id":"db-003","title":"MVCC是什么？怎么实现的？ReadView是什么？undo log的作用？","category":"数据库","subcategory":"事务","difficulty":"hard","type":"concept","companies":["bytedance","tencent","alibaba","meituan"],"tags":["MVCC","undo log","ReadView","隐藏字段","快照读"],"answer":"【MVCC定义】\nMVCC(Multi-Version Concurrency Control，多版本并发控制)：通过保存数据的多个历史版本，实现读写不阻塞。读操作读取历史版本，不需要加锁，写操作创建新版本，大幅提升并发性能。\n\n【MVCC实现核心组件】\n\n1. 隐藏字段（每行数据都有）：\n   - DB_TRX_ID(6字节)：最后修改该行的事务ID\n   - DB_ROLL_PTR(7字节)：回滚指针，指向undo log中该行的历史版本\n   - DB_ROW_ID(6字节)：隐藏主键（没有定义主键时自动生成）\n\n2. undo log（回滚日志）：\n   - 记录数据修改前的版本，用于事务回滚和MVCC快照读\n   - 每个事务的修改都生成undo log，通过roll_pointer串联成版本链\n   - 事务回滚时：沿版本链恢复数据\n   - MVCC快照读时：沿版本链找到符合可见性的历史版本\n   - undo log在事务提交后不会立即删除，由purge线程在不需要时清理\n\n3. ReadView（读视图）：\n   - 事务进行快照读时生成的一致性视图，决定哪个版本的数据可见\n   - 包含四个字段：\n     - m_ids：生成ReadView时当前活跃(未提交)的事务ID列表\n     - min_trx_id：m_ids中的最小事务ID\n     - max_trx_id：生成ReadView时下一个要分配的事务ID（=最大活跃事务ID+1）\n     - creator_trx_id：生成该ReadView的事务ID\n\n【可见性判断规则】（对某行数据的trx_id）\n1. trx_id < min_trx_id：该版本在所有活跃事务之前就已提交，可见\n2. trx_id >= max_trx_id：该版本在ReadView生成后才开始，不可见\n3. min_trx_id <= trx_id < max_trx_id：\n   - trx_id在m_ids中：该事务在ReadView生成时仍活跃，未提交，不可见\n   - trx_id不在m_ids中：该事务在ReadView生成时已提交，可见\n4. 不可见则沿roll_pointer找历史版本，重复判断，直到找到可见版本或版本链为空\n\n【RC和RR的区别】\n- RC(读已提交)：每次SELECT都生成新的ReadView，所以能看到其他事务刚提交的修改（不可重复读）\n- RR(可重复读)：第一次SELECT生成ReadView后，后续SELECT复用同一个ReadView，所以看不到其他事务的修改（可重复读）\n\n【快照读 vs 当前读】\n- 快照读：普通SELECT，读取MVCC历史版本，不加锁，性能高\n- 当前读：SELECT ... FOR UPDATE、SELECT ... LOCK IN SHARE MODE、UPDATE、DELETE、INSERT，读取最新版本，加锁\n- 当前读需要加锁（记录锁/间隙锁/临键锁），配合MVCC实现RR级别的幻读预防\n\n【MVCC的优势】\n1. 读写不阻塞：读不需要等写释放锁，写也不需要等读\n2. 高并发：大幅提升并发性能，适合读多写少场景\n3. 一致性：保证事务内读取一致性视图\n\n【MVCC的局限】\n1. 只在RC和RR隔离级别下工作，读未提交和串行化不使用\n2. 增加存储空间（每行隐藏字段+undo log）\n3. undo log需要定期清理，有purge开销"},
-  {"id":"db-004","title":"Redis为什么是单线程？为什么这么快？Redis 6.0多线程是什么？","category":"数据库","subcategory":"Redis","difficulty":"medium","type":"concept","companies":["bytedance","tencent","alibaba","meituan","jd"],"tags":["Redis","单线程","IO多路复用","内存操作","6.0多线程"],"answer":"【Redis为什么单线程】\n- 这里的\"单线程\"指命令执行是单线程的（文件事件分派器单线程处理命令）\n- 不是整个Redis只有一个线程，还有其他线程（如后台持久化、集群同步等）\n- 选择单线程的原因：\n  1. 避免多线程竞争和锁开销：Redis数据结构操作频繁，多线程需要加锁，反而降低性能\n  2. 避免线程切换开销：单线程无上下文切换\n  3. 简化实现：单线程代码更简单，不易出并发bug\n  4. CPU不是瓶颈：Redis操作都是内存操作，速度极快，瓶颈在网络IO而非CPU\n\n【Redis为什么快】\n1. 纯内存操作：数据存储在内存中，读写速度纳秒级，远快于磁盘\n2. IO多路复用：使用epoll( Linux)/kqueue(BSD)/select等IO多路复用模型，单线程处理大量并发连接，非阻塞IO\n3. 高效数据结构：SDS(简单动态字符串)、跳表、压缩列表、整数集合等，针对不同场景优化\n4. 避免锁和线程切换：单线程模型无锁竞争和上下文切换开销\n5. 协议简单：RESP协议(REdis Serialization Protocol)，解析高效\n6. 虚拟内存机制：热数据在内存，冷数据可换出到磁盘（2.4后移除，改为更优的淘汰策略）\n\n【Redis 6.0多线程】\n- Redis 6.0引入了多线程IO，但命令执行仍然是单线程\n- 多线程用于：网络IO的读写（读取请求、写回响应）\n- 工作流程：\n  1. 主线程接收连接，分配给IO线程\n  2. IO线程并行读取请求数据、解析协议\n  3. 命令执行仍由主线程串行执行（保证线程安全）\n  4. IO线程并行写回响应数据\n- 为什么引入多线程IO：\n  - Redis瓶颈逐渐从CPU转移到网络IO（单线程处理网络IO在高并发下成为瓶颈）\n  - 多核CPU普及，单线程无法利用多核\n  - 多线程IO可以并行处理网络读写，提升吞吐量\n- 注意：命令执行仍是单线程，所以不需要担心并发安全问题\n- 通过io-threads配置开启多线程，默认不开启（单线程已足够大多数场景）\n\n【Redis线程模型总结】\n- 命令执行：单线程（6.0前后都是）\n- 网络IO：6.0前单线程，6.0后支持多线程IO（可选）\n- 后台任务：多线程（持久化、集群、过期删除等）\n\n【常见误区】\n- \"Redis单线程所以慢\"：错，内存操作+IO多路复用使Redis极快，QPS可达10万+\n- \"Redis 6.0多线程就是命令多线程执行\"：错，只是网络IO多线程，命令仍单线程\n- \"Redis完全不需要锁\"：单线程命令执行不需要，但多线程IO和后台任务仍需要同步机制\n\n【性能数据】\n- 单机Redis：约10万QPS（简单命令）\n- 开启多线程IO后：网络密集场景可提升2-3倍吞吐量\n- 管道(pipeline)批量操作：可达百万QPS"},
-  {"id":"db-005","title":"缓存雪崩、缓存穿透、缓存击穿的概念和解决方案？","category":"数据库","subcategory":"Redis","difficulty":"medium","type":"concept","companies":["bytedance","tencent","alibaba","meituan","jd","netease"],"tags":["缓存雪崩","缓存穿透","缓存击穿","高并发"],"answer":"【三大缓存问题对比】\n| 问题 | 原因 | 现象 | 核心解决方案 |\n|------|------|------|------------|\n| 缓存穿透 | 查询不存在的数据 | 请求直达DB | 布隆过滤器/缓存空值 |\n| 缓存击穿 | 热点key过期瞬间 | 大量请求打DB | 互斥锁/热点永不过期 |\n| 缓存雪崩 | 大量key同时过期/Redis宕机 | 请求全部打DB | 随机过期/多级缓存/熔断降级 |\n\n【缓存穿透】\n- 定义：查询一个数据库和缓存中都不存在的数据，每次请求都打到数据库\n- 场景：恶意攻击、爬虫遍历不存在的ID、参数错误\n- 解决方案：\n  1. 布隆过滤器：将所有可能存在的数据哈希到一个足够大的bitmap中，查询时先过布隆过滤器，不存在则直接返回。有一定误判率（可能把不存在的判断为存在），但不会漏判\n  2. 缓存空值：查询DB发现不存在时，在缓存中存一个空值（或特殊标记），设置较短过期时间。简单但可能占用缓存空间\n  3. 参数校验：在接口层校验参数合法性，过滤明显非法请求\n  4. 限流：对同一IP/用户的高频请求限流\n\n【缓存击穿】\n- 定义：某个热点key过期的瞬间，大量并发请求同时打到数据库\n- 场景：秒杀商品信息、热门新闻、热点配置\n- 解决方案：\n  1. 互斥锁(分布式锁)：缓存失效时，只让一个请求去查DB并回写缓存，其他请求等待重试。用Redis的SETNX实现分布式锁。注意锁超时和死锁处理\n  2. 热点key永不过期：物理上不设置过期时间，逻辑过期。后台异步更新缓存，或在value中存逻辑过期时间，发现过期后异步更新。适合极热点数据\n  3. 提前续期：在key即将过期前，由后台任务提前刷新缓存\n  4. 降级：缓存失效时返回兜底数据或默认值\n\n【缓存雪崩】\n- 定义：大量key在同一时间集中过期，或Redis节点宕机，导致大量请求同时打到数据库\n- 场景：批量设置了相同过期时间、Redis主从切换、Redis集群故障\n- 解决方案：\n  1. 过期时间加随机值：在基础过期时间上加上随机数(如TTL=30min+random(0,5min))，避免集中过期\n  2. 多级缓存：本地缓存(Caffeine/Guava)+Redis缓存，Redis失效时本地缓存兜底\n  3. 服务熔断降级：Hystrix/Sentinel，DB压力过大时熔断，返回降级数据\n  4. Redis高可用：主从复制+哨兵+集群，避免单点故障。Redis Cluster分片，故障影响范围小\n  5. 限流：对DB访问限流，保护数据库不被打垮\n  6. 预热：系统启动前提前加载热点数据到缓存\n\n【三者区别总结】\n- 穿透：数据不存在，每次都打DB → 防\"不存在\"\n- 击穿：单个热点key过期 → 防\"单点热点\"\n- 雪崩：大量key同时过期/Redis故障 → 防\"大面积\"\n\n【实际项目中的综合方案】\n1. 布隆过滤器防穿透\n2. 互斥锁防击穿（热点key）\n3. 随机过期时间防雪崩\n4. Redis集群+哨兵保证高可用\n5. 多级缓存（本地+Redis）\n6. 限流+熔断降级兜底\n7. 缓存预热"},
-  {"id":"db-006","title":"Redis持久化方式有哪些？RDB和AOF的区别？混合持久化？","category":"数据库","subcategory":"Redis","difficulty":"medium","type":"concept","companies":["bytedance","tencent","alibaba","meituan","jd","netease"],"tags":["RDB","AOF","持久化","混合持久化"],"answer":"【Redis持久化方式】\nRedis提供两种持久化方式：RDB(快照)和AOF(追加日志)，可单独使用或同时使用，Redis 4.0+支持混合持久化。\n\n【RDB(Redis DataBase)】\n- 原理：在某个时间点将Redis内存中的数据全量快照写入磁盘，生成dump.rdb二进制文件\n- 触发方式：\n  1. save：同步阻塞，执行期间Redis不能处理其他命令（生产环境不推荐）\n  2. bgsave：异步非阻塞，fork子进程执行快照，父进程继续处理命令（推荐）\n  3. 自动：配置save m n（m秒内有n次修改则自动bgsave），如save 900 1\n  4. 主从复制：主节点向从节点同步时触发\n  5. shutdown：正常关闭时触发\n- 优点：\n  1. 文件紧凑，体积小（二进制压缩）\n  2. 恢复速度快（直接加载二进制文件到内存）\n  3. 适合备份和灾难恢复\n  4. 对性能影响小（bgsave由子进程执行）\n- 缺点：\n  1. 可能丢数据：两次快照之间的数据会丢失（如每5分钟快照，宕机最多丢5分钟数据）\n  2. fork开销大：数据集大时fork子进程耗时，可能导致短暂阻塞\n  3. 不适合实时性要求高的场景\n\n【AOF(Append Only File)】\n- 原理：记录Redis执行的每一条写命令，以文本格式追加到aof文件末尾。恢复时重新执行所有命令\n- 刷盘策略(appendfsync)：\n  1. always：每条写命令都立即刷盘，最安全但性能最差\n  2. everysec：每秒刷盘一次（默认），性能和安全的平衡，最多丢1秒数据\n  3. no：由操作系统决定何时刷盘，性能最好但不安全，可能丢更多数据\n- AOF重写(rewrite)：\n  - AOF文件会越来越大，需要重写压缩\n  - 原理：fork子进程，遍历内存数据生成最小化的写命令集，写入新AOF文件，替换旧文件\n  - 触发：配置auto-aof-rewrite-percentage和auto-aof-rewrite-min-size，或手动BGREWRITEAOF\n  - 重写期间的新写命令会被缓存，重写完成后追加到新文件\n- 优点：\n  1. 数据安全：最多丢1秒数据(everysec)，可靠性高\n  2. 文本格式，可读性好，可手动编辑修复\n  3. 重写机制自动压缩\n- 缺点：\n  1. 文件大：记录所有写命令，比RDB文件大\n  2. 恢复慢：需要逐条执行命令，恢复速度比RDB慢\n  3. 可能有bug：某些命令重写后可能与原结果不一致（概率极低）\n\n【RDB vs AOF对比】\n| 特性 | RDB | AOF |\n|------|-----|-----|\n| 数据格式 | 二进制快照 | 文本命令日志 |\n| 文件大小 | 小 | 大 |\n| 恢复速度 | 快 | 慢 |\n| 数据安全 | 可能丢较多(两次快照间) | 最多丢1秒 |\n| 性能影响 | bgsave fork开销 | 每次写追加，everysec影响小 |\n| 适用场景 | 备份、容灾、可容忍少量丢失 | 数据重要、不能丢数据 |\n\n【混合持久化(Redis 4.0+)】\n- 结合RDB和AOF的优点\n- 原理：AOF重写时，前半段用RDB格式（二进制快照，快速），后半段用AOF格式（重写期间的增量写命令）\n- aof-use-rdb-preamble yes开启\n- 恢复时：先加载RDB部分（快速），再执行AOF部分（增量），兼顾恢复速度和数据安全\n- 是目前推荐的持久化方式\n\n【选择建议】\n- 数据不能丢：AOF everysec + RDB备份\n- 可容忍少量丢失、追求恢复速度：RDB\n- 最佳实践：混合持久化(RDB+AOF) + 定期RDB备份\n- 缓存场景(数据可从DB恢复)：可关闭持久化或仅用RDB\n- 注意：同时开启RDB和AOF时，Redis重启优先加载AOF（因为AOF数据更完整）"},
-  {"id":"db-007","title":"Redis和MySQL如何保证数据一致性？Cache Aside模式？延迟双删？binlog订阅？","category":"数据库","subcategory":"缓存一致性","difficulty":"hard","type":"concept","companies":["tencent","bytedance","alibaba","meituan","jd"],"tags":["缓存一致性","延迟双删","binlog订阅","Canal"],"answer":"【缓存一致性问题】\n缓存和数据库是两个存储系统，更新时可能出现数据不一致。核心矛盾：缓存更新和数据库更新不是原子操作，总有先后顺序。\n\n【Cache Aside模式（最常用）】\n- 读：先读缓存，缓存命中则返回；缓存未命中则读数据库，然后写入缓存，返回数据\n- 写：先更新数据库，再删除缓存（不是更新缓存）\n- 为什么删除缓存而不是更新缓存：\n  1. 并发安全：更新缓存可能导致脏数据（两个写操作并发，后写的覆盖先写的，但顺序可能错乱）\n  2. 懒加载：删除后下次读时再加载，避免写多读少场景下的无效更新\n  3. 简单：删除比更新更简单，不需要考虑缓存值的计算\n\n【为什么先更新数据库再删除缓存】\n- 如果先删缓存再更新数据库：\n  1. 线程A删缓存\n  2. 线程B读，缓存未命中，读DB（旧值），写回缓存（旧值）\n  3. 线程A更新DB（新值）\n  4. 缓存中是旧值，DB是新值 → 不一致，且持续到缓存过期\n- 先更新DB再删缓存：\n  1. 线程A更新DB\n  2. 线程B读，缓存命中（旧值），返回旧值（短暂不一致）\n  3. 线程A删缓存\n  4. 后续读缓存未命中，读DB（新值），写回缓存 → 最终一致\n- 先更新DB再删缓存的不一致是短暂的，且概率低（需要缓存刚好在更新DB和删缓存之间被读）\n\n【延迟双删】\n- 解决先更新DB再删缓存模式下的并发不一致问题\n- 步骤：\n  1. 删除缓存\n  2. 更新数据库\n  3. 延迟一段时间（大于一次读业务逻辑的时间，如500ms-1s）\n  4. 再删除一次缓存\n- 原理：第一次删缓存后，可能有并发读把旧值写回缓存；延迟后再删一次，清除这种脏数据\n- 缺点：延迟时间难以精确确定，增加了复杂度\n\n【binlog订阅（最终一致性方案）】\n- 原理：订阅MySQL的binlog日志，解析出数据变更，异步更新/删除缓存\n- 工具：Canal（阿里开源）、Debezium、Maxwell等\n- 流程：\n  1. MySQL数据变更 → 写入binlog\n  2. Canal模拟从节点，订阅binlog\n  3. Canal解析binlog，发送到MQ(如RocketMQ/Kafka)\n  4. 消费者接收变更消息，删除/更新对应缓存\n- 优点：\n  1. 对业务代码无侵入：业务只需更新DB，缓存更新由binlog订阅异步处理\n  2. 可靠性高：binlog持久化，消息可重试\n  3. 解耦：缓存更新和业务逻辑分离\n- 缺点：\n  1. 有延迟：binlog同步+消费有延迟，短暂不一致\n  2. 架构复杂：需要部署Canal+MQ+消费者\n  3. 只能处理DB变更，无法处理缓存本身的问题\n\n【强一致性方案】\n- 分布式锁：读写操作加分布式锁，保证同一时间只有一个操作，性能差\n- 2PC/3PC：两阶段提交，保证缓存和DB原子更新，性能差，实现复杂\n- 实际项目中几乎不用强一致性，都用最终一致性\n\n【实际项目中的方案选择】\n1. 简单场景：Cache Aside（先更新DB再删缓存）\n2. 并发较高：Cache Aside + 延迟双删\n3. 高并发/高可用：Cache Aside + binlog订阅(Canal)兜底\n4. 极致性能：更新DB + 异步删缓存 + 消息队列重试\n\n【其他注意点】\n- 设置合理的缓存过期时间：即使不一致，过期后也能自动恢复\n- 缓存空值也要设置过期时间\n- 监控缓存命中率和不一致情况\n- 重要数据可考虑双写+校验\n\n【总结】\n- 没有完美的强一致性方案，实际都用最终一致性\n- Cache Aside是基础，延迟双删和binlog订阅是增强\n- 选择依据：并发量、数据重要性、系统复杂度容忍度"},
-  {"id":"db-008","title":"索引失效的场景有哪些？如何优化？EXPLAIN怎么看？","category":"数据库","subcategory":"索引","difficulty":"medium","type":"concept","companies":["tencent","alibaba","bytedance","meituan","jd"],"tags":["索引失效","最左前缀","函数操作","类型转换","EXPLAIN"],"answer":"【索引失效场景】\n\n1. 违反最左前缀原则：\n   - 联合索引(a,b,c)，查询条件跳过a直接用b或c，索引失效\n   - 必须从最左列开始连续匹配：a、a+b、a+b+c可用；b、c、b+c不可用\n   - 范围查询后的列失效：a=1 AND b>2 AND c=3，c不走索引\n\n2. 索引列上使用函数/运算/表达式：\n   - WHERE YEAR(create_time)=2025 → 失效，应改为范围查询 create_time BETWEEN '2025-01-01' AND '2025-12-31'\n   - WHERE price*2=100 → 失效，应改为 price=50\n   - WHERE UPPER(name)='ABC' → 失效\n   - 原因：函数/运算改变了索引列的值，无法直接用索引查找\n\n3. 隐式类型转换：\n   - 字符串列用数字查询：WHERE phone=13800138000（phone是varchar）→ 失效，应改为 phone='13800138000'\n   - 数字列用字符串查询通常不失效（MySQL会自动转换字符串为数字）\n   - 原因：类型转换相当于对索引列做了函数操作\n\n4. LIKE以%开头：\n   - WHERE name LIKE '%张%' → 失效（全表扫描）\n   - WHERE name LIKE '张%' → 可用索引（前缀匹配）\n   - 需要全文搜索时用全文索引或搜索引擎(Elasticsearch)\n\n5. OR连接的条件中有非索引列：\n   - WHERE a=1 OR b=2，a有索引但b没有 → 整个查询索引失效（全表扫描）\n   - 解决：给b也加索引，或用UNION分开查询\n\n6. NOT IN、!=、<>：\n   - 可能导致索引失效（优化器可能选择全表扫描），取决于数据分布\n   - NOT IN可用LEFT JOIN ... WHERE ... IS NULL替代\n\n7. 数据分布导致优化器选择全表扫描：\n   - 区分度低的列（如性别、状态只有几个值），优化器认为全表扫描更快\n   - 查询返回大部分数据时（如WHERE status=1且90%数据都是1），全表扫描比索引快\n   - 索引不是万能的，优化器会基于成本选择\n\n8. 使用了索引列但查询列不在覆盖索引中：\n   - 二级索引查询需要回表，如果回表代价大，优化器可能选择全表扫描\n   - 解决：用覆盖索引（查询列都在索引中，不需要回表）\n\n【索引优化建议】\n1. 遵循最左前缀原则设计联合索引\n2. 避免在索引列上使用函数/运算\n3. 注意数据类型匹配\n4. 区分度低的列不适合单独建索引（适合做联合索引的前缀）\n5. 用EXPLAIN分析执行计划，确认是否走索引\n6. 控制索引数量：不是越多越好，索引占用空间，影响写入性能\n7. 定期分析表：ANALYZE TABLE更新统计信息，帮助优化器选择正确索引\n8. 长字符串列用前缀索引：INDEX(name(20))\n\n【EXPLAIN执行计划分析】\n- EXPLAIN SELECT ... 查看执行计划\n- 关键字段：\n  - type：访问类型，性能从好到差：system > const > eq_ref > ref > range > index > ALL\n    - ALL：全表扫描，需要优化\n    - index：全索引扫描，比ALL好但仍需扫描全部索引\n    - range：索引范围扫描，常用（>、<、between、in、like前缀）\n    - ref：非唯一索引等值匹配\n    - eq_ref：唯一索引等值匹配（主键/唯一索引）\n    - const：主键或唯一索引常量匹配，最快\n  - key：实际使用的索引，NULL表示没走索引\n  - key_len：使用的索引长度，可判断联合索引用了几列\n  - rows：预估扫描的行数，越少越好\n  - Extra：额外信息\n    - Using index：覆盖索引，不需要回表，好\n    - Using where：在存储引擎层过滤后，在server层再过滤\n    - Using filesort：需要额外排序，不是索引排序，需优化\n    - Using temporary：使用临时表，需优化\n    - Using index condition：索引条件下推(ICP)，好\n\n【优化示例】\n- 出现Using filesort：ORDER BY的列加索引或调整索引顺序\n- 出现Using temporary：GROUP BY/DISTINCT的列加索引\n- type=ALL：加索引或优化查询条件\n- key=NULL：检查索引失效场景"},
-  {"id":"db-009","title":"跳表是什么？Redis的zset为什么用跳表不用红黑树？zset的编码方式？","category":"数据库","subcategory":"Redis","difficulty":"medium","type":"concept","companies":["tencent","alibaba","meituan","bytedance"],"tags":["跳表","zset","红黑树","Redis数据结构"],"answer":"【跳表(Skip List)定义】\n- 跳表是一种有序数据结构，在有序链表的基础上增加多级索引，实现O(logn)的查找、插入、删除\n- 原理：\n  1. 最底层是完整的有序链表（Level 0）\n  2. 每个节点以一定概率(通常1/2)晋升到上一层，作为索引\n  3. 查找时从最高层开始，比目标大则下降一层，比目标小则向右走\n  4. 类似二分查找，但用链表实现\n- 时间复杂度：查找/插入/删除 O(logn)，平均O(logn)，最坏O(n)\n- 空间复杂度：O(n)，期望节点总数 n + n/2 + n/4 + ... = 2n\n\n【Redis zset为什么用跳表不用红黑树】\n1. 范围查询更方便：\n   - 跳表：找到范围起点后，沿Level 0链表顺序遍历即可，简单高效\n   - 红黑树：需要中序遍历，实现相对复杂，且需要回溯\n2. 插入删除更简单：\n   - 跳表：插入删除只需修改局部指针，不需要旋转调整\n   - 红黑树：插入删除后可能需要多次旋转来维持平衡，实现复杂\n3. 范围删除更高效：\n   - 跳表：找到范围后沿链表批量删除\n   - 红黑树：逐个删除，每次删除可能触发旋转\n4. 实现简单：\n   - 跳表代码量比红黑树少，易于理解和维护\n   - Redis作者antirez偏好简单实现\n5. 并发友好：\n   - 跳表的局部修改特性，加锁粒度可以更小\n\n【红黑树的优势】\n- 严格O(logn)，跳表是期望O(logn)（概率性）\n- 内存占用可能略少（不需要多层指针）\n- 但Redis选择跳表是因为范围查询场景下跳表更实用\n\n【Redis zset的编码方式】\nzset(有序集合)支持两种编码：\n\n1. 压缩列表(ziplist)：\n   - 元素数量少且成员长度短时使用\n   - 配置阈值：zset-max-ziplist-entries=128（元素数不超过128），zset-max-ziplist-value=64（每个成员长度不超过64字节）\n   - 内存紧凑，节省空间，但操作需要遍历，O(n)\n   - 元素和分数交替连续存储\n\n2. 跳表(skiplist)+哈希表(hashtable)：\n   - 超过阈值时自动转换\n   - 跳表：按score排序，支持范围查询、排名查询，O(logn)\n   - 哈希表：member→score映射，O(1)查找成员的分数\n   - 两者结合：既支持O(1)的成员查找，又支持O(logn)的范围/排名查询\n   - 跳表节点结构：score、member、后退指针、层数组(forward指针+span跨度)\n\n【zset常用命令】\n- ZADD key score member：添加元素\n- ZRANGE key start stop [WITHSCORES]：按排名范围获取（升序）\n- ZREVRANGE：降序\n- ZRANGEBYSCORE key min max：按分数范围获取\n- ZRANK key member：获取元素排名（升序，从0开始）\n- ZSCORE key member：获取元素分数\n- ZINCRBY key increment member：增加元素分数\n- ZCARD key：元素数量\n- ZCOUNT key min max：分数范围内元素数量\n- ZREM key member：删除元素\n\n【跳表在Redis中的实现细节】\n- 最大层数：32（ZSKIPLIST_MAXLEVEL）\n- 晋升概率：1/4（ZSKIPLIST_P=0.25，不是1/2，Redis选择1/4减少内存占用）\n- 每个节点有后退指针(backward)，支持从后向前遍历\n- 每层有span(跨度)，记录到下一个节点跨越了多少个节点，用于计算排名O(logn)\n- 分数相同时按member字典序排序\n\n【总结】\n- 跳表=有序链表+多级索引，O(logn)查找\n- Redis zset用跳表+哈希表，兼顾范围查询和成员查找\n- 选择跳表而非红黑树：范围查询更方便、实现更简单、插入删除局部修改\n- 小数据量用ziplist节省内存，大数据量自动转跳表"},
-  {"id":"db-010","title":"MySQL一条SQL语句的执行过程？从客户端到返回结果的完整路径？Buffer Pool？redo log/undo log/binlog？两阶段提交？","category":"数据库","subcategory":"MySQL架构","difficulty":"medium","type":"concept","companies":["alibaba","tencent","bytedance","meituan"],"tags":["MySQL架构","连接器","分析器","优化器","执行器","存储引擎"],"answer":"【SQL执行完整路径】\n\n1. 连接器：\n   - 客户端连接MySQL，连接器负责身份认证(用户名密码)、权限校验、连接管理\n   - 连接建立后，权限快照固定（后续修改权限需重新连接）\n   - 长连接复用，避免频繁建立连接的开销\n   - 连接过多会占用内存，可定期断开长连接或MySQL 8.0+支持连接资源回收\n\n2. 查询缓存（MySQL 8.0已移除）：\n   - 之前版本：以SQL语句为key缓存查询结果，命中直接返回\n   - 8.0移除原因：表更新时缓存失效频繁，命中率低，维护成本高\n\n3. 分析器：\n   - 词法分析：识别SQL中的关键字(SELECT/FROM/WHERE)、表名、列名、字符串、数字等\n   - 语法分析：判断SQL语法是否正确，构建语法树(AST)\n   - 语义分析：检查表/列是否存在、权限是否足够等\n   - 语法错误会在这一步报错（如You have an error in your SQL syntax）\n\n4. 优化器：\n   - 选择执行计划：决定使用哪个索引、多表join的顺序、扫描方式等\n   - 基于成本估算：统计每个执行计划的成本（IO成本+CPU成本），选择成本最低的\n   - 可能选错索引（统计信息不准时），可用ANALYZE TABLE更新统计信息，或FORCE INDEX强制指定\n   - 输出执行计划，可用EXPLAIN查看\n\n5. 执行器：\n   - 调用存储引擎接口执行SQL\n   - 逐行读取/过滤/返回数据\n   - 执行过程中可能需要多次调用存储引擎（如全表扫描逐行读取）\n   - 返回结果给客户端\n\n【InnoDB存储引擎关键组件】\n\n1. Buffer Pool（缓冲池）：\n   - InnoDB内存中的一块区域，缓存磁盘上的数据页和索引页\n   - 避免每次查询都访问磁盘，大幅提升性能\n   - 管理：LRU链表（改进版，分young/old区，防止全表扫描污染热点数据）\n   - 刷盘：后台线程定期将脏页(修改过的页)刷回磁盘\n   - 大小配置：innodb_buffer_pool_size，建议设为物理内存的50%-75%\n\n2. redo log（重做日志）：\n   - 物理日志，记录数据页的修改（哪个页的哪个偏移量改为什么值）\n   - 作用：保证持久性，宕机后可通过redo log恢复未刷盘的数据\n   - 循环写入：固定大小(innodb_log_file_size)，写满后从头覆盖（需确保对应脏页已刷盘）\n   - WAL(Write-Ahead Logging)：先写日志再写磁盘，修改数据时先写redo log，再修改Buffer Pool，后台异步刷盘\n   - 崩溃恢复：MySQL启动时检查redo log，将未刷盘的修改重做\n\n3. undo log（回滚日志）：\n   - 逻辑日志，记录数据修改前的版本\n   - 作用：①事务回滚时恢复数据 ②MVCC快照读时提供历史版本\n   - 存储在undo segment中，事务提交后不会立即删除，由purge线程在不需要时清理\n\n4. binlog（二进制日志）：\n   - Server层的日志（不是InnoDB独有），记录所有DDL和DML语句\n   - 作用：①主从复制 ②数据恢复(误删后用binlog恢复) ③审计\n   - 格式：STATEMENT(记录SQL语句)、ROW(记录行变更，推荐)、MIXED(混合)\n   - 追加写入，不会覆盖，可配置过期时间自动删除\n\n【两阶段提交(2PC)】\n- 为了保证redo log和binlog的一致性\n- 流程：\n  1. 执行器调用InnoDB修改数据，InnoDB写redo log，状态为prepare\n  2. 执行器写binlog\n  3. 执行器调用InnoDB提交事务，redo log状态改为commit\n- 为什么需要两阶段：\n  - 如果先写redo log(commit)再写binlog：binlog写失败，主从数据不一致（从库没有这条变更）\n  - 如果先写binlog再写redo log：redo log写失败，主库数据丢失但binlog有记录，从库有数据，主从不一致\n  - 两阶段提交：redo log prepare → binlog → redo log commit。任何一步失败都能正确回滚或恢复\n- 崩溃恢复：\n  - redo log是commit状态：直接提交\n  - redo log是prepare状态：检查binlog是否完整，完整则提交，不完整则回滚\n\n【总结SQL执行流程】\n客户端 → 连接器(认证/权限) → 分析器(词法/语法/语义) → 优化器(选择执行计划) → 执行器(调用存储引擎) → InnoDB(Buffer Pool/redo log/undo log) → 返回结果\n\n【关键日志对比】\n| 日志 | 层级 | 类型 | 作用 | 写入方式 |\n|------|------|------|------|---------|\n| redo log | InnoDB | 物理 | 持久性/崩溃恢复 | 循环覆盖 |\n| undo log | InnoDB | 逻辑 | 回滚/MVCC | 事务结束后purge |\n| binlog | Server | 逻辑/行 | 主从复制/恢复 | 追加写入 |"}
+  {
+    "id": "db-001",
+    "title": "MySQL为什么用B+树做索引？B树和B+树的区别？为什么B+树更适合范围查询？聚簇索引和非聚簇索引？",
+    "category": "数据库",
+    "subcategory": "索引",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan",
+      "huawei",
+      "xiaomi",
+      "baidu",
+      "jd"
+    ],
+    "tags": [
+      "B+树",
+      "索引",
+      "聚簇索引",
+      "范围查询",
+      "必考"
+    ],
+    "answer": "【B树 vs B+树】\n| 特性 | B树 | B+树 |\n|------|-----|------|\n| 数据存储 | 非叶子节点也存data | 非叶子节点只存key，data都在叶子节点 |\n| 叶子节点 | 不相连 | 双向链表连接 |\n| 查询稳定性 | 不稳定(可能在非叶子命中) | 稳定(都到叶子节点) |\n| 扇出 | 较小(节点存data占空间) | 更大(非叶子只存key，更矮) |\n| 范围查询 | 需中序遍历，回溯父节点 | 叶子链表顺序遍历，高效 |\n\n【MySQL为什么用B+树】\n1. 更矮：非叶子节点只存key不存data，单个节点能存更多key，扇出更大，树更矮，IO次数更少（数据库IO是性能瓶颈）\n2. 范围查询高效：叶子节点双向链表，找到起点后顺序遍历即可，不需要回溯\n3. 查询稳定：每次查询都走到叶子节点，IO次数稳定\n4. 全表扫描快：只需遍历叶子节点链表，不需要遍历整棵树\n\n【为什么不用红黑树】\n- 红黑树是二叉树，高度高(百万级数据约20层)，IO次数多\n- B+树是多叉树，高度低(百万级数据约3-4层)，IO次数少\n- 数据库索引存储在磁盘，每次访问节点是一次磁盘IO，B+树大幅减少IO\n\n【聚簇索引 vs 非聚簇索引(二级索引)】\n- 聚簇索引：叶子节点存储整行数据。InnoDB中主键索引就是聚簇索引，数据按主键顺序物理存储。一个表只能有一个聚簇索引\n- 非聚簇索引(二级索引)：叶子节点存储主键值，查询时需先找到主键值，再用主键值去聚簇索引查找整行数据（回表）。一个表可以有多个二级索引\n- 覆盖索引：查询的列都在索引中，不需要回表，性能更好\n\n【InnoDB索引结构】\n- 聚簇索引：B+树叶子节点=完整行数据\n- 二级索引：B+树叶子节点=主键值+索引列值\n- 查询过程：二级索引查找→得到主键值→聚簇索引查找(回表)→得到完整行\n\n【MyISAM vs InnoDB索引】\n- MyISAM：非聚簇索引，索引和数据分离存储(.MYI索引文件+.MYD数据文件)，索引叶子节点存数据的物理地址\n- InnoDB：聚簇索引，数据和主键索引存在一起(.ibd文件)，二级索引存主键值\n\n【索引失效场景】(补充)\n- 违反最左前缀原则\n- 索引列上使用函数/运算/表达式\n- 隐式类型转换\n- LIKE以%开头\n- OR连接非索引列\n- NOT IN/!=可能失效\n- 数据分布导致优化器选择全表扫描\n\n【联合索引最左前缀】\n- 联合索引(a,b,c)，查询条件必须从最左列开始连续匹配\n- 支持：a、a+b、a+b+c\n- 不支持：b、c、b+c（不走索引或部分走）\n- 范围查询后的列不走索引：a=1 and b>2 and c=3，c不走索引"
+  },
+  {
+    "id": "db-002",
+    "title": "MySQL事务的ACID特性？四种隔离级别？分别解决什么问题？脏读/不可重复读/幻读？",
+    "category": "数据库",
+    "subcategory": "事务",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan",
+      "jd",
+      "netease"
+    ],
+    "tags": [
+      "ACID",
+      "隔离级别",
+      "脏读",
+      "不可重复读",
+      "幻读",
+      "MVCC"
+    ],
+    "answer": "【ACID特性】\n1. 原子性(Atomicity)：事务是不可分割的最小单位，要么全部成功，要么全部失败回滚。通过undo log实现（记录修改前的数据，回滚时恢复）\n2. 一致性(Consistency)：事务执行前后数据保持一致状态（如转账前后总额不变）。是事务的最终目的，由其他三个特性共同保证\n3. 隔离性(Isolation)：多个事务并发执行时，互不干扰。通过锁机制+MVCC实现\n4. 持久性(Durability)：事务提交后，修改永久保存，即使宕机也不丢失。通过redo log实现（记录修改后的数据，宕机恢复时重做）\n\n【四种隔离级别】\n| 隔离级别 | 脏读 | 不可重复读 | 幻读 | 实现 |\n|---------|------|-----------|------|------|\n| 读未提交(Read Uncommitted) | 可能 | 可能 | 可能 | 基本无锁 |\n| 读已提交(Read Committed, RC) | 避免 | 可能 | 可能 | MVCC，每次select生成新ReadView |\n| 可重复读(Repeatable Read, RR) | 避免 | 避免 | 可能(InnoDB基本解决) | MVCC，第一次select生成ReadView后复用 |\n| 串行化(Serializable) | 避免 | 避免 | 避免 | 全表锁，事务串行执行 |\n\n【三个问题定义】\n1. 脏读：一个事务读到另一个事务未提交的数据。如果另一个事务回滚，读到的就是脏数据\n2. 不可重复读：同一事务内，两次读取同一行数据，结果不同（因为中间被其他事务update并提交了）。重点是update/delete\n3. 幻读：同一事务内，两次范围查询(如select count(*)或select where age>20)，结果集行数不同（因为中间被其他事务insert/delete了符合条件的行）。重点是insert/delete导致的行数变化\n\n【InnoDB在RR级别如何解决幻读】\n- MVCC：快照读(普通select)通过ReadView保证可重复读，不会看到其他事务新插入的行\n- 间隙锁(Gap Lock)+临键锁(Next-Key Lock)：当前读(select for update/update/delete)时，锁住索引记录之间的间隙，防止其他事务在间隙中插入新行\n- 临键锁=记录锁+间隙锁，左开右闭区间\n- 注意：InnoDB的RR级别并非完全消除幻读，快照读不会幻读，但当前读在特定情况下仍可能出现幻读（如先快照读再当前读）\n\n【MVCC实现】(补充)\n- 每行有隐藏字段：trx_id(最后修改事务ID)、roll_pointer(指向undo log历史版本)\n- ReadView：m_ids(活跃事务ID列表)、min_trx_id、max_trx_id、creator_trx_id\n- 可见性判断：trx_id<min_trx_id可见；trx_id>=max_trx_id不可见；在中间看是否在m_ids中\n- RC每次select生成新ReadView，RR第一次select生成后复用\n\n【默认隔离级别】\n- MySQL InnoDB默认：可重复读(RR)\n- Oracle/PostgreSQL/SQL Server默认：读已提交(RC)\n- 大多数互联网公司实际使用RC（并发性能更好，不可重复读在业务中通常可接受）"
+  },
+  {
+    "id": "db-003",
+    "title": "MVCC是什么？怎么实现的？ReadView是什么？undo log的作用？",
+    "category": "数据库",
+    "subcategory": "事务",
+    "difficulty": "hard",
+    "type": "concept",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan"
+    ],
+    "tags": [
+      "MVCC",
+      "undo log",
+      "ReadView",
+      "隐藏字段",
+      "快照读"
+    ],
+    "answer": "【MVCC定义】\nMVCC(Multi-Version Concurrency Control，多版本并发控制)：通过保存数据的多个历史版本，实现读写不阻塞。读操作读取历史版本，不需要加锁，写操作创建新版本，大幅提升并发性能。\n\n【MVCC实现核心组件】\n\n1. 隐藏字段（每行数据都有）：\n   - DB_TRX_ID(6字节)：最后修改该行的事务ID\n   - DB_ROLL_PTR(7字节)：回滚指针，指向undo log中该行的历史版本\n   - DB_ROW_ID(6字节)：隐藏主键（没有定义主键时自动生成）\n\n2. undo log（回滚日志）：\n   - 记录数据修改前的版本，用于事务回滚和MVCC快照读\n   - 每个事务的修改都生成undo log，通过roll_pointer串联成版本链\n   - 事务回滚时：沿版本链恢复数据\n   - MVCC快照读时：沿版本链找到符合可见性的历史版本\n   - undo log在事务提交后不会立即删除，由purge线程在不需要时清理\n\n3. ReadView（读视图）：\n   - 事务进行快照读时生成的一致性视图，决定哪个版本的数据可见\n   - 包含四个字段：\n     - m_ids：生成ReadView时当前活跃(未提交)的事务ID列表\n     - min_trx_id：m_ids中的最小事务ID\n     - max_trx_id：生成ReadView时下一个要分配的事务ID（=最大活跃事务ID+1）\n     - creator_trx_id：生成该ReadView的事务ID\n\n【可见性判断规则】（对某行数据的trx_id）\n1. trx_id < min_trx_id：该版本在所有活跃事务之前就已提交，可见\n2. trx_id >= max_trx_id：该版本在ReadView生成后才开始，不可见\n3. min_trx_id <= trx_id < max_trx_id：\n   - trx_id在m_ids中：该事务在ReadView生成时仍活跃，未提交，不可见\n   - trx_id不在m_ids中：该事务在ReadView生成时已提交，可见\n4. 不可见则沿roll_pointer找历史版本，重复判断，直到找到可见版本或版本链为空\n\n【RC和RR的区别】\n- RC(读已提交)：每次SELECT都生成新的ReadView，所以能看到其他事务刚提交的修改（不可重复读）\n- RR(可重复读)：第一次SELECT生成ReadView后，后续SELECT复用同一个ReadView，所以看不到其他事务的修改（可重复读）\n\n【快照读 vs 当前读】\n- 快照读：普通SELECT，读取MVCC历史版本，不加锁，性能高\n- 当前读：SELECT ... FOR UPDATE、SELECT ... LOCK IN SHARE MODE、UPDATE、DELETE、INSERT，读取最新版本，加锁\n- 当前读需要加锁（记录锁/间隙锁/临键锁），配合MVCC实现RR级别的幻读预防\n\n【MVCC的优势】\n1. 读写不阻塞：读不需要等写释放锁，写也不需要等读\n2. 高并发：大幅提升并发性能，适合读多写少场景\n3. 一致性：保证事务内读取一致性视图\n\n【MVCC的局限】\n1. 只在RC和RR隔离级别下工作，读未提交和串行化不使用\n2. 增加存储空间（每行隐藏字段+undo log）\n3. undo log需要定期清理，有purge开销"
+  },
+  {
+    "id": "db-004",
+    "title": "Redis为什么是单线程？为什么这么快？Redis 6.0多线程是什么？",
+    "category": "数据库",
+    "subcategory": "Redis",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan",
+      "jd"
+    ],
+    "tags": [
+      "Redis",
+      "单线程",
+      "IO多路复用",
+      "内存操作",
+      "6.0多线程"
+    ],
+    "answer": "【Redis为什么单线程】\n- 这里的\"单线程\"指命令执行是单线程的（文件事件分派器单线程处理命令）\n- 不是整个Redis只有一个线程，还有其他线程（如后台持久化、集群同步等）\n- 选择单线程的原因：\n  1. 避免多线程竞争和锁开销：Redis数据结构操作频繁，多线程需要加锁，反而降低性能\n  2. 避免线程切换开销：单线程无上下文切换\n  3. 简化实现：单线程代码更简单，不易出并发bug\n  4. CPU不是瓶颈：Redis操作都是内存操作，速度极快，瓶颈在网络IO而非CPU\n\n【Redis为什么快】\n1. 纯内存操作：数据存储在内存中，读写速度纳秒级，远快于磁盘\n2. IO多路复用：使用epoll( Linux)/kqueue(BSD)/select等IO多路复用模型，单线程处理大量并发连接，非阻塞IO\n3. 高效数据结构：SDS(简单动态字符串)、跳表、压缩列表、整数集合等，针对不同场景优化\n4. 避免锁和线程切换：单线程模型无锁竞争和上下文切换开销\n5. 协议简单：RESP协议(REdis Serialization Protocol)，解析高效\n6. 虚拟内存机制：热数据在内存，冷数据可换出到磁盘（2.4后移除，改为更优的淘汰策略）\n\n【Redis 6.0多线程】\n- Redis 6.0引入了多线程IO，但命令执行仍然是单线程\n- 多线程用于：网络IO的读写（读取请求、写回响应）\n- 工作流程：\n  1. 主线程接收连接，分配给IO线程\n  2. IO线程并行读取请求数据、解析协议\n  3. 命令执行仍由主线程串行执行（保证线程安全）\n  4. IO线程并行写回响应数据\n- 为什么引入多线程IO：\n  - Redis瓶颈逐渐从CPU转移到网络IO（单线程处理网络IO在高并发下成为瓶颈）\n  - 多核CPU普及，单线程无法利用多核\n  - 多线程IO可以并行处理网络读写，提升吞吐量\n- 注意：命令执行仍是单线程，所以不需要担心并发安全问题\n- 通过io-threads配置开启多线程，默认不开启（单线程已足够大多数场景）\n\n【Redis线程模型总结】\n- 命令执行：单线程（6.0前后都是）\n- 网络IO：6.0前单线程，6.0后支持多线程IO（可选）\n- 后台任务：多线程（持久化、集群、过期删除等）\n\n【常见误区】\n- \"Redis单线程所以慢\"：错，内存操作+IO多路复用使Redis极快，QPS可达10万+\n- \"Redis 6.0多线程就是命令多线程执行\"：错，只是网络IO多线程，命令仍单线程\n- \"Redis完全不需要锁\"：单线程命令执行不需要，但多线程IO和后台任务仍需要同步机制\n\n【性能数据】\n- 单机Redis：约10万QPS（简单命令）\n- 开启多线程IO后：网络密集场景可提升2-3倍吞吐量\n- 管道(pipeline)批量操作：可达百万QPS"
+  },
+  {
+    "id": "db-005",
+    "title": "缓存雪崩、缓存穿透、缓存击穿的概念和解决方案？",
+    "category": "数据库",
+    "subcategory": "Redis",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan",
+      "jd",
+      "netease"
+    ],
+    "tags": [
+      "缓存雪崩",
+      "缓存穿透",
+      "缓存击穿",
+      "高并发"
+    ],
+    "answer": "【三大缓存问题对比】\n| 问题 | 原因 | 现象 | 核心解决方案 |\n|------|------|------|------------|\n| 缓存穿透 | 查询不存在的数据 | 请求直达DB | 布隆过滤器/缓存空值 |\n| 缓存击穿 | 热点key过期瞬间 | 大量请求打DB | 互斥锁/热点永不过期 |\n| 缓存雪崩 | 大量key同时过期/Redis宕机 | 请求全部打DB | 随机过期/多级缓存/熔断降级 |\n\n【缓存穿透】\n- 定义：查询一个数据库和缓存中都不存在的数据，每次请求都打到数据库\n- 场景：恶意攻击、爬虫遍历不存在的ID、参数错误\n- 解决方案：\n  1. 布隆过滤器：将所有可能存在的数据哈希到一个足够大的bitmap中，查询时先过布隆过滤器，不存在则直接返回。有一定误判率（可能把不存在的判断为存在），但不会漏判\n  2. 缓存空值：查询DB发现不存在时，在缓存中存一个空值（或特殊标记），设置较短过期时间。简单但可能占用缓存空间\n  3. 参数校验：在接口层校验参数合法性，过滤明显非法请求\n  4. 限流：对同一IP/用户的高频请求限流\n\n【缓存击穿】\n- 定义：某个热点key过期的瞬间，大量并发请求同时打到数据库\n- 场景：秒杀商品信息、热门新闻、热点配置\n- 解决方案：\n  1. 互斥锁(分布式锁)：缓存失效时，只让一个请求去查DB并回写缓存，其他请求等待重试。用Redis的SETNX实现分布式锁。注意锁超时和死锁处理\n  2. 热点key永不过期：物理上不设置过期时间，逻辑过期。后台异步更新缓存，或在value中存逻辑过期时间，发现过期后异步更新。适合极热点数据\n  3. 提前续期：在key即将过期前，由后台任务提前刷新缓存\n  4. 降级：缓存失效时返回兜底数据或默认值\n\n【缓存雪崩】\n- 定义：大量key在同一时间集中过期，或Redis节点宕机，导致大量请求同时打到数据库\n- 场景：批量设置了相同过期时间、Redis主从切换、Redis集群故障\n- 解决方案：\n  1. 过期时间加随机值：在基础过期时间上加上随机数(如TTL=30min+random(0,5min))，避免集中过期\n  2. 多级缓存：本地缓存(Caffeine/Guava)+Redis缓存，Redis失效时本地缓存兜底\n  3. 服务熔断降级：Hystrix/Sentinel，DB压力过大时熔断，返回降级数据\n  4. Redis高可用：主从复制+哨兵+集群，避免单点故障。Redis Cluster分片，故障影响范围小\n  5. 限流：对DB访问限流，保护数据库不被打垮\n  6. 预热：系统启动前提前加载热点数据到缓存\n\n【三者区别总结】\n- 穿透：数据不存在，每次都打DB → 防\"不存在\"\n- 击穿：单个热点key过期 → 防\"单点热点\"\n- 雪崩：大量key同时过期/Redis故障 → 防\"大面积\"\n\n【实际项目中的综合方案】\n1. 布隆过滤器防穿透\n2. 互斥锁防击穿（热点key）\n3. 随机过期时间防雪崩\n4. Redis集群+哨兵保证高可用\n5. 多级缓存（本地+Redis）\n6. 限流+熔断降级兜底\n7. 缓存预热"
+  },
+  {
+    "id": "db-006",
+    "title": "Redis持久化方式有哪些？RDB和AOF的区别？混合持久化？",
+    "category": "数据库",
+    "subcategory": "Redis",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan",
+      "jd",
+      "netease"
+    ],
+    "tags": [
+      "RDB",
+      "AOF",
+      "持久化",
+      "混合持久化"
+    ],
+    "answer": "【Redis持久化方式】\nRedis提供两种持久化方式：RDB(快照)和AOF(追加日志)，可单独使用或同时使用，Redis 4.0+支持混合持久化。\n\n【RDB(Redis DataBase)】\n- 原理：在某个时间点将Redis内存中的数据全量快照写入磁盘，生成dump.rdb二进制文件\n- 触发方式：\n  1. save：同步阻塞，执行期间Redis不能处理其他命令（生产环境不推荐）\n  2. bgsave：异步非阻塞，fork子进程执行快照，父进程继续处理命令（推荐）\n  3. 自动：配置save m n（m秒内有n次修改则自动bgsave），如save 900 1\n  4. 主从复制：主节点向从节点同步时触发\n  5. shutdown：正常关闭时触发\n- 优点：\n  1. 文件紧凑，体积小（二进制压缩）\n  2. 恢复速度快（直接加载二进制文件到内存）\n  3. 适合备份和灾难恢复\n  4. 对性能影响小（bgsave由子进程执行）\n- 缺点：\n  1. 可能丢数据：两次快照之间的数据会丢失（如每5分钟快照，宕机最多丢5分钟数据）\n  2. fork开销大：数据集大时fork子进程耗时，可能导致短暂阻塞\n  3. 不适合实时性要求高的场景\n\n【AOF(Append Only File)】\n- 原理：记录Redis执行的每一条写命令，以文本格式追加到aof文件末尾。恢复时重新执行所有命令\n- 刷盘策略(appendfsync)：\n  1. always：每条写命令都立即刷盘，最安全但性能最差\n  2. everysec：每秒刷盘一次（默认），性能和安全的平衡，最多丢1秒数据\n  3. no：由操作系统决定何时刷盘，性能最好但不安全，可能丢更多数据\n- AOF重写(rewrite)：\n  - AOF文件会越来越大，需要重写压缩\n  - 原理：fork子进程，遍历内存数据生成最小化的写命令集，写入新AOF文件，替换旧文件\n  - 触发：配置auto-aof-rewrite-percentage和auto-aof-rewrite-min-size，或手动BGREWRITEAOF\n  - 重写期间的新写命令会被缓存，重写完成后追加到新文件\n- 优点：\n  1. 数据安全：最多丢1秒数据(everysec)，可靠性高\n  2. 文本格式，可读性好，可手动编辑修复\n  3. 重写机制自动压缩\n- 缺点：\n  1. 文件大：记录所有写命令，比RDB文件大\n  2. 恢复慢：需要逐条执行命令，恢复速度比RDB慢\n  3. 可能有bug：某些命令重写后可能与原结果不一致（概率极低）\n\n【RDB vs AOF对比】\n| 特性 | RDB | AOF |\n|------|-----|-----|\n| 数据格式 | 二进制快照 | 文本命令日志 |\n| 文件大小 | 小 | 大 |\n| 恢复速度 | 快 | 慢 |\n| 数据安全 | 可能丢较多(两次快照间) | 最多丢1秒 |\n| 性能影响 | bgsave fork开销 | 每次写追加，everysec影响小 |\n| 适用场景 | 备份、容灾、可容忍少量丢失 | 数据重要、不能丢数据 |\n\n【混合持久化(Redis 4.0+)】\n- 结合RDB和AOF的优点\n- 原理：AOF重写时，前半段用RDB格式（二进制快照，快速），后半段用AOF格式（重写期间的增量写命令）\n- aof-use-rdb-preamble yes开启\n- 恢复时：先加载RDB部分（快速），再执行AOF部分（增量），兼顾恢复速度和数据安全\n- 是目前推荐的持久化方式\n\n【选择建议】\n- 数据不能丢：AOF everysec + RDB备份\n- 可容忍少量丢失、追求恢复速度：RDB\n- 最佳实践：混合持久化(RDB+AOF) + 定期RDB备份\n- 缓存场景(数据可从DB恢复)：可关闭持久化或仅用RDB\n- 注意：同时开启RDB和AOF时，Redis重启优先加载AOF（因为AOF数据更完整）"
+  },
+  {
+    "id": "db-007",
+    "title": "Redis和MySQL如何保证数据一致性？Cache Aside模式？延迟双删？binlog订阅？",
+    "category": "数据库",
+    "subcategory": "缓存一致性",
+    "difficulty": "hard",
+    "type": "concept",
+    "companies": [
+      "tencent",
+      "bytedance",
+      "alibaba",
+      "meituan",
+      "jd"
+    ],
+    "tags": [
+      "缓存一致性",
+      "延迟双删",
+      "binlog订阅",
+      "Canal"
+    ],
+    "answer": "【缓存一致性问题】\n缓存和数据库是两个存储系统，更新时可能出现数据不一致。核心矛盾：缓存更新和数据库更新不是原子操作，总有先后顺序。\n\n【Cache Aside模式（最常用）】\n- 读：先读缓存，缓存命中则返回；缓存未命中则读数据库，然后写入缓存，返回数据\n- 写：先更新数据库，再删除缓存（不是更新缓存）\n- 为什么删除缓存而不是更新缓存：\n  1. 并发安全：更新缓存可能导致脏数据（两个写操作并发，后写的覆盖先写的，但顺序可能错乱）\n  2. 懒加载：删除后下次读时再加载，避免写多读少场景下的无效更新\n  3. 简单：删除比更新更简单，不需要考虑缓存值的计算\n\n【为什么先更新数据库再删除缓存】\n- 如果先删缓存再更新数据库：\n  1. 线程A删缓存\n  2. 线程B读，缓存未命中，读DB（旧值），写回缓存（旧值）\n  3. 线程A更新DB（新值）\n  4. 缓存中是旧值，DB是新值 → 不一致，且持续到缓存过期\n- 先更新DB再删缓存：\n  1. 线程A更新DB\n  2. 线程B读，缓存命中（旧值），返回旧值（短暂不一致）\n  3. 线程A删缓存\n  4. 后续读缓存未命中，读DB（新值），写回缓存 → 最终一致\n- 先更新DB再删缓存的不一致是短暂的，且概率低（需要缓存刚好在更新DB和删缓存之间被读）\n\n【延迟双删】\n- 解决先更新DB再删缓存模式下的并发不一致问题\n- 步骤：\n  1. 删除缓存\n  2. 更新数据库\n  3. 延迟一段时间（大于一次读业务逻辑的时间，如500ms-1s）\n  4. 再删除一次缓存\n- 原理：第一次删缓存后，可能有并发读把旧值写回缓存；延迟后再删一次，清除这种脏数据\n- 缺点：延迟时间难以精确确定，增加了复杂度\n\n【binlog订阅（最终一致性方案）】\n- 原理：订阅MySQL的binlog日志，解析出数据变更，异步更新/删除缓存\n- 工具：Canal（阿里开源）、Debezium、Maxwell等\n- 流程：\n  1. MySQL数据变更 → 写入binlog\n  2. Canal模拟从节点，订阅binlog\n  3. Canal解析binlog，发送到MQ(如RocketMQ/Kafka)\n  4. 消费者接收变更消息，删除/更新对应缓存\n- 优点：\n  1. 对业务代码无侵入：业务只需更新DB，缓存更新由binlog订阅异步处理\n  2. 可靠性高：binlog持久化，消息可重试\n  3. 解耦：缓存更新和业务逻辑分离\n- 缺点：\n  1. 有延迟：binlog同步+消费有延迟，短暂不一致\n  2. 架构复杂：需要部署Canal+MQ+消费者\n  3. 只能处理DB变更，无法处理缓存本身的问题\n\n【强一致性方案】\n- 分布式锁：读写操作加分布式锁，保证同一时间只有一个操作，性能差\n- 2PC/3PC：两阶段提交，保证缓存和DB原子更新，性能差，实现复杂\n- 实际项目中几乎不用强一致性，都用最终一致性\n\n【实际项目中的方案选择】\n1. 简单场景：Cache Aside（先更新DB再删缓存）\n2. 并发较高：Cache Aside + 延迟双删\n3. 高并发/高可用：Cache Aside + binlog订阅(Canal)兜底\n4. 极致性能：更新DB + 异步删缓存 + 消息队列重试\n\n【其他注意点】\n- 设置合理的缓存过期时间：即使不一致，过期后也能自动恢复\n- 缓存空值也要设置过期时间\n- 监控缓存命中率和不一致情况\n- 重要数据可考虑双写+校验\n\n【总结】\n- 没有完美的强一致性方案，实际都用最终一致性\n- Cache Aside是基础，延迟双删和binlog订阅是增强\n- 选择依据：并发量、数据重要性、系统复杂度容忍度"
+  },
+  {
+    "id": "db-008",
+    "title": "索引失效的场景有哪些？如何优化？EXPLAIN怎么看？",
+    "category": "数据库",
+    "subcategory": "索引",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "tencent",
+      "alibaba",
+      "bytedance",
+      "meituan",
+      "jd"
+    ],
+    "tags": [
+      "索引失效",
+      "最左前缀",
+      "函数操作",
+      "类型转换",
+      "EXPLAIN"
+    ],
+    "answer": "【索引失效场景】\n\n1. 违反最左前缀原则：\n   - 联合索引(a,b,c)，查询条件跳过a直接用b或c，索引失效\n   - 必须从最左列开始连续匹配：a、a+b、a+b+c可用；b、c、b+c不可用\n   - 范围查询后的列失效：a=1 AND b>2 AND c=3，c不走索引\n\n2. 索引列上使用函数/运算/表达式：\n   - WHERE YEAR(create_time)=2025 → 失效，应改为范围查询 create_time BETWEEN '2025-01-01' AND '2025-12-31'\n   - WHERE price*2=100 → 失效，应改为 price=50\n   - WHERE UPPER(name)='ABC' → 失效\n   - 原因：函数/运算改变了索引列的值，无法直接用索引查找\n\n3. 隐式类型转换：\n   - 字符串列用数字查询：WHERE phone=13800138000（phone是varchar）→ 失效，应改为 phone='13800138000'\n   - 数字列用字符串查询通常不失效（MySQL会自动转换字符串为数字）\n   - 原因：类型转换相当于对索引列做了函数操作\n\n4. LIKE以%开头：\n   - WHERE name LIKE '%张%' → 失效（全表扫描）\n   - WHERE name LIKE '张%' → 可用索引（前缀匹配）\n   - 需要全文搜索时用全文索引或搜索引擎(Elasticsearch)\n\n5. OR连接的条件中有非索引列：\n   - WHERE a=1 OR b=2，a有索引但b没有 → 整个查询索引失效（全表扫描）\n   - 解决：给b也加索引，或用UNION分开查询\n\n6. NOT IN、!=、<>：\n   - 可能导致索引失效（优化器可能选择全表扫描），取决于数据分布\n   - NOT IN可用LEFT JOIN ... WHERE ... IS NULL替代\n\n7. 数据分布导致优化器选择全表扫描：\n   - 区分度低的列（如性别、状态只有几个值），优化器认为全表扫描更快\n   - 查询返回大部分数据时（如WHERE status=1且90%数据都是1），全表扫描比索引快\n   - 索引不是万能的，优化器会基于成本选择\n\n8. 使用了索引列但查询列不在覆盖索引中：\n   - 二级索引查询需要回表，如果回表代价大，优化器可能选择全表扫描\n   - 解决：用覆盖索引（查询列都在索引中，不需要回表）\n\n【索引优化建议】\n1. 遵循最左前缀原则设计联合索引\n2. 避免在索引列上使用函数/运算\n3. 注意数据类型匹配\n4. 区分度低的列不适合单独建索引（适合做联合索引的前缀）\n5. 用EXPLAIN分析执行计划，确认是否走索引\n6. 控制索引数量：不是越多越好，索引占用空间，影响写入性能\n7. 定期分析表：ANALYZE TABLE更新统计信息，帮助优化器选择正确索引\n8. 长字符串列用前缀索引：INDEX(name(20))\n\n【EXPLAIN执行计划分析】\n- EXPLAIN SELECT ... 查看执行计划\n- 关键字段：\n  - type：访问类型，性能从好到差：system > const > eq_ref > ref > range > index > ALL\n    - ALL：全表扫描，需要优化\n    - index：全索引扫描，比ALL好但仍需扫描全部索引\n    - range：索引范围扫描，常用（>、<、between、in、like前缀）\n    - ref：非唯一索引等值匹配\n    - eq_ref：唯一索引等值匹配（主键/唯一索引）\n    - const：主键或唯一索引常量匹配，最快\n  - key：实际使用的索引，NULL表示没走索引\n  - key_len：使用的索引长度，可判断联合索引用了几列\n  - rows：预估扫描的行数，越少越好\n  - Extra：额外信息\n    - Using index：覆盖索引，不需要回表，好\n    - Using where：在存储引擎层过滤后，在server层再过滤\n    - Using filesort：需要额外排序，不是索引排序，需优化\n    - Using temporary：使用临时表，需优化\n    - Using index condition：索引条件下推(ICP)，好\n\n【优化示例】\n- 出现Using filesort：ORDER BY的列加索引或调整索引顺序\n- 出现Using temporary：GROUP BY/DISTINCT的列加索引\n- type=ALL：加索引或优化查询条件\n- key=NULL：检查索引失效场景"
+  },
+  {
+    "id": "db-009",
+    "title": "跳表是什么？Redis的zset为什么用跳表不用红黑树？zset的编码方式？",
+    "category": "数据库",
+    "subcategory": "Redis",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "tencent",
+      "alibaba",
+      "meituan",
+      "bytedance"
+    ],
+    "tags": [
+      "跳表",
+      "zset",
+      "红黑树",
+      "Redis数据结构"
+    ],
+    "answer": "【跳表(Skip List)定义】\n- 跳表是一种有序数据结构，在有序链表的基础上增加多级索引，实现O(logn)的查找、插入、删除\n- 原理：\n  1. 最底层是完整的有序链表（Level 0）\n  2. 每个节点以一定概率(通常1/2)晋升到上一层，作为索引\n  3. 查找时从最高层开始，比目标大则下降一层，比目标小则向右走\n  4. 类似二分查找，但用链表实现\n- 时间复杂度：查找/插入/删除 O(logn)，平均O(logn)，最坏O(n)\n- 空间复杂度：O(n)，期望节点总数 n + n/2 + n/4 + ... = 2n\n\n【Redis zset为什么用跳表不用红黑树】\n1. 范围查询更方便：\n   - 跳表：找到范围起点后，沿Level 0链表顺序遍历即可，简单高效\n   - 红黑树：需要中序遍历，实现相对复杂，且需要回溯\n2. 插入删除更简单：\n   - 跳表：插入删除只需修改局部指针，不需要旋转调整\n   - 红黑树：插入删除后可能需要多次旋转来维持平衡，实现复杂\n3. 范围删除更高效：\n   - 跳表：找到范围后沿链表批量删除\n   - 红黑树：逐个删除，每次删除可能触发旋转\n4. 实现简单：\n   - 跳表代码量比红黑树少，易于理解和维护\n   - Redis作者antirez偏好简单实现\n5. 并发友好：\n   - 跳表的局部修改特性，加锁粒度可以更小\n\n【红黑树的优势】\n- 严格O(logn)，跳表是期望O(logn)（概率性）\n- 内存占用可能略少（不需要多层指针）\n- 但Redis选择跳表是因为范围查询场景下跳表更实用\n\n【Redis zset的编码方式】\nzset(有序集合)支持两种编码：\n\n1. 压缩列表(ziplist)：\n   - 元素数量少且成员长度短时使用\n   - 配置阈值：zset-max-ziplist-entries=128（元素数不超过128），zset-max-ziplist-value=64（每个成员长度不超过64字节）\n   - 内存紧凑，节省空间，但操作需要遍历，O(n)\n   - 元素和分数交替连续存储\n\n2. 跳表(skiplist)+哈希表(hashtable)：\n   - 超过阈值时自动转换\n   - 跳表：按score排序，支持范围查询、排名查询，O(logn)\n   - 哈希表：member→score映射，O(1)查找成员的分数\n   - 两者结合：既支持O(1)的成员查找，又支持O(logn)的范围/排名查询\n   - 跳表节点结构：score、member、后退指针、层数组(forward指针+span跨度)\n\n【zset常用命令】\n- ZADD key score member：添加元素\n- ZRANGE key start stop [WITHSCORES]：按排名范围获取（升序）\n- ZREVRANGE：降序\n- ZRANGEBYSCORE key min max：按分数范围获取\n- ZRANK key member：获取元素排名（升序，从0开始）\n- ZSCORE key member：获取元素分数\n- ZINCRBY key increment member：增加元素分数\n- ZCARD key：元素数量\n- ZCOUNT key min max：分数范围内元素数量\n- ZREM key member：删除元素\n\n【跳表在Redis中的实现细节】\n- 最大层数：32（ZSKIPLIST_MAXLEVEL）\n- 晋升概率：1/4（ZSKIPLIST_P=0.25，不是1/2，Redis选择1/4减少内存占用）\n- 每个节点有后退指针(backward)，支持从后向前遍历\n- 每层有span(跨度)，记录到下一个节点跨越了多少个节点，用于计算排名O(logn)\n- 分数相同时按member字典序排序\n\n【总结】\n- 跳表=有序链表+多级索引，O(logn)查找\n- Redis zset用跳表+哈希表，兼顾范围查询和成员查找\n- 选择跳表而非红黑树：范围查询更方便、实现更简单、插入删除局部修改\n- 小数据量用ziplist节省内存，大数据量自动转跳表"
+  },
+  {
+    "id": "db-010",
+    "title": "MySQL一条SQL语句的执行过程？从客户端到返回结果的完整路径？Buffer Pool？redo log/undo log/binlog？两阶段提交？",
+    "category": "数据库",
+    "subcategory": "MySQL架构",
+    "difficulty": "medium",
+    "type": "concept",
+    "companies": [
+      "alibaba",
+      "tencent",
+      "bytedance",
+      "meituan"
+    ],
+    "tags": [
+      "MySQL架构",
+      "连接器",
+      "分析器",
+      "优化器",
+      "执行器",
+      "存储引擎"
+    ],
+    "answer": "【SQL执行完整路径】\n\n1. 连接器：\n   - 客户端连接MySQL，连接器负责身份认证(用户名密码)、权限校验、连接管理\n   - 连接建立后，权限快照固定（后续修改权限需重新连接）\n   - 长连接复用，避免频繁建立连接的开销\n   - 连接过多会占用内存，可定期断开长连接或MySQL 8.0+支持连接资源回收\n\n2. 查询缓存（MySQL 8.0已移除）：\n   - 之前版本：以SQL语句为key缓存查询结果，命中直接返回\n   - 8.0移除原因：表更新时缓存失效频繁，命中率低，维护成本高\n\n3. 分析器：\n   - 词法分析：识别SQL中的关键字(SELECT/FROM/WHERE)、表名、列名、字符串、数字等\n   - 语法分析：判断SQL语法是否正确，构建语法树(AST)\n   - 语义分析：检查表/列是否存在、权限是否足够等\n   - 语法错误会在这一步报错（如You have an error in your SQL syntax）\n\n4. 优化器：\n   - 选择执行计划：决定使用哪个索引、多表join的顺序、扫描方式等\n   - 基于成本估算：统计每个执行计划的成本（IO成本+CPU成本），选择成本最低的\n   - 可能选错索引（统计信息不准时），可用ANALYZE TABLE更新统计信息，或FORCE INDEX强制指定\n   - 输出执行计划，可用EXPLAIN查看\n\n5. 执行器：\n   - 调用存储引擎接口执行SQL\n   - 逐行读取/过滤/返回数据\n   - 执行过程中可能需要多次调用存储引擎（如全表扫描逐行读取）\n   - 返回结果给客户端\n\n【InnoDB存储引擎关键组件】\n\n1. Buffer Pool（缓冲池）：\n   - InnoDB内存中的一块区域，缓存磁盘上的数据页和索引页\n   - 避免每次查询都访问磁盘，大幅提升性能\n   - 管理：LRU链表（改进版，分young/old区，防止全表扫描污染热点数据）\n   - 刷盘：后台线程定期将脏页(修改过的页)刷回磁盘\n   - 大小配置：innodb_buffer_pool_size，建议设为物理内存的50%-75%\n\n2. redo log（重做日志）：\n   - 物理日志，记录数据页的修改（哪个页的哪个偏移量改为什么值）\n   - 作用：保证持久性，宕机后可通过redo log恢复未刷盘的数据\n   - 循环写入：固定大小(innodb_log_file_size)，写满后从头覆盖（需确保对应脏页已刷盘）\n   - WAL(Write-Ahead Logging)：先写日志再写磁盘，修改数据时先写redo log，再修改Buffer Pool，后台异步刷盘\n   - 崩溃恢复：MySQL启动时检查redo log，将未刷盘的修改重做\n\n3. undo log（回滚日志）：\n   - 逻辑日志，记录数据修改前的版本\n   - 作用：①事务回滚时恢复数据 ②MVCC快照读时提供历史版本\n   - 存储在undo segment中，事务提交后不会立即删除，由purge线程在不需要时清理\n\n4. binlog（二进制日志）：\n   - Server层的日志（不是InnoDB独有），记录所有DDL和DML语句\n   - 作用：①主从复制 ②数据恢复(误删后用binlog恢复) ③审计\n   - 格式：STATEMENT(记录SQL语句)、ROW(记录行变更，推荐)、MIXED(混合)\n   - 追加写入，不会覆盖，可配置过期时间自动删除\n\n【两阶段提交(2PC)】\n- 为了保证redo log和binlog的一致性\n- 流程：\n  1. 执行器调用InnoDB修改数据，InnoDB写redo log，状态为prepare\n  2. 执行器写binlog\n  3. 执行器调用InnoDB提交事务，redo log状态改为commit\n- 为什么需要两阶段：\n  - 如果先写redo log(commit)再写binlog：binlog写失败，主从数据不一致（从库没有这条变更）\n  - 如果先写binlog再写redo log：redo log写失败，主库数据丢失但binlog有记录，从库有数据，主从不一致\n  - 两阶段提交：redo log prepare → binlog → redo log commit。任何一步失败都能正确回滚或恢复\n- 崩溃恢复：\n  - redo log是commit状态：直接提交\n  - redo log是prepare状态：检查binlog是否完整，完整则提交，不完整则回滚\n\n【总结SQL执行流程】\n客户端 → 连接器(认证/权限) → 分析器(词法/语法/语义) → 优化器(选择执行计划) → 执行器(调用存储引擎) → InnoDB(Buffer Pool/redo log/undo log) → 返回结果\n\n【关键日志对比】\n| 日志 | 层级 | 类型 | 作用 | 写入方式 |\n|------|------|------|------|---------|\n| redo log | InnoDB | 物理 | 持久性/崩溃恢复 | 循环覆盖 |\n| undo log | InnoDB | 逻辑 | 回滚/MVCC | 事务结束后purge |\n| binlog | Server | 逻辑/行 | 主从复制/恢复 | 追加写入 |"
+  }
 ]

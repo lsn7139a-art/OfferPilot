@@ -23,7 +23,7 @@ _token_cache = {"token": None, "expire_time": 0}
 def load_config():
     """加载配置"""
     config_path = os.path.join(BASE_DIR, 'config.json')
-    with open(config_path, 'r', encoding='utf-8') as f:
+    with open(config_path, 'r', encoding='utf-8-sig') as f:
         return json.load(f)
 
 

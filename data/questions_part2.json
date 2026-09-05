@@ -7,8 +7,22 @@
     "subcategory": "传输层",
     "difficulty": "easy",
     "type": "concept",
-    "companies": ["bytedance", "tencent", "alibaba", "meituan", "huawei", "xiaomi", "baidu"],
-    "tags": ["TCP", "UDP", "必考", "传输层", "QUIC"],
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan",
+      "huawei",
+      "xiaomi",
+      "baidu"
+    ],
+    "tags": [
+      "TCP",
+      "UDP",
+      "必考",
+      "传输层",
+      "QUIC"
+    ],
     "answer_hint": "TCP：面向连接、可靠、有序、流量控制、拥塞控制、字节流、头部20-60字节。UDP：无连接、不可靠、无序、无流量/拥塞控制、数据报、头部8字节。UDP场景：DNS查询、视频/直播/语音通话(实时性>可靠性)、游戏(低延迟)、广播/多播、QUIC。TCP场景：HTTP/HTTPS、FTP、SMTP、SSH等需要可靠传输的应用。DNS默认UDP因为查询小、开销低，响应超过512字节或区域传输时用TCP。QUIC在UDP之上实现了可靠传输(序列号、ACK、重传)、拥塞控制、流量控制、加密(TLS 1.3)、多路复用，解决了TCP队头阻塞。"
   },
   {
@@ -19,8 +33,23 @@
     "subcategory": "TCP连接管理",
     "difficulty": "medium",
     "type": "concept",
-    "companies": ["bytedance", "tencent", "alibaba", "meituan", "huawei", "baidu"],
-    "tags": ["三次握手", "四次挥手", "TCP状态机", "TIME_WAIT", "CLOSE_WAIT", "SYN泛洪", "必考"],
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan",
+      "huawei",
+      "baidu"
+    ],
+    "tags": [
+      "三次握手",
+      "四次挥手",
+      "TCP状态机",
+      "TIME_WAIT",
+      "CLOSE_WAIT",
+      "SYN泛洪",
+      "必考"
+    ],
     "answer_hint": "三次握手：客户端SYN(seq=x)→服务端SYN+ACK(seq=y, ack=x+1)→客户端ACK(seq=x+1, ack=y+1)。为什么三次：两次不够，无法确认客户端的接收能力；防止已失效的连接请求到达服务端造成资源浪费。四次挥手：客户端FIN→服务端ACK→服务端FIN→客户端ACK。为什么四次：服务端收到FIN后可能还有数据要发，不能立即FIN，所以ACK和FIN分开发送。TIME_WAIT：客户端最后ACK后等2MSL，①确保服务端收到ACK(若服务端没收到会重发FIN，客户端需重发ACK)②防止旧连接数据包干扰新连接。2MSL：一个报文最大生存时间MSL，一来一回2MSL。CLOSE_WAIT：服务端收到FIN后返回ACK，但应用层没调用close，导致连接停在CLOSE_WAIT，通常是应用层bug(没关连接)。"
   },
   {
@@ -31,8 +60,21 @@
     "subcategory": "TCP可靠性",
     "difficulty": "hard",
     "type": "concept",
-    "companies": ["bytedance", "tencent", "alibaba", "meituan"],
-    "tags": ["TCP可靠性", "重传", "滑动窗口", "流量控制", "拥塞控制", "慢启动", "快恢复"],
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan"
+    ],
+    "tags": [
+      "TCP可靠性",
+      "重传",
+      "滑动窗口",
+      "流量控制",
+      "拥塞控制",
+      "慢启动",
+      "快恢复"
+    ],
     "answer_hint": "可靠性机制：①校验和②序列号+确认应答(ACK)③超时重传(RTO，超时时间动态计算)④快速重传(收到3个重复ACK立即重传，不等超时)⑤滑动窗口(连续发送提高效率)⑥流量控制(接收方通告窗口rwnd，发送方不超过它)⑦拥塞控制。拥塞控制：慢启动(cwnd从1指数增长到ssthresh)→拥塞避免(线性增长，每RTT加1)→超时重传(ssthresh=cwnd/2, cwnd=1重新慢启动)→快重传+快恢复(收到3个重复ACK，ssthresh=cwnd/2, cwnd=ssthresh不降到1)。发送窗口=min(rwnd, cwnd)。"
   },
   {
@@ -43,8 +85,24 @@
     "subcategory": "应用层",
     "difficulty": "medium",
     "type": "concept",
-    "companies": ["bytedance", "tencent", "alibaba", "meituan", "huawei"],
-    "tags": ["HTTP", "HTTPS", "TLS/SSL", "对称加密", "非对称加密", "证书", "CA", "HTTP/2", "HTTP/3"],
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan",
+      "huawei"
+    ],
+    "tags": [
+      "HTTP",
+      "HTTPS",
+      "TLS/SSL",
+      "对称加密",
+      "非对称加密",
+      "证书",
+      "CA",
+      "HTTP/2",
+      "HTTP/3"
+    ],
     "answer_hint": "HTTP明文传输端口80；HTTPS加密传输端口443。HTTPS=TLS/SSL+HTTP。加密过程：非对称加密用于握手阶段交换密钥(客户端生成预主密钥，用服务端公钥加密发送)，对称加密用于数据传输阶段(双方用预主密钥派生会话密钥，AES等)。不全程非对称：非对称加密慢、有长度限制。数字证书：CA签发，包含公钥、域名、有效期、CA签名等，客户端验证证书链和域名。TLS 1.2握手：ClientHello→ServerHello+证书+ServerHelloDone→ClientKeyExchange+ChangeCipherSpec+Finished→ChangeCipherSpec+Finished，2-RTT。TLS 1.3：1-RTT甚至0-RTT，删除了RSA、DH等不安全算法，密钥交换只用ECDHE。中间人攻击：攻击者冒充服务端和客户端，HTTPS通过证书验证防止(攻击者没有合法证书)。"
   },
   {
@@ -55,8 +113,19 @@
     "subcategory": "HTTP",
     "difficulty": "easy",
     "type": "concept",
-    "companies": ["bytedance", "tencent", "alibaba", "meituan"],
-    "tags": ["HTTP方法", "GET", "POST", "幂等性", "RESTful"],
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan"
+    ],
+    "tags": [
+      "HTTP方法",
+      "GET",
+      "POST",
+      "幂等性",
+      "RESTful"
+    ],
     "answer_hint": "①语义：GET幂等只读(获取资源)，POST提交数据可能修改服务器状态(创建资源)②参数位置：GET在URL(query string)，POST在body③长度限制：GET受URL长度限制(浏览器/服务器，通常2KB-8KB)，POST无限制④缓存：GET可被缓存，POST默认不缓存⑤书签/历史：GET可收藏，POST不行⑥安全性：都不绝对安全，HTTPS下都加密，GET参数在URL可能被日志记录。本质区别：语义和幂等性。GET可以有body但规范不推荐，很多服务器/客户端不处理GET body。POST参数也可放URL。幂等：多次执行结果相同。GET/PUT/DELETE幂等，POST不幂等。RESTful：GET查、POST增、PUT改(全量)、PATCH改(部分)、DELETE删。"
   },
   {
@@ -67,8 +136,21 @@
     "subcategory": "HTTP版本",
     "difficulty": "hard",
     "type": "concept",
-    "companies": ["bytedance", "tencent", "alibaba"],
-    "tags": ["HTTP/2", "HTTP/3", "多路复用", "头部压缩", "HPACK", "QUIC", "队头阻塞", "连接迁移"],
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba"
+    ],
+    "tags": [
+      "HTTP/2",
+      "HTTP/3",
+      "多路复用",
+      "头部压缩",
+      "HPACK",
+      "QUIC",
+      "队头阻塞",
+      "连接迁移"
+    ],
     "answer_hint": "HTTP/1.1：持久连接(keep-alive)但队头阻塞(一个请求阻塞后续同连接请求)、文本传输、管道化(有问题基本不用)。HTTP/2：二进制分帧、多路复用(同一连接并发多个请求流，流独立不阻塞)、头部压缩(HPACK：静态表预定义61个常见头，动态表维护连接内出现的头，霍夫曼编码压缩字符串)、服务器推送、流量控制。仍有TCP层队头阻塞(一个TCP包丢失，所有流都等重传)。HTTP/3：基于QUIC(UDP)，解决TCP队头阻塞(每个流独立，一个流丢包不影响其他流)。QUIC特性：0-RTT握手(复用之前连接参数，第一个包就带数据)、连接迁移(用连接ID标识连接而非IP+端口四元组，网络切换不断连)、内置TLS 1.3加密、多路复用无队头阻塞、用户态实现(快速迭代)。"
   },
   {
@@ -79,8 +161,18 @@
     "subcategory": "TCP连接",
     "difficulty": "medium",
     "type": "concept",
-    "companies": ["bytedance", "tencent"],
-    "tags": ["长连接", "短连接", "keep-alive", "心跳", "连接池", "SO_KEEPALIVE"],
+    "companies": [
+      "bytedance",
+      "tencent"
+    ],
+    "tags": [
+      "长连接",
+      "短连接",
+      "keep-alive",
+      "心跳",
+      "连接池",
+      "SO_KEEPALIVE"
+    ],
     "answer_hint": "长连接：建立连接后保持，多次请求复用同一连接。短连接：每次请求建立连接，结束后关闭。长连接省握手开销、延迟低，但占用连接资源、需要心跳保活。短连接简单、不占资源，但每次握手开销大。HTTP长连接：Connection: keep-alive，HTTP/1.1默认开启。心跳：定期发送小数据包检测连接是否存活，超时未收到响应则认为连接断开。SO_KEEPALIVE：TCP层心跳，默认2小时发一次，太不灵敏，生产环境用应用层心跳(几十秒)。连接池：预先建立一批长连接，复用连接，避免频繁创建销毁。数据库连接池：维护一定数量的数据库连接，应用从池取连接用完归还，常见实现HikariCP、Druid。场景：频繁交互用长连接(IM、游戏、RPC、数据库)，偶尔请求用短连接(网页浏览)。"
   },
   {
@@ -91,8 +183,21 @@
     "subcategory": "HTTP",
     "difficulty": "easy",
     "type": "concept",
-    "companies": ["bytedance", "tencent", "alibaba"],
-    "tags": ["Cookie", "Session", "会话管理", "JWT", "Token", "CSRF", "HttpOnly", "SameSite"],
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba"
+    ],
+    "tags": [
+      "Cookie",
+      "Session",
+      "会话管理",
+      "JWT",
+      "Token",
+      "CSRF",
+      "HttpOnly",
+      "SameSite"
+    ],
     "answer_hint": "Cookie存客户端(浏览器)，4KB限制，可设置过期时间、域、路径、HttpOnly、Secure、SameSite。Session存服务端，通过SessionID关联，安全性更高，占用服务端内存。Cookie禁用：URL重写(SessionID拼URL)、表单隐藏域、用Token(JWT)存localStorage。JWT：Header.Payload.Signature，无状态，服务端不需存Session，但无法主动失效(除非黑名单)。分布式Session：①Session复制(多机同步，开销大)②粘性Session(同一用户路由到同一机器，负载不均)③集中存储(Redis，最常用)。CSRF：攻击者诱导用户在已登录网站发起恶意请求，防御：Token验证(请求头带token)、SameSite=Strict/Lax、Referer/Origin检查。"
   },
   {
@@ -100,11 +205,21 @@
     "title": "TCP粘包与UDP数据报",
     "description": "请详细回答以下问题：\n1. 什么是TCP粘包？什么是TCP拆包？\n2. 为什么TCP会出现粘包？（Nagle算法、TCP是字节流无消息边界、MSS、接收方缓冲区）\n3. 客户端通过TCP发送三个包，服务端会收到几个包？为什么？\n4. 如何解决TCP粘包问题？（固定长度、分隔符、长度前缀+消息体）\n5. UDP会粘包吗？为什么？\n6. 客户端通过UDP发送三个包，服务端会收到几个包？\n7. 什么是Nagle算法？它的作用是什么？如何关闭？（TCP_NODELAY）\n8. 什么是延迟ACK？它和Nagle算法一起使用会导致什么问题？（40ms延迟）\n9. 什么是MSS？什么是MTU？它们之间的关系？",
     "category": "计算机网络",
-      "subcategory": "传输层",
+    "subcategory": "传输层",
     "difficulty": "medium",
     "type": "concept",
-    "companies": ["tencent"],
-    "tags": ["TCP粘包", "UDP数据报", "字节流", "Nagle算法", "MSS", "MTU", "TCP_NODELAY"],
+    "companies": [
+      "tencent"
+    ],
+    "tags": [
+      "TCP粘包",
+      "UDP数据报",
+      "字节流",
+      "Nagle算法",
+      "MSS",
+      "MTU",
+      "TCP_NODELAY"
+    ],
     "answer_hint": "TCP是字节流，没有消息边界。三次send可能被合并成一个TCP段(粘包)，也可能被拆分(拆包)，服务端recv次数不确定。解决：①固定长度②分隔符(如\\n，需处理转义)③长度前缀+消息体(最常用，前4字节存长度)。UDP是数据报，每个send对应一个UDP数据报，服务端recvfrom每次收到一个完整包，三个send对应三个包(不考虑丢包)，不会粘包。Nagle算法：攒小包一起发，减少网络小包数量，延迟ACK(收到数据后等40ms看有没有数据一起ACK)一起使用会导致写-写-读场景延迟40ms。关闭Nagle：setsockopt(TCP_NODELAY)。MSS(最大报文段长度)=MTU(最大传输单元，以太网1500)-IP头(20)-TCP头(20)=1460。"
   },
   {
@@ -115,8 +230,20 @@
     "subcategory": "TCP拥塞控制",
     "difficulty": "hard",
     "type": "concept",
-    "companies": ["tencent", "bytedance"],
-    "tags": ["拥塞窗口", "接收窗口", "慢启动", "拥塞避免", "快重传", "快恢复", "CUBIC", "BBR"],
+    "companies": [
+      "tencent",
+      "bytedance"
+    ],
+    "tags": [
+      "拥塞窗口",
+      "接收窗口",
+      "慢启动",
+      "拥塞避免",
+      "快重传",
+      "快恢复",
+      "CUBIC",
+      "BBR"
+    ],
     "answer_hint": "接收窗口rwnd：接收方根据自身缓冲区通告的流量控制窗口。拥塞窗口cwnd：发送方根据网络拥塞程度维护的拥塞控制窗口。发送窗口=min(cwnd, rwnd)。慢启动：cwnd从1(或10)开始，每收到一个ACK加1，指数增长(每RTT翻倍)，直到达到ssthresh。拥塞避免：cwnd>=ssthresh后，每RTT加1，线性增长。超时重传：ssthresh=cwnd/2，cwnd=1(重新慢启动)。快重传(3个重复ACK)：ssthresh=cwnd/2，cwnd=ssthresh(快恢复，不降到1)，进入拥塞避免。快恢复：收到3个重复ACK后，不降到1，而是设为ssthresh，避免网络空闲。Reno：超时→1，3重复ACK→ssthresh；NewReno：改进部分ACK场景；CUBIC：Linux默认，三次函数增长，更公平；BBR：Google提出，基于带宽(B)和延迟(RTT)估计，不依赖丢包判断拥塞，在大带宽长延迟链路性能更好。"
   },
   {
@@ -127,8 +254,27 @@
     "subcategory": "索引",
     "difficulty": "medium",
     "type": "concept",
-    "companies": ["bytedance", "tencent", "alibaba", "meituan", "huawei", "xiaomi", "baidu", "jd"],
-    "tags": ["B+树", "索引", "聚簇索引", "覆盖索引", "最左前缀", "索引失效", "回表", "ICP", "必考"],
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan",
+      "huawei",
+      "xiaomi",
+      "baidu",
+      "jd"
+    ],
+    "tags": [
+      "B+树",
+      "索引",
+      "聚簇索引",
+      "覆盖索引",
+      "最左前缀",
+      "索引失效",
+      "回表",
+      "ICP",
+      "必考"
+    ],
     "answer_hint": "B+树vs B树：①B+树非叶子节点只存key不存data，更矮(扇出更大，IO更少)②B+树叶子节点用双向链表连接，范围查询只需遍历链表③B+树查询稳定(都到叶子节点)，B树可能在非叶子命中。不用红黑树：二叉，高度高，磁盘IO多。聚簇索引：叶子节点存整行数据(InnoDB主键索引就是聚簇索引)；非聚簇索引(二级索引)：叶子节点存主键值，需回表查询整行。覆盖索引：查询的列都在索引中，无需回表。最左前缀：联合索引(a,b,c)，查询条件从最左列开始匹配，跳过列则后续索引失效。索引下推(ICP)：在存储引擎层利用索引过滤数据，减少回表次数。"
   },
   {
@@ -139,8 +285,26 @@
     "subcategory": "事务",
     "difficulty": "hard",
     "type": "concept",
-    "companies": ["bytedance", "tencent", "alibaba", "meituan", "jd", "netease"],
-    "tags": ["ACID", "隔离级别", "脏读", "不可重复读", "幻读", "MVCC", "ReadView", "undo log", "当前读", "快照读"],
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan",
+      "jd",
+      "netease"
+    ],
+    "tags": [
+      "ACID",
+      "隔离级别",
+      "脏读",
+      "不可重复读",
+      "幻读",
+      "MVCC",
+      "ReadView",
+      "undo log",
+      "当前读",
+      "快照读"
+    ],
     "answer_hint": "ACID：原子性(undo log回滚)、一致性(最终目的，由其他三个保证)、隔离性(锁+MVCC)、持久性(redo log)。隔离级别：读未提交(可能脏读)→读已提交RC(解决脏读，可能不可重复读)→可重复读RR(MySQL默认，解决不可重复读，MVCC+间隙锁基本解决幻读)→串行化(解决所有)。脏读：读到未提交数据；不可重复读：同一事务两次读同一行结果不同(被update)；幻读：同一事务两次范围查询行数不同(被insert/delete)。MVCC：每行有trx_id和roll_pointer，ReadView判断可见性。RC每次SELECT生成新ReadView，RR第一次SELECT生成后复用。当前读：加锁读，读取最新版本，需加锁(记录锁+间隙锁)。"
   },
   {
@@ -151,8 +315,21 @@
     "subcategory": "事务",
     "difficulty": "hard",
     "type": "concept",
-    "companies": ["bytedance", "tencent", "alibaba", "meituan"],
-    "tags": ["MVCC", "undo log", "ReadView", "隐藏字段", "版本链", "purge", "快照读"],
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan"
+    ],
+    "tags": [
+      "MVCC",
+      "undo log",
+      "ReadView",
+      "隐藏字段",
+      "版本链",
+      "purge",
+      "快照读"
+    ],
     "answer_hint": "MVCC(多版本并发控制)：通过数据多版本实现读写不阻塞。实现：每行有隐藏字段DB_TRX_ID(最后修改事务ID)、DB_ROLL_PTR(指向undo log历史版本)、DB_ROW_ID(隐藏主键)。undo log记录修改前的数据，通过roll_pointer形成版本链。ReadView：事务开始(或第一次SELECT)时生成，m_ids(活跃事务ID列表)、min_trx_id(最小活跃ID)、max_trx_id(下一个要分配的ID)、creator_trx_id(创建者ID)。可见性：trx_id<min_trx_id可见；trx_id>=max_trx_id不可见；在中间看是否在m_ids中(在则不可见，不在则可见)。不可见就沿roll_pointer找历史版本。RC每次SELECT生成新ReadView，RR第一次生成后复用。MVCC适用于RC和RR，串行化直接加锁。MVCC的快照读不加锁，但当前读(UPDATE/DELETE/SELECT FOR UPDATE)仍需加锁。purge：后台线程清理不再需要的undo log版本(没有活跃事务能看到的版本)。"
   },
   {
@@ -163,8 +340,24 @@
     "subcategory": "Redis",
     "difficulty": "medium",
     "type": "concept",
-    "companies": ["bytedance", "tencent", "alibaba", "meituan", "jd"],
-    "tags": ["Redis", "单线程", "IO多路复用", "SDS", "跳表", "压缩列表", "渐进式rehash", "持久化", "过期删除"],
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan",
+      "jd"
+    ],
+    "tags": [
+      "Redis",
+      "单线程",
+      "IO多路复用",
+      "SDS",
+      "跳表",
+      "压缩列表",
+      "渐进式rehash",
+      "持久化",
+      "过期删除"
+    ],
     "answer_hint": "快的原因：①纯内存操作(纳秒级)②IO多路复用(epoll)，单线程处理大量并发连接③高效数据结构(SDS、跳表、压缩列表、整数数组)④单线程避免锁竞争和线程切换开销。单线程指命令执行是单线程(文件事件分派器)，不是整个Redis单线程。Redis 6.0引入多线程IO：网络读写(解析请求、写回响应)用多线程，命令执行仍单线程，解决网络IO瓶颈。SDS：二进制安全(不靠\\0判断结束)、len字段O(1)获取长度、空间预分配(减少扩容次数)、惰性释放(不立即释放空闲空间)。渐进式rehash：字典扩容时不一次性rehash所有键，而是在后续操作中逐步迁移，避免阻塞。持久化：RDB(快照)、AOF(命令日志)、混合持久化(4.0+，AOF重写时前半RDB后半AOF)。过期删除：惰性删除(访问时检查) + 定期删除(每隔一段时间抽样删除)。"
   },
   {
@@ -175,8 +368,25 @@
     "subcategory": "Redis",
     "difficulty": "medium",
     "type": "concept",
-    "companies": ["bytedance", "tencent", "alibaba", "meituan", "jd", "netease"],
-    "tags": ["缓存雪崩", "缓存穿透", "缓存击穿", "布隆过滤器", "互斥锁", "热点key", "缓存一致性", "Cache Aside", "延迟双删"],
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan",
+      "jd",
+      "netease"
+    ],
+    "tags": [
+      "缓存雪崩",
+      "缓存穿透",
+      "缓存击穿",
+      "布隆过滤器",
+      "互斥锁",
+      "热点key",
+      "缓存一致性",
+      "Cache Aside",
+      "延迟双删"
+    ],
     "answer_hint": "缓存穿透：查询不存在的数据，缓存和DB都没有，每次都打到DB。解决：布隆过滤器(缓存不存在的key)、缓存空值(短过期)、参数校验。缓存击穿：热点key过期瞬间，大量并发请求打到DB。解决：互斥锁(只让一个请求回源，其他等待)、热点key永不过期(逻辑过期)。缓存雪崩：大量key同时过期或Redis宕机，请求全部打到DB。解决：过期时间加随机值、多级缓存、服务熔断降级、Redis高可用(哨兵/集群)。布隆过滤器：位数组+多个哈希函数，添加时将对应位设1，查询时检查所有位，全1则可能存在，有0则一定不存在。有假阳性(误判存在)，无假阴性(不存在则一定不存在)，不可删除。缓存一致性：Cache Aside(读：先缓存后DB回写；写：先更新DB再删缓存)、延迟双删(删缓存→更新DB→延迟再删)、binlog订阅(Canal异步删缓存)。"
   },
   {
@@ -187,8 +397,24 @@
     "subcategory": "Redis",
     "difficulty": "medium",
     "type": "concept",
-    "companies": ["bytedance", "tencent", "alibaba", "meituan", "jd", "netease"],
-    "tags": ["RDB", "AOF", "持久化", "bgsave", "AOF重写", "混合持久化", "bgrewriteaof", "刷盘策略"],
+    "companies": [
+      "bytedance",
+      "tencent",
+      "alibaba",
+      "meituan",
+      "jd",
+      "netease"
+    ],
+    "tags": [
+      "RDB",
+      "AOF",
+      "持久化",
+      "bgsave",
+      "AOF重写",
+      "混合持久化",
+      "bgrewriteaof",
+      "刷盘策略"
+    ],
     "answer_hint": "RDB：快照，某时刻数据全量写入dump.rdb。触发：save(阻塞)/bgsave(fork子进程，COW不阻塞)/配置自动(如900秒1次修改)/shutdown。优点：文件小、恢复快；缺点：可能丢数据(两次快照间)、fork开销大。AOF：记录每条写命令，appendonly.aof。刷盘：always(每条刷，最安全最慢)/everysec(每秒刷，默认，最多丢1秒)/no(OS决定)。AOF重写：压缩文件，fork子进程基于当前内存数据生成最小命令集(如100次INCR→1次SET 100)，重写期间新命令存重写缓冲区，最后合并。混合持久化(4.0+)：AOF重写时前半段RDB格式(快速恢复)+后半段AOF命令(数据安全)，兼顾恢复速度和数据安全。同时开启时优先用AOF恢复(数据更完整)。选择：能容忍丢数据用RDB，不能容忍用AOF，生产环境推荐混合持久化。"
   },
   {
@@ -199,8 +425,24 @@
     "subcategory": "缓存一致性",
     "difficulty": "hard",
     "type": "concept",
-    "companies": ["tencent", "bytedance", "alibaba", "meituan", "jd"],
-    "tags": ["缓存一致性", "Cache Aside", "延迟双删", "binlog", "Canal", "最终一致性", "Write Through", "Write Back", "2PC"],
+    "companies": [
+      "tencent",
+      "bytedance",
+      "alibaba",
+      "meituan",
+      "jd"
+    ],
+    "tags": [
+      "缓存一致性",
+      "Cache Aside",
+      "延迟双删",
+      "binlog",
+      "Canal",
+      "最终一致性",
+      "Write Through",
+      "Write Back",
+      "2PC"
+    ],
     "answer_hint": "Cache Aside：读→先读缓存，命中返回；未命中→读DB，写入缓存，返回。写→先更新DB，再删除缓存(不是更新缓存)。删而不更：①并发下更新缓存可能导致脏数据(两个写操作顺序问题)②删除更简单(懒加载，下次读才加载)③避免无效写(写多读读场景)。延迟双删：删缓存→更新DB→延迟(大于一次读业务时间)再删缓存，解决读写并发导致的缓存脏数据(线程A读缓存未命中→读DB旧值→线程B更新DB+删缓存→线程A写入旧值到缓存)。binlog订阅：Canal监听MySQL binlog，异步删除/更新缓存，保证最终一致。强一致：分布式锁或2PC，性能差，实际很少用。最终一致：Cache Aside+延迟双删+binlog兜底，生产环境标准方案。Write Through：写缓存同时写DB，同步更新；Write Back：只写缓存，异步批量写DB，性能高但可能丢数据。"
   },
   {
@@ -210,9 +452,24 @@
     "category": "数据库",
     "subcategory": "索引",
     "difficulty": "medium",
-      "type": "concept",
-    "companies": ["tencent", "alibaba", "bytedance", "meituan", "jd"],
-    "tags": ["索引失效", "最左前缀", "函数操作", "隐式转换", "LIKE", "OR", "EXPLAIN", "回表代价"],
+    "type": "concept",
+    "companies": [
+      "tencent",
+      "alibaba",
+      "bytedance",
+      "meituan",
+      "jd"
+    ],
+    "tags": [
+      "索引失效",
+      "最左前缀",
+      "函数操作",
+      "隐式转换",
+      "LIKE",
+      "OR",
+      "EXPLAIN",
+      "回表代价"
+    ],
     "answer_hint": "索引失效场景：①违反最左前缀(联合索引(a,b,c)，查询条件跳过a)②对索引列使用函数/运算/表达式(如YEAR(date)=2025、id+1=10)，B+树存的是原始值，函数后的值无法用索引定位③隐式类型转换(字符串列用数字查询，MySQL会对列做转换相当于函数)④LIKE以%开头(无法确定前缀范围)⑤OR连接中有非索引列(需全表扫描找非索引列条件)⑥NOT IN/!=/<>可能失效(优化器判断)⑦数据分布导致优化器认为全表扫描更快(如性别字段区分度低，回表代价比全表扫描大)。优化：用覆盖索引避免回表、用等价写法替代函数(如date>='2025-01-01' AND date<'2026-01-01')、确保类型一致、用全文索引替代LIKE %xxx%。EXPLAIN查看：type=ALL全表扫描，key=NULL未用索引，rows大表示扫描行多。"
   },
   {
@@ -223,8 +480,21 @@
     "subcategory": "Redis",
     "difficulty": "medium",
     "type": "concept",
-    "companies": ["tencent", "alibaba", "meituan", "bytedance"],
-    "tags": ["跳表", "zset", "红黑树", "压缩列表", "skiplist", "范围查询", "随机层数"],
+    "companies": [
+      "tencent",
+      "alibaba",
+      "meituan",
+      "bytedance"
+    ],
+    "tags": [
+      "跳表",
+      "zset",
+      "红黑树",
+      "压缩列表",
+      "skiplist",
+      "范围查询",
+      "随机层数"
+    ],
     "answer_hint": "zset=跳表(按score排序)+哈希表(member→score映射)。跳表：有序链表基础上增加多级索引，通过随机层数实现O(logn)查找/插入/删除。每层概率1/2上升，期望索引节点数n/2+n/4+...≈n，空间O(n)。vs红黑树：①范围查询更方便(找到起点沿链表遍历，红黑树需中序遍历)②实现简单③插入删除只需修改局部指针，红黑树可能需要旋转调整子树④并发更友好(局部修改加锁粒度小)。zset编码：元素数<128且所有成员长度<64字节时用ziplist(压缩列表，省内存)，超过则转skiplist。ziplist中member和score相邻存储，按score排序，查找需遍历O(n)但数据量小没问题。skiplist查找O(logn)但内存开销大。范围查询：先O(logn)找到起点，然后O(k)沿底层双向链表遍历k个元素。"
   },
   {
@@ -235,8 +505,24 @@
     "subcategory": "MySQL架构",
     "difficulty": "medium",
     "type": "concept",
-    "companies": ["alibaba", "tencent", "bytedance", "meituan"],
-    "tags": ["MySQL架构", "连接器", "分析器", "优化器", "执行器", "存储引擎", "Buffer Pool", "两阶段提交", "redo log", "binlog"],
+    "companies": [
+      "alibaba",
+      "tencent",
+      "bytedance",
+      "meituan"
+    ],
+    "tags": [
+      "MySQL架构",
+      "连接器",
+      "分析器",
+      "优化器",
+      "执行器",
+      "存储引擎",
+      "Buffer Pool",
+      "两阶段提交",
+      "redo log",
+      "binlog"
+    ],
     "answer_hint": "SELECT执行：①连接器(建立连接、权限校验、管理连接)②查询缓存(8.0已移除，命中直接返回)③分析器(词法分析识别关键字/表名/列名，语法分析判断SQL是否正确)④优化器(选择执行计划：选哪个索引、多表join顺序，基于成本估算)⑤执行器(调用存储引擎接口，逐行读取/过滤/返回)。InnoDB读取：Buffer Pool缓存数据页，未命中则从磁盘加载，LRU淘汰，预读优化。UPDATE执行：执行器→InnoDB更新数据(写undo log保证原子性，写redo log保证持久性，更新Buffer Pool)→写binlog(主从复制/归档)→两阶段提交。两阶段提交：redo log prepare(状态设为prepare)→写binlog→redo log commit(状态设为commit)。为什么需要：保证redo log和binlog一致，若崩溃恢复时两份日志不一致会导致主从数据不一致。若在prepare后崩溃，恢复时检查binlog是否存在，存在则commit，不存在则rollback。"
   }
 ]
