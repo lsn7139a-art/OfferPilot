@@ -72,6 +72,14 @@ class TaskRolloverTests(unittest.TestCase):
 
         self.assertEqual(selected, ['q-1', 'q-3', 'q-2'])
 
+    def test_skip_command_with_chinese_question_word_is_not_completion(self):
+        from progress_sync import parse_progress_message
+
+        actions = parse_progress_message('跳过第 2 题', [{"id": "q-1"}, {"id": "q-2"}])
+
+        self.assertEqual(actions['skipped'], [2])
+        self.assertEqual(actions['completed'], [])
+
 
 if __name__ == '__main__':
     unittest.main()

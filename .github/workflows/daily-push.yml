@@ -2,17 +2,13 @@ name: 每日面试题推送
 
 on:
   schedule:
-    # 早间推送：北京时间8:00/8:15/8:30/8:45/9:00 多次触发，防重复逻辑保证只执行一次
-    - cron: '0 0 * * *'    # 北京时间8:00
-    - cron: '15 0 * * *'   # 北京时间8:15
-    - cron: '30 0 * * *'   # 北京时间8:30
-    - cron: '45 0 * * *'   # 北京时间8:45
-    - cron: '0 1 * * *'    # 北京时间9:00
-    # 晚间提醒：北京时间20:00/20:30/21:00 多次触发
-    - cron: '0 12 * * *'   # 北京时间20:00
-    - cron: '30 12 * * *'  # 北京时间20:30
-    - cron: '0 13 * * *'   # 北京时间21:00
+    - cron: '0 0 * * *'   # 北京时间08:00
+    - cron: '0 13 * * *'  # 北京时间21:00
   workflow_dispatch:
+
+concurrency:
+  group: feishu-daily-push
+  cancel-in-progress: false
 
 jobs:
   daily-push:
@@ -102,11 +98,11 @@ jobs:
           fi
 
       - name: 早间推送（每日题目+待办）
-        if: contains(fromJSON('["0 0 * * *", "15 0 * * *", "30 0 * * *", "45 0 * * *", "0 1 * * *"]'), github.event.schedule) || github.event_name == 'workflow_dispatch'
+        if: github.event.schedule == '0 0 * * *' || github.event_name == 'workflow_dispatch'
         run: python scripts/feishu_push.py --mode daily
 
       - name: 晚间提醒
-        if: contains(fromJSON('["0 12 * * *", "30 12 * * *", "0 13 * * *"]'), github.event.schedule)
+        if: github.event.schedule == '0 13 * * *'
         run: python scripts/feishu_push.py --mode evening
 
       - name: 提交进度文件回仓库

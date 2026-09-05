@@ -23,6 +23,7 @@ from feishu_api import (
     update_task_due, delete_task, load_config
 )
 from time_utils import get_today_date, get_today_end_timestamp, set_timezone
+from task_rollover import RolloverSafetyError, fill_daily_slots, resolve_previous_day
 
 # 确保时区为北京时间
 set_timezone()
@@ -51,9 +52,9 @@ def load_questions():
 def check_yesterday_progress():
     """
     检查昨日推送任务的完成状态（只找昨天的记录，避免当天重复运行时混乱）
-    返回: (unfinished_list, finished_qids, yesterday_entry, all_old_task_guids)
-      unfinished_list: [(qid, guid), ...] 未完成的题目及旧任务guid
-      finished_qids: [qid, ...] 已完成的题目ID
+    返回: (unfinished_ids, resolved_ids, yesterday_entry, all_old_task_guids)
+      unfinished_ids: 未完成的题目ID
+      resolved_ids: 已完成或跳过的题目ID
       yesterday_entry: 昨日推送记录（或None）
       all_old_task_guids: [guid, ...] 昨天所有任务的guid（用于删除清理）
     """
@@ -89,23 +90,22 @@ def check_yesterday_progress():
     all_old_task_guids = [g for g in task_guids if g]  # 昨天所有非空任务guid
 
     if len(question_ids) != len(task_guids):
-        print(f"⚠️ 题目数({len(question_ids)})与任务数({len(task_guids)})不匹配，按新题处理")
-        return [], [], yesterday_entry, all_old_task_guids
+        raise RolloverSafetyError(
+            f"题目数({len(question_ids)})与任务数({len(task_guids)})不匹配"
+        )
 
-    unfinished = []
-    finished = []
-    for qid, guid in zip(question_ids, task_guids):
-        if not guid:
-            finished.append(qid)
-            continue
-        status = get_task_status(guid)
-        if status == 'done':
-            finished.append(qid)
-        else:
-            unfinished.append((qid, guid))
+    unfinished_ids, resolved_ids, old_task_guids = resolve_previous_day(
+        question_ids,
+        task_guids,
+        yesterday_entry.get('question_outcomes', {}),
+        get_task_status,
+    )
 
-    print(f"📊 昨日({yesterday})任务：完成 {len(finished)}/{len(question_ids)}，未完成 {len(unfinished)}")
-    return unfinished, finished, yesterday_entry, all_old_task_guids
+    print(
+        f"📊 昨日({yesterday})任务：完成/跳过 {len(resolved_ids)}/{len(question_ids)}，"
+        f"未完成 {len(unfinished_ids)}"
+    )
+    return unfinished_ids, resolved_ids, yesterday_entry, old_task_guids
 
 
 def is_already_pushed_today():
@@ -181,7 +181,7 @@ def generate_daily_message():
     )
 
     # 检查昨日进度
-    unfinished, finished_qids, yesterday, all_old_task_guids = check_yesterday_progress()
+    unfinished_ids, resolved_ids, yesterday, all_old_task_guids = check_yesterday_progress()
 
     positions_data = load_json('data/positions.json')
     positions = positions_data.get('positions', [])
@@ -199,25 +199,25 @@ def generate_daily_message():
     old_task_map = {}  # qid -> old_guid
     today_question_ids = []
 
-    if unfinished:
+    if unfinished_ids:
         # 保留未完成的题目
-        for qid, guid in unfinished:
-            today_question_ids.append(qid)
-            old_task_map[qid] = guid
-        print(f"🔄 保留 {len(unfinished)} 道未完成题目（延期）")
+        today_question_ids.extend(unfinished_ids)
+        print(f"🔄 保留 {len(unfinished_ids)} 道未完成题目（延期）")
 
     # 需要补充的新题数量
     need_new = daily_count - len(today_question_ids)
     if need_new > 0:
         # 排除已完成和未完成的，选新题
-        exclude = set(finished_qids) | set(today_question_ids)
+        exclude = set(resolved_ids) | set(today_question_ids)
         new_questions = select_new_questions(questions_db, list(exclude), need_new, position, progress)
-        for q in new_questions:
-            today_question_ids.append(q['id'])
+        today_question_ids = fill_daily_slots(
+            today_question_ids,
+            [q['id'] for q in new_questions],
+            daily_count,
+        )
         print(f"🆕 补充 {len(new_questions)} 道新题")
-
-    # 确保题目顺序稳定
-    today_question_ids = today_question_ids[:daily_count]
+    else:
+        today_question_ids = fill_daily_slots(today_question_ids, [], daily_count)
 
     # 生成消息
     selected = [questions_db[qid] for qid in today_question_ids if qid in questions_db]
@@ -427,16 +427,24 @@ def main():
             return
 
         print("📝 生成每日题目（含昨日进度检测+旧任务清理+重建）...")
-        message, question_ids, position, old_task_map, all_old_task_guids = generate_daily_message()
+        try:
+            message, question_ids, position, old_task_map, all_old_task_guids = generate_daily_message()
+        except (OSError, json.JSONDecodeError, RolloverSafetyError) as error:
+            print(f"❌ 无法安全刷新昨日任务：{error}")
+            return
 
         if message:
-            send_to_feishu(message, args.chat_id)
+            if not send_to_feishu(message, args.chat_id):
+                print("❌ 每日推送消息发送失败，保留昨日飞书任务")
+                return
 
             # 先删除昨天的所有旧任务（不管完成没完成），避免越堆越多
             if all_old_task_guids:
                 print(f"\n🗑️ 清理昨天的 {len(all_old_task_guids)} 个旧任务...")
                 for guid in all_old_task_guids:
-                    delete_task(guid)
+                    if not delete_task(guid):
+                        print(f"❌ 无法删除昨日飞书任务 {guid}，停止创建今日任务")
+                        return
                 print("✅ 旧任务清理完成")
 
             print("\n📋 创建今日全新待办...")

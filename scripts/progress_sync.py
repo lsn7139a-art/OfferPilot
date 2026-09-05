@@ -139,6 +139,7 @@ def parse_progress_message(message, daily_questions):
     # 解析完成/跳过/进行中
     # 匹配 "完成X" "做完了X" "X done" "X完成"
     completed_patterns = [
+        r'(?:完成|做完|搞定|会了|掌握)\s*第\s*(\d+)\s*题',
         r'(?:完成|做完|搞定|会了|掌握|done|finish|ok|✅|✓)\s*([\d,，、\s]+)',
         r'([\d,，、\s]+)\s*(?:完成|做完|搞定|会了|done|finish)',
     ]
@@ -150,6 +151,7 @@ def parse_progress_message(message, daily_questions):
 
     # 匹配 "跳过X" "X不会" "X skip" "X太难"
     skip_patterns = [
+        r'(?:跳过|不会|太难|不懂)\s*第\s*(\d+)\s*题',
         r'(?:跳过|不会|太难|不懂|skip|pass|❌|✗)\s*([\d,，、\s]+)',
         r'([\d,，、\s]+)\s*(?:不会|跳过|太难|不懂|skip|pass)',
         r'第\s*(\d+)\s*题\s*(?:不会|跳过|太难|不懂)',
