@@ -24,6 +24,7 @@ Thumbs.db
 # 临时文件
 *.tmp
 *.bak
+.worktrees/
 scripts/questions_part*.json
 data/*.bak
 data/*.backup
