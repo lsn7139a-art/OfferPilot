@@ -110,4 +110,5 @@ jobs:
           git config --local user.name "GitHub Action"
           git add data/progress.json data/daily_log.json data/last_daily_message.txt data/reminder_state.json 2>/dev/null || true
           git diff --staged --quiet || git commit -m "chore: 更新学习进度 [$(date '+%Y-%m-%d %H:%M')]"
+          git pull --rebase origin main || true
           git push
