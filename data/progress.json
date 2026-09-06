@@ -32,6 +32,7 @@
     "alibaba-java-backend",
     "unitree-java-backend",
     "unitree-embodied-software",
-    "meituan-backend-java"
+    "meituan-backend-java",
+    "tencent-backend-cpp"
   ]
 }
