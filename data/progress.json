@@ -33,6 +33,7 @@
     "unitree-java-backend",
     "unitree-embodied-software",
     "meituan-backend-java",
-    "tencent-backend-cpp"
+    "tencent-backend-cpp",
+    "bytedance-backend-ai-agent"
   ]
 }
