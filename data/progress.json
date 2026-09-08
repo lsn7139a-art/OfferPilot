@@ -34,6 +34,7 @@
     "unitree-embodied-software",
     "meituan-backend-java",
     "tencent-backend-cpp",
-    "bytedance-backend-ai-agent"
+    "bytedance-backend-ai-agent",
+    "unitree-cpp-dev"
   ]
 }
