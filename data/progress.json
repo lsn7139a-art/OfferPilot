@@ -37,6 +37,7 @@
     "bytedance-backend-ai-agent",
     "unitree-cpp-dev",
     "unitree-ai-infra",
-    "xiaomi-backend-python"
+    "xiaomi-backend-python",
+    "bytedance-backend-douyin"
   ]
 }
