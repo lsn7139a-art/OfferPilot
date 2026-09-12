@@ -38,6 +38,7 @@
     "unitree-cpp-dev",
     "unitree-ai-infra",
     "xiaomi-backend-python",
-    "bytedance-backend-douyin"
+    "bytedance-backend-douyin",
+    "unitree-java-backend"
   ]
 }

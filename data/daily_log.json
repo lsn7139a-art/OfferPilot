@@ -124,5 +124,26 @@
       "ed412c1c-bbf2-48e5-92c4-f470e30ebadf",
       "c0728f27-ab5e-46cd-b812-c8ebd31afc7b"
     ]
+  },
+  {
+    "date": "2026-09-12",
+    "timestamp": "2026-09-12T12:01:55.437972+08:00",
+    "position_id": "unitree-java-backend",
+    "position_title": "宇树科技・JAVA后端开发工程师(J10096)",
+    "question_ids": [
+      "db-010",
+      "os-006",
+      "cpp-003"
+    ],
+    "question_titles": [
+      "MySQL中一条SELECT语句的执行过程是怎样的？UPDATE语句又有什么不同？",
+      "select、poll、epoll有什么区别？水平触发和边缘触发有什么不同？",
+      "map和unordered_map的底层实现分别是什么？时间复杂度和适用场景有什么区别？"
+    ],
+    "task_guids": [
+      "bfbe1939-3323-44b1-9ff3-d11f0adac770",
+      "ac701bc3-b02d-49fe-af64-2163fb2a531c",
+      "7610a7e2-0a42-4629-8bb6-b4802d0c2104"
+    ]
   }
 ]
