@@ -39,6 +39,7 @@
     "unitree-ai-infra",
     "xiaomi-backend-python",
     "bytedance-backend-douyin",
-    "unitree-java-backend"
+    "unitree-java-backend",
+    "unitree-embodied-software"
   ]
 }
