@@ -166,5 +166,26 @@
       "ce5393ec-bbf5-4d7b-ab67-f8707335c3e9",
       "19e89181-d00c-48b4-8e94-be6de902d2ec"
     ]
+  },
+  {
+    "date": "2026-09-14",
+    "timestamp": "2026-09-14T12:19:54.331641+08:00",
+    "position_id": "tencent-backend-cpp",
+    "position_title": "腾讯・后台开发工程师(C++)",
+    "question_ids": [
+      "db-010",
+      "os-006",
+      "cpp-003"
+    ],
+    "question_titles": [
+      "MySQL中一条SELECT语句的执行过程是怎样的？UPDATE语句又有什么不同？",
+      "select、poll、epoll有什么区别？水平触发和边缘触发有什么不同？",
+      "map和unordered_map的底层实现分别是什么？时间复杂度和适用场景有什么区别？"
+    ],
+    "task_guids": [
+      "1fa06b81-2ed9-42b2-8400-1f27a40f2113",
+      "d6549756-8bf1-4547-a919-a66eefc1589b",
+      "1d2f3cdc-3ce9-4763-86ed-2a187c63708c"
+    ]
   }
 ]
