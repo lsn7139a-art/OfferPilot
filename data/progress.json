@@ -41,6 +41,7 @@
     "bytedance-backend-douyin",
     "unitree-java-backend",
     "unitree-embodied-software",
-    "tencent-backend-cpp"
+    "tencent-backend-cpp",
+    "bytedance-backend-ai-agent"
   ]
 }
