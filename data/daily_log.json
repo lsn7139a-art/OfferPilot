@@ -208,5 +208,26 @@
       "bd474567-3e3d-4a7b-8db7-17b17aed094c",
       "9ab89100-e856-4375-9c14-81918461f709"
     ]
+  },
+  {
+    "date": "2026-09-16",
+    "timestamp": "2026-09-16T12:15:41.769166+08:00",
+    "position_id": "alibaba-java-backend",
+    "position_title": "阿里巴巴・Java开发工程师",
+    "question_ids": [
+      "db-010",
+      "os-006",
+      "cpp-003"
+    ],
+    "question_titles": [
+      "MySQL中一条SELECT语句的执行过程是怎样的？UPDATE语句又有什么不同？",
+      "select、poll、epoll有什么区别？水平触发和边缘触发有什么不同？",
+      "map和unordered_map的底层实现分别是什么？时间复杂度和适用场景有什么区别？"
+    ],
+    "task_guids": [
+      "f0c0f097-4964-4370-9336-20e09214004a",
+      "f2829b8b-1ace-4498-9ab5-938d1f55dce7",
+      "e90e7583-acac-49da-b0f1-f49d18f43222"
+    ]
   }
 ]
