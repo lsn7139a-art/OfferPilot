@@ -44,6 +44,7 @@
     "tencent-backend-cpp",
     "bytedance-backend-ai-agent",
     "alibaba-java-backend",
-    "unitree-ai-infra"
+    "unitree-ai-infra",
+    "unitree-cpp-dev"
   ]
 }
