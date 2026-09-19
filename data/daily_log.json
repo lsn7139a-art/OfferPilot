@@ -271,5 +271,26 @@
       "9b08d25a-f60c-4e4a-9aa2-e484d1f6eebd",
       "c89b666d-75da-4b7c-a710-f66c738030be"
     ]
+  },
+  {
+    "date": "2026-09-19",
+    "timestamp": "2026-09-19T12:03:21.221368+08:00",
+    "position_id": "bytedance-backend-douyin",
+    "position_title": "字节跳动・后端工程师 - 抖音平台产品",
+    "question_ids": [
+      "db-010",
+      "os-006",
+      "cpp-003"
+    ],
+    "question_titles": [
+      "MySQL中一条SELECT语句的执行过程是怎样的？UPDATE语句又有什么不同？",
+      "select、poll、epoll有什么区别？水平触发和边缘触发有什么不同？",
+      "map和unordered_map的底层实现分别是什么？时间复杂度和适用场景有什么区别？"
+    ],
+    "task_guids": [
+      "e0d7116e-b892-4769-83b4-d866ce42decc",
+      "ef221780-2bd3-4790-b96f-c9fd7c7a4c69",
+      "9ae78a1e-b291-4398-9994-63b2af60c5c2"
+    ]
   }
 ]

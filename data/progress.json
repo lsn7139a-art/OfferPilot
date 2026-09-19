@@ -45,6 +45,7 @@
     "bytedance-backend-ai-agent",
     "alibaba-java-backend",
     "unitree-ai-infra",
-    "unitree-cpp-dev"
+    "unitree-cpp-dev",
+    "bytedance-backend-douyin"
   ]
 }
