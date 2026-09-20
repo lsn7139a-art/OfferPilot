@@ -46,6 +46,7 @@
     "alibaba-java-backend",
     "unitree-ai-infra",
     "unitree-cpp-dev",
-    "bytedance-backend-douyin"
+    "bytedance-backend-douyin",
+    "netease-game-cpp"
   ]
 }
