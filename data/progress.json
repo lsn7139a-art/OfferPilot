@@ -47,6 +47,7 @@
     "unitree-ai-infra",
     "unitree-cpp-dev",
     "bytedance-backend-douyin",
-    "netease-game-cpp"
+    "netease-game-cpp",
+    "unitree-java-backend"
   ]
 }
