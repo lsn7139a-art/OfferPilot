@@ -334,5 +334,26 @@
       "5c9d6791-8825-4bcf-834c-cbb174ffa2bd",
       "379106ae-1d00-4c4f-bbc0-ca34bf6c9b7c"
     ]
+  },
+  {
+    "date": "2026-09-22",
+    "timestamp": "2026-09-22T12:15:40.540610+08:00",
+    "position_id": "unitree-embodied-software",
+    "position_title": "宇树科技・具身智能软件工程师",
+    "question_ids": [
+      "db-010",
+      "os-006",
+      "cpp-003"
+    ],
+    "question_titles": [
+      "MySQL中一条SELECT语句的执行过程是怎样的？UPDATE语句又有什么不同？",
+      "select、poll、epoll有什么区别？水平触发和边缘触发有什么不同？",
+      "map和unordered_map的底层实现分别是什么？时间复杂度和适用场景有什么区别？"
+    ],
+    "task_guids": [
+      "71312f1d-e319-423b-ade6-2566350632fa",
+      "97661ed8-0a00-4de6-a8f7-367daa3221e3",
+      "b945127c-451f-4df5-86d8-5ccc0ded1ff3"
+    ]
   }
 ]
