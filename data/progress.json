@@ -50,6 +50,7 @@
     "netease-game-cpp",
     "unitree-java-backend",
     "unitree-embodied-software",
-    "baidu-ai-algorithm"
+    "baidu-ai-algorithm",
+    "tencent-backend-cpp"
   ]
 }
