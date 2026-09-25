@@ -51,6 +51,7 @@
     "unitree-java-backend",
     "unitree-embodied-software",
     "baidu-ai-algorithm",
-    "tencent-backend-cpp"
+    "tencent-backend-cpp",
+    "bytedance-backend-ai-agent"
   ]
 }
