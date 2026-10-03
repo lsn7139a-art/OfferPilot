@@ -565,5 +565,26 @@
       "b6bb1349-00ee-4446-8cb6-d5cfa46e97ab",
       "a0bf80b1-5fab-4168-9398-2898d320c4ce"
     ]
+  },
+  {
+    "date": "2026-10-03",
+    "timestamp": "2026-10-03T12:44:30.773341+08:00",
+    "position_id": "bytedance-backend-ai-agent",
+    "position_title": "字节跳动・后端研发工程师(AI Agent方向)",
+    "question_ids": [
+      "db-010",
+      "os-006",
+      "cpp-003"
+    ],
+    "question_titles": [
+      "MySQL中一条SELECT语句的执行过程是怎样的？UPDATE语句又有什么不同？",
+      "select、poll、epoll有什么区别？水平触发和边缘触发有什么不同？",
+      "map和unordered_map的底层实现分别是什么？时间复杂度和适用场景有什么区别？"
+    ],
+    "task_guids": [
+      "32373f5e-fb9c-444e-97f6-8f2c2b161106",
+      "42b6bfba-36de-4aeb-9c82-397bc73ae101",
+      "b640a639-4e34-4624-b15b-5d580024938d"
+    ]
   }
 ]
