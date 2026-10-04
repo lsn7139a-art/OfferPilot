@@ -24,7 +24,6 @@
     ]
   },
   "recent_positions": [
-    "unitree-embodied-software",
     "meituan-backend-java",
     "tencent-backend-cpp",
     "bytedance-backend-ai-agent",
@@ -53,6 +52,7 @@
     "netease-game-cpp",
     "unitree-embodied-software",
     "tencent-backend-cpp",
-    "bytedance-backend-ai-agent"
+    "bytedance-backend-ai-agent",
+    "unitree-ai-infra"
   ]
 }
