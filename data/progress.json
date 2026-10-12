@@ -24,7 +24,6 @@
     ]
   },
   "recent_positions": [
-    "unitree-java-backend",
     "unitree-embodied-software",
     "tencent-backend-cpp",
     "bytedance-backend-ai-agent",
@@ -53,6 +52,7 @@
     "unitree-java-backend",
     "unitree-embodied-software",
     "unitree-cpp-dev",
-    "tencent-backend-cpp"
+    "tencent-backend-cpp",
+    "unitree-ai-infra"
   ]
 }
