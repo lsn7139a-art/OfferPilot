@@ -775,5 +775,26 @@
       "b842e3f9-4d27-477c-8cd5-dc7f20f21224",
       "e2437559-ce80-4637-ac87-dc9149461101"
     ]
+  },
+  {
+    "date": "2026-10-13",
+    "timestamp": "2026-10-13T14:19:25.287563+08:00",
+    "position_id": "huawei-cpp-dev",
+    "position_title": "华为・C++开发工程师",
+    "question_ids": [
+      "db-010",
+      "os-006",
+      "cpp-003"
+    ],
+    "question_titles": [
+      "MySQL中一条SELECT语句的执行过程是怎样的？UPDATE语句又有什么不同？",
+      "select、poll、epoll有什么区别？水平触发和边缘触发有什么不同？",
+      "map和unordered_map的底层实现分别是什么？时间复杂度和适用场景有什么区别？"
+    ],
+    "task_guids": [
+      "0882fd4f-1198-4383-a6d4-86d85d98eae3",
+      "0b38c2d5-7463-4f40-8bd2-a0112329eb0c",
+      "e8265361-7588-458c-be0d-36fc53c4620d"
+    ]
   }
 ]
