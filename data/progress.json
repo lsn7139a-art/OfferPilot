@@ -24,7 +24,6 @@
     ]
   },
   "recent_positions": [
-    "alibaba-java-backend",
     "unitree-ai-infra",
     "unitree-cpp-dev",
     "bytedance-backend-douyin",
@@ -53,6 +52,7 @@
     "unitree-ai-infra",
     "huawei-cpp-dev",
     "bytedance-backend-ai-agent",
-    "jd-backend-java"
+    "jd-backend-java",
+    "bytedance-backend-douyin"
   ]
 }
