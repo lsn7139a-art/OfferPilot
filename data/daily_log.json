@@ -964,5 +964,26 @@
       "68cde0d9-0511-4afc-b02e-1c22a9ce7361",
       "0a7bb7ae-5c54-418b-8928-b983e4abcf35"
     ]
+  },
+  {
+    "date": "2026-10-22",
+    "timestamp": "2026-10-22T12:07:54.180856+08:00",
+    "position_id": "xiaomi-backend-python",
+    "position_title": "小米・后端开发工程师(Python/Go)",
+    "question_ids": [
+      "db-010",
+      "os-006",
+      "cpp-003"
+    ],
+    "question_titles": [
+      "MySQL中一条SELECT语句的执行过程是怎样的？UPDATE语句又有什么不同？",
+      "select、poll、epoll有什么区别？水平触发和边缘触发有什么不同？",
+      "map和unordered_map的底层实现分别是什么？时间复杂度和适用场景有什么区别？"
+    ],
+    "task_guids": [
+      "f5abb2a0-e889-42bc-84c4-4fb45e7e4692",
+      "87348c96-ef62-40e3-abab-fa8e1bbcb3b0",
+      "bbcd013a-90dc-460f-8e14-3b1423280fdd"
+    ]
   }
 ]
