@@ -985,5 +985,26 @@
       "87348c96-ef62-40e3-abab-fa8e1bbcb3b0",
       "bbcd013a-90dc-460f-8e14-3b1423280fdd"
     ]
+  },
+  {
+    "date": "2026-10-23",
+    "timestamp": "2026-10-23T12:11:41.555059+08:00",
+    "position_id": "unitree-ai-infra",
+    "position_title": "宇树科技・AI Infra工程师",
+    "question_ids": [
+      "db-010",
+      "os-006",
+      "cpp-003"
+    ],
+    "question_titles": [
+      "MySQL中一条SELECT语句的执行过程是怎样的？UPDATE语句又有什么不同？",
+      "select、poll、epoll有什么区别？水平触发和边缘触发有什么不同？",
+      "map和unordered_map的底层实现分别是什么？时间复杂度和适用场景有什么区别？"
+    ],
+    "task_guids": [
+      "c501fb05-0ff5-479f-910b-a8926ffbb9b0",
+      "6f462a12-b6ae-4c10-a4c4-1c97c09b0b81",
+      "8c2aa796-a6b7-465d-9d4b-a50836741b69"
+    ]
   }
 ]
