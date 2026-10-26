@@ -24,7 +24,6 @@
     ]
   },
   "recent_positions": [
-    "unitree-ai-infra",
     "unitree-cpp-dev",
     "bytedance-backend-douyin",
     "unitree-java-backend",
@@ -53,6 +52,7 @@
     "xiaomi-backend-python",
     "unitree-ai-infra",
     "unitree-embodied-software",
-    "unitree-java-backend"
+    "unitree-java-backend",
+    "unitree-cpp-dev"
   ]
 }
