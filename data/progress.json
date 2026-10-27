@@ -24,7 +24,6 @@
     ]
   },
   "recent_positions": [
-    "unitree-cpp-dev",
     "bytedance-backend-douyin",
     "unitree-java-backend",
     "netease-game-cpp",
@@ -53,6 +52,7 @@
     "unitree-ai-infra",
     "unitree-embodied-software",
     "unitree-java-backend",
-    "unitree-cpp-dev"
+    "unitree-cpp-dev",
+    "baidu-ai-algorithm"
   ]
 }
