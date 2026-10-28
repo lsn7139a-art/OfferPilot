@@ -1090,5 +1090,26 @@
       "2098734d-dce1-4000-887f-ba66a50fef58",
       "9b8aea0f-df56-4015-b0a1-cc7c61f4a2f5"
     ]
+  },
+  {
+    "date": "2026-10-28",
+    "timestamp": "2026-10-28T12:59:38.726432+08:00",
+    "position_id": "netease-game-cpp",
+    "position_title": "网易・游戏研发工程师(C++)",
+    "question_ids": [
+      "db-010",
+      "os-006",
+      "cpp-003"
+    ],
+    "question_titles": [
+      "MySQL中一条SELECT语句的执行过程是怎样的？UPDATE语句又有什么不同？",
+      "select、poll、epoll有什么区别？水平触发和边缘触发有什么不同？",
+      "map和unordered_map的底层实现分别是什么？时间复杂度和适用场景有什么区别？"
+    ],
+    "task_guids": [
+      "1cd398f8-abfb-4664-85b5-857324f7aa95",
+      "9b014d76-2734-490a-90d0-b463dc0486c9",
+      "88d93952-9bea-4bfc-99c5-fa43e245682c"
+    ]
   }
 ]
