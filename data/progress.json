@@ -24,7 +24,6 @@
     ]
   },
   "recent_positions": [
-    "tencent-backend-cpp",
     "bytedance-backend-ai-agent",
     "unitree-ai-infra",
     "huawei-cpp-dev",
@@ -53,6 +52,7 @@
     "netease-game-cpp",
     "bytedance-backend-ai-agent",
     "netease-backend-java",
-    "unitree-ai-infra"
+    "unitree-ai-infra",
+    "tencent-backend-cpp"
   ]
 }
