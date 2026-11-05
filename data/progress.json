@@ -24,7 +24,6 @@
     ]
   },
   "recent_positions": [
-    "xiaomi-backend-python",
     "bytedance-backend-douyin",
     "unitree-java-backend",
     "unitree-embodied-software",
@@ -53,6 +52,7 @@
     "tencent-backend-cpp",
     "unitree-embodied-software",
     "unitree-java-backend",
-    "bytedance-backend-douyin"
+    "bytedance-backend-douyin",
+    "huawei-cpp-dev"
   ]
 }
