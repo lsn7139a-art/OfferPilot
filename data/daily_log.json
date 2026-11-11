@@ -1384,5 +1384,26 @@
       "6000eb5c-8e6a-4b7b-bc11-84e7b5a8ea9b",
       "5cbfb07f-51f4-405d-b9b4-008b225c75d2"
     ]
+  },
+  {
+    "date": "2026-11-11",
+    "timestamp": "2026-11-11T13:35:58.683094+08:00",
+    "position_id": "baidu-ai-algorithm",
+    "position_title": "百度・AI算法工程师(大模型方向)",
+    "question_ids": [
+      "db-010",
+      "os-006",
+      "cpp-003"
+    ],
+    "question_titles": [
+      "MySQL中一条SELECT语句的执行过程是怎样的？UPDATE语句又有什么不同？",
+      "select、poll、epoll有什么区别？水平触发和边缘触发有什么不同？",
+      "map和unordered_map的底层实现分别是什么？时间复杂度和适用场景有什么区别？"
+    ],
+    "task_guids": [
+      "31847ef8-deb9-4863-96fe-f94579f63b81",
+      "282fd5d9-9160-47a0-9756-6450bbb1402b",
+      "f2f5ec4f-21a8-4482-a93d-b16eccc39074"
+    ]
   }
 ]
