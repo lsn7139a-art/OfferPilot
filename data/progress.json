@@ -24,7 +24,6 @@
     ]
   },
   "recent_positions": [
-    "unitree-cpp-dev",
     "tencent-backend-cpp",
     "meituan-backend-java",
     "netease-backend-java",
@@ -53,6 +52,7 @@
     "unitree-ai-infra",
     "tencent-backend-cpp",
     "unitree-embodied-software",
-    "unitree-java-backend"
+    "unitree-java-backend",
+    "bytedance-backend-douyin"
   ]
 }
