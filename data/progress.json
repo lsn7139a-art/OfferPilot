@@ -24,7 +24,6 @@
     ]
   },
   "recent_positions": [
-    "meituan-backend-java",
     "netease-backend-java",
     "xiaomi-backend-python",
     "unitree-ai-infra",
@@ -53,6 +52,7 @@
     "unitree-embodied-software",
     "unitree-java-backend",
     "bytedance-backend-douyin",
-    "bytedance-backend-ai-agent"
+    "bytedance-backend-ai-agent",
+    "jd-backend-java"
   ]
 }
