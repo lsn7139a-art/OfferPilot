@@ -24,7 +24,6 @@
     ]
   },
   "recent_positions": [
-    "unitree-java-backend",
     "unitree-cpp-dev",
     "baidu-ai-algorithm",
     "netease-game-cpp",
@@ -53,6 +52,7 @@
     "unitree-cpp-dev",
     "unitree-ai-infra",
     "alibaba-java-backend",
-    "meituan-backend-java"
+    "meituan-backend-java",
+    "unitree-java-backend"
   ]
 }
